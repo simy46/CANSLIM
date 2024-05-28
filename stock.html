@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CANSLIM Calculator</title>
+    <link rel="stylesheet" href="./assets/css/stock.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="./assets/js/stock.js" type="module" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="home">Home</a>
+            <a href="/trending" class="trending">Trending / Daily Gainers</a>
+            <a href="market-news">Market News</a>
+            <a href="crypto-analysis">Crypto Analysis</a>
+            <a href="about">About</a>
+        </nav>        
+    </header>  
+    <div class="loader" id="loading">
+        <div class="loader-text"><b>Calculating</b></div>
+        <div class="spin"></div>
+    </div>
+    <div class="container">
+        <div class="main-content">
+            <div class="checklist-container">
+                <div class="tilte-container">
+                    <h1>Buying Checklist</h1>
+                    <div id="stock-info">
+                        <h2 id="stock-name"></h2>
+                        <p id="stock-ticker"></p>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Calculated Value</th>
+                            <th>Desired Value</th>
+                            <th>Pass/Fail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4" class="big-rock-header">Big Rock #1: Only buy stocks in a market uptrend</td>
+                        </tr>
+                        <tr>
+                            <td>Market in confirmed uptrend</td>
+                            <td id="marketUptrend-result" class="real-value"></td>
+                            <td class="desired-value">Yes</td>
+                            <td id="marketUptrend-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="big-rock-header">Big Rock #2: Focus on companies with big earnings growth and a new, innovative product or service</td>
+                        </tr>
+                        <tr>
+                            <td>Composite Rating of 95 or higher</td>
+                            <td id="compositeRatingResult-result" class="real-value"></td>
+                            <td class="desired-value">95 +</td>
+                            <td id="compositeRatingResult-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>EPS Rating of 80 or higher</td>
+                            <td id="epsRatingResult-result" class="real-value"></td>
+                            <td class="desired-value">80%+</td>
+                            <td id="epsRatingResult-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>EPS growth 25% or higher in recent quarters</td>
+                            <td id="epsGrowth-result" class="real-value"></td>
+                            <td class="desired-value">25%+</td>
+                            <td id="epsGrowth-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Accelerating earnings growth</td>
+                            <td id="acceleratingEarningsGrowth-result" class="real-value"></td>
+                            <td class="desired-value">Yes</td>
+                            <td id="acceleratingEarningsGrowth-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Average Annual EPS growth 25% or more over last 3 years</td>
+                            <td id="annualEpsGrowth-result" class="real-value"></td>
+                            <td class="desired-value">25%+</td>
+                            <td id="annualEpsGrowth-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Sales growth 20%-25% or higher in most recent quarter</td>
+                            <td id="salesGrowth-result" class="real-value"></td>
+                            <td class="desired-value">20-25%+</td>
+                            <td id="salesGrowth-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Return on equity (ROE) of 17% or higher</td>
+                            <td id="roe-result" class="real-value"></td>
+                            <td class="desired-value">17%+</td>
+                            <td id="roe-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>SMR Rating (Sales + Margins + Return on Equity) of A or B</td>
+                            <td id="smrRating-result" class="real-value"></td>
+                            <td class="desired-value">A/B</td>
+                            <td id="smrRating-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>New products, service, or management</td>
+                            <td id="newProducts-result" class="real-value"></td>
+                            <td class="desired-value">Yes</td>
+                            <td id="newProducts-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Among top-rated stocks in its industry group</td>
+                            <td id="topRatedStocks-result" class="real-value"></td>
+                            <td class="desired-value">Yes</td>
+                            <td id="topRatedStocks-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Ranked in top 40-50 of IBD's 197 industry groups</td>
+                            <td id="industryGroupRank-result" class="real-value"></td>
+                            <td class="desired-value">Top 40-50</td>
+                            <td id="industryGroupRank-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="big-rock-header">Big Rock #3: Buy stocks being heavily bought by mutual funds</td>
+                        </tr>
+                        <tr>
+                            <td>Increase in number of funds that own the stock in recent quarters</td>
+                            <td id="increaseInFundsOwnership-result" class="real-value"></td>
+                            <td class="desired-value" id="desired-value-increase">N/A</td>
+                            <td id="increaseInFundsOwnership-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Accumulation/Distribution Rating of A, B or C</td>
+                            <td id="accumulationDistributionRating-result" class="real-value"></td>
+                            <td class="desired-value">A/B/C</td>
+                            <td id="accumulationDistributionRating-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Relative Strength Rating of 80 or higher</td>
+                            <td id="relativeStrengthRating-result" class="real-value"></td>
+                            <td class="desired-value">80%+</td>
+                            <td id="relativeStrengthRating-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Share price above $15</td>
+                            <td id="currentSharePrice-result" class="real-value"></td>
+                            <td class="desired-value">$15+</td>
+                            <td id="currentSharePrice-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Average daily volume of 400,000 shares or more</td>
+                            <td id="averageDailyVolume-result" class="real-value"></td>
+                            <td class="desired-value">400,000+</td>
+                            <td id="averageDailyVolume-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="big-rock-header">Chart Analysis: Buy stocks as they break out of the common patterns that launch big moves</td>
+                        </tr>
+                        <tr>
+                            <td>Breaking out of sound base or alternative buy point</td>
+                            <td id="breakingOut-result" class="real-value"></td>
+                            <td class="desired-value">Yes</td>
+                            <td id="breakingOut-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Volume at least 40% to 50% above average on breakout</td>
+                            <td id="volumeAboveAverage-result" class="real-value"></td>
+                            <td class="desired-value">40-50%+</td>
+                            <td id="volumeAboveAverage-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Relative strength line in new high ground</td>
+                            <td id="rsLine-result" class="real-value"></td>
+                            <td class="desired-value">Yes</td>
+                            <td id="rsLine-pass" class="real-value"></td>
+                        </tr>
+                        <tr>
+                            <td>Within 5% of ideal buy point</td>
+                            <td id="withinBuyPoint-result" class="real-value"></td>
+                            <td class="desired-value">Within 5%</td>
+                            <td id="withinBuyPoint-pass" class="real-value"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="aside-container">
+                <aside id="news-container">
+                    <div class="news-header">
+                        <h2>Latest News</h2>
+                        <i class="fa fa-chevron-up" aria-hidden="true" id="toggle-news"></i>
+                    </div>
+                    <div id="news-content" class="news-content">
+                    </div>
+                </aside>
+                <aside id="stock-chart">
+                    <h2>Stock Chart</h2>
+                    <div id="chart-content">allo</div>
+                </aside>
+            </div>
+            
+        </div>
+    </div>
+    <footer>
+        © 2024 CANSLIM Calculator. All rights reserved.
+    </footer>
+</body>
+</html>
