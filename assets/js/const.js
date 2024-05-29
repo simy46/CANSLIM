@@ -1,4 +1,4 @@
-export const SERVER_URL = 'http://localhost:3000/api',
+export const SERVER_URL = 'https://serene-dawn-32006-760a36ba7f6e.herokuapp.com/',
   TRENDING_STOCKS_KEY = 'TRENDING_STOCKS',
   TRENDING_STOCKS_TICKERS = 'TRENDING_TICKERS',
   ETAG_KEY = 'stocksEtag',
