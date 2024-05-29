@@ -55,14 +55,9 @@ input[type="text"] {
 .container {
     width: 90%;
     margin: auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
     padding: 20px;
     border: 1px solid #ccc;
-    transition: all 0.3s ease;
     justify-content: flex-start;
-    overflow: hidden;
 }
 
 .container h3 {
