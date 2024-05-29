@@ -1,16 +1,14 @@
 {
-  "name": "site-web",
+  "name": "canslim-calculator",
   "author": "SamyFruit",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext .js --report-unused-disable-directives --max-warnings 0"
+    "build": "vite build"
   },
   "devDependencies": {
-    "eslint": "^8.55.0",
     "vite": "^5.0.8",
     "vite-plugin-static-copy": "^1.0.5"
   }
