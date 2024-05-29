@@ -54,7 +54,6 @@ async function searchWithInputValue(inputValue) {
                 sessionStorage.setItem(SELECTED_SYMBOL, quote.symbol);
                 window.location.href = '/stock';
             });
-            
 
             searchContainer.appendChild(resultItem);
         });
