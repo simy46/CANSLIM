@@ -7,5 +7,5 @@
       { "source": "/about", "destination": "/about.html" },
       { "source": "/stock", "destination": "/stock.html" }
     ]
-  }
+  } 
   
