@@ -70,7 +70,9 @@ async function searchWithInputValue(inputValue) {
 
 async function searchStocks(input) {
     try {
-        const response = await fetch(`${SERVER_URL}/api/search?q=${encodeURIComponent(input)}`);
+        const url = `${SERVER_URL}/api/search?q=${encodeURIComponent(input)}`;
+        console.log(url);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Erreur lors de la recherche des stocks');
         }
@@ -80,6 +82,7 @@ async function searchStocks(input) {
         return [];
     }
 }
+
 
 function createSearchResults(inputValue) {
     const searchContainer = document.getElementById('search-results');
