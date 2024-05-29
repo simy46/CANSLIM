@@ -75,7 +75,7 @@ function createNews(news) {
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = () => {
                 sessionStorage.setItem(SELECTED_SYMBOL, ticker);
-                window.location.href = '/stock';
+                window.location.href = `/stock?symbol=${symbol}`;
             };
             tickers.appendChild(tickerSpan);
         });

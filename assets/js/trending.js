@@ -111,9 +111,9 @@ function createStock(stock, container) {
     stockDiv.addEventListener('click', () => {
         sessionStorage.setItem(SELECTED_SYMBOL, stock.symbol);
         if (!stock.cryptoTradeable) {
-            window.location.href = '/stock';
+            window.location.href = `/stock?symbol=${symbol}`;
         } else {
-            window.location.href = '/crypto-analysis';
+            window.location.href = `/crypto-analysis?symbol=${symbol}`;
         }
 
         /*
