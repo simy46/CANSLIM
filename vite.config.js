@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import copy from 'vite-plugin-static-copy';
+import { copy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   plugins: [
