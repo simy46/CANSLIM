@@ -1,3 +1,2 @@
-touch .gitignore
-echo "node_modules/" >> .gitignore
-echo "dist/" >> .gitignore
+node_modules/
+dist/
