@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/298d966629.js" crossorigin="anonymous"></script>
+    <script src="./assets/js/main.js" type="module" defer></script>
     <title>CANSLIM Calculator</title>
-    <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
     <header>
@@ -16,10 +19,16 @@
             <a href="/about">About</a>
         </nav>        
     </header>
-    
-    
+         
+    <div class="main container">
+        <h1>CANSLIM Calculator</h1>
+        <input id="search-input" type="text" placeholder="Search a stock...">
+        <i class="fa-solid fa-magnifying-glass" id="search-glass"></i>
+        <div id="search-results" class="container"></div>
+    </div>
     <footer>
         © 2024 CANSLIM Calculator. All rights reserved. &#169;
     </footer>
 </body>
+
 </html>
