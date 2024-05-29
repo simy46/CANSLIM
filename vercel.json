@@ -1,11 +1,10 @@
 {
-    "rewrites": [
-      { "source": "/", "destination": "/index.html" },
-      { "source": "/trending", "destination": "/trending.html" },
-      { "source": "/market-news", "destination": "/market-news.html" },
-      { "source": "/crypto-analysis", "destination": "/crypto-analysis.html" },
-      { "source": "/about", "destination": "/about.html" },
-      { "source": "/stock", "destination": "/stock.html" }
-    ]
-  } 
-  
+  "redirects": [
+    { "source": "/", "destination": "/index.html", "permanent": true },
+    { "source": "/trending", "destination": "/trending.html", "permanent": true },
+    { "source": "/market-news", "destination": "/market-news.html", "permanent": true },
+    { "source": "/crypto-analysis", "destination": "/crypto-analysis.html", "permanent": true },
+    { "source": "/about", "destination": "/about.html", "permanent": true },
+    { "source": "/stock", "destination": "/stock.html", "permanent": true }
+  ]
+}
