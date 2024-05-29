@@ -52,7 +52,7 @@ async function searchWithInputValue(inputValue) {
             resultItem.appendChild(industrySpan);
             resultItem.addEventListener('click', () => {
                 sessionStorage.setItem(SELECTED_SYMBOL, quote.symbol);
-                window.location.href = `/stock`;
+                window.location.href = `/stock.html`;
             });
             
 
