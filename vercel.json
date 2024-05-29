@@ -1,5 +1,5 @@
 {
-  "redirects": [
+  "rewrites": [
     { "source": "/", "destination": "/index.html", "permanent": true },
     { "source": "/trending", "destination": "/trending.html", "permanent": true },
     { "source": "/market-news", "destination": "/market-news.html", "permanent": true },
