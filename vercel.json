@@ -1,0 +1,11 @@
+{
+    "rewrites": [
+      { "source": "/", "destination": "/index.html" },
+      { "source": "/trending", "destination": "/trending.html" },
+      { "source": "/market-news", "destination": "/market-news.html" },
+      { "source": "/crypto-analysis", "destination": "/crypto-analysis.html" },
+      { "source": "/about", "destination": "/about.html" },
+      { "source": "/stock", "destination": "/stock.html" }
+    ]
+  }
+  
