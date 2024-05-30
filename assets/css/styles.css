@@ -755,3 +755,11 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     transform: rotate(-1turn);
   }
 }
+
+.development {
+  height: 83vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
