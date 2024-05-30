@@ -28,7 +28,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  
+  width: 100%;
 }
 .main {
 width: 80%;
@@ -164,50 +164,50 @@ input[type="text"] {
 }
 /* NEWS container */
 #news-container {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-gap: 20px;
-padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
 .news-title {
-grid-column: 1/-1;
-text-align: center;
-padding: 20px;
-border-radius: 8px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-margin-bottom: 20px;
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .news-title h1 {
-font-size: 2.5em;
-color: #333;
-margin: 0 0 10px 0;
+  font-size: 2.5em;
+  color: #333;
+  margin: 0 0 10px 0;
 }
 
 .news-summary {
-font-size: 1.2em;
-color: #666;
-max-width: 80%;
-margin: 0 auto;
+  font-size: 1.2em;
+  color: #666;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 .news {
-background-color: #fff;
-border: 1px solid #ddd;
-border-radius: 8px;
-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-padding: 15px;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-transition: all 0.3s ease;
-cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .news:hover {
-transform: translateY(-5px);
-box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .ticker-publisher-container {
@@ -228,7 +228,12 @@ box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   margin: 10px;
   font-size: 1.25em;
   color: #333;
+  overflow: hidden; 
+  white-space: nowrap;
+  text-overflow: ellipsis; 
+  width: 100%;
 }
+
 
 .news-publisher {
   font-size: 0.875em;

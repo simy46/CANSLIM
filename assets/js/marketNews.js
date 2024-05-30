@@ -7,14 +7,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function getNews() {
-    const storedTickers = JSON.parse(sessionStorage.getItem(TRENDING_STOCKS_TICKERS));
-    if (storedTickers && storedTickers.length > 0) {
-        const news = await fetchNews(storedTickers);
-        news.forEach(createNews);
-    } 
-    else {
-        console.log('No news found.');
-    } 
+    const storedTickers = JSON.parse(localStorage.getItem(TRENDING_STOCKS_TICKERS));
+    const news = await fetchNews(storedTickers);
+    news.forEach(createNews);
+    
 }
 
 function setLoading(isLoading) {
@@ -75,7 +71,7 @@ function createNews(news) {
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = () => {
                 sessionStorage.setItem(SELECTED_SYMBOL, ticker);
-                window.location.href = `/stock`;
+                window.location.href = '/stock';
             };
             tickers.appendChild(tickerSpan);
         });
