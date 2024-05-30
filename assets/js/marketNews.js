@@ -27,7 +27,7 @@ async function fetchNews(tickers) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(tickers)
+            body: JSON.stringify(tickers || [])
         };
         const response = await fetch(`${SERVER_URL}/api/market-news`, options);
         if (!response.ok) {
