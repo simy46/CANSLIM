@@ -111,9 +111,9 @@ function createStock(stock, container) {
     stockDiv.addEventListener('click', () => {
         sessionStorage.setItem(SELECTED_SYMBOL, stock.symbol);
         if (!stock.cryptoTradeable) {
-            window.location.href = `/stock`;
+            window.location.href = '/stock';
         } else {
-            window.location.href = `/crypto-analysis`;
+            window.location.href = '/crypto-analysis';
         }
 
         /*
@@ -158,7 +158,7 @@ async function fetchTrendingStocks() {
 
         if (once) {
             const stocksTickers = data.map((stock) => stock.symbol);
-            sessionStorage.setItem(TRENDING_STOCKS_TICKERS, JSON.stringify(stocksTickers));
+            localStorage.setItem(TRENDING_STOCKS_TICKERS, JSON.stringify(stocksTickers));
             once = false;
         }
 
