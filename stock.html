@@ -13,12 +13,11 @@
         <nav>
             <a href="/" class="home">Home</a>
             <a href="/trending" class="trending">Trending / Daily Gainers</a>
-            <a href="/market-news">Market News</a>
-            <a href="/crypto-analysis">Crypto Analysis</a>
-            <a href="/about">About</a>
+            <a href="market-news">Market News</a>
+            <a href="crypto-analysis">Crypto Analysis</a>
+            <a href="about">About</a>
         </nav>        
-    </header>
-    
+    </header>  
     <div class="loader" id="loading">
         <div class="loader-text"><b>Calculating</b></div>
         <div class="spin"></div>
@@ -127,7 +126,7 @@
                         <tr>
                             <td>Increase in number of funds that own the stock in recent quarters</td>
                             <td id="increaseInFundsOwnership-result" class="real-value"></td>
-                            <td class="desired-value" id="desired-value-increase">N/A</td>
+                            <td class="desired-value" id="desired-value-increase">Positive</td>
                             <td id="increaseInFundsOwnership-pass" class="real-value"></td>
                         </tr>
                         <tr>
@@ -201,6 +200,14 @@
             
         </div>
     </div>
+    <div id="error-page">
+        <h1>No Data Available</h1>
+        <p>Unfortunately, we're unable to load data for the selected stock at this moment.</p>
+        <button id="error-button">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front text">Click here to go back</span>
+          </button>    </div>
     <footer>
         © 2024 CANSLIM Calculator. All rights reserved.
     </footer>

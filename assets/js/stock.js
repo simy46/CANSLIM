@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         data.news.forEach(createNews);
     } catch (error) {
         console.error('Error fetching data:', error);
+        const errorDiv = document.getElementById('error-page');
+        errorDiv.style.display = 'flex';    
     }
 
     setLoading(false);
@@ -43,6 +45,17 @@ function listenToNewsEvent() {
     toggleButton.classList.toggle('fa-chevron-up', !isDisplayed);
     toggleButton.classList.toggle('fa-chevron-down', isDisplayed);
     });
+
+    buttonEvent();
+}
+
+function buttonEvent() {
+    const button = document.getElementById('error-button');
+
+    button.addEventListener('click', (e) => {
+        e.stopPropagation()
+        window.location.href = '/'
+    })
 }
 
 function updateCheckList(results) {
@@ -53,26 +66,28 @@ function updateCheckList(results) {
     stockTicker.textContent = `(${results.stockInfo.symbol})`
     console.log(results)
 
-    increaseInFunds(results);
     for (let key in results) {
         if (Object.prototype.hasOwnProperty.call(results, key)) {
             const element = document.getElementById(`${key}-result`);
+            console.log(element)
             const passElement = document.getElementById(`${key}-pass`);
+            console.log(passElement)
             const rowElement = element ? element.closest('tr') : null;
+            
 
             if (element) {
-                const value = !Array.isArray(results[key].value) ? results[key].value : results[key].value[0];
+                const value = results[key].value;
                 element.textContent = value !== null ? value : 'N/A';
 
                 if (rowElement) {
-                    if (value === null) {
+                    if (!value) {
+                        rowElement.classList.add('undefined')
                         rowElement.style.textDecoration = 'line-through';
                         rowElement.style.color = 'gray';
                         rowElement.style.backgroundColor = '#f0f0f0';
                         element.style.fontWeight = 'normal'
                     } else {
                         rowElement.style.textDecoration = 'none';
-                        rowElement.style.color = '';
                         rowElement.style.backgroundColor = '';
                     }
                 }
@@ -89,25 +104,15 @@ function updateCheckList(results) {
                     passElement.textContent = 'fail'
                     element.style.color = '#e74c3c';
                 } else {
-                    passElement.className = 'undefined'
                     passElement.textContent = 'N/A'
+                    passElement.classList.add('undefined')
                 }
             }
         }
     }
 }
 
-function increaseInFunds(results) {
-    const increase = document.getElementById('desired-value-increase');
-    if (results.increaseInFundsOwnership && results.increaseInFundsOwnership.value) {
-        increase.textContent = results.increaseInFundsOwnership.value[1];
-    } else {
-        increase.textContent = 'N/A';
-    }
-}
-
-
-
+// SOON //
 async function displayStockInfos() {
     const symbol = sessionStorage.getItem(SELECTED_SYMBOL);
     const response = await fetchStockData(symbol);
@@ -161,7 +166,7 @@ function createNews(news) {
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = () => {
                 sessionStorage.setItem(SELECTED_SYMBOL, ticker);
-                window.location.href = `/stock`;
+                window.location.href = '/stock';
             };
             tickers.appendChild(tickerSpan);
         });
