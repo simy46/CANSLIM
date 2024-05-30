@@ -49,8 +49,8 @@ function updateCheckList(results) {
     const stockName = document.getElementById('stock-name');
     const stockTicker = document.getElementById('stock-ticker');
 
-    stockName.textContent = results.nameAndTicker.displayName;
-    stockTicker.textContent = `(${results.nameAndTicker.symbol})`
+    stockName.textContent = results.stockInfo.displayName;
+    stockTicker.textContent = `(${results.stockInfo.symbol})`
     console.log(results)
 
     increaseInFunds(results);
