@@ -56,13 +56,23 @@ function switchContainer() {
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
 
+    const fire = document.querySelector('.fa-fire');
+    const chart = document.querySelector('.fa-chart-line');
     
     if (selector.value === 'trending') {
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
+        fire.classList.remove('hidden');
+        fire.classList.add('i-visible');
+        chart.classList.remove('i-visible');
+        chart.classList.add('hidden');
     } else {
         trendingContainer.classList.add('hidden');
         gainersContainer.classList.remove('hidden');
+        chart.classList.remove('hidden');
+        fire.classList.remove('i-visible');
+        chart.classList.add('i-visible');
+        fire.classList.add('hidden');
     }
 
     toggleHeaderText();

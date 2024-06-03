@@ -101,25 +101,44 @@ html, body {
     padding-right: 0;
   }
 
-
   /* Dynamic Header */
-  #trending-text, #daily-text {
+#trending-text, #daily-text {
     display: inline-block;
     font-size: 18px;
     position: relative;
-    transition: transform 0.5s, font-size 0.5s;
 }
 
 #trending-text.visible, #daily-text.visible {
-    font-size: 24px;
+    font-size: 26px;
     z-index: 2;
-    transform: rotateY(0deg);
 }
 
 #trending-text.hidden, #daily-text.hidden {
     font-size: 18px;
     z-index: 1;
-    transform: rotateY(180deg);
+}
+
+/* Ajoutez ceci au CSS existant */
+.hidden {
+  display: none;
+}
+
+.i-visible {
+  display: block;
+}
+
+.title.with-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#stock-selector {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
   
   /* Trending Stocks */
@@ -268,21 +287,4 @@ html, body {
     100% { transform: rotate(360deg); }
   }
 
-/* Ajoutez ceci au CSS existant */
-.hidden {
-  display: none;
-}
 
-.title.with-navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-#stock-selector {
-  padding: 5px 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
