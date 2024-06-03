@@ -51,7 +51,7 @@ async function searchWithInputValue(inputValue) {
             industrySpan.textContent = `Industry: ${quote.industry}`;
             resultItem.appendChild(industrySpan);
             resultItem.addEventListener('click', () => {
-                window.location.href = `/stock?symbol=${ticker}`;
+                window.location.href = `/stock?symbol=${quote.symbol}`;
             });
 
             searchContainer.appendChild(resultItem);

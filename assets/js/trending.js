@@ -110,7 +110,7 @@ function createStock(stock, container) {
 
     stockDiv.addEventListener('click', () => {
         if (!stock.cryptoTradeable) {
-            window.location.href = `/stock?symbol=${ticker}`;
+            window.location.href = `/stock?symbol=${stock.symbol}`;
         } else {
             window.location.href = '/crypto-analysis';
         }
