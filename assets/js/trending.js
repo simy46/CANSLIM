@@ -1,4 +1,4 @@
-import { SERVER_URL, SELECTED_SYMBOL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY } from "./const";
+import { SERVER_URL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const";
 let once = true;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const stocksContainer = document.getElementById('stocks-container');
     const dailyGainersContainer = document.getElementById('daily-gainers-container');
 
-    // listenToAllEvent();
+
+    listenToAllEvent();
 
     setLoading(true, loading, stocksContainer);
     await populate(stocksContainer, true);
@@ -16,6 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     setLoading(true, loadingDaily, dailyGainersContainer);
     await populate(dailyGainersContainer, false);
     setLoading(false, loadingDaily, dailyGainersContainer);
+
+
 });
 
 async function populate(container, isTrending) {
@@ -36,37 +39,36 @@ function setLoading(isLoading, loading, container) {
 }
 
 function listenToAllEvent() {
-    const left = document.getElementById("prev-button");
-    const right = document.getElementById("next-button");
-
-    left.addEventListener("click", function() {
-        if (activeIndex > 0) {
-            activeIndex--;
-            showContainer(activeIndex);
-        }
-    });
-
-    right.addEventListener("click", function() {
-        if (activeIndex < containers.length - 1) {
-            activeIndex++;
-            showContainer(activeIndex);
-        }
-    });
+    const input = document.getElementById('stock-selector');
+    const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
+    input.value = savedSelection;
+    input.onchange = function(){switchContainer()};
+    switchContainer();
 }
 
-function showContainer(index) {
-    const containers = document.querySelectorAll(".container");
+function switchContainer() {
+    const selector = document.getElementById('stock-selector');
+    const trendingContainer = document.getElementById('trending-container');
+    const gainersContainer = document.getElementById('gainers-container');
+    const dynamicTitle = document.getElementById('dynamic-title');
 
-    let activeIndex = parseInt(localStorage.getItem("activeContainerIndex")) || 0;
-
-    containers.forEach(container => {
-        container.classList.remove("active");
-    });
-
-    if (index >= 0 && index < containers.length) {
-        containers[index].classList.add("active");
-        localStorage.setItem("activeContainerIndex", index);
+    
+    if (selector.value === 'trending') {
+        trendingContainer.classList.remove('hidden');
+        gainersContainer.classList.add('hidden');
+        dynamicTitle.textContent = 'Trending Stocks';
+    } else {
+        trendingContainer.classList.add('hidden');
+        gainersContainer.classList.remove('hidden');
+        dynamicTitle.textContent = 'Daily Gainers';
     }
+
+    dynamicTitle.classList.remove('rotate');
+    void dynamicTitle.offsetWidth; // Trigger reflow for restart animation
+    dynamicTitle.classList.add('rotate');
+
+    localStorage.setItem(STOCK_SELECTION, selector.value);
+
 }
 
 function createStock(stock, container) {
@@ -116,9 +118,9 @@ function createStock(stock, container) {
         }
 
         /*
-        if (stock.title) {
+        if (stock.displayName || stock.longName) {
             if (!stock.cryptoTradeable) {
-                window.location.href = '/stock';
+            window.location.href = `/stock?symbol=${stock.symbol}`;
             } else {
                 window.location.href = '/crypto-analysis';
             }
