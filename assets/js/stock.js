@@ -171,9 +171,9 @@ function createNews(news) {
         news.relatedTickers.forEach((ticker) => {
             const tickerSpan = document.createElement('span');
             tickerSpan.textContent = ticker;
-            tickerSpan.onclick = () => {
-                sessionStorage.setItem(SELECTED_SYMBOL, ticker);
-                window.location.href = '/stock';
+            tickerSpan.onclick = (e) => {
+                e.stopPropagation();
+                window.location.href = `/stock?symbol=${ticker}`;
             };
             tickers.appendChild(tickerSpan);
         });
