@@ -1,8 +1,10 @@
 import { SERVER_URL, SELECTED_SYMBOL } from './const.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const symbol = sessionStorage.getItem(SELECTED_SYMBOL);
+    
     listenToNewsEvent();
+
+    const symbol = getQueryParameter('symbol');
 
     if (!symbol) {
         console.error('Ticker symbol is missing');
@@ -47,6 +49,11 @@ function listenToNewsEvent() {
     });
 
     buttonEvent();
+}
+
+function getQueryParameter(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
 }
 
 function buttonEvent() {

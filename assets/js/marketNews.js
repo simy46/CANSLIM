@@ -70,9 +70,9 @@ function createNews(news) {
             const tickerSpan = document.createElement('span');
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = () => {
-                sessionStorage.setItem(SELECTED_SYMBOL, ticker);
-                window.location.href = '/stock';
+                window.location.href = `/stock?symbol=${ticker}`;
             };
+            
             tickers.appendChild(tickerSpan);
         });
     
