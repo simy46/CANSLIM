@@ -43,7 +43,9 @@ function listenToAllEvent() {
     const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
 
     if (savedSelection === 'gainers') {
-        toggleHeaderText();
+        toggleHeaderText(true);
+    } else {
+        toggleHeaderText(false);
     }
 
     input.value = savedSelection;
@@ -56,48 +58,46 @@ function switchContainer() {
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
     const title = document.querySelector('#section-title > h1');
-
-    const fire = document.querySelector('.fa-fire');
-    const chart = document.querySelector('.fa-chart-line');
     
     if (selector.value === 'trending') {
         title.textContent = 'Trending Stocks'
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
-        fire.classList.remove('hidden');
-        fire.classList.add('i-visible');
-        chart.classList.remove('i-visible');
-        chart.classList.add('hidden');
+        toggleHeaderText(true);
+
     } else {
         title.textContent = 'Daily Gainers'
         trendingContainer.classList.add('hidden');
         gainersContainer.classList.remove('hidden');
-        chart.classList.remove('hidden');
-        fire.classList.remove('i-visible');
-        chart.classList.add('i-visible');
-        fire.classList.add('hidden');
+        toggleHeaderText(false);
     }
-
-    toggleHeaderText();
 
     localStorage.setItem(STOCK_SELECTION, selector.value);
 
 }
 
-function toggleHeaderText() {
-    const trendingText = document.getElementById('trending-text');
-    const dailyText = document.getElementById('daily-text');
-    
-    if (trendingText.classList.contains('visible')) {
+function toggleHeaderText(isTrending) {
+    const fire = document.querySelector('.fa-fire');
+    const chart = document.querySelector('.fa-chart-line');
+
+    if (isTrending) {
         trendingText.classList.remove('visible');
         trendingText.classList.add('hidden');
         dailyText.classList.remove('hidden');
         dailyText.classList.add('visible');
+        fire.classList.remove('hidden');
+        fire.classList.add('i-visible');
+        chart.classList.remove('i-visible');
+        chart.classList.add('hidden');
     } else {
         trendingText.classList.remove('hidden');
         trendingText.classList.add('visible');
         dailyText.classList.remove('visible');
         dailyText.classList.add('hidden');
+        chart.classList.remove('hidden');
+        fire.classList.remove('i-visible');
+        chart.classList.add('i-visible');
+        fire.classList.add('hidden');
     }
 }   
 
