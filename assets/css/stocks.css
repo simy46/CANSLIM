@@ -100,41 +100,26 @@ html, body {
   a.home {
     padding-right: 0;
   }
-  /* Dynamic Title */
-#dynamic-title-container {
-  position: relative;
-  margin-top: 10px;
+
+
+  /* Dynamic Header */
+  #trending-text, #daily-text {
+    display: inline-block;
+    font-size: 18px;
+    position: relative;
+    transition: transform 0.5s, font-size 0.5s;
 }
 
-#dynamic-title {
-  font-size: 36px;
-  color: #FFD700;
-  position: relative;
-  animation: rotateText 0.5s ease-in-out;
+#trending-text.visible, #daily-text.visible {
+    font-size: 24px;
+    z-index: 2;
+    transform: rotateY(0deg);
 }
 
-#dynamic-title::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 150%;
-  height: 150%;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: -1;
-}
-
-@keyframes rotateText {
-  from {
-      transform: rotateY(90deg);
-      opacity: 0;
-  }
-  to {
-      transform: rotateY(0deg);
-      opacity: 1;
-  }
+#trending-text.hidden, #daily-text.hidden {
+    font-size: 18px;
+    z-index: 1;
+    transform: rotateY(180deg);
 }
   
   /* Trending Stocks */

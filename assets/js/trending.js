@@ -41,6 +41,11 @@ function setLoading(isLoading, loading, container) {
 function listenToAllEvent() {
     const input = document.getElementById('stock-selector');
     const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
+
+    if (savedSelection === 'gainers') {
+        toggleHeaderText();
+    }
+
     input.value = savedSelection;
     input.onchange = function(){switchContainer()};
     switchContainer();
@@ -50,26 +55,38 @@ function switchContainer() {
     const selector = document.getElementById('stock-selector');
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
-    const dynamicTitle = document.getElementById('dynamic-title');
 
     
     if (selector.value === 'trending') {
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
-        dynamicTitle.textContent = 'Trending Stocks';
     } else {
         trendingContainer.classList.add('hidden');
         gainersContainer.classList.remove('hidden');
-        dynamicTitle.textContent = 'Daily Gainers';
     }
 
-    dynamicTitle.classList.remove('rotate');
-    void dynamicTitle.offsetWidth; // Trigger reflow for restart animation
-    dynamicTitle.classList.add('rotate');
+    toggleHeaderText();
 
     localStorage.setItem(STOCK_SELECTION, selector.value);
 
 }
+
+function toggleHeaderText() {
+    const trendingText = document.getElementById('trending-text');
+    const dailyText = document.getElementById('daily-text');
+    
+    if (trendingText.classList.contains('visible')) {
+        trendingText.classList.remove('visible');
+        trendingText.classList.add('hidden');
+        dailyText.classList.remove('hidden');
+        dailyText.classList.add('visible');
+    } else {
+        trendingText.classList.remove('hidden');
+        trendingText.classList.add('visible');
+        dailyText.classList.remove('visible');
+        dailyText.classList.add('hidden');
+    }
+}   
 
 function createStock(stock, container) {
     console.log(stock)
