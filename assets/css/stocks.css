@@ -246,6 +246,22 @@ html, body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-  .hidden {
-    display: none;
+
+/* Ajoutez ceci au CSS existant */
+.hidden {
+  display: none;
+}
+
+.title.with-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#stock-selector {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }

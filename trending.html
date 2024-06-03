@@ -20,53 +20,56 @@
         </nav>        
     </header>
 
-    <div class="title with-navigation">
-        <h1>Trending Stocks</h1>
-        <i class="fa-solid fa-fire" style="font-size: 24px;"></i>
-        <div class="navigation">
-            <button class="navigation-button" onclick="showTrending()">Trending</button>
-            <button class="navigation-button" onclick="showDailyGainers()">Daily Gainers</button>
+    <div class="container">
+
+        <!-- Selection Input -->
+        <div class="title with-navigation">
+            <h1>Stocks</h1>
+            <select id="stock-selector" onchange="switchContainer()">
+                <option value="trending">Trending Stocks</option>
+                <option value="gainers">Daily Gainers</option>
+            </select>
         </div>
-    </div>
-    <div id="stocks-container"></div>
-    <div id="loading">
-        <div class="loader"></div>
-    </div>
-    
-    <div class="title with-navigation" style="display:none;">
-        <h1>Daily Gainers</h1>
-        <i class="fa-solid fa-chart-line" style="font-size: 28px;"></i>
-        <div class="navigation">
-            <button class="navigation-button" onclick="showTrending()">Trending</button>
-            <button class="navigation-button" onclick="showDailyGainers()">Daily Gainers</button>
+
+        <!-- TRENDING CONTAINER -->
+        <div id="trending-container">
+            <div class="title">
+                <h1>Trending Stocks</h1>
+                <i class="fa-solid fa-fire" style="font-size: 24px;"></i>
+            </div>
+            <div id="stocks-container"></div>
+            <div id="loading">
+                <div class="loader"></div>
+            </div>
         </div>
-    </div>
-    <div id="daily-gainers-container" style="display:none;"></div>
-    <div id="loading-daily" style="display:none;">
-        <div class="loader"></div>
+
+        <!-- DAILY GAINERS CONTAINER -->
+        <div id="gainers-container" class="hidden">
+            <div class="title">
+                <h1>Daily Gainers</h1>
+                <i class="fa-solid fa-chart-line" style="font-size: 28px;"></i>
+            </div>
+            <div id="daily-gainers-container"></div>
+            <div id="loading-daily">
+                <div class="loader"></div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        function showTrending() {
-            document.getElementById('stocks-container').classList.remove('hidden');
-            document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('daily-gainers-container').classList.add('hidden');
-            document.getElementById('loading-daily').classList.add('hidden');
-    
-            // Change the title visibility
-            document.querySelector('.title.with-navigation:nth-of-type(1)').style.display = 'flex';
-            document.querySelector('.title.with-navigation:nth-of-type(2)').style.display = 'none';
-        }
-    
-        function showDailyGainers() {
-            document.getElementById('stocks-container').classList.add('hidden');
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('daily-gainers-container').classList.remove('hidden');
-            document.getElementById('loading-daily').classList.remove('hidden');
-    
-            // Change the title visibility
-            document.querySelector('.title.with-navigation:nth-of-type(1)').style.display = 'none';
-            document.querySelector('.title.with-navigation:nth-of-type(2)').style.display = 'flex';
+        function switchContainer() {
+            const selector = document.getElementById('stock-selector');
+            const trendingContainer = document.getElementById('trending-container');
+            const gainersContainer = document.getElementById('gainers-container');
+            
+            if (selector.value === 'trending') {
+                trendingContainer.classList.remove('hidden');
+                gainersContainer.classList.add('hidden');
+            } else {
+                trendingContainer.classList.add('hidden');
+                gainersContainer.classList.remove('hidden');
+            }
         }
     </script>
     
