@@ -55,11 +55,13 @@ function switchContainer() {
     const selector = document.getElementById('stock-selector');
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
+    const title = document.querySelector('#section-title > h1');
 
     const fire = document.querySelector('.fa-fire');
     const chart = document.querySelector('.fa-chart-line');
     
     if (selector.value === 'trending') {
+        title.textContent = 'Trending Stocks'
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
         fire.classList.remove('hidden');
@@ -67,6 +69,7 @@ function switchContainer() {
         chart.classList.remove('i-visible');
         chart.classList.add('hidden');
     } else {
+        title.textContent = 'Daily Gainers'
         trendingContainer.classList.add('hidden');
         gainersContainer.classList.remove('hidden');
         chart.classList.remove('hidden');
