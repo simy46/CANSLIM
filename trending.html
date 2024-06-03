@@ -20,29 +20,56 @@
         </nav>        
     </header>
 
-    <div class="container">
-
-        <!-- TRENDING CONTAINER -->
-        <div class="title">
-            <h1>Trending Stocks</h1>
-            <i class="fa-solid fa-fire" style="font-size: 24px;"></i>
+    <div class="title with-navigation">
+        <h1>Trending Stocks</h1>
+        <i class="fa-solid fa-fire" style="font-size: 24px;"></i>
+        <div class="navigation">
+            <button class="navigation-button" onclick="showTrending()">Trending</button>
+            <button class="navigation-button" onclick="showDailyGainers()">Daily Gainers</button>
         </div>
-        <div id="stocks-container"></div>
-        <div id="loading">
-            <div class="loader"></div>
-        </div>
-
-        <!-- DAILY GAINERS CONTAINER -->
-        <div class="title">
-            <h1>Daily Gainers</h1>
-            <i class="fa-solid fa-chart-line" style="font-size: 28px;"></i>
-        </div>
-        <div id="daily-gainers-container"></div>
-        <div id="loading-daily">
-            <div class="loader"></div>
-        </div>
-        
     </div>
+    <div id="stocks-container"></div>
+    <div id="loading">
+        <div class="loader"></div>
+    </div>
+    
+    <div class="title with-navigation" style="display:none;">
+        <h1>Daily Gainers</h1>
+        <i class="fa-solid fa-chart-line" style="font-size: 28px;"></i>
+        <div class="navigation">
+            <button class="navigation-button" onclick="showTrending()">Trending</button>
+            <button class="navigation-button" onclick="showDailyGainers()">Daily Gainers</button>
+        </div>
+    </div>
+    <div id="daily-gainers-container" style="display:none;"></div>
+    <div id="loading-daily" style="display:none;">
+        <div class="loader"></div>
+    </div>
+
+    <script>
+        function showTrending() {
+            document.getElementById('stocks-container').classList.remove('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('daily-gainers-container').classList.add('hidden');
+            document.getElementById('loading-daily').classList.add('hidden');
+    
+            // Change the title visibility
+            document.querySelector('.title.with-navigation:nth-of-type(1)').style.display = 'flex';
+            document.querySelector('.title.with-navigation:nth-of-type(2)').style.display = 'none';
+        }
+    
+        function showDailyGainers() {
+            document.getElementById('stocks-container').classList.add('hidden');
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('daily-gainers-container').classList.remove('hidden');
+            document.getElementById('loading-daily').classList.remove('hidden');
+    
+            // Change the title visibility
+            document.querySelector('.title.with-navigation:nth-of-type(1)').style.display = 'none';
+            document.querySelector('.title.with-navigation:nth-of-type(2)').style.display = 'flex';
+        }
+    </script>
+    
 
     <footer>
         © 2024 CANSLIM Calculator. All rights reserved. &#169;
