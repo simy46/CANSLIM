@@ -81,19 +81,11 @@ function toggleHeaderText(isTrending) {
     const chart = document.querySelector('.fa-chart-line');
 
     if (isTrending) {
-        trendingText.classList.remove('visible');
-        trendingText.classList.add('hidden');
-        dailyText.classList.remove('hidden');
-        dailyText.classList.add('visible');
         fire.classList.remove('hidden');
         fire.classList.add('i-visible');
         chart.classList.remove('i-visible');
         chart.classList.add('hidden');
     } else {
-        trendingText.classList.remove('hidden');
-        trendingText.classList.add('visible');
-        dailyText.classList.remove('visible');
-        dailyText.classList.add('hidden');
         chart.classList.remove('hidden');
         fire.classList.remove('i-visible');
         chart.classList.add('i-visible');
