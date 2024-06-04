@@ -6,16 +6,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadingDaily = document.getElementById('loading-daily');
     const stocksContainer = document.getElementById('stocks-container');
     const dailyGainersContainer = document.getElementById('daily-gainers-container');
+    const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
 
 
-    listenToAllEvent();
+    const isTrending = savedSelection === 'trending';
+
+
+    listenToAllEvent(savedSelection);
 
     setLoading(true, loading, stocksContainer);
-    await populate(stocksContainer, true);
+    await populate(stocksContainer, isTrending);
     setLoading(false, loading, stocksContainer);
 
     setLoading(true, loadingDaily, dailyGainersContainer);
-    await populate(dailyGainersContainer, false);
+    await populate(dailyGainersContainer, isTrending);
     setLoading(false, loadingDaily, dailyGainersContainer);
 
 
@@ -38,9 +42,8 @@ function setLoading(isLoading, loading, container) {
     container.style.display = isLoading ? 'none' : 'grid';
 }
 
-function listenToAllEvent() {
+function listenToAllEvent(savedSelection) {
     const input = document.getElementById('stock-selector');
-    const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
 
     if (savedSelection === 'gainers') {
         toggleHeaderText(true);
