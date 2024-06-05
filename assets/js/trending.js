@@ -8,13 +8,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const dailyGainersContainer = document.getElementById('daily-gainers-container');
     const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
 
-
     const isTrending = savedSelection === 'trending';
 
-
-
-
-    listenToAllEvent(savedSelection);
+    listenToAllEvent();
 
     setLoading(true, loading, stocksContainer);
     await populate(stocksContainer, isTrending);
@@ -44,7 +40,8 @@ function setLoading(isLoading, loading, container) {
     container.style.display = isLoading ? 'none' : 'grid';
 }
 
-function listenToAllEvent(savedSelection) {
+function listenToAllEvent() {
+    const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
     const input = document.getElementById('stock-selector');
 
     if (savedSelection === 'gainers') {
