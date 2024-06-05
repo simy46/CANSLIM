@@ -40,11 +40,11 @@ align-items: center;
 flex: 1;
 margin: 150px 0 0;
 padding: 20px;
-background-image: url('../img/LOGO.png'); /* Ajout de l'image de fond */
+background-image: url('../img/LOGO.png');
 background-repeat: no-repeat;
 background-size: contain;
 background-position: center;
-opacity: 0.9; /* Pour rendre l'image un peu plus pâle (80% d'opacité) */
+opacity: 0.9;
 }
 
 h1 {
@@ -58,16 +58,16 @@ input[type="text"] {
   padding: 10px;
   font-size: 16px;
   justify-self: flex-end;
-  margin-right: 10px;
 }
 .main i {
   margin-left: 15px;
   cursor: pointer;
+  margin-left: 10px;
 }
 /* Container */
 .container {
   width: 90%;
-  margin: auto;
+  margin: 20px auto;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -217,4 +217,100 @@ nav a:hover {
 }
 a.home {
   padding-right: 0;
+}
+.div-header {
+  color: white;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.div-header a {
+  width: 100%;
+  display: inline;
+}
+
+/* Ipad */
+@media (max-width: 1024px) {
+  header {
+    padding: 10px 0;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav a {
+    font-size: 16px;
+    padding: 10px 8px;
+  }
+
+  .div-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+/* Phone */
+@media (max-width: 768px) {
+  header {
+    padding: 5px 0;
+  }
+
+  nav {
+    gap: 5px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav a {
+    font-size: 14px;
+    padding: 5px 4px;
+    gap: 5px;
+  }
+
+  .div-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main {
+    width: 90%;
+    grid-template-columns: 4fr 3fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 0 0 40px 30px;
+  }
+
+  input[type="text"] {
+    width: 80%;
+    margin-right: 0;
+    grid-column: 1/3;
+    justify-self: flex-end;
+    align-self: flex-start;
+  }
+
+  i {
+    grid-column: 3;
+    align-self: flex-start;
+    margin-top: 15px;
+  }
+
+  #search-results {
+    width: 100%;
+  }
+
+  .container {
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  footer {
+    padding: 5px 0;
+  }
 }
