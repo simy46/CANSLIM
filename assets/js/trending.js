@@ -52,12 +52,14 @@ function switchContainer() {
     const selector = document.getElementById('stock-selector');
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
-
+    const title = document.getElementById('section-title');
     
     if (selector.value === 'trending') {
+        title.textContent = 'Trending Stocks'
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
     } else {
+        title.textContent = 'Daily Gainers Stocks'
         trendingContainer.classList.add('hidden');
         gainersContainer.classList.remove('hidden');
     }
