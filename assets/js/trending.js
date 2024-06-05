@@ -8,9 +8,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const dailyGainersContainer = document.getElementById('daily-gainers-container');
     const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
 
+
     const isTrending = savedSelection === 'trending';
 
-    listenToAllEvent();
+
+
+
+    listenToAllEvent(savedSelection);
 
     setLoading(true, loading, stocksContainer);
     await populate(stocksContainer, isTrending);
@@ -40,11 +44,17 @@ function setLoading(isLoading, loading, container) {
     container.style.display = isLoading ? 'none' : 'grid';
 }
 
-function listenToAllEvent() {
+function listenToAllEvent(savedSelection) {
     const input = document.getElementById('stock-selector');
-    const savedSelection = localStorage.getItem('STOCK_SELECTION') || 'trending';
+
+    if (savedSelection === 'gainers') {
+        toggleHeaderText(true);
+    } else {
+        toggleHeaderText(false);
+    }
+
     input.value = savedSelection;
-    input.onchange = function(){switchContainer()};
+    input.onchange = function(){switchContainer()};  // Attach the event first
     switchContainer();
 }
 
@@ -52,13 +62,14 @@ function switchContainer() {
     const selector = document.getElementById('stock-selector');
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
-    const title = document.getElementById('section-title');
-
+    const title = document.querySelector('#section-title > h1');
+    
     if (selector.value === 'trending') {
         title.textContent = 'Trending Stocks';
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
         toggleHeaderText(true);
+
     } else {
         title.textContent = 'Daily Gainers';
         trendingContainer.classList.add('hidden');
@@ -66,8 +77,9 @@ function switchContainer() {
         toggleHeaderText(false);
     }
 
-    localStorage.setItem('STOCK_SELECTION', selector.value);
+    localStorage.setItem(STOCK_SELECTION, selector.value);
 }
+
 
 function toggleHeaderText(isTrending) {
     const trendingText = document.getElementById('trending-text');
