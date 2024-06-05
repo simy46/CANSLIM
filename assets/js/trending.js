@@ -8,13 +8,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const dailyGainersContainer = document.getElementById('daily-gainers-container');
     const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
 
-
     const isTrending = savedSelection === 'trending';
 
-
-
-
-    listenToAllEvent(savedSelection);
+    listenToAllEvent();
 
     setLoading(true, loading, stocksContainer);
     await populate(stocksContainer, isTrending);
@@ -44,8 +40,9 @@ function setLoading(isLoading, loading, container) {
     container.style.display = isLoading ? 'none' : 'grid';
 }
 
-function listenToAllEvent(savedSelection) {
+function listenToAllEvent() {
     const input = document.getElementById('stock-selector');
+    const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
 
     if (savedSelection === 'gainers') {
         toggleHeaderText(true);
@@ -84,27 +81,22 @@ function switchContainer() {
 function toggleHeaderText(isTrending) {
     const trendingText = document.getElementById('trending-text');
     const dailyText = document.getElementById('daily-text');
-    const fire = document.querySelector('.fa-fire');
-    const chart = document.querySelector('.fa-chart-line');
+    const icon = document.querySelector('#section-title > i');
     
     if (isTrending) {
         trendingText.classList.add('visible');
         trendingText.classList.remove('hidden');
         dailyText.classList.remove('visible');
         dailyText.classList.add('hidden');
-        fire.classList.remove('hidden');
-        fire.classList.add('i-visible');
-        chart.classList.remove('i-visible');
-        chart.classList.add('hidden');
+        icon.classList.remove('fa-chart-line');
+        icon.classList.add('fa-fire');
     } else {
         trendingText.classList.remove('visible');
         trendingText.classList.add('hidden');
         dailyText.classList.add('visible');
         dailyText.classList.remove('hidden');
-        chart.classList.remove('hidden');
-        fire.classList.remove('i-visible');
-        chart.classList.add('i-visible');
-        fire.classList.add('hidden');
+        icon.classList.remove('fa-fire');
+        icon.classList.add('fa-chart-line');
     }
 }
 

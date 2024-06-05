@@ -1,10 +1,8 @@
 import { SERVER_URL, SELECTED_SYMBOL } from './const.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
-    
+    const symbol = sessionStorage.getItem(SELECTED_SYMBOL);
     listenToNewsEvent();
-
-    const symbol = getQueryParameter('symbol');
 
     if (!symbol) {
         console.error('Ticker symbol is missing');
@@ -23,8 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         data.news.forEach(createNews);
     } catch (error) {
         console.error('Error fetching data:', error);
-        const errorDiv = document.getElementById('error-page');
-        errorDiv.style.display = 'flex';    
+        noStockFound();  
     }
 
     setLoading(false);
@@ -51,15 +48,11 @@ function listenToNewsEvent() {
     buttonEvent();
 }
 
-function getQueryParameter(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-
 function buttonEvent() {
     const button = document.getElementById('error-button');
 
     button.addEventListener('click', (e) => {
+        e.stopPropagation()
         window.location.href = '/'
     })
 }
@@ -141,13 +134,21 @@ async function fetchStockData(symbol) {
 }
 
 function setLoading(loading) {
-    const loader = document.getElementById('loading')
-    loading ? loader.style.display = 'flex' : loader.style.display = 'none'
+    const loader = document.getElementById('loading');
+    if (loading) {
+        loader.style.display = 'flex';
+        document.body.classList.add('no-scroll');
+    } else {
+        loader.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
 }
 
 // PLUS TARD //
 function noStockFound() {
-
+    const errorDiv = document.getElementById('error-page');
+    errorDiv.style.display = 'flex';
+    document.body.id = 'no-scrolling'
 }
 
 function createNews(news) {
@@ -170,9 +171,9 @@ function createNews(news) {
         news.relatedTickers.forEach((ticker) => {
             const tickerSpan = document.createElement('span');
             tickerSpan.textContent = ticker;
-            tickerSpan.onclick = (e) => {
-                e.stopPropagation();
-                window.location.href = `/stock?symbol=${ticker}`;
+            tickerSpan.onclick = () => {
+                sessionStorage.setItem(SELECTED_SYMBOL, ticker);
+                window.location.href = '/stock';
             };
             tickers.appendChild(tickerSpan);
         });
