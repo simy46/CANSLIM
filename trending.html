@@ -25,33 +25,41 @@
 
     <div class="container">
 
-        <!-- Selection Input -->
-        <div class="title with-navigation">
-            <div class="title" id="section-title">
-                <h1></h1>
-                <i class="fa-solid fa-fire" style="font-size: 24px;"></i>
-                <i class="fa-solid fa-chart-line" style="font-size: 28px;"></i>
-            </div>                
-            <select id="stock-selector">
-                <option value="trending">Trending Stocks</option>
-                <option value="gainers">Daily Gainers</option>
-            </select>
-        </div>
+        <div class="container">
 
-        <!-- TRENDING CONTAINER -->
-        <div id="trending-container">
-            <div id="stocks-container"></div>
-            <div id="loading">
-                <div class="loader"></div>
+            <!-- Selection Input -->
+            <div class="title with-navigation">
+                <div class="title" id="section-title">
+                    <h1>Trending Stocks</h1>
+                    <i class="fa-solid fa-fire" style="font-size: 24px;"></i>
+                    <i class="fa-solid fa-chart-line" style="font-size: 28px;"></i>
+                </div>                
+                <select id="stock-selector">
+                    <option value="trending">Trending Stocks</option>
+                    <option value="gainers">Daily Gainers</option>
+                </select>
             </div>
-        </div>
-
-        <!-- DAILY GAINERS CONTAINER -->
-        <div id="gainers-container" class="hidden">
-            <div id="daily-gainers-container"></div>
-            <div id="loading-daily">
-                <div class="loader"></div>
+    
+            <!-- TRENDING CONTAINER -->
+            <div id="trending-container">
+                
+                <div id="stocks-container"></div>
+                <div id="loading">
+                    <div class="loader"></div>
+                </div>
             </div>
+    
+            <!-- DAILY GAINERS CONTAINER -->
+            <div id="gainers-container" class="hidden">
+                <div class="title">
+                    <h1>Daily Gainers</h1>
+                </div>
+                <div id="daily-gainers-container"></div>
+                <div id="loading-daily">
+                    <div class="loader"></div>
+                </div>
+            </div>
+    
         </div>
 
     </div>
