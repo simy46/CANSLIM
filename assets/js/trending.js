@@ -43,15 +43,9 @@ function setLoading(isLoading, loading, container) {
     loading.style.display = isLoading ? 'flex' : 'none';
     container.style.display = isLoading ? 'none' : 'grid';
 }
-
 function listenToAllEvent() {
     const input = document.getElementById('stock-selector');
     const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
-
-    if (savedSelection === 'gainers') {
-        toggleHeaderText();
-    }
-
     input.value = savedSelection;
     input.onchange = function(){switchContainer()};
     switchContainer();
@@ -62,47 +56,17 @@ function switchContainer() {
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
 
-    const fire = document.querySelector('.fa-fire');
-    const chart = document.querySelector('.fa-chart-line');
     
     if (selector.value === 'trending') {
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
-        fire.classList.remove('hidden');
-        fire.classList.add('i-visible');
-        chart.classList.remove('i-visible');
-        chart.classList.add('hidden');
     } else {
         trendingContainer.classList.add('hidden');
         gainersContainer.classList.remove('hidden');
-        chart.classList.remove('hidden');
-        fire.classList.remove('i-visible');
-        chart.classList.add('i-visible');
-        fire.classList.add('hidden');
     }
-
-    toggleHeaderText();
 
     localStorage.setItem(STOCK_SELECTION, selector.value);
-
 }
-
-function toggleHeaderText() {
-    const trendingText = document.getElementById('trending-text');
-    const dailyText = document.getElementById('daily-text');
-    
-    if (trendingText.classList.contains('visible')) {
-        trendingText.classList.remove('visible');
-        trendingText.classList.add('hidden');
-        dailyText.classList.remove('hidden');
-        dailyText.classList.add('visible');
-    } else {
-        trendingText.classList.remove('hidden');
-        trendingText.classList.add('visible');
-        dailyText.classList.remove('visible');
-        dailyText.classList.add('hidden');
-    }
-}   
 
 function createStock(stock, container) {
     console.log(stock)
