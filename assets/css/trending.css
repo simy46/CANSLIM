@@ -367,6 +367,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     align-items: center;
     justify-content: center;
     gap: 25px;
+    margin: auto;
   }
 
   #section-title {
@@ -378,6 +379,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
   body > div.container {
     padding: 0;
+    margin: 10px 40px 30px;
   }
 
   #section-title > h1 {
@@ -389,7 +391,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
   div#stocks-container, div#daily-gainers-container {
-    max-height: 300px;
+    max-height: 580px;
     overflow-y: auto;
   }
 
