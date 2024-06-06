@@ -42,63 +42,38 @@ function setLoading(isLoading, loading, container) {
 
 function listenToAllEvent() {
     const input = document.getElementById('stock-selector');
-    const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
+    const selectedValue = localStorage.getItem(STOCK_SELECTION) || 'trending';
 
-    if (savedSelection === 'gainers') {
-        toggleHeaderText(true);
-    } else {
-        toggleHeaderText(false);
-    }
+    input.value = selectedValue;
 
-    input.value = savedSelection;
-    input.onchange = function(){switchContainer()};  // Attach the event first
-    switchContainer();
+    document.getElementById('stock-selector').addEventListener('change', showContainer);
+    showContainer();
 }
 
-function switchContainer() {
-    const selector = document.getElementById('stock-selector');
+function showContainer() {
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
+    const selectedValue = document.getElementById('stock-selector').value;
     const title = document.querySelector('#section-title > h1');
-    
-    if (selector.value === 'trending') {
-        title.textContent = 'Trending Stocks';
-        trendingContainer.classList.remove('hidden');
-        gainersContainer.classList.add('hidden');
-        toggleHeaderText(true);
-
-    } else {
-        title.textContent = 'Daily Gainers';
-        trendingContainer.classList.add('hidden');
-        gainersContainer.classList.remove('hidden');
-        toggleHeaderText(false);
-    }
-
-    localStorage.setItem(STOCK_SELECTION, selector.value);
-}
-
-
-function toggleHeaderText(isTrending) {
-    const trendingText = document.getElementById('trending-text');
-    const dailyText = document.getElementById('daily-text');
     const icon = document.querySelector('#section-title > i');
     
-    if (isTrending) {
-        trendingText.classList.add('visible');
-        trendingText.classList.remove('hidden');
-        dailyText.classList.remove('visible');
-        dailyText.classList.add('hidden');
-        icon.classList.remove('fa-chart-line');
-        icon.classList.add('fa-fire');
-    } else {
-        trendingText.classList.remove('visible');
-        trendingText.classList.add('hidden');
-        dailyText.classList.add('visible');
-        dailyText.classList.remove('hidden');
-        icon.classList.remove('fa-fire');
-        icon.classList.add('fa-chart-line');
+    if (selectedValue === 'trending') {
+        title.textContent = 'Trending Stocks'
+        trendingContainer.classList.remove('hidden');
+        gainersContainer.classList.add('hidden');
+        icon.classList.add('fa-fire')
+        icon.classList.remove('fa-chart-line')
+    } else if (selectedValue === 'gainers') {
+        title.textContent = ' Daily Gainers Stocks'
+        gainersContainer.classList.remove('hidden');
+        trendingContainer.classList.add('hidden');
+        icon.classList.add('fa-chart-line')
+        icon.classList.remove('fa-fire')
     }
+
+    localStorage.setItem(STOCK_SELECTION, selectedValue)
 }
+
 
 function createStock(stock, container) {
     console.log(stock)
