@@ -72,7 +72,7 @@ function showContainer() {
 function createStock(stock, container) {
     console.log(stock)
     const stockDiv = document.createElement('div');
-    stockDiv.classList.add('stock', stock.regularMarketChangePercent >= 0 ? 'green' : 'red', 'card');
+    stockDiv.classList.add('stock', stock.regularMarketChangePercent >= 0 ? 'green' : 'red');
 
     const titleDiv = document.createElement('div');
     titleDiv.classList.add('title-trending')

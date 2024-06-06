@@ -54,6 +54,9 @@ footer {
   justify-content: center;
   align-items: center;
   padding: 10px 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /* Header */
 header {
@@ -97,32 +100,11 @@ nav a:hover {
   border-bottom: 2px solid #FFD700;
   color: #FFD700;
 }
-a.home {
-  padding-right: 0;
-}
-
-/* Dynamic Header */
-#trending-text, #daily-text {
-  display: inline-block;
-  font-size: 18px;
-  position: relative;
-}
-
-#trending-text.visible, #daily-text.visible {
-  font-size: 26px;
-  z-index: 2;
-}
-
-#trending-text.hidden, #daily-text.hidden {
-  font-size: 18px;
-  z-index: 1;
-}
 
 /* Ajoutez ceci au CSS existant */
 .hidden {
 display: none;
 }
-
 
 .title.with-navigation {
 display: flex;
@@ -291,4 +273,126 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 .fa-chart-line {
   font-size: 28px;
 }
+
+
+/* Responsive */
+@media (max-width: 1240px) {
+  header > nav {
+    width: 95%;
+  }
+
+  nav a {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 0;
+  }
+
+  div#stocks-container, div#daily-gainers-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  div#stocks-container > .stock, div#daily-gainers-container > .stock{
+    grid-column: span 2;
+  }
+}
+
+/* Ipad */
+@media (max-width: 1024px) {
+  header {
+    padding: 0;
+  }
+
+  header > nav {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  nav a {
+    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid #ffffff;
+    border-top: 1px solid transparent;
+    border-top: 1px solid #ffffff;
+  }
+
+  nav a:hover {
+    border-top: 1px solid #FFD700;
+    border-bottom: 1px solid #FFD700;
+  }
+
+  #section-title {
+    justify-content: flex-start;
+  }
+
+  div#stocks-container {
+    padding: 20px;
+  }
+}
+
+/* Ipad Mini */
+@media (max-width: 768px) {
+  body > footer > p {
+    padding: 0;
+    font-size: 14px;
+  }
+}
+
+/* Phone > Iphone 14 and smaller */
+@media (max-width: 600px) {
+  #section-title > h1 {
+    font-size: 20px;
+    align-self: center;
+  }
+
+  #section-title > .fa-solid {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+
+  #section-title {
+    display: flex;
+    align-items: baseline;
+  }
+}
+
+@media (max-width: 500px)  {
+  body > footer > p {
+    padding: 0;
+    font-size: 12px;
+  }
+
+  body > div > div.title.with-navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+  }
+
+  #section-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px
+  }
+
+  body > div.container {
+    padding: 0;
+  }
+
+  #section-title > h1 {
+    margin: 10px 0 0;
+  }
+
+  div#stocks-container > .stock, div#daily-gainers-container > .stock{
+    grid-column: span 4;
+  }
+
+  div#stocks-container, div#daily-gainers-container {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+}
+
 
