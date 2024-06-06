@@ -1,130 +1,243 @@
 /* Document */
 html, body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    min-height: 100vh;
-    
-  }
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
   
-  h1 {
-    margin-bottom: 20px;
-    grid-column: 1/3;
-    text-align: center;
-    align-self: flex-end;
-  }
+}
 
-  /* Container */
-  .container {
-    width: 90%;
-    margin: 20px auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    padding: 20px;
-    border: 1px solid #ccc;
-    transition: all 0.3s ease;
-    justify-content: flex-start;
-    overflow: hidden;
-  }
-  
-  .container h3 {
-    color: #000000;
-    font-size: 24px;
-    margin-bottom: 25px;
-    font-weight: 600;
-  }
+h1 {
+  margin-bottom: 20px;
+  grid-column: 1/3;
+  text-align: center;
+  align-self: flex-end;
+}
 
-  /* footer */
-  footer {
-    background-color: black;
-    color: white;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0 10px;
-  }
-  /* Header */
-  header {
-    background-color: #0A2A42; 
-    width: 100%;
-    padding: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 90%;
-  }
-  
-  /* Link styling */
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 20px 16px;
-    transition: color 0.3s, background-color 0.3s;
-  }
-  
-  nav a:hover {
-    color: #FFD700;
-  }
-  
-  nav a {
-    border-bottom: 2px solid transparent;
-    padding: 10px 16px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  nav a:hover {
-    border-bottom: 2px solid #FFD700;
-    color: #FFD700;
-  }
-  a.home {
-    padding-right: 0;
-  }
+/* Container */
+.container {
+  width: 90%;
+  margin: 20px auto auto auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  padding: 20px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+  justify-content: flex-start;
+  overflow: hidden;
+}
 
-  /* Dynamic Header */
+.container h3 {
+  color: #000000;
+  font-size: 24px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/* footer */
+footer {
+  background-color: black;
+  color: white;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0 10px;
+}
+/* Header */
+header {
+  background-color: #0A2A42; 
+  width: 100%;
+  padding: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+}
+
+/* Link styling */
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 20px 16px;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+nav a:hover {
+  color: #FFD700;
+}
+
+nav a {
+  border-bottom: 2px solid transparent;
+  padding: 10px 16px;
+  width: 100%;
+  text-align: center;
+}
+
+nav a:hover {
+  border-bottom: 2px solid #FFD700;
+  color: #FFD700;
+}
+a.home {
+  padding-right: 0;
+}
+
+/* Dynamic Header */
 #trending-text, #daily-text {
-    display: inline-block;
-    font-size: 18px;
-    position: relative;
+  display: inline-block;
+  font-size: 18px;
+  position: relative;
 }
 
 #trending-text.visible, #daily-text.visible {
-    font-size: 26px;
-    z-index: 2;
+  font-size: 26px;
+  z-index: 2;
 }
 
 #trending-text.hidden, #daily-text.hidden {
-    font-size: 18px;
-    z-index: 1;
+  font-size: 18px;
+  z-index: 1;
 }
 
 /* Ajoutez ceci au CSS existant */
 .hidden {
-  display: none;
+display: none;
 }
 
-.i-visible {
-  display: block;
+
+.title.with-navigation {
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+}
+
+#stock-selector {
+padding: 5px 10px;
+font-size: 16px;
+border-radius: 5px;
+border: 1px solid #ccc;
+}
+
+/* Trending Stocks */
+div#stocks-container, div#daily-gainers-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 15px;
+  margin-bottom: 0;
+  justify-items: center;
+  width: auto;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 10px;
+}
+.stock {
+  border-radius: 20px;
+  transition: all .3s;
+  border: 2px solid #ddd;
+  text-align: center;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  width: 80%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  padding: 10px;
+  color: rgb(255, 255, 255);
+}
+
+.stock.green {
+background-color: #3e7548;
+}
+.stock.red {
+background-color: #9b4646;
+}
+
+.stock:hover {
+transform: scale(1.02);
+}
+
+.stock.green:hover {
+box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+border-color: green;
+
+}
+
+.stock.red:hover {
+box-shadow: 0px 8px 15px rgba(239, 7, 7, 0.2);
+border-color: red;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+}
+.title h2 {
+  margin-bottom: 0;
+}
+.title-trending {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  border-bottom: solid;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.title-trending h4 {
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+max-width: 60%;
+}
+
+#ticker {
+  font-size: small;
+}
+.stock h4, .stock #ticker {
+display: inline;
+margin: 0;
+}
+
+.navigation-button {
+border: none;
+background-color: #818881;
+color: white;
+font-size: 16px;
+padding: 10px 15px;
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.2s ease, box-shadow 0.2s ease;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navigation-button:hover {
+background-color: #383938;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .title.with-navigation {
@@ -134,157 +247,48 @@ html, body {
   width: 100%;
 }
 
-#stock-selector {
-  padding: 5px 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.navigation {
+  display: flex;
+  align-items: center;
 }
-  
-  /* Trending Stocks */
-  div#stocks-container, div#daily-gainers-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    margin-top: 15px;
-    margin-bottom: 0;
-    justify-items: center;
-    width: auto;
-    overflow-x: auto;
-    overflow-y: auto;
-    padding: 10px;
-  }
-  .stock {
-    border-radius: 20px;
-    transition: all .3s;
-    border: 2px solid #ddd;
-    text-align: center;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    width: 80%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    position: relative;
-    padding: 10px;
-    color: rgb(255, 255, 255);
-  }
-  
-  .stock.green {
-  background-color: #3e7548;
-  }
-  .stock.red {
-  background-color: #9b4646;
-  }
-  
-  .stock:hover {
-  transform: scale(1.02);
-  }
-  
-  .stock.green:hover {
-  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
-  border-color: green;
-  
-  }
-  
-  .stock.red:hover {
-  box-shadow: 0px 8px 15px rgba(239, 7, 7, 0.2);
-  border-color: red;
-  }
-  
-  .title {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    width: 100%;
-  }
-  .title h2 {
-    margin-bottom: 0;
-  }
-  .title i {
-    margin-bottom: 5px;
-  }
-  .title-trending {
-    display: flex;
-    justify-content: center;
-    align-items: center;  
-    border-bottom: solid;
-    border-radius: 5px;
-    gap: 10px;
-  }
-  
-  .title-trending h4 {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 60%;
-  }
-  
-  #ticker {
-    font-size: small;
-  }
-  .stock h4, .stock #ticker {
-  display: inline;
-  margin: 0;
-  }
-  
-  .navigation-button {
-  border: none;
-  background-color: #818881;
-  color: white;
-  font-size: 16px;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navigation-button:hover {
-  background-color: #383938;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .title.with-navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .navigation {
-    display: flex;
-    align-items: center;
-  }
-  
-  .title h1 {
-    text-align: center;
-    margin: 0 20px;
-  }
-  
-  
-  /* Loading screen */
-  #loading, #loading-daily {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    height: 65vh;
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-  
-  .loader {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
 
+.title h1 {
+  text-align: center;
+  margin: 0 20px;
+  user-select: none;
+}
+
+
+/* Loading screen */
+#loading, #loading-daily {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 65vh;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.fa-fire {
+  font-size: 24px;
+  align-self: flex-end;
+  margin-bottom: 7px;
+}
+
+.fa-chart-line {
+  font-size: 28px;
+}
 

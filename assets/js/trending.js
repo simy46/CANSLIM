@@ -1,4 +1,4 @@
-import { SERVER_URL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const";
+import { SERVER_URL, SELECTED_SYMBOL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const";
 let once = true;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -6,21 +6,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadingDaily = document.getElementById('loading-daily');
     const stocksContainer = document.getElementById('stocks-container');
     const dailyGainersContainer = document.getElementById('daily-gainers-container');
-    const savedSelection = localStorage.getItem(STOCK_SELECTION) || 'trending';
-
-    const isTrending = savedSelection === 'trending';
 
     listenToAllEvent();
 
     setLoading(true, loading, stocksContainer);
-    await populate(stocksContainer, isTrending);
+    await populate(stocksContainer, true);
     setLoading(false, loading, stocksContainer);
 
     setLoading(true, loadingDaily, dailyGainersContainer);
-    await populate(dailyGainersContainer, isTrending);
+    await populate(dailyGainersContainer, false);
     setLoading(false, loadingDaily, dailyGainersContainer);
-
-
 });
 
 async function populate(container, isTrending) {
@@ -74,7 +69,6 @@ function showContainer() {
     localStorage.setItem(STOCK_SELECTION, selectedValue)
 }
 
-
 function createStock(stock, container) {
     console.log(stock)
     const stockDiv = document.createElement('div');
@@ -115,8 +109,9 @@ function createStock(stock, container) {
     container.appendChild(stockDiv);
 
     stockDiv.addEventListener('click', () => {
+        sessionStorage.setItem(SELECTED_SYMBOL, stock.symbol);
         if (!stock.cryptoTradeable) {
-            window.location.href = `/stock?symbol=${stock.symbol}`;
+            window.location.href = '/stock';
         } else {
             window.location.href = '/crypto-analysis';
         }
@@ -124,7 +119,7 @@ function createStock(stock, container) {
         /*
         if (stock.displayName || stock.longName) {
             if (!stock.cryptoTradeable) {
-            window.location.href = `/stock?symbol=${stock.symbol}`;
+                window.location.href = '/stock';
             } else {
                 window.location.href = '/crypto-analysis';
             }

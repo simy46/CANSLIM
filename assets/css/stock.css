@@ -383,6 +383,12 @@ footer {
     font-size: 1.5em;
 }
 
+.no-scroll, #no-scrolling {
+    overflow: hidden;
+}
+
+
+/* BOUTON PEU ETREE A CHANGER */
 button {
     margin-top: 20px;
     position: relative;
@@ -473,3 +479,5 @@ button {
    button:focus:not(:focus-visible) {
     outline: none;
    }
+
+   

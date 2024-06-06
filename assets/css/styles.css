@@ -218,17 +218,6 @@ nav a:hover {
 a.home {
   padding-right: 0;
 }
-.div-header {
-  color: white;
-  display: flex;
-  width: 100%;
-  align-items: center;
-}
-
-.div-header a {
-  width: 100%;
-  display: inline;
-}
 
 /* Ipad */
 @media (max-width: 1024px) {
