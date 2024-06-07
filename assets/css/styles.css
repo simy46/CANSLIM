@@ -272,7 +272,7 @@ nav a:hover {
   .main {
     width: 90%;
     grid-template-columns: 4fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr 3fr;
   }
 
   #search-results > div.search-title-container {
@@ -348,7 +348,7 @@ nav a:hover {
 @media (max-width: 475px)  {
   body > div > h1 {
     align-self: flex-end;
-    margin-bottom: 10px;
+    font-size: 17px;
   }
 
   .main {
