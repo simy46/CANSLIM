@@ -215,7 +215,7 @@ nav a {
 }
 
 nav a:hover {
-  border-bottom: 1px solid #FFD700;
+  border-bottom: 2px solid #FFD700;
   color: #FFD700;
 }
 
@@ -272,7 +272,7 @@ nav a:hover {
   .main {
     width: 90%;
     grid-template-columns: 4fr 1fr 1fr;
-    grid-template-rows: 2fr 2fr 10fr;
+    grid-template-rows: 1fr 1fr 2fr;
   }
 
   #search-results > div.search-title-container {
@@ -340,14 +340,15 @@ nav a:hover {
   }
 
   #search-results {
-    max-height: 240px;
+    max-height: 220px;
+    margin-bottom: 10px;
   }
 }
 
 @media (max-width: 475px)  {
   body > div > h1 {
-    align-self: baseline;
-    margin-top: 10px;
+    align-self: flex-end;
+    margin-bottom: 10px;
   }
 
   .main {
