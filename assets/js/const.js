@@ -1,7 +1,5 @@
-export const SERVER_URL = import.meta.env.VITE_SERVER_URL; // Vérifie que la variable est bien définie
-console.log('Server URL:', SERVER_URL); // Ajoute ceci pour vérifier que la variable est bien définie
-
-export const TRENDING_STOCKS_KEY = 'TRENDING_STOCKS',
+export const SERVER_URL = import.meta.env.VITE_SERVER_URL,
+TRENDING_STOCKS_KEY = 'TRENDING_STOCKS',
 TRENDING_STOCKS_TICKERS = 'TRENDING_TICKERS',
 ETAG_KEY = 'stocksEtag',
 ACTIVE_INDEX = 'activeContainerIndex',
