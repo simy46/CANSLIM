@@ -4,3 +4,4 @@ TRENDING_STOCKS_TICKERS = 'TRENDING_TICKERS',
 ETAG_KEY = 'stocksEtag',
 ACTIVE_INDEX = 'activeContainerIndex',
 STOCK_SELECTION = 'stockSelection';
+ 
