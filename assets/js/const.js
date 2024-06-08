@@ -1,4 +1,4 @@
-export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL; // Vérifie que la variable est bien définie
+export const SERVER_URL = import.meta.env.VITE_SERVER_URL; // Vérifie que la variable est bien définie
 console.log('Server URL:', SERVER_URL); // Ajoute ceci pour vérifier que la variable est bien définie
 
 export const TRENDING_STOCKS_KEY = 'TRENDING_STOCKS',
