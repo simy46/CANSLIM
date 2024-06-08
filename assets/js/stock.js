@@ -170,7 +170,8 @@ function createNews(news) {
         news.relatedTickers.forEach((ticker) => {
             const tickerSpan = document.createElement('span');
             tickerSpan.textContent = ticker;
-            tickerSpan.onclick = () => {
+            tickerSpan.onclick = (e) => {
+                e.stopPropagation();
                 window.location.href = `/stock?symbol=${ticker}`;
             };
             tickers.appendChild(tickerSpan);
