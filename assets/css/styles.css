@@ -156,12 +156,6 @@ input[type="text"] {
   display: inline;
 }
 
-.note {
-  margin-left: 15px;
-  font-size: 14px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-style: italic;
-}
 /* footer */
 footer {
   background-color: black;
