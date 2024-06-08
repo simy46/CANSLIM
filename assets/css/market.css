@@ -133,7 +133,25 @@ h1 {
 .news-tickers {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
+  overflow-x: auto;
+}
+
+/* Custom Scrollbar Styles */
+.news-tickers::-webkit-scrollbar {
+  height: 8px; /* Height for horizontal scrollbar */
+}
+
+.news-tickers::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+}
+
+.news-tickers::-webkit-scrollbar-thumb {
+  background: #c1c1c1; /* Background of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+.news-tickers::-webkit-scrollbar-thumb:hover {
+  background: #888; /* Color when hovering over the scrollbar thumb */
 }
 
 .news-tickers span {
