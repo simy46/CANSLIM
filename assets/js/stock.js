@@ -54,7 +54,7 @@ function buttonEvent() {
     const button = document.getElementById('error-button');
 
     button.addEventListener('click', (e) => {
-        e.stopPropagation()
+        e.stopPropagation();
         window.location.href = '/'
     })
 }
@@ -115,11 +115,8 @@ function updateCheckList(results) {
 
 // SOON //
 async function displayStockInfos() {
-    const symbol = sessionStorage.getItem(SELECTED_SYMBOL);
     const response = await fetchStockData(symbol);
     const data = await response.json();
-
-
 }
 
 async function fetchStockData(symbol) {
@@ -174,8 +171,7 @@ function createNews(news) {
             const tickerSpan = document.createElement('span');
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = () => {
-                sessionStorage.setItem(SELECTED_SYMBOL, ticker);
-                window.location.href = '/stock';
+                window.location.href = `/stock?symbol=${ticker}`;
             };
             tickers.appendChild(tickerSpan);
         });
