@@ -1,4 +1,4 @@
-import { SERVER_URL, SELECTED_SYMBOL } from "./const";
+import { SERVER_URL } from "./const";
 
 document.addEventListener('DOMContentLoaded', async () => {
     listenToSearchEvent();

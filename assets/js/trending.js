@@ -1,25 +1,28 @@
-import { SERVER_URL, SELECTED_SYMBOL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const";
+import { SERVER_URL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const";
 let once = true;
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const loading = document.getElementById('loading');
-    const loadingDaily = document.getElementById('loading-daily');
-    const stocksContainer = document.getElementById('stocks-container');
-    const dailyGainersContainer = document.getElementById('daily-gainers-container');
+    const selectedValue = localStorage.getItem(STOCK_SELECTION) || 'trending';
+    const isTrending = selectedValue === 'trending'
 
     listenToAllEvent();
 
-    setLoading(true, loading, stocksContainer);
-    await populate(stocksContainer, true);
-    setLoading(false, loading, stocksContainer);
+    setLoading(true, isTrending);
+    await populate(isTrending);
+    setLoading(false, isTrending);
 
-    setLoading(true, loadingDaily, dailyGainersContainer);
-    await populate(dailyGainersContainer, false);
-    setLoading(false, loadingDaily, dailyGainersContainer);
+    setLoading(true, !isTrending);
+    await populate(!isTrending);
+    setLoading(false, !isTrending);
 });
 
-async function populate(container, isTrending) {
+async function populate(isTrending) {
+    const stocksContainer = document.getElementById('stocks-container');
+    const dailyGainersContainer = document.getElementById('daily-gainers-container');
+
+    const container = isTrending ? stocksContainer : dailyGainersContainer;
     let stocks = isTrending ? await fetchTrendingStocks() : await fetchDailyGainers();
+
     container.innerHTML = '';
     if (stocks.length > 0) {
         stocks.forEach(stock => createStock(stock, container));
@@ -30,7 +33,15 @@ async function populate(container, isTrending) {
     }
 }
 
-function setLoading(isLoading, loading, container) {
+function setLoading(isLoading, isTrending) {
+    const loadingTrending = document.getElementById('loading');
+    const loadingDaily = document.getElementById('loading-daily');
+    const stocksContainer = document.getElementById('stocks-container');
+    const dailyGainersContainer = document.getElementById('daily-gainers-container');
+    
+    const loading = isTrending ? loadingTrending : loadingDaily;
+    const container = isTrending ? stocksContainer : dailyGainersContainer;
+
     loading.style.display = isLoading ? 'flex' : 'none';
     container.style.display = isLoading ? 'none' : 'grid';
 }

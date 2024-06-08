@@ -1,4 +1,4 @@
-import { SERVER_URL, SELECTED_SYMBOL } from './const.js'
+import { SERVER_URL } from './const.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
