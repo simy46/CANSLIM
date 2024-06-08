@@ -1,7 +1,9 @@
 import { SERVER_URL, SELECTED_SYMBOL } from './const.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const symbol = sessionStorage.getItem(SELECTED_SYMBOL);
+    const urlParams = new URLSearchParams(window.location.search);
+    const symbol = urlParams.get('symbol');
+
     listenToNewsEvent();
 
     if (!symbol) {
