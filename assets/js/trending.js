@@ -81,7 +81,6 @@ function showContainer() {
 }
 
 function createStock(stock, container) {
-    console.log(stock)
     const stockDiv = document.createElement('div');
     stockDiv.classList.add('stock', stock.regularMarketChangePercent >= 0 ? 'green' : 'red');
 
@@ -125,21 +124,8 @@ function createStock(stock, container) {
         } else {
             window.location.href = '/crypto-analysis';
         }
-
-        /*
-        if (stock.displayName || stock.longName) {
-            if (!stock.cryptoTradeable) {
-                window.location.href = '/stock';
-            } else {
-                window.location.href = '/crypto-analysis';
-            }
-        } else {
-            stockDiv.littleBoxAppearing = 'No data available for this stock'
-        }
-        */
     });
 }
-
 
 
 async function fetchTrendingStocks() {
