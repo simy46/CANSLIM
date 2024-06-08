@@ -26,8 +26,7 @@ h1 {
 /* Container */
 .container {
   width: 90%;
-  margin: 20
-  x auto auto auto;
+  margin: 20px auto auto auto;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -283,12 +282,8 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
 /* Responsive */
 @media (max-width: 1240px) {
-  header > nav {
-    width: 95%;
-  }
-
   nav a {
-    width: 100%;
+    width: 90%;
     font-size: 16px;
     padding: 10px 0;
   }
@@ -326,26 +321,59 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Ipad Mini */
-@media (max-width: 778px) {
+@media (max-width: 830px) {
   body > footer > p {
     padding: 0;
     font-size: 14px;
   }
 
+  body > header {
+    padding: 0;
+  }
+
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    justify-items: center;
+    width: 100%;
+    background-color: #0A2A42;
+    padding: 10px;
+  }
+
   nav a {
-    font-size: 12px;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 15px;
+    background-color: #1B4F72; /* Slightly lighter blue for contrast */
+    border: 1px solid #0A2A42;
+    border-radius: 5px; /* Rounded corners for a modern look */
+    color: white;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+  }
+
+  nav a:hover {
+    background-color: #154360; /* Darker blue on hover */
+    color: #FFD700; /* Golden color on hover */
+  }
+
+  .about {
+    grid-column: span 2;
+    width: 95%;
   }
 }
 
 /* Phone > Iphone 14 and smaller */
 @media (max-width: 668px) {
   #section-title > h1 {
-    font-size: 20px;
+    font-size: 25px;
     align-self: center;
+    margin-right: 10px;
   }
 
   #section-title > .fa-solid {
-    font-size: 15px;
+    font-size: 20px;
     margin-top: 10px;
   }
 
@@ -353,14 +381,9 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     display: flex;
     align-items: baseline;
   }
-
-  nav a {
-    font-size: 10px;
-  }
-
 }
 
-@media (max-width: 560px)  {
+@media (max-width: 500px)  {
   body > footer > p {
     padding: 0;
     font-size: 12px;
@@ -375,11 +398,19 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     margin: auto;
   }
 
+  header > nav > a {
+    width: 80%;
+  }
+
+  header > nav > a.about {
+    width: 90%;
+  }
+
   #section-title {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px
+      gap: 10px;
   }
 
   body > div.container {
@@ -391,7 +422,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     margin: 10px 0 0;
   }
 
-  div#stocks-container > .stock, div#daily-gainers-container > .stock{
+  div#stocks-container > .stock, div#daily-gainers-container > .stock {
     grid-column: span 4;
   }
 
@@ -401,13 +432,37 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
   nav a {
-    font-size: 8px;
+    font-size: 12px;
   }
-
-  body > header {
-    padding: 15px 0 20px 0;
-  }
-
 }
 
+@media (max-width: 350px) {
+  body > header > nav {
+    grid-template-rows: repeat(4, 1fr);
+    overflow: hidden;
+  }
+  nav a {
+    font-size: 10px;
+    padding: 10px;
+  }
 
+  .home, .trending {
+    grid-column: 1/-1;
+    width: 90%;
+  }
+
+  body > div > div.title.with-navigation {
+    gap: 5px;
+  }
+
+  #section-title h1 {
+    font-size: 18px;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+  }
+
+  #stock-selector {
+    max-width: 100px;
+  }
+}

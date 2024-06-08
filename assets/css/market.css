@@ -136,22 +136,22 @@ h1 {
   overflow-x: auto;
 }
 
-/* Custom Scrollbar Styles */
+/* Custom Scrollbar */
 .news-tickers::-webkit-scrollbar {
-  height: 8px; /* Height for horizontal scrollbar */
+  height: 8px;
 }
 
 .news-tickers::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Background of the scrollbar track */
+  background: #f1f1f1;
 }
 
 .news-tickers::-webkit-scrollbar-thumb {
-  background: #c1c1c1; /* Background of the scrollbar thumb */
-  border-radius: 10px; /* Rounded corners for the thumb */
+  background: #c1c1c1;
+  border-radius: 10px;
 }
 
 .news-tickers::-webkit-scrollbar-thumb:hover {
-  background: #888; /* Color when hovering over the scrollbar thumb */
+  background: #888;
 }
 
 .news-tickers span {
@@ -516,71 +516,110 @@ nav a:hover {
   }
 }
 
-.development {
-  height: 83vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 /* Responsive */
 @media (max-width: 1240px) {
-  header > nav {
-    width: 95%;
-  }
-
   nav a {
-    width: 100%;
+    width: 90%;
     font-size: 16px;
     padding: 10px 0;
   }
-
 }
 
 /* Ipad */
 @media (max-width: 1024px) {
   header {
-    padding: 0;
-  }
-
-  header > nav {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
+    padding: 20px 0;
   }
 
   nav a {
-    border-bottom: 1px solid transparent;
-    border-bottom: 1px solid #ffffff;
-    border-top: 1px solid transparent;
-    border-top: 1px solid #ffffff;
+    font-size: 14px;
   }
 
   nav a:hover {
-    border-top: 1px solid #FFD700;
-    border-bottom: 1px solid #FFD700;
+    text-decoration: underline;
   }
 }
 
 /* Ipad Mini */
-@media (max-width: 768px) {
+@media (max-width: 830px) {
   body > footer > p {
     padding: 0;
     font-size: 14px;
   }
+
+  body > header {
+    padding: 0;
+  }
+
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    justify-items: center;
+    width: 100%;
+    background-color: #0A2A42;
+    padding: 10px;
+  }
+
+  nav a {
+    font-size: 14px;
+    text-decoration: none;
+    padding: 15px;
+    background-color: #1B4F72;
+    border: 1px solid #0A2A42;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  nav a:hover {
+    background-color: #154360;
+    color: #FFD700;
+  }
+
+  .about {
+    grid-column: span 2;
+    width: 95%;
+  }
 }
 
 /* Phone > Iphone 14 and smaller */
-@media (max-width: 540px) {
+@media (max-width: 668px) {
   
 }
 
-@media (max-width: 475px)  {
+@media (max-width: 500px)  {
   body > footer > p {
     padding: 0;
     font-size: 12px;
   }
+
+  header > nav > a {
+    width: 80%;
+  }
+
+  header > nav > a.about {
+    width: 90%;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
 }
 
+@media (max-width: 350px) {
+  body > header > nav {
+    grid-template-rows: repeat(4, 1fr);
+    overflow: hidden;
+  }
+  nav a {
+    font-size: 10px;
+    padding: 10px;
+  }
 
+  .home, .trending {
+    grid-column: 1/-1;
+    width: 90%;
+  }
+}

@@ -213,36 +213,27 @@ nav a:hover {
   color: #FFD700;
 }
 
+/* Responsive */
 @media (max-width: 1240px) {
-  header > nav {
-    width: 95%;
-  }
-
   nav a {
-    width: 100%;
+    width: 90%;
     font-size: 16px;
     padding: 10px 0;
   }
-
 }
 
 /* Ipad */
 @media (max-width: 1024px) {
   header {
-    padding: 0;
-  }
-
-  header > nav {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
+    padding: 20px 0;
   }
 
   nav a {
-    border-bottom: 1px solid transparent;
-    border-bottom: 1px solid #ffffff;
-    border-top: 1px solid transparent;
-    border-top: 1px solid #ffffff;
+    font-size: 14px;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
   }
 
   h1 {
@@ -257,7 +248,48 @@ nav a:hover {
 }
 
 /* Ipad Mini */
-@media (max-width: 768px) {
+@media (max-width: 830px) {
+  body > footer > p {
+    padding: 0;
+    font-size: 14px;
+  }
+
+  body > header {
+    padding: 0;
+  }
+
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    justify-items: center;
+    width: 100%;
+    background-color: #0A2A42;
+    padding: 10px;
+  }
+
+  nav a {
+    font-size: 14px;
+    text-decoration: none;
+    padding: 15px;
+    background-color: #1B4F72;
+    border: 1px solid #0A2A42;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  nav a:hover {
+    background-color: #154360;
+    color: #FFD700;
+  }
+
+  .about {
+    grid-column: span 2;
+    width: 95%;
+  }
+
   body > div > h1 {
     grid-column: 1/-1;
     font-size: 20px;
@@ -311,15 +343,10 @@ nav a:hover {
     padding: 5px;
     gap: 10px
   }
-
-  body > footer > p {
-    padding: 0;
-    font-size: 14px;
-  }
 }
 
 /* Phone > Iphone 14 and smaller */
-@media (max-width: 540px) {
+@media (max-width: 668px) {
   body h1 {
     font-size: 17px;
   }
@@ -339,20 +366,47 @@ nav a:hover {
   }
 }
 
-@media (max-width: 475px)  {
+@media (max-width: 500px)  {
+  body > footer > p {
+    padding: 0;
+    font-size: 12px;
+  }
+
+  header > nav > a {
+    width: 80%;
+  }
+
+  header > nav > a.about {
+    width: 90%;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
   body > div > h1 {
     align-self: flex-end;
-    font-size: 17px;
+    font-size: 15px;
   }
 
   .main {
     padding: 0;
   }
 
-  body > footer > p {
-    padding: 0;
-    font-size: 12px;
-  }
 }
 
+@media (max-width: 350px) {
+  body > header > nav {
+    grid-template-rows: repeat(4, 1fr);
+    overflow: hidden;
+  }
+  nav a {
+    font-size: 10px;
+    padding: 10px;
+  }
 
+  .home, .trending {
+    grid-column: 1/-1;
+    width: 90%;
+  }
+}
