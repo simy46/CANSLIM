@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function getNews() {
-    const storedTickers = JSON.parse(localStorage.getItem(TRENDING_STOCKS_TICKERS));
+    const tickers = localStorage.getItem(TRENDING_STOCKS_TICKERS);
+    const storedTickers = tickers ? JSON.parse(tickers) : [];
     const news = await fetchNews(storedTickers);
     news.forEach(createNews);
-    
 }
 
 function setLoading(isLoading) {
