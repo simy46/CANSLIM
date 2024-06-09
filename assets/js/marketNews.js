@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function getNews() {
     const tickers = localStorage.getItem(TRENDING_STOCKS_TICKERS);
-    const storedTickers = tickers ? JSON.parse(tickers) : [];
+    const storedTickers = tickers ? JSON.parse(tickers) : undefined;
     const news = await fetchNews(storedTickers);
     news.forEach(createNews);
 }
