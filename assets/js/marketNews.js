@@ -1,5 +1,8 @@
 import { SERVER_URL, TRENDING_STOCKS_TICKERS, SELECTED_SYMBOL } from "./const.js";
+import { listenToButtonEvent } from "./main.js";
+
 document.addEventListener('DOMContentLoaded', async () => {
+    listenToButtonEvent();
 
     setLoading(true);
     await getNews();

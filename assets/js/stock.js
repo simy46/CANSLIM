@@ -1,10 +1,12 @@
 import { SERVER_URL } from './const.js'
+import { listenToButtonEvent } from './main.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const symbol = urlParams.get('symbol');
 
     listenToNewsEvent();
+    listenToButtonEvent();
 
     if (!symbol) {
         console.error('Ticker symbol is missing');

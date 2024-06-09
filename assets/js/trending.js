@@ -1,4 +1,5 @@
 import { SERVER_URL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const";
+import { listenToButtonEvent } from "./main";
 let once = true;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -6,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isTrending = selectedValue === 'trending'
 
     listenToAllEvent();
+    listenToButtonEvent();
 
     setLoading(true, isTrending);
     await populate(isTrending);
