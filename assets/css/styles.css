@@ -81,7 +81,6 @@ input[type="text"] {
 .container h3 {
   color: #000000;
   font-size: 24px;
-  margin-bottom: 25px;
   font-weight: 600;
 }
 
@@ -113,7 +112,7 @@ input[type="text"] {
   grid-row: 3;
   justify-self: center;
   display: none;
-  max-height: 400px;
+  max-height: 320px;
   overflow-y: auto;
   padding-top: 0;
   align-self: baseline;
@@ -323,7 +322,9 @@ nav a:hover {
   #search-results {
     grid-column: 1/4;
     width: 65%;
-    max-height: 300px;
+    max-height: 250px;
+    margin: 0 25px 10px 0;
+    margin-bottom: 10px;
     margin-right: 25px;
   }
 
@@ -358,11 +359,6 @@ nav a:hover {
 
   #search-results > div.search-title-container {
     width: 100%;
-  }
-
-  #search-results {
-    max-height: 220px;
-    margin-bottom: 10px;
   }
 }
 
@@ -408,5 +404,9 @@ nav a:hover {
   .home, .trending {
     grid-column: 1/-1;
     width: 90%;
+  }
+  #search-input {
+    box-sizing: border-box;
+    margin-left: 5px;
   }
 }

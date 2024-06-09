@@ -346,16 +346,16 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     font-size: 14px;
     text-decoration: none;
     padding: 15px;
-    background-color: #1B4F72; /* Slightly lighter blue for contrast */
+    background-color: #1B4F72;
     border: 1px solid #0A2A42;
-    border-radius: 5px; /* Rounded corners for a modern look */
+    border-radius: 5px;
     color: white;
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+    transition: background-color 0.3s, color 0.3s;
   }
 
   nav a:hover {
-    background-color: #154360; /* Darker blue on hover */
-    color: #FFD700; /* Golden color on hover */
+    background-color: #154360;
+    color: #FFD700;
   }
 
   .about {
