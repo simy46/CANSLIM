@@ -112,7 +112,7 @@ h1 {
 }
 
 .news h4 {
-  margin: 10px 10px 10px 0;
+  margin: 10px;
   font-size: 1.25em;
   color: #333;
   overflow: hidden; 
@@ -229,6 +229,10 @@ nav a {
 nav a:hover {
   border-bottom: 2px solid #FFD700;
   color: #FFD700;
+}
+
+.header-btn {
+  display: none;
 }
 
 /* HAMSTER */
@@ -550,7 +554,7 @@ nav a:hover {
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: auto auto auto 10px;
     gap: 10px;
     justify-items: center;
     width: 100%;
@@ -582,6 +586,28 @@ nav a:hover {
   #news-container {
     max-height: 545px;
     overflow-y: auto;
+  }
+
+  .header-btn {
+    width: 100%;
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header-btn button {
+    background-color: #0A2A42;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 0 0 5rem 5rem;
+    transform: translateY(30%);
+    padding: 10px 45px;
+    z-index: 1000;
+  }
+  .header-btn button:hover {
+    background-color: #1B4F72;
   }
 }
 
@@ -666,5 +692,16 @@ nav a:hover {
   #news-container {
     box-sizing: border-box;
     overflow: auto;
+  }
+
+  #btn > button {
+    transform: translateY(0%);
+    border-radius: 5px;
+    width: 95%;
+    padding: 6px 10px 0;
+  }
+
+  .header-btn button:hover {
+    background-color: #0A2A42;
   }
 }

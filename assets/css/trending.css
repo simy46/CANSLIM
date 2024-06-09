@@ -26,7 +26,7 @@ h1 {
 /* Container */
 .container {
   width: 90%;
-  margin: 20px auto auto auto;
+  margin: 40px auto auto auto;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -97,9 +97,8 @@ nav a {
   text-align: center;
 }
 
-
 /* Ajoutez ceci au CSS existant */
-.hidden {
+.hidden, .header-btn {
 display: none;
 }
 
@@ -334,7 +333,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: auto auto auto 10px;
     gap: 10px;
     justify-items: center;
     width: 100%;
@@ -361,6 +360,28 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   .about {
     grid-column: span 2;
     width: 95%;
+  }
+
+  .header-btn {
+    width: 100%;
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header-btn button {
+    background-color: #0A2A42;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 0 0 5rem 5rem;
+    transform: translateY(30%);
+    padding: 10px 45px;
+    z-index: 1000;
+  }
+  .header-btn button:hover {
+    background-color: #1B4F72;
   }
 }
 
@@ -415,7 +436,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
   body > div.container {
     padding: 0;
-    margin: 10px 40px 30px;
+    margin: 40px;
   }
 
   #section-title > h1 {
@@ -464,5 +485,16 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
   #stock-selector {
     max-width: 100px;
+  }
+
+  #btn > button {
+    transform: translateY(0%);
+    border-radius: 5px;
+    width: 95%;
+    padding: 6px 10px 0;
+  }
+
+  .header-btn button:hover {
+    background-color: #0A2A42;
   }
 }

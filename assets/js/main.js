@@ -1,8 +1,11 @@
-import { SERVER_URL } from "./const";
+import { SERVER_URL, SELECTED_SYMBOL } from "./const";
 
 document.addEventListener('DOMContentLoaded', async () => {
     listenToSearchEvent();
+    listenToButtonEvent();
 });
+
+
 
 function listenToSearchEvent() {
     const inputElement = document.getElementById('search-input');
@@ -51,8 +54,10 @@ async function searchWithInputValue(inputValue) {
             industrySpan.textContent = `Industry: ${quote.industry}`;
             resultItem.appendChild(industrySpan);
             resultItem.addEventListener('click', () => {
-                window.location.href = `/stock?symbol=${quote.symbol}`;
+                sessionStorage.setItem(SELECTED_SYMBOL, quote.symbol);
+                window.location.href = '/stock';
             });
+            
 
             searchContainer.appendChild(resultItem);
         });
@@ -68,9 +73,7 @@ async function searchWithInputValue(inputValue) {
 
 async function searchStocks(input) {
     try {
-        const url = `${SERVER_URL}/api/search?q=${encodeURIComponent(input)}`;
-        console.log(url);
-        const response = await fetch(url);
+        const response = await fetch(`${SERVER_URL}/api/search?q=${encodeURIComponent(input)}`);
         if (!response.ok) {
             throw new Error('Erreur lors de la recherche des stocks');
         }
@@ -80,7 +83,6 @@ async function searchStocks(input) {
         return [];
     }
 }
-
 
 function createSearchResults(inputValue) {
     const searchContainer = document.getElementById('search-results');
@@ -102,3 +104,39 @@ function createSearchResults(inputValue) {
     div.appendChild(button);
     searchContainer.appendChild(div);
 }
+
+function toggleI(down) {
+    const i = document.querySelector('#btn > i');
+    if (down) {
+        i.classList.remove('fa-chevron-up');
+        i.classList.add('fa-chevron-down');
+    } else {
+        i.classList.remove('fa-chevron-down');
+        i.classList.add('fa-chevron-up');
+    }
+}
+
+export function listenToButtonEvent() {
+    const div = document.getElementById('div-btn');
+    const btn = document.getElementById('btn');
+    const nav = document.querySelector('nav');
+
+    function buttonOnclick(e) {
+        e.stopPropagation();
+        const isHidden = nav.classList.contains('nav-hidden');
+        if (isHidden) {
+            nav.classList.remove('nav-hidden');
+            nav.classList.add('nav-visible');
+            toggleI(false);
+        } else {
+            nav.classList.remove('nav-visible');
+            nav.classList.add('nav-hidden');
+            toggleI(true);
+        }
+    }
+
+    div.addEventListener('click', buttonOnclick);
+    btn.addEventListener('click', buttonOnclick);
+}
+
+

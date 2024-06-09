@@ -88,6 +88,10 @@ nav a:hover {
   color: #FFD700;
 }
 
+.header-btn {
+  display: none;
+}
+
 /* Responsive */
 @media (max-width: 1240px) {
   nav a {
@@ -106,10 +110,6 @@ nav a:hover {
   nav a {
     font-size: 14px;
   }
-
-  nav a:hover {
-    text-decoration: underline;
-  }
 }
 
 /* Ipad Mini */
@@ -126,7 +126,7 @@ nav a:hover {
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: auto auto auto 10px;
     gap: 10px;
     justify-items: center;
     width: 100%;
@@ -153,6 +153,28 @@ nav a:hover {
   .about {
     grid-column: span 2;
     width: 95%;
+  }
+
+  .header-btn {
+    width: 100%;
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header-btn button {
+    background-color: #0A2A42;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 0 0 5rem 5rem;
+    transform: translateY(30%);
+    padding: 10px 45px;
+    z-index: 1000;
+  }
+  .header-btn button:hover {
+    background-color: #1B4F72;
   }
 }
 
@@ -193,5 +215,16 @@ nav a:hover {
   .home, .trending {
     grid-column: 1/-1;
     width: 90%;
+  }
+
+  #btn > button {
+    transform: translateY(0%);
+    border-radius: 5px;
+    width: 95%;
+    padding: 6px 10px 0;
+  }
+
+  .header-btn button:hover {
+    background-color: #0A2A42;
   }
 }
