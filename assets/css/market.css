@@ -32,7 +32,7 @@ h1 {
 }
 /* Container */
 .container {
-  width: 90%;
+  width: 80%;
   margin: 20px auto;
   background-color: #fff;
   border-radius: 10px;
@@ -63,8 +63,6 @@ h1 {
   grid-column: 1/-1;
   text-align: center;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
@@ -72,12 +70,12 @@ h1 {
   font-size: 2.5em;
   color: #333;
   margin: 0 0 10px 0;
+  width: 100%;
 }
 
 .news-summary {
   font-size: 1.2em;
   color: #666;
-  max-width: 80%;
   margin: 0 auto;
 }
 
@@ -120,7 +118,6 @@ h1 {
   overflow: hidden; 
   white-space: nowrap;
   text-overflow: ellipsis; 
-  width: 100%;
 }
 
 
@@ -155,7 +152,6 @@ h1 {
 }
 
 .news-tickers span {
-  display: inline-block;
   background-color: #0A2A42;
   color: rgb(255, 255, 255);
   padding: 5px 10px;
@@ -164,6 +160,7 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s;
   align-self: center;
+  white-space: nowrap;
 }
 
 .news-tickers span:hover {
@@ -236,7 +233,6 @@ nav a:hover {
 
 /* HAMSTER */
 #hamster-loading {
-  width: 100vh;
   height: 80vh;
   display: flex;
   justify-content: center;
@@ -582,11 +578,43 @@ nav a:hover {
     grid-column: span 2;
     width: 95%;
   }
+
+  #news-container {
+    max-height: 545px;
+    overflow-y: auto;
+  }
 }
 
 /* Phone > Iphone 14 and smaller */
 @media (max-width: 668px) {
-  
+  #news-container .news, #news-container .news-title {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #news-container .news-thumbnail,.news-title {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  #news-container h4 {
+    font-size: 16px;
+    text-align: center; 
+  }
+
+  #news-container .news-publisher {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  #news-container .news-tickers span {
+    font-size: 10px;
+  }
+
+  #news-container {
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  }
 }
 
 @media (max-width: 500px)  {
@@ -606,6 +634,14 @@ nav a:hover {
   nav a {
     font-size: 12px;
   }
+
+  #news-container > div.news {
+    margin: auto;
+  }
+
+  #news-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 
 @media (max-width: 350px) {
@@ -621,5 +657,14 @@ nav a:hover {
   .home, .trending {
     grid-column: 1/-1;
     width: 90%;
+  }
+
+  #news-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  #news-container {
+    box-sizing: border-box;
+    overflow: auto;
   }
 }
