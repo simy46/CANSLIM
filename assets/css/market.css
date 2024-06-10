@@ -526,10 +526,6 @@ nav a:hover {
   nav a {
     font-size: 14px;
   }
-
-  nav a:hover {
-    text-decoration: underline;
-  }
 }
 
 /* Ipad Mini */
@@ -556,7 +552,6 @@ nav a:hover {
 
   nav a {
     font-size: 14px;
-    text-decoration: none;
     padding: 15px;
     background-color: #1B4F72;
     border: 1px solid #0A2A42;
