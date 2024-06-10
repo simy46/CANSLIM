@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /stock?symbol=
+
+Sitemap: https://www.canslimcalculator.com/sitemap.xml
