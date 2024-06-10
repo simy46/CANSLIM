@@ -18,12 +18,51 @@
     <script src="https://kit.fontawesome.com/298d966629.js" crossorigin="anonymous"></script>
     <script src="/assets/js/crypto.js" type="module" defer></script>
     
+    <!-- Structured Data with schema.org -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.canslimcalculator.com"
+                },
+                {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Top Stocks",
+                "item": "https://www.canslimcalculator.com/stocks"
+                },
+                {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Market News",
+                "item": "https://www.canslimcalculator.com/market-news"
+                },
+                {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Crypto Analysis",
+                "item": "https://www.canslimcalculator.com/crypto-analysis"
+                },
+                {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "About",
+                "item": "https://www.canslimcalculator.com/about"
+                }
+            ]
+        }
+    </script>
 </head>
 <body>
     <header>
         <nav class="nav-hidden">
             <a href="/" class="home">Home</a>
-            <a href="/stocks" class="trending">Trending / Daily Gainers</a>
+            <a href="/top-stocks" class="trending">Trending / Daily Gainers</a>
             <a href="/market-news">Market News</a>
             <a href="/crypto-analysis">Crypto Analysis</a>
             <a href="/about" class="about">About</a>

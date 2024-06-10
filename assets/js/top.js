@@ -1,5 +1,5 @@
-import { SERVER_URL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const";
-import { listenToButtonEvent } from "./header";
+import { SERVER_URL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const.js";
+import { listenToButtonEvent } from "./header.js";
 let once = true;
 
 document.addEventListener('DOMContentLoaded', async () => {

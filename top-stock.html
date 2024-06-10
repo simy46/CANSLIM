@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/top.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/298d966629.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/top.js" type="module" defer></script>
+    <title>CANSLIM Calculator</title>
+
+    <!-- Meta description -->
+<meta name="description" content="Discover the top stocks using the CANSLIM method with CANSLIM Calculator. Analyze stocks effectively and make informed investment decisions.">
+
+<!-- Meta keywords -->
+<meta name="keywords" content="CANSLIM, canslim, trending stocks, daily gainers, canslim calculator, canslim calculator trending, canslim calculator daily, canslim calculator daily gainers, canslim calculator top stocks, top stocks, stock analysis, investment, finance, trading, stock market, financial tools, portfolio management, equity analysis, stock screening, market trends, financial analysis, investment strategy, stock picking, stock research, trading tools, financial planning, market news">
+
+<!-- Author meta tag -->
+<meta name="author" content="simy46">
+
+<!-- Robots meta tag -->
+<meta name="robots" content="index, follow">
+
+<!-- Canonical tag to avoid duplicate content -->
+<link rel="canonical" href="https://canslimcalculator.com/top-stocks">
+
+<!-- Open Graph tags for social media sharing -->
+<meta property="og:title" content="CANSLIM Calculator - Top Stocks">
+<meta property="og:description" content="Discover the top stocks using the CANSLIM method with CANSLIM Calculator. Analyze stocks effectively and make informed investment decisions.">
+<meta property="og:image" content="https://canslimcalculator.com/canslim_logo.jpg">
+<meta property="og:url" content="https://canslimcalculator.com/top-stocks">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CANSLIM Calculator">
+
+<!-- Twitter Card tags for Twitter sharing -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CANSLIM Calculator - Top Stocks">
+<meta name="twitter:description" content="Discover the top stocks using the CANSLIM method with CANSLIM Calculator. Analyze stocks effectively and make informed investment decisions.">
+<meta name="twitter:image" content="https://canslimcalculator.com/canslim_logo.jpg">
+<meta name="twitter:url" content="https://canslimcalculator.com/top-stocks">
+<meta name="twitter:creator" content="@simy_alg">
+
+<!-- Favicon for browser tab -->
+<link rel="icon" type="image/x-icon" href="/assets/img/favicon_io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon_io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon_io/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon_io/android-chrome-512x512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon_io/apple-touch-icon.png">
+
+<!-- Theme color -->
+<meta name="theme-color" content="#2c3e50">
+
+
+    <!-- Structured Data with schema.org -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.canslimcalculator.com"
+                },
+                {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Top Stocks",
+                "item": "https://www.canslimcalculator.com/stocks"
+                },
+                {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Market News",
+                "item": "https://www.canslimcalculator.com/market-news"
+                },
+                {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Crypto Analysis",
+                "item": "https://www.canslimcalculator.com/crypto-analysis"
+                },
+                {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "About",
+                "item": "https://www.canslimcalculator.com/about"
+                }
+            ]
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="nav-hidden">
+            <a href="/" class="home">Home</a>
+            <a href="/top-stocks" class="trending">Trending / Daily Gainers</a>
+            <a href="/market-news">Market News</a>
+            <a href="/crypto-analysis">Crypto Analysis</a>
+            <a href="/about" class="about">About</a>
+            <div class="header-btn" id="div-btn">
+                <button id="btn"></i><i class="fa-solid fa-chevron-down"></i></button>
+            </div>
+        </nav>
+    </header>
+    
+        <div class="container">
+
+            <!-- Selection Input -->
+            <div class="title with-navigation">
+                <div class="title" id="section-title">
+                    <h1>Error 404</h1>
+                    <i class="fa-solid fa-fire"></i>
+                </div>                
+                <select id="stock-selector">
+                    <option value="trending">Trending Stocks</option>
+                    <option value="gainers">Daily Gainers</option>
+                </select>
+            </div>
+    
+            <!-- TRENDING CONTAINER -->
+            <div id="trending-container">
+                <div id="stocks-container"></div>
+                <div id="loading">
+                    <div class="loader"></div>
+                </div>
+                <p class="note">
+                    Note: The stocks listed here are currently trending in the market. 
+                    This does not imply a recommendation for investment.
+                </p>
+            </div>
+    
+            <!-- DAILY GAINERS CONTAINER -->
+            <div id="gainers-container" class="hidden">
+                <div id="daily-gainers-container"></div>
+                <div id="loading-daily">
+                    <div class="loader"></div>
+                </div>
+                <p class="note">
+                    Note: The stocks listed in the Daily Gainers section are based on their performance 
+                    within a specific time frame and do not constitute a recommendation for investment.                </p>
+                </p>
+            </div>
+    
+        </div>
+
+    <footer>
+        <p>
+            © 2024 CANSLIM Calculator. All rights reserved. &#169;
+        </p>
+    </footer>
+</body>
+</html>
