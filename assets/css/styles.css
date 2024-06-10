@@ -210,7 +210,7 @@ nav a:hover {
   color: #FFD700;
 }
 
-.header-btn {
+.header-btn#div-btn {
   display: none;
 }
 
