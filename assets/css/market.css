@@ -583,9 +583,33 @@ nav a:hover {
     width: 95%;
   }
 
-  #news-container {
-    max-height: 545px;
-    overflow-y: auto;
+  .nav-hidden {
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    max-height: 30px;
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .nav-visible {
+    height: auto;
+    overflow: visible;
+    transition: max-height 0.3s ease-in;
+  }
+  
+  .nav-hidden > #div-btn {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    bottom: -25px;
+    width: 100%;
+    z-index: 1000;
+    grid-row: 1;
+    cursor: pointer;
+  }
+  
+  .nav-hidden > #div-btn > #btn {
+    transform: translateY(0%);
+    padding: 0;
   }
 
   .header-btn {
@@ -606,8 +630,10 @@ nav a:hover {
     padding: 10px 45px;
     z-index: 1000;
   }
-  .header-btn button:hover {
-    background-color: #1B4F72;
+
+  #news-container {
+    max-height: 545px;
+    overflow-y: auto;
   }
 }
 
@@ -671,9 +697,9 @@ nav a:hover {
 }
 
 @media (max-width: 350px) {
-  body > header > nav {
-    grid-template-rows: repeat(4, 1fr);
-    overflow: hidden;
+  body > header > nav.nav-visible {
+    grid-template-rows: 1fr 1fr 1fr 1fr 10px;
+    overflow: visible;
   }
   nav a {
     font-size: 10px;
@@ -685,6 +711,11 @@ nav a:hover {
     width: 90%;
   }
 
+  .header-btn button {
+    padding: 6px 25px;
+    transform: translateY(50%);
+  }
+
   #news-container {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
@@ -692,16 +723,5 @@ nav a:hover {
   #news-container {
     box-sizing: border-box;
     overflow: auto;
-  }
-
-  #btn > button {
-    transform: translateY(0%);
-    border-radius: 5px;
-    width: 95%;
-    padding: 6px 10px 0;
-  }
-
-  .header-btn button:hover {
-    background-color: #0A2A42;
   }
 }

@@ -1,4 +1,5 @@
-import { SERVER_URL } from "./const";
+import { SERVER_URL } from "./const.js";
+import { listenToButtonEvent } from "./header.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
     listenToSearchEvent();
@@ -102,38 +103,4 @@ function createSearchResults(inputValue) {
     div.appendChild(h3);
     div.appendChild(button);
     searchContainer.appendChild(div);
-}
-
-function toggleI(down) {
-    const i = document.querySelector('#btn > i');
-    if (down) {
-        i.classList.remove('fa-chevron-up');
-        i.classList.add('fa-chevron-down');
-    } else {
-        i.classList.remove('fa-chevron-down');
-        i.classList.add('fa-chevron-up');
-    }
-}
-
-export function listenToButtonEvent() {
-    const div = document.getElementById('div-btn');
-    const btn = document.getElementById('btn');
-    const nav = document.querySelector('nav');
-
-    function buttonOnclick(e) {
-        e.stopPropagation();
-        const isHidden = nav.classList.contains('nav-hidden');
-        if (isHidden) {
-            nav.classList.remove('nav-hidden');
-            nav.classList.add('nav-visible');
-            toggleI(false);
-        } else {
-            nav.classList.remove('nav-visible');
-            nav.classList.add('nav-hidden');
-            toggleI(true);
-        }
-    }
-
-    div.addEventListener('click', buttonOnclick);
-    btn.addEventListener('click', buttonOnclick);
 }

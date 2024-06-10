@@ -1,5 +1,5 @@
 import { SERVER_URL, TRENDING_STOCKS_TICKERS, SELECTED_SYMBOL } from "./const.js";
-import { listenToButtonEvent } from "./main.js";
+import { listenToButtonEvent } from "./header.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
     listenToButtonEvent();

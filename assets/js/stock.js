@@ -1,5 +1,5 @@
 import { SERVER_URL } from './const.js'
-import { listenToButtonEvent } from './main.js';
+import { listenToButtonEvent } from './header.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);

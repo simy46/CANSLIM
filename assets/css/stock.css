@@ -550,6 +550,35 @@ button {
     width: 95%;
   }
 
+  .nav-hidden {
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    max-height: 30px;
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .nav-visible {
+    height: auto;
+    overflow: visible;
+    transition: max-height 0.3s ease-in;
+  }
+  
+  .nav-hidden > #div-btn {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    bottom: -25px;
+    width: 100%;
+    z-index: 1000;
+    grid-row: 1;
+    cursor: pointer;
+  }
+  
+  .nav-hidden > #div-btn > #btn {
+    transform: translateY(0%);
+    padding: 0;
+  }
+
   .header-btn {
     width: 100%;
     grid-column: 1/-1;
@@ -567,9 +596,6 @@ button {
     transform: translateY(30%);
     padding: 10px 45px;
     z-index: 1000;
-  }
-  .header-btn button:hover {
-    background-color: #1B4F72;
   }
 }
 
@@ -598,9 +624,9 @@ button {
 }
 
 @media (max-width: 350px) {
-  body > header > nav {
-    grid-template-rows: repeat(4, 1fr);
-    overflow: hidden;
+  body > header > nav.nav-visible {
+    grid-template-rows: 1fr 1fr 1fr 1fr 10px;
+    overflow: visible;
   }
   nav a {
     font-size: 10px;
@@ -612,14 +638,8 @@ button {
     width: 90%;
   }
 
-  #btn > button {
-    transform: translateY(0%);
-    border-radius: 5px;
-    width: 95%;
-    padding: 6px 10px 0;
-  }
-
-  .header-btn button:hover {
-    background-color: #0A2A42;
+  .header-btn button {
+    padding: 6px 25px;
+    transform: translateY(50%);
   }
 }
