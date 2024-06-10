@@ -215,6 +215,7 @@ nav a {
   border-bottom: 2px solid transparent;
   width: 100%;
   text-align: center;
+  text-decoration: none;
 }
 
 nav a:hover {
