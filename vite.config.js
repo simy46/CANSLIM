@@ -8,9 +8,9 @@ export default defineConfig({
         main: './index.html',
         about: './about.html',
         crypto: './crypto-analysis.html',
-        market: 'market-news.html',
-        stock: 'stock.html',
-        trending: 'top-stock.html'
+        market: '/market-news.html',
+        stock: '/stock.html',
+        trending: '/top-stock.html'
       }
     }
   },
