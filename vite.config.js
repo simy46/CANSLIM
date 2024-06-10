@@ -10,7 +10,7 @@ export default defineConfig({
         crypto: './crypto-analysis.html',
         market: 'market-news.html',
         stock: 'stock.html',
-        trending: 'trending.html'
+        trending: 'top-stock.html'
       }
     }
   },
