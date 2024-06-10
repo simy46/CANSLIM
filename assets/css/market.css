@@ -209,19 +209,10 @@ nav {
 /* Link styling */
 nav a {
   color: white;
-  text-decoration: none;
   font-size: 18px;
   padding: 20px 16px;
   transition: color 0.3s, background-color 0.3s;
-}
-
-nav a:hover {
-  color: #FFD700;
-}
-
-nav a {
   border-bottom: 2px solid transparent;
-  padding: 10px 16px;
   width: 100%;
   text-align: center;
 }
