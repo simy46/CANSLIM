@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CANSLIM Calculator</title>
     <link rel="stylesheet" href="./assets/css/market.css">
+
+    <!-- Preconnect to third-party hosts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://kit.fontawesome.com">
+
+    <!-- Preload third-party files -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+    </noscript>
+    <link rel="preload" href="https://kit.fontawesome.com/298d966629.js" as="script">
+
     <script src="https://kit.fontawesome.com/298d966629.js" crossorigin="anonymous"></script>
     <script src="./assets/js/marketNews.js" type="module" defer></script>
     <!-- Google tag (gtag.js) -->
@@ -127,7 +140,9 @@
             <a href="/crypto-analysis">Crypto Analysis</a>
             <a href="/about" class="about">About</a>
             <div class="header-btn" id="div-btn">
-                <button id="btn"></i><i class="fa-solid fa-chevron-down"></i></button>
+                <button id="btn" aria-label="Expand">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </button>
             </div>
         </nav>
     </header>

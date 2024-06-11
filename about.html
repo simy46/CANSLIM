@@ -6,8 +6,19 @@
     <title>CANSLIM Calculator</title>
     <link rel="stylesheet" href="/assets/css/about.css">
 
-    <link rel="icon" type="image/x-icon" href="./assets/img/favicon_io/favicon.ico">
+    <!-- Preconnect to third-party hosts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://kit.fontawesome.com">
 
+    <!-- Preload third-party files -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+    </noscript>
+    <link rel="preload" href="https://kit.fontawesome.com/298d966629.js" as="script">
+
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon_io/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon_io/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="./assets/img/favicon_io/android-chrome-192x192.png">
@@ -21,11 +32,11 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6N1VD0CZWB"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-    gtag('config', 'G-6N1VD0CZWB');
+        gtag('config', 'G-6N1VD0CZWB');
     </script>
 
     <!-- Meta description -->
@@ -141,7 +152,9 @@
             <a href="/crypto-analysis">Crypto Analysis</a>
             <a href="/about" class="about">About</a>
             <div class="header-btn" id="div-btn">
-                <button id="btn"></i><i class="fa-solid fa-chevron-down"></i></button>
+                <button id="btn" aria-label="Expand">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </button>
             </div>
         </nav>
     </header>
