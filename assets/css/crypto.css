@@ -113,6 +113,8 @@ nav a:hover {
 
   body > header {
     padding: 0;
+    position: fixed;
+    z-index: 1000;
   }
 
   nav {
@@ -127,17 +129,26 @@ nav a:hover {
   }
 
   nav a {
-    font-size: 14px;
+    font-size: 16px;
     padding: 15px;
     background-color: #1B4F72;
     border: 1px solid #0A2A42;
     border-radius: 5px;
     color: white;
-    transition: background-color 0.3s, color 0.3s;
-  }
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 2px solid #ffffff;
+
+}
+
 
   nav a:hover {
     background-color: #154360;
+    border-bottom-color: #FFD700;
     color: #FFD700;
   }
 
@@ -147,18 +158,38 @@ nav a:hover {
   }
 
   .nav-hidden {
-    grid-template-rows: 1fr;
+    height: 50px;
     overflow: hidden;
-    max-height: 30px;
-    transition: max-height 0.3s ease-out;
+    transition: height 0.2s ease-out;
+    position: relative;
   }
-  
+
   .nav-visible {
-    height: auto;
+    height: 300px;
     overflow: visible;
-    transition: max-height 0.3s ease-in;
+    transition: height 0.3s ease-in;
+    position: relative;
   }
-  
+
+  .nav-hidden > a {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nav-visible > a {
+  opacity: 1;
+  transition: opacity 0.6s ease-in;
+  pointer-events: auto;
+  }
+
+  .header-btn i {
+    transition: transform 0.6s ease;
+  }
+
+  .rotate-up {  
+    transform: rotate(180deg);
+  }
+
   .nav-hidden > #div-btn {
     grid-column: 1 / -1;
     display: flex;
@@ -168,8 +199,9 @@ nav a:hover {
     z-index: 1000;
     grid-row: 1;
     cursor: pointer;
+    transform: translateY(20%);
   }
-  
+
   .nav-hidden > #div-btn > #btn {
     transform: translateY(0%);
     padding: 0;

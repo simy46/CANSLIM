@@ -22,12 +22,10 @@ export function listenToButtonEvent() {
 }
 
 function toggleI(isDown) {
-    const i = document.querySelector('#btn > i');
+    const icon = document.querySelector('#btn > i');
     if (isDown) {
-        i.classList.remove('fa-chevron-up');
-        i.classList.add('fa-chevron-down');
+        icon.classList.remove('rotate-up');
     } else {
-        i.classList.remove('fa-chevron-down');
-        i.classList.add('fa-chevron-up');
+        icon.classList.add('rotate-up');
     }
 }
