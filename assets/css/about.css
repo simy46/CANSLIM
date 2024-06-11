@@ -24,7 +24,7 @@ body {
   align-items: center;
 }
 
-.development > h2{
+.development > h2 {
   overflow: hidden; 
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -192,6 +192,14 @@ nav a:hover {
     transform: translateY(30%);
     padding: 10px 45px;
     z-index: 1000;
+  }
+
+  .development {
+    height: 87vh;;
+  }
+
+  .development > h2 {
+    font-size: 20px;
   }
 }
 

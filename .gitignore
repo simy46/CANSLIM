@@ -1,3 +1,12 @@
+# Ignore node_modules directory
 node_modules/
+
+# Ignore dist directory (for build outputs)
 dist/
+
+# Ignore local environment variables file
 .env.local
+
+# Ignore dev directory at the root of the project
+/dev
+

@@ -193,6 +193,14 @@ nav a:hover {
     padding: 10px 45px;
     z-index: 1000;
   }
+
+  .development {
+    height: 87vh;;
+  }
+
+  .development > h2 {
+    font-size: 20px;
+  }
 }
 
 /* Phone > Iphone 14 and smaller */
