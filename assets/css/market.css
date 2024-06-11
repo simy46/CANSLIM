@@ -33,7 +33,7 @@ h1 {
 /* Container */
 .container {
   width: 80%;
-  margin: 40px auto;
+  margin: 30px auto;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -540,6 +540,10 @@ nav a:hover {
     position: fixed;
     z-index: 1000;
   }
+  
+  .container {
+    margin-top: 90px;
+  }
 
   nav {
     display: grid;
@@ -623,7 +627,7 @@ nav a:hover {
     z-index: 1000;
     grid-row: 1;
     cursor: pointer;
-    transform: translateY(20%);
+    transform: translateY(40%);
   }
 
   .nav-hidden > #div-btn > #btn {

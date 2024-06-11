@@ -64,7 +64,7 @@
     /* Container */
     .container {
     width: 90%;
-    margin: 80px auto 20px;
+    margin: 20px auto 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -248,6 +248,10 @@
       position: fixed;
       z-index: 1000;
     }
+
+    .container {
+      margin-top: 90px;
+    }
   
     nav {
       display: grid;
@@ -331,7 +335,7 @@
       z-index: 1000;
       grid-row: 1;
       cursor: pointer;
-      transform: translateY(20%);
+      transform: translateY(40%);
     }
   
     .nav-hidden > #div-btn > #btn {

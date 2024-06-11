@@ -26,7 +26,7 @@ h1 {
 /* Container */
 .container {
   width: 90%;
-  margin: 40px auto auto auto;
+  margin: 30px auto auto auto;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -328,6 +328,10 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     z-index: 1000;
   }
 
+  .container {
+    margin-top: 90px;
+  }
+
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -410,7 +414,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     grid-row: 1;
     cursor: pointer;
-    transform: translateY(20%);
+    transform: translateY(40%);
   }
 
   .nav-hidden > #div-btn > #btn {
@@ -489,7 +493,6 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
   body > div.container {
     padding: 0;
-    margin: 40px;
   }
 
   #section-title > h1 {
