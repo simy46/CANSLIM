@@ -42,7 +42,7 @@ function listenToNewsEvent() {
     newsHeader.addEventListener('click', function() {
     // Check current display state and toggle it
     const isDisplayed = newsContent.style.display !== 'none';
-    newsContent.style.display = isDisplayed ? 'none' : 'block';
+    newsContent.style.display = isDisplayed ? 'none' : 'flex';
 
     // Correctly toggle classes based on the new display state
     toggleButton.classList.toggle('fa-chevron-up', !isDisplayed);
@@ -157,7 +157,7 @@ function createNews(news) {
     const div = document.createElement('div');
     div.classList.add('news-item');
 
-    const h4 = document.createElement('h4');
+    const h4 = document.createElement('h7');
     h4.textContent = news.title;
     h4.classList.add('news-title');
     div.appendChild(h4);

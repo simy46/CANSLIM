@@ -1,16 +1,87 @@
-* {
-  box-sizing: border-box;
+/* Document */
+html, body {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
-
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   color: #333;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
+  
+}
+
+.development {
+  height: 83vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.development > h2 {
+  overflow: hidden; 
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 15px;
+}
+
+/* footer */
+footer {
+  background-color: black;
+  color: white;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Header */
+header {
+  background-color: #0A2A42; 
+  width: 100%;
+  padding: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+}
+
+/* Link styling */
+nav a {
+  color: white;
+  font-size: 18px;
+  padding: 20px 16px;
+  transition: color 0.3s, background-color 0.3s;
+  border-bottom: 2px solid transparent;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+
+nav a:hover {
+  border-bottom: 2px solid #FFD700;
+  color: #FFD700;
+}
+
+.header-btn {
+  display: none;
 }
 
 /* HTML: <div class="loader"></div> */
@@ -170,17 +241,18 @@ td.real-value {
 .tilte-container {
   display: flex;
   justify-content: space-between;
+  gap: 5px
 }
 
 #stock-info {
   display: flex;
   gap: 15px;
-  align-items: center;
+  align-items: end;
 }
 
 #stock-info > p {
   align-self: flex-end;
-  margin-bottom: 19px;
+  margin-bottom: 23px;
 }
 
 /* NEWS */
@@ -195,7 +267,7 @@ td.real-value {
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   height: max-content;
   overflow-y: auto;
 }
@@ -203,29 +275,36 @@ td.real-value {
 .news-item {
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
-  padding: 15px;
-  margin-bottom: 15px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 5px;
+  margin-bottom: 10px;
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
+  border-bottom: 3px solid #0A2A42;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+  width: 100%;
 }
 
 .news-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #f1f1f1;
 }
 
 .news-title {
-  font-size: 18px;
+  font-size: 14px; 
   font-weight: 600;
   color: #333;
   margin-bottom: 5px;
 }
 
 .news-publisher {
-  font-size: 14px;
+  font-size: 12px;
   color: #666;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .news-tickers {
@@ -282,7 +361,9 @@ td.real-value {
 
 .news-content {
   display: none;
-  padding: 20px;
+  padding: 10px;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .fa-chevron-down {
@@ -299,58 +380,6 @@ td.real-value {
   margin-bottom: 20px;
 }
 
-/* footer */
-footer {
-  background-color: black;
-  color: white;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-/* Header */
-header {
-  background-color: #0A2A42; 
-  width: 100%;
-  padding: 20px 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 90%;
-}
-
-/* Link styling */
-nav a {
-  color: white;
-  font-size: 18px;
-  padding: 20px 16px;
-  transition: color 0.3s, background-color 0.3s;
-  border-bottom: 2px solid transparent;
-  width: 100%;
-  text-align: center;
-  text-decoration: none;
-}
-
-nav a:hover {
-  border-bottom: 2px solid #FFD700;
-  color: #FFD700;
-}
-
-.header-btn {
-  display: none;
-}
 
 /* EROOR PAGE */
 #error-page {
@@ -535,8 +564,7 @@ button {
     font-weight: bold;
     border-bottom: 2px solid #ffffff;
 
-}
-
+  }
 
   nav a:hover {
     background-color: #154360;
@@ -569,9 +597,9 @@ button {
   }
 
   .nav-visible > a {
-  opacity: 1;
-  transition: opacity 0.6s ease-in;
-  pointer-events: auto;
+    opacity: 1;
+    transition: opacity 0.6s ease-in;
+    pointer-events: auto;
   }
 
   .header-btn i {
@@ -591,7 +619,6 @@ button {
     z-index: 1000;
     grid-row: 1;
     cursor: pointer;
-    transform: translateY(40%);
   }
 
   .nav-hidden > #div-btn > #btn {
@@ -617,19 +644,66 @@ button {
     padding: 10px 45px;
     z-index: 1000;
   }
-
-  .development {
-    height: 87vh;;
+  .container {
+    margin-top: 50px;
+    width: 100%;
   }
-
-  .development > h2 {
-    font-size: 20px;
+  .aside-container {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 400px;
+  }
+  .main-content {
+    flex-direction: column-reverse;
+  }
+  .checklist-container {
+    order: 2;
+  }
+  #news-container, #stock-chart {
+    width: 48%;
+    height: auto;
+  }
+  .checklist-container table {
+    font-size: 14px;
+  }
+  .checklist-container th, .checklist-container td {
+    padding: 8px;
   }
 }
 
 /* Phone > Iphone 14 and smaller */
 @media (max-width: 668px) {
-  
+  .aside-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #news-container, #stock-chart {
+    width: 85%;
+  }
+
+  body > div.container > div > div.checklist-container > div > h1 {
+    font-size: 25px;
+  }
+
+  #stock-name {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  div#stock-info > p#stock-ticker {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  #stock-name, body > div.container > div > div.checklist-container > div > h1 {
+    margin-bottom: 5px;
+  }  
+
+  .checklist-container table {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 500px)  {
@@ -648,6 +722,19 @@ button {
 
   nav a {
     font-size: 12px;
+  }
+
+  #news-container, #stock-chart {
+    width: 80%;
+    margin-bottom: 20px;
+    max-height: 400px;
+  }
+
+  .checklist-container table {
+    font-size: 10px;
+  }
+  .checklist-container th, .checklist-container td {
+    padding: 6px;
   }
 }
 
