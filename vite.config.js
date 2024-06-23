@@ -9,7 +9,7 @@ export default defineConfig({
         about: './about.html',
         crypto: './crypto-analysis.html',
         market: '/market-news.html',
-        stock: '/stock.html',
+        stock: '/canslim-stock.html',
         trending: '/top-stock.html'
       }
     }
