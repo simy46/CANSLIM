@@ -97,7 +97,7 @@ function createSearchResults(inputValue) {
 
     div.classList.add('search-title-container');
     h3.textContent = `Search result for: ${inputValue}`;
-    button.textContent = 'clear';
+    button.textContent = 'x';
 
     div.appendChild(h3);
     div.appendChild(button);
