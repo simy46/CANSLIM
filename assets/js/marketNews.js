@@ -75,7 +75,7 @@ function createNews(news) {
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = (e) => {
                 e.stopPropagation();
-                window.location.href = `/stock?symbol=${ticker}`;
+                window.location.href = `/canslim-stock?symbol=${ticker}`;
             };
             
             tickers.appendChild(tickerSpan);

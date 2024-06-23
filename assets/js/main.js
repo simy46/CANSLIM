@@ -53,7 +53,7 @@ async function searchWithInputValue(inputValue) {
             industrySpan.textContent = `Industry: ${quote.industry}`;
             resultItem.appendChild(industrySpan);
             resultItem.addEventListener('click', () => {
-                window.location.href = `/stock?symbol=${quote.symbol}`;
+                window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
             });
 
             searchContainer.appendChild(resultItem);
@@ -71,7 +71,6 @@ async function searchWithInputValue(inputValue) {
 async function searchStocks(input) {
     try {
         const url = `${SERVER_URL}/api/search?q=${encodeURIComponent(input)}`;
-        console.log(url);
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Erreur lors de la recherche des stocks');
