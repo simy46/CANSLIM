@@ -44,9 +44,6 @@ function setLoading(isLoading, isTrending) {
     const loading = isTrending ? loadingTrending : loadingDaily;
     const container = isTrending ? stocksContainer : dailyGainersContainer;
 
-    console.log(`LOADING : ${loading}`);
-    console.log(`CONTAINER : ${container}`)
-
     loading.style.display = isLoading ? 'flex' : 'none';
     container.style.display = isLoading ? 'none' : 'grid';
 }

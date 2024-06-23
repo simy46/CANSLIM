@@ -72,9 +72,7 @@ function updateCheckList(results) {
     for (let key in results) {
         if (Object.prototype.hasOwnProperty.call(results, key)) {
             const element = document.getElementById(`${key}-result`);
-            console.log(element)
             const passElement = document.getElementById(`${key}-pass`);
-            console.log(passElement)
             const rowElement = element ? element.closest('tr') : null;
             
 
