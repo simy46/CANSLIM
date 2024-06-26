@@ -72,11 +72,11 @@ async function searchWithInputValue(inputValue) {
                 calculateButton.textContent = 'Calculate';
                 calculateButton.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.href = `/stock?symbol=${quote.symbol}`;
+                    window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
                 });
 
                 const infoButton = document.createElement('button');
-                infoButton.textContent = 'Stock Info';
+                infoButton.textContent = 'Info';
                 infoButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     window.location.href = `/stock-info?symbol=${quote.symbol}`;
