@@ -30,41 +30,74 @@ function initiateSearch() {
 
 async function searchWithInputValue(inputValue) {
     const searchContainer = document.getElementById('search-results');
-    const quotes = await searchStocks(inputValue);
+    const spinner = document.createElement('div');
+    spinner.classList.add('spinner');
     searchContainer.innerHTML = '';
-    createSearchResults(inputValue);
+    searchContainer.appendChild(spinner);
+    searchContainer.style.display = 'block';
 
-    if (quotes.length > 0) {
-        quotes.forEach((quote) => {
-            if (!quote.industry) {
-                return
-            }
-            const resultItem = document.createElement('div');
-            resultItem.classList.add('result-item');
-            
+    // Mettre à jour l'URL avec le paramètre de recherche
+    const newUrl = `${window.location.pathname}?search=${encodeURIComponent(inputValue)}`;
+    window.history.pushState({ path: newUrl }, '', newUrl);
 
-            const nameAndSymbol = document.createElement('p');
-            nameAndSymbol.textContent = `${quote.shortname} (${quote.symbol})`;
+    try {
+        const quotes = await searchStocks(inputValue);
+        searchContainer.innerHTML = '';
+        searchContainer.style.paddingTop = 0;
+        createSearchResults(inputValue);
 
-            resultItem.appendChild(nameAndSymbol);
+        if (quotes.length > 0) {
+            quotes.forEach((quote) => {
+                if (!quote.industry) {
+                    return;
+                }
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
 
-            const industrySpan = document.createElement('span');
-            industrySpan.classList.add('industry');
-            industrySpan.textContent = `Industry: ${quote.industry}`;
-            resultItem.appendChild(industrySpan);
-            resultItem.addEventListener('click', () => {
-                window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
+                const nameAndSymbol = document.createElement('p');
+                nameAndSymbol.textContent = `${quote.shortname} (${quote.symbol})`;
+
+                resultItem.appendChild(nameAndSymbol);
+
+                const industrySpan = document.createElement('span');
+                industrySpan.classList.add('industry');
+                industrySpan.textContent = `Industry: ${quote.industry}`;
+                resultItem.appendChild(industrySpan);
+
+                const popUp = document.createElement('div');
+                popUp.classList.add('popup');
+
+                const calculateButton = document.createElement('button');
+                calculateButton.textContent = 'CAN SLIM Stock';
+                calculateButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    window.location.href = `/stock?symbol=${quote.symbol}`;
+                });
+
+                const infoButton = document.createElement('button');
+                infoButton.textContent = 'Stock Info';
+                infoButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    window.location.href = `/stock-info?symbol=${quote.symbol}`;
+                });
+
+                popUp.appendChild(calculateButton);
+                popUp.appendChild(infoButton);
+
+                resultItem.appendChild(popUp);
+
+                resultItem.addEventListener('click', () => {
+                    popUp.classList.toggle('show');
+                });
+
+                searchContainer.appendChild(resultItem);
             });
-
-            searchContainer.appendChild(resultItem);
-        });
-        searchContainer.style.display = 'block';
-    } else {
-        const noResult = document.createElement('p');
-        noResult.classList.add('no-result');
-        noResult.textContent = 'No results found.';
-        searchContainer.appendChild(noResult);
-        searchContainer.style.display = 'block';
+        } else {
+            noResultFound();
+        }
+    } catch (error) {
+        console.error('Erreur lors de la recherche des stocks:', error);
+        noResultFound();
     }
 }
 
@@ -82,11 +115,10 @@ async function searchStocks(input) {
     }
 }
 
-
 function createSearchResults(inputValue) {
     const searchContainer = document.getElementById('search-results');
     const div = document.createElement('div');
-    const h3 = document.createElement('h3');
+    const h3 = document.createElement('h4');
     const button = document.createElement('button');
 
     button.id = 'clear-button';
@@ -102,4 +134,12 @@ function createSearchResults(inputValue) {
     div.appendChild(h3);
     div.appendChild(button);
     searchContainer.appendChild(div);
+}
+
+function noResultFound() {
+    const searchContainer = document.getElementById('search-results');
+    const noResult = document.createElement('p');
+    noResult.classList.add('no-result');
+    noResult.textContent = 'No results found.';
+    searchContainer.appendChild(noResult);
 }

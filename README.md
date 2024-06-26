@@ -1,6 +1,6 @@
 # CANSLIM Calculator
 
-### © @simy46, 2024
+### © simy46, 2024
 
 ## Project Description
 **CANSLIM Calculator** is a sophisticated web application designed to implement the investment principles from *"How to Make Money in Stocks Getting Started: A Guide to Putting CAN SLIM Concepts into Action"* by Matthew Galgani. The CANSLIM method is a renowned strategy for identifying potential high-growth stocks using a combination of fundamental and technical analysis.

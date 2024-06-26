@@ -5,6 +5,7 @@
     { "source": "/crypto-analysis", "destination": "/crypto-analysis.html" },
     { "source": "/top-stocks", "destination": "/top-stock.html" },
     { "source": "/market-news", "destination": "/market-news.html" },
-    { "source": "/canslim-stock", "destination": "/canslim-stock.html" }
+    { "source": "/canslim-stock", "destination": "/canslim-stock.html" },
+    { "source": "/stock-info", "destination": "/stock-info.html" }
   ]
 }
