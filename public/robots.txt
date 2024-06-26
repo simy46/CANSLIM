@@ -1,4 +1,5 @@
 User-agent: *
-Disallow: /stock?symbol=
+Disallow: /canslim-stock?symbol=
+Disallow: /stock-info?symbol=
 
 Sitemap: https://www.canslimcalculator.com/sitemap.xml
