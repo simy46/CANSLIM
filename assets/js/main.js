@@ -36,14 +36,12 @@ async function searchWithInputValue(inputValue) {
     searchContainer.appendChild(spinner);
     searchContainer.style.display = 'block';
 
-    // Mettre à jour l'URL avec le paramètre de recherche
     const newUrl = `${window.location.pathname}?search=${encodeURIComponent(inputValue)}`;
     window.history.pushState({ path: newUrl }, '', newUrl);
 
     try {
         const quotes = await searchStocks(inputValue);
         searchContainer.innerHTML = '';
-        searchContainer.style.paddingTop = 0;
         createSearchResults(inputValue);
 
         if (quotes.length > 0) {
@@ -67,8 +65,11 @@ async function searchWithInputValue(inputValue) {
                 const popUp = document.createElement('div');
                 popUp.classList.add('popup');
 
+                const p = document.createElement('p');
+                p.textContent = '|'
+
                 const calculateButton = document.createElement('button');
-                calculateButton.textContent = 'CAN SLIM Stock';
+                calculateButton.textContent = 'Calculate';
                 calculateButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     window.location.href = `/stock?symbol=${quote.symbol}`;
@@ -82,6 +83,7 @@ async function searchWithInputValue(inputValue) {
                 });
 
                 popUp.appendChild(calculateButton);
+                popUp.appendChild(p)
                 popUp.appendChild(infoButton);
 
                 resultItem.appendChild(popUp);
@@ -128,7 +130,7 @@ function createSearchResults(inputValue) {
     };
 
     div.classList.add('search-title-container');
-    h3.textContent = `Search result for: ${inputValue}`;
+    h3.textContent = `results for ${inputValue}`;
     button.textContent = 'x';
 
     div.appendChild(h3);

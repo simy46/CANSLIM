@@ -657,7 +657,6 @@ nav a:hover {
   }
 
   #news-container {
-    max-height: 545px;
     overflow-y: auto;
   }
 }

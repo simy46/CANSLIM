@@ -189,6 +189,9 @@
   font-size: 16px;
   color: white;
   transition: background-color 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .popup button:hover {
@@ -203,7 +206,6 @@
 .popup p {
   font-size: 30px;
   margin-top: 20px;
-
 }
 
 .spinner {
@@ -350,8 +352,6 @@
       border-bottom: 2px solid #ffffff;
   
   }
-  
-  
     nav a:hover {
       background-color: #154360;
       border-bottom-color: #FFD700;
@@ -484,6 +484,16 @@
       padding: 5px;
       gap: 10px
     }
+
+    #search-results > div > div {
+      padding: 0;
+    }
+
+    #search-results > div > div > button {
+      padding: 5px;
+      font-size: 14px;
+      margin: auto;
+    }
   }
   
     /* Phone > Iphone 14 and smaller */
@@ -532,6 +542,11 @@
   
     .main {
       padding: 0;
+    }
+
+    #search-results > div > div > button {
+      padding: 5px;
+      font-size: 10px;
     }
   }
   
