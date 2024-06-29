@@ -69,14 +69,14 @@ async function searchWithInputValue(inputValue) {
                 p.textContent = '|'
 
                 const calculateButton = document.createElement('button');
-                calculateButton.textContent = 'Calculate';
+                calculateButton.textContent = 'CALCULATE';
                 calculateButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
                 });
 
                 const infoButton = document.createElement('button');
-                infoButton.textContent = 'Info';
+                infoButton.textContent = 'INFO';
                 infoButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     window.location.href = `/stock-info?symbol=${quote.symbol}`;

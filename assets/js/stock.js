@@ -83,10 +83,6 @@ function updateCheckList(results) {
                 if (rowElement) {
                     if (!value) {
                         rowElement.classList.add('undefined')
-                        rowElement.style.textDecoration = 'line-through';
-                        rowElement.style.color = 'gray';
-                        rowElement.style.backgroundColor = '#f0f0f0';
-                        element.style.fontWeight = 'normal'
                     } else {
                         rowElement.style.textDecoration = 'none';
                         rowElement.style.backgroundColor = '';
