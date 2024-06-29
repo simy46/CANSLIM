@@ -348,14 +348,11 @@ td.real-value {
 }
 
 .news-header::after {
-  content: '';
   position: absolute;
   left: 0;
   bottom: -2px;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, #3498db, #2ecc71);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: -1;
 }
 .news-header h2 {

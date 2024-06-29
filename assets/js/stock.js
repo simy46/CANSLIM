@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const symbol = urlParams.get('symbol');
 
-    listenToNewsEvent();
     listenToButtonEvent();
 
     if (!symbol) {
@@ -30,36 +29,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setLoading(false);
 });
-
-function listenToNewsEvent() {
-    const newsHeader = document.querySelector('.news-header');
-    const toggleButton = document.getElementById('toggle-news');
-    const newsContent = document.getElementById('news-content');
-
-    // Initially hide the news content if not already hidden
-    newsContent.style.display = 'none';
-
-    newsHeader.addEventListener('click', function() {
-    // Check current display state and toggle it
-    const isDisplayed = newsContent.style.display !== 'none';
-    newsContent.style.display = isDisplayed ? 'none' : 'flex';
-
-    // Correctly toggle classes based on the new display state
-    toggleButton.classList.toggle('fa-chevron-up', !isDisplayed);
-    toggleButton.classList.toggle('fa-chevron-down', isDisplayed);
-    });
-
-    buttonEvent();
-}
-
-function buttonEvent() {
-    const button = document.getElementById('error-button');
-
-    button.addEventListener('click', (e) => {
-        e.stopPropagation();
-        window.location.href = '/'
-    })
-}
 
 function updateCheckList(results) {
     const stockName = document.getElementById('stock-name');
