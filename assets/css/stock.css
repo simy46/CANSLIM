@@ -234,11 +234,11 @@ td.real-value {
   font-weight: bold;
 }
 
-td.undefined {
+.undefined {
   color: #383938;
   text-decoration: line-through;
   background-color: #f0f0f0;
-  font-weight: 0;
+  font-weight: normal;
 }
 
 .tilte-container {
