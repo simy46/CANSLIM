@@ -280,7 +280,7 @@ td.real-value {
   border-radius: 8px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   padding: 10px 5px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
   border-bottom: 3px solid #0A2A42;
@@ -292,7 +292,7 @@ td.real-value {
 }
 
 .news-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   background-color: #f1f1f1;
 }
@@ -308,6 +308,7 @@ td.real-value {
   font-size: 12px;
   color: #666;
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .news-tickers {
@@ -360,7 +361,7 @@ td.real-value {
 }
 
 .news-content {
-  display: none;
+  display: flex;
   padding: 10px;
   flex-direction: column;
   gap: 20px;
