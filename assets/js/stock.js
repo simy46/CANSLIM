@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const symbol = urlParams.get('symbol');
 
+    listenToNewsEvent();
     listenToButtonEvent();
 
     if (!symbol) {
@@ -29,6 +30,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setLoading(false);
 });
+
+function listenToNewsEvent() {
+    const newsHeader = document.querySelector('.news-header');
+    const newsContent = document.getElementById('news-content');
+
+
+    newsHeader.addEventListener('click', function() {
+    // Check current display state and toggle it
+    const isDisplayed = newsContent.style.display !== 'none';
+    newsContent.style.display = isDisplayed ? 'none' : 'flex';
+    
+    });
+
+    buttonEvent();
+}
+
+function buttonEvent() {
+    const button = document.getElementById('error-button');
+
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = '/'
+    })
+}
 
 function updateCheckList(results) {
     const stockName = document.getElementById('stock-name');

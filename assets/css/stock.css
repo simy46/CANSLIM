@@ -271,7 +271,7 @@ td.real-value {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
   padding: 10px;
-  height: max-content;
+  height: 500px;
   overflow-y: auto;
 }
 
