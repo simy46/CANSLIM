@@ -10,17 +10,14 @@
         <!-- Preconnect to third-party hosts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preconnect" href="https://kit.fontawesome.com">
     
         <!-- Preload third-party files -->
         <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
         </noscript>
-        <link rel="preload" href="https://kit.fontawesome.com/298d966629.js" as="script">
     
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/298d966629.js" crossorigin="anonymous"></script>
         <script src="/assets/js/main.js" type="module" defer></script>
     
         <!-- Google tag (gtag.js) -->
@@ -134,33 +131,190 @@
             }
             </script>            
     </head>
-<body>
-    <header>
-        <nav class="nav-hidden">
-            <a href="/" class="home">Home</a>
-            <a href="/top-stocks" class="trending">Top Stocks</a>
-            <a href="/market-news">Market News</a>
-            <a href="/crypto-analysis">Crypto Analysis</a>
-            <a href="/about" class="about">About</a>
-            <div class="header-btn" id="div-btn">
-                <button id="btn" aria-label="Expand">
-                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                </button>
+    <body>
+        <header>
+            <nav>
+                <a href="/" class="home">
+                    <img alt="CANSLIM Logo" src="./assets/img/2.jpg" id="logo">
+                </a>
+                <a href="/trending">top stocks</a>
+                <a href="/market-news">news</a>
+                <a href="/crypto-analysis">crypto</a>
+            </nav>
+        </header>
+        <div class="container"> 
+            <div class="title-container">
+                <div class="background-text">
+                    <h1 class="canslim">CANSLIM</h1>
+                    <h1 class="strategy">STRATEGY</h1>
+                </div>
+                <h1 class="calculator">CALCULATOR</h1>
             </div>
-        </nav>
-    </header>
-         
-    <div class="main container">
-        <h1 style="font-size: 25px;">CAN SLIM CALCULATOR</h1>
-        <input id="search-input" type="text" placeholder="Search a stock...">
-        <i class="fa-solid fa-magnifying-glass" id="search-glass"></i>
-        <div id="search-results" class="container"></div>
-    </div>
-    <footer>
-        <p>
-            © 2024 CANSLIM Calculator. All rights reserved. &#169;
-        </p>
-    </footer>
-</body>
+            
+            <div class="search-container">
+                <h3>Analyze stocks efficiently for smarter investment choices!</h3>
+                <div class="input-container">
+                    <input id="search-input" type="text" placeholder="Search a stock...">
+                    <i class="fa-solid fa-magnifying-glass" id="search-glass"></i>
+                </div>
+                <div id="search-results" class="container"></div>
+            </div>
+            <a id="canslim-link" href="#canslim-info">Learn more about CAN SLIM Strategy</a>
+        </div>
+        <div class="container" id="canslim-info">
+            <div class="title-container-canslim">
+                <h1 class="title">What is CAN SLIM strategy?</h1>
+                <div id="canslim-explanation">
+                    <span class="explanation" id="current-explanation-name"></span>
+                    <span class="explanation" id="current-explanation-description"></span>
+                    <img id="current-explanation-image" src="" alt="CAN SLIM Explanation Image" class="explanation-image" />
+                </div>
+            </div>
+            
+            
+            <section class="section" id="introduction">
+                <h2 class="section-title">1. Introduction</h2>
+                <h3 class="subsection-title">Overview</h3>
+                <p class="text">
+                    <strong>Title:</strong> How to Make Money in Stocks<br>
+                    <strong>Author:</strong> William J. O'Neil, founder of Investor's Business Daily<br>
+                    <strong>Publication Date:</strong> First published in 1988, with multiple updates
+                </p>
+                <p class="text">
+                    <strong>Context:</strong> This book is a guide to stock investment strategies, helping investors achieve consistent returns through a proven methodology.
+                </p>
+            
+                <h3 class="subsection-title">Objective</h3>
+                <p class="text">
+                    <strong>Purpose:</strong> To share O'Neil's CAN SLIM strategy for identifying top-performing stocks.<br>
+                    <strong>Target Audience:</strong> Suitable for beginners, intermediate investors, and professionals.
+                </p>
+            </section>
+            
+            <section class="section" id="main-content">
+                <h2 class="section-title">2. Main Content</h2>
+                <h3 class="subsection-title">Introduction to the Investment Strategy</h3>
+                <p class="text">
+                    <strong>Definition:</strong> CAN SLIM is a systematic approach to stock investing, focusing on high-growth stocks with strong fundamentals.<br>
+                    <strong>Importance:</strong> Combines technical and fundamental analysis for a comprehensive stock evaluation.<br>
+                    <strong>History:</strong> Developed by William J. O'Neil in the 1950s and popularized through his book.
+                </p>
+            
+                <h3 class="subsection-title">Basic Principles</h3>
+                <p class="text">
+                    <strong>Principles:</strong> Emphasizes companies with strong earnings growth, innovative products, favorable supply and demand, and institutional backing.<br>
+                    <strong>Example:</strong> Investing in a tech company with a new groundbreaking product and consistent earnings growth.
+                </p>
+            
+                <h3 class="subsection-title">Steps to Implement the Strategy</h3>
+                <p class="text">
+                    <strong>Steps:</strong> 
+                    <ol class="text-list">
+                        <li>Evaluate market direction.</li>
+                        <li>Identify stocks with strong earnings growth.</li>
+                        <li>Look for companies with new products or services.</li>
+                        <li>Analyze supply and demand dynamics.</li>
+                        <li>Determine if the stock is a market leader.</li>
+                        <li>Check for institutional sponsorship.</li>
+                    </ol>
+                    <strong>Tools:</strong> Stock screening software, financial news platforms, market analysis tools.<br>
+                    <strong>Tips:</strong> Start small, diversify, and monitor market trends.
+                </p>
+            
+                <h3 class="subsection-title">Case Studies and Real Examples</h3>
+                <p class="text">
+                    <strong>Examples:</strong> Successful applications include investments in Apple, Google, and Amazon.<br>
+                    <strong>Analysis:</strong> These examples show significant returns when following CAN SLIM principles.
+                </p>
+            </section>
+            
+            <section class="section" id="analysis">
+                <h2 class="section-title">3. Analysis and Critiques</h2>
+                <h3 class="subsection-title">Advantages of the Strategy</h3>
+                <p class="text">
+                    <strong>Strengths:</strong> Combines technical and fundamental analysis, clear criteria, proven success.<br>
+                    <strong>Comparison:</strong> Offers a balanced approach compared to other strategies, mitigating risks while maximizing returns.
+                </p>
+            
+                <h3 class="subsection-title">Disadvantages and Risks</h3>
+                <p class="text">
+                    <strong>Limitations:</strong> Requires continuous monitoring, potentially higher trading costs.<br>
+                    <strong>Risks:</strong> Market volatility and economic downturns impact performance. Mitigation includes diversification and regular reviews.
+                </p>
+            </section>
+            
+            <section class="section" id="conclusion">
+                <h2 class="section-title">4. Conclusion</h2>
+                <h3 class="subsection-title">Summary of Key Points</h3>
+                <p class="text">
+                    <strong>Summary:</strong> CAN SLIM identifies high-growth stocks using technical and fundamental analysis, offering a structured investment approach.<br>
+                    <strong>Importance:</strong> Provides a reliable framework for informed investment decisions in today's market.
+                </p>
+            
+                <h3 class="subsection-title">Final Recommendations</h3>
+                <p class="text">
+                    <strong>Ideal for:</strong> Investors seeking a systematic stock investment approach.<br>
+                    <strong>Advice:</strong> Further reading, financial courses, and investment communities enhance understanding.
+                </p>
+            
+                <h3 class="subsection-title">Call to Action</h3>
+                <p class="text">
+                    <strong>Encouragement:</strong> Read "How to Make Money in Stocks" for insights and practical guidance on CAN SLIM.<br>
+                    Gain a comprehensive understanding of stock investing and necessary tools.<br>
+                </p>
+            </section>
+            
+            <section class="section" id="resources">
+                <h2 class="section-title">5. Additional Resources</h2>
+                <p class="text">
+                    <strong>Links and References:</strong> 
+                    <ul class="text-list">
+                        <li><a href="https://archive.aessweb.com/index.php/5009/article/view/320/2692" class="resource-link">AN APPLICATION OF CAN SLIM INVESTING IN THE DOW JONES BENCHMARK</a></li>
+                        <li>Videos: <a href="#" class="resource-link">[Links to relevant videos]</a></li>
+                        <li>Podcasts: <a href="#" class="resource-link">[Links to relevant podcasts]</a></li>
+                    </ul>
+                </p>
+            </section>
+            
+        </div>
+        
+        
+        <footer>
+            <div class="footer-content">
+            <div class="disclaimer">
+                <img src="./assets/img/1.jpg" alt="CAN SLIM card with logo">
+                <p>
+                    Disclaimer: The information provided on this site is for educational and informational purposes only. 
+                    We are not responsible for any actions taken based on this information. Please conduct your own research 
+                    and consult with a qualified financial advisor before making any investment decisions.
+                </p>
+            </div>
+                <div class="footer-links">
+                    <div class="link-container">
+                        <h3>learn more</h3>
+                        <a href="https://en.wikipedia.org/wiki/CAN_SLIM">Wikipedia</a>
+                        <a href="https://www.amazon.ca/dp/0071810110?psc=1&ref=ppx_yo2ov_dt_b_product_details#">Get the book</a>
+                        <a href="./assets/pdf/IBD_BuyingChecklist.pdf" download="IBD_Buying_Checklist">IBD's PDF</a>
+                    </div>
+                    <div class="link-container">
+                        <h3>team</h3>
+                        <a href="/about">About</a>
+                    </div>
+                    <!--
+                    <div class="link-container">
+                        <h3>change theme</h3>
+                        <button id="light-theme">
+                            Light
+                        </a>
+                        <button id="dark-theme">
+                            Dark
+                        </a>
+                    </div>  
+                    -->
+                </div>
+            </div>
+            <p>© 2024 CANSLIM Calculator. All rights reserved. &#169;</p>
+        </footer>
+    </body>
 
 </html>

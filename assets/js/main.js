@@ -1,10 +1,74 @@
 import { SERVER_URL } from "./const.js";
-import { listenToButtonEvent } from "./header.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
+    explanationListener();
     listenToSearchEvent();
-    listenToButtonEvent();
 });
+
+function explanationListener() {
+    const explanations = [
+        {
+            name: "- C: Current Earnings -",
+            description: "Look for companies with strong current earnings growth.",
+            path: "./assets/img/canslim-dark/c.png"
+        },
+        {
+            name: "- A: Annual Earnings -",
+            description: "Companies should have a record of strong annual earnings growth.",
+            path: "./assets/img/canslim-dark/a.png"
+        },
+        {
+            name: "- N: New Products, Services, or Leadership -",
+            description: "Companies with new innovations or management.",
+            path: "./assets/img/canslim-dark/n.png"
+        },
+        {
+            name: "- S: Supply and Demand -",
+            description: "Look at the share demand and supply in the market.",
+            path: "./assets/img/canslim-dark/s.png"
+        },
+        {
+            name: "- L: Leader or Laggard -",
+            description: "Invest in market leaders, not laggards.",
+            path: "./assets/img/canslim-dark/l.png"
+        },
+        {
+            name: "- I: Institutional Sponsorship -",
+            description: "Favor stocks with institutional backing.",
+            path: "./assets/img/canslim-dark/i.png"
+        },
+        {
+            name: "- M: Market Direction -",
+            description: "Consider the direction of the overall market.",
+            path: "./assets/img/canslim-dark/m.png"
+        }
+    ];
+    
+    let index = 0;
+    const explanationElement = document.getElementById("current-explanation-name");
+    const explanationDescription = document.getElementById("current-explanation-description")
+    const explanationImage = document.getElementById("current-explanation-image");
+    
+    function updateExplanation() {
+        explanationElement.style.opacity = 1;   
+        explanationDescription.style.opacity = 0;
+        explanationImage.style.opacity = 0;
+        setTimeout(() => {
+            explanationImage.src = explanations[index].path;
+            explanationElement.textContent = explanations[index].name;
+            explanationDescription.textContent = explanations[index].description
+
+            explanationImage.style.opacity = 1;
+            explanationElement.style.opacity = 1;   
+            explanationDescription.style.opacity = 1;
+            
+            index = (index + 1) % explanations.length;
+        }, 10); // Match the transition duration
+    }
+    
+    setInterval(updateExplanation, 5000); // Change every 5 seconds
+    updateExplanation(); // Initialize
+}
 
 function listenToSearchEvent() {
     const inputElement = document.getElementById('search-input');
@@ -59,7 +123,7 @@ async function searchWithInputValue(inputValue) {
 
                 const industrySpan = document.createElement('span');
                 industrySpan.classList.add('industry');
-                industrySpan.textContent = `Industry: ${quote.industry}`;
+                industrySpan.textContent = `${quote.industry}`;
                 resultItem.appendChild(industrySpan);
 
                 const popUp = document.createElement('div');
@@ -69,14 +133,14 @@ async function searchWithInputValue(inputValue) {
                 p.textContent = '|'
 
                 const calculateButton = document.createElement('button');
-                calculateButton.textContent = 'CALCULATE';
+                calculateButton.textContent = 'calculate';
                 calculateButton.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
+                    window.location.href = `/stock?symbol=${quote.symbol}`;
                 });
 
                 const infoButton = document.createElement('button');
-                infoButton.textContent = 'INFO';
+                infoButton.textContent = 'stock info';
                 infoButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     window.location.href = `/stock-info?symbol=${quote.symbol}`;
@@ -130,8 +194,8 @@ function createSearchResults(inputValue) {
     };
 
     div.classList.add('search-title-container');
-    h3.textContent = `results for ${inputValue}`;
-    button.textContent = 'x';
+    h3.textContent = `Results for ${inputValue}`;
+    button.textContent = 'X';
 
     div.appendChild(h3);
     div.appendChild(button);
