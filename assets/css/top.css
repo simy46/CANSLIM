@@ -186,6 +186,10 @@ h1 {
   height: 70vh;
 }
 
+#trending-container, #gainers-container {
+  min-height: 50vh;
+}
+
 
 .title.with-navigation {
 display: flex;
@@ -354,7 +358,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   font-size: 28px;
 }
 
-.note {
+#note {
   margin-left: 15px;
   font-size: 24px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

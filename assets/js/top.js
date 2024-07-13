@@ -64,15 +64,19 @@ function showContainer() {
     const gainersContainer = document.getElementById('gainers-container');
     const selectedValue = document.getElementById('stock-selector').value;
     const title = document.getElementById('section-title');
+    const note = document.getElementById('note');
     
     if (selectedValue === 'trending') {
         title.textContent = 'Trending Stocks'
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
+        note.textContent = 'Note: The stocks listed here are currently trending in the market. This does not imply a recommendation for investment.'
+
     } else if (selectedValue === 'gainers') {
         title.textContent = 'Daily Gainers Stocks'
         gainersContainer.classList.remove('hidden');
         trendingContainer.classList.add('hidden');
+        note.textContent = 'Note: The stocks listed in the Daily Gainers section are based on their performance within a specific time frame and do not constitute a recommendation for investment.'
     }
 
     localStorage.setItem(STOCK_SELECTION, selectedValue)
