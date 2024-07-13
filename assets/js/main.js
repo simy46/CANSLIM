@@ -10,37 +10,37 @@ function explanationListener() {
         {
             name: "- C: Current Earnings -",
             description: "Look for companies with strong current earnings growth.",
-            path: "./assets/img/c.png"
+            path: "/c.png"
         },
         {
             name: "- A: Annual Earnings -",
             description: "Companies should have a record of strong annual earnings growth.",
-            path: "./assets/img/a.png"
+            path: "/a.png"
         },
         {
             name: "- N: New Products, Services, or Leadership -",
             description: "Companies with new innovations or management.",
-            path: "./assets/img/n.png"
+            path: "/n.png"
         },
         {
             name: "- S: Supply and Demand -",
             description: "Look at the share demand and supply in the market.",
-            path: "./assets/img/s.png"
+            path: "/s.png"
         },
         {
             name: "- L: Leader or Laggard -",
             description: "Invest in market leaders, not laggards.",
-            path: "./assets/img/l.png"
+            path: "/l.png"
         },
         {
             name: "- I: Institutional Sponsorship -",
             description: "Favor stocks with institutional backing.",
-            path: "./assets/img/i.png"
+            path: "/i.png"
         },
         {
             name: "- M: Market Direction -",
             description: "Consider the direction of the overall market.",
-            path: "./assets/img/m.png"
+            path: "/m.png"
         }
     ];
     
