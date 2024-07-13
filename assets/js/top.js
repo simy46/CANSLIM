@@ -1,5 +1,4 @@
 import { SERVER_URL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const.js";
-import { listenToButtonEvent } from "./header.js";
 let once = true;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -7,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isTrending = selectedValue === 'trending'
 
     listenToAllEvent();
-    listenToButtonEvent();
 
     setLoading(true, isTrending);
     await populate(isTrending);
@@ -43,6 +41,9 @@ function setLoading(isLoading, isTrending) {
     
     const loading = isTrending ? loadingTrending : loadingDaily;
     const container = isTrending ? stocksContainer : dailyGainersContainer;
+
+    console.log(`LOADING : ${loading}`);
+    console.log(`CONTAINER : ${container}`)
 
     loading.style.display = isLoading ? 'flex' : 'none';
     container.style.display = isLoading ? 'none' : 'grid';
@@ -84,7 +85,7 @@ function showContainer() {
 
 function createStock(stock, container) {
     const stockDiv = document.createElement('div');
-    stockDiv.classList.add('stock', stock.regularMarketChangePercent >= 0 ? 'green' : 'red');
+    stockDiv.classList.add('stock', stock.regularMarketChangePercent >= 0 ? 'pass' : 'fail');
 
     const titleDiv = document.createElement('div');
     titleDiv.classList.add('title-trending')
@@ -122,7 +123,7 @@ function createStock(stock, container) {
 
     stockDiv.addEventListener('click', () => {
         if (!stock.cryptoTradeable) {
-            window.location.href = `/canslim-stock?symbol=${stock.symbol}`;
+            window.location.href = `/stock?symbol=${stock.symbol}`;
         } else {
             window.location.href = '/crypto-analysis';
         }

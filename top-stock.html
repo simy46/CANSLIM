@@ -11,17 +11,14 @@
     <!-- Preconnect to third-party hosts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://kit.fontawesome.com">
 
     <!-- Preload third-party files -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
     </noscript>
-    <link rel="preload" href="https://kit.fontawesome.com/298d966629.js" as="script">
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/298d966629.js" crossorigin="anonymous"></script>
     <script src="/assets/js/top.js" type="module" defer></script>
 
     <!-- Google tag (gtag.js) -->
@@ -156,17 +153,13 @@
 </head>
 <body>
     <header>
-        <nav class="nav-hidden">
-            <a href="/" class="home">Home</a>
-            <a href="/top-stocks" class="trending">Top Stocks</a>
-            <a href="/market-news">Market News</a>
-            <a href="/crypto-analysis">Crypto Analysis</a>
-            <a href="/about" class="about">About</a>
-            <div class="header-btn" id="div-btn">
-                <button id="btn" aria-label="Expand">
-                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                </button>
-            </div>
+        <nav>
+            <a href="/" class="home">
+                <img alt="CANSLIM Logo" src="./assets/img/2.jpg" id="logo">
+            </a>
+            <a href="/top-stocks">top stocks</a>
+            <a href="/market-news">news</a>
+            <a href="/crypto-analysis">crypto</a>
         </nav>
     </header>
     
@@ -175,7 +168,7 @@
             <!-- Selection Input -->
             <div class="title with-navigation">
                 <div class="title" id="section-title">
-                    <h1>Error 404</h1>
+                    <h1></h1>
                     <i class="fa-solid fa-fire"></i>
                 </div>                
                 <select id="stock-selector">
@@ -191,8 +184,7 @@
                     <div class="loader"></div>
                 </div>
                 <p class="note">
-                    Note: The stocks listed here are currently trending in the market. 
-                    This does not imply a recommendation for investment.
+                    Note: The stocks listed here are currently trending in the market. This does not imply a recommendation for investment.
                 </p>
             </div>
     
@@ -203,17 +195,44 @@
                     <div class="loader"></div>
                 </div>
                 <p class="note">
-                    Note: The stocks listed in the Daily Gainers section are based on their performance 
-                    within a specific time frame and do not constitute a recommendation for investment.                </p>
-                </p>
+                    Note: The stocks listed in the Daily Gainers section are based on their performance within a specific time frame and do not constitute a recommendation for investment.                </p>
             </div>
     
         </div>
 
-    <footer>
-        <p>
-            © 2024 CANSLIM Calculator. All rights reserved. &#169;
-        </p>
-    </footer>
+        <footer>
+            <div class="footer-content">
+            <div class="disclaimer">
+                <img src="./assets/img/1.jpg" alt="CAN SLIM card with logo">
+                <p>
+                    Disclaimer: The information provided on this site is for educational and informational purposes only. 
+                    We are not responsible for any actions taken based on this information. Please conduct your own research 
+                    and consult with a qualified financial advisor before making any investment decisions.
+                </p>
+            </div>
+                <div class="footer-links">
+                    <div class="link-container">
+                        <h3>learn more</h3>
+                        <a href="https://en.wikipedia.org/wiki/CAN_SLIM">Wikipedia</a>
+                        <a href="https://www.amazon.ca/dp/0071810110?psc=1&ref=ppx_yo2ov_dt_b_product_details#">Get the book</a>
+                        <a href="./assets/pdf/IBD_BuyingChecklist.pdf" download="IBD_Buying_Checklist">IBD's PDF</a>
+                    </div>
+                    <div class="link-container">
+                        <h3>team</h3>
+                        <a href="/about">About</a>
+                    </div>
+                    <div class="link-container">
+                        <h3>change theme</h3>
+                        <button>
+                            Light
+                        </a>
+                        <button>
+                            Dark
+                        </a>
+                    </div>  
+                </div>
+            </div>
+            <p>© 2024 CANSLIM Calculator. All rights reserved. &#169;</p>
+        </footer>
 </body>
 </html>
