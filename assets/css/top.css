@@ -391,7 +391,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
 @media (max-width: 1024px) {
   #section-title {
-    justify-content: flex-start;
+    text-align: start;
   }
 
   div#stocks-container {
@@ -452,20 +452,10 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 668px) {
-  #section-title > h1 {
+  #section-title {
     font-size: 25px;
     align-self: center;
     margin-right: 10px;
-  }
-
-  #section-title > .fa-solid {
-    font-size: 20px;
-    margin-top: 10px;
-  }
-
-  #section-title {
-    display: flex;
-    align-items: baseline;
   }
 }
 
@@ -508,13 +498,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
   #section-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-
-  #section-title > h1 {
+    text-align: center;
     margin: 10px 0 0;
   }
 
@@ -562,7 +546,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 350px) {
-  #section-title h1 {
+  #section-title {
     font-size: 18px;
     overflow: hidden; 
     white-space: nowrap;

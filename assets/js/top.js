@@ -63,21 +63,16 @@ function showContainer() {
     const trendingContainer = document.getElementById('trending-container');
     const gainersContainer = document.getElementById('gainers-container');
     const selectedValue = document.getElementById('stock-selector').value;
-    const title = document.querySelector('#section-title > h1');
-    const icon = document.querySelector('#section-title > i');
+    const title = document.getElementById('section-title');
     
     if (selectedValue === 'trending') {
         title.textContent = 'Trending Stocks'
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
-        icon.classList.add('fa-fire')
-        icon.classList.remove('fa-chart-line')
     } else if (selectedValue === 'gainers') {
-        title.textContent = ' Daily Gainers Stocks'
+        title.textContent = 'Daily Gainers Stocks'
         gainersContainer.classList.remove('hidden');
         trendingContainer.classList.add('hidden');
-        icon.classList.add('fa-chart-line')
-        icon.classList.remove('fa-fire')
     }
 
     localStorage.setItem(STOCK_SELECTION, selectedValue)
