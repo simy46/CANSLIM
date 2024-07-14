@@ -175,6 +175,10 @@ footer > p {
   position: relative;
 }
 
+body > div:nth-child(2) {
+  padding-bottom: 80px;
+}
+
 /* NEWS container */
 #news-container {
   display: flex;
@@ -256,6 +260,7 @@ footer > p {
   display: grid;
   grid-template-columns: 1fr 4fr;
   gap: 20px;
+  box-sizing: border-box;
 }
 
 .tickers-title-div {
@@ -301,15 +306,14 @@ footer > p {
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 10px;
+  align-self: center;
 }
 
-.news h4 {
+.news h3 {
   margin: 10px 0;
   font-size: 1.25em;
-  color: #333;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  color: #b2b5bc;
+  text-align: justify; 
 }
 
 
@@ -321,31 +325,15 @@ footer > p {
 
 .news-tickers {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
   overflow-x: auto;
 }
 
-/* Custom Scrollbar */
-.news-tickers::-webkit-scrollbar {
-  height: 8px;
-}
-
-.news-tickers::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.news-tickers::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 10px;
-}
-
-.news-tickers::-webkit-scrollbar-thumb:hover {
-  background: #888;
-}
-
 .news-tickers span {
-  background-color: #0A2A42;
+  background-color: #010920;
   color: rgb(255, 255, 255);
   padding: 5px 10px;
   border-radius: 5px;
@@ -357,7 +345,7 @@ footer > p {
 }
 
 .news-tickers span:hover {
-  background-color: #0056b3;
+  background-color: #1a2136;
 }
 
 #important > *:not(h2) {
@@ -540,6 +528,14 @@ footer > p {
   @media (max-height: 600px) {
     /* Specific adjustments for devices with max width 900px and max height 600px */
   }
+
+  .container h1 {
+    font-size: 35px;
+  }
+
+  .container h1 img {
+    max-height: 40px;
+  }
 }
 
 @media (max-width: 908px) and (max-height: 600px) {
@@ -557,28 +553,12 @@ footer > p {
 }
 
 @media (max-width: 830px) {
-  /* Additional adjustments if needed for max-width 830px */
-}
-
-@media (max-width: 830px) {
 }
 
 /* Phone > Iphone 14 and smaller */
 @media (max-width: 668px) {
-  #news-container .news, #news-container .news-title {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  #news-container .news-thumbnail, .news-title {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-  }
-
-  #news-container h4 {
+  #news-container h3 {
     font-size: 16px;
-    text-align: center; 
   }
 
   #news-container .news-publisher {
@@ -590,16 +570,23 @@ footer > p {
     font-size: 10px;
   }
 
-  #news-container {
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  .container h1 {
+    font-size: 25px;
   }
-}
 
-@media (max-width: 668px) {
-}
+  .container h1 img {
+    max-height: 30px;
+  } 
 
-/* Responsive */
-@media (max-width: 668px) {
+  .news-thumbnail {
+    max-width: 150px;  
+    max-height: 200px;
+  }
+
+  #news-container > div > div > h3 {
+    font-size: 15px;
+  }
+
 }
 
 @media (max-width: 550px) {
@@ -641,6 +628,23 @@ footer > p {
     gap: 25px;
     margin: auto;
   }
+
+  #news-container > div > div > h3 {
+    font-size: 12px;
+  } 
+
+  .news-thumbnail {
+    max-width: 100px;  
+    max-height: 200px;
+  }
+
+  .container h1 {
+    font-size: 20px;
+  }
+
+  .container h1 img {
+    max-height: 25px;
+  } 
 }
 
 @media (max-width: 450px) {
