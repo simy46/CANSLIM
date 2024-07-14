@@ -136,7 +136,7 @@ async function searchWithInputValue(inputValue) {
                 calculateButton.textContent = 'calculate';
                 calculateButton.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.href = `/stock?symbol=${quote.symbol}`;
+                    window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
                 });
 
                 const infoButton = document.createElement('button');

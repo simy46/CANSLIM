@@ -9,14 +9,12 @@
     <!-- Preconnect to third-party hosts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://kit.fontawesome.com">
 
     <!-- Preload third-party files -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
     </noscript>
-    <link rel="preload" href="https://kit.fontawesome.com/298d966629.js" as="script">
 
     <!-- Favicon for browser tab -->
     <link rel="icon" type="image/x-icon" href="./assets/img/favicon_io/favicon.ico">
@@ -26,7 +24,6 @@
     <link rel="icon" type="image/png" sizes="512x512" href="./assets/img/favicon_io/android-chrome-512x512.png">
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon_io/apple-touch-icon.png">
 
-    <script src="https://kit.fontawesome.com/298d966629.js" crossorigin="anonymous"></script>
     <script src="/assets/js/about.js" type="module" defer></script>
 
     <!-- Google tag (gtag.js) -->
@@ -150,30 +147,80 @@
     </script>
     
 </head>
-    
 <body>
     <header>
-        <nav class="nav-hidden">
-            <a href="/" class="home">Home</a>
-            <a href="/top-stocks" class="trending">Top Stocks</a>
-            <a href="/market-news">Market News</a>
-            <a href="/crypto-analysis">Crypto Analysis</a>
-            <a href="/about" class="about">About</a>
-            <div class="header-btn" id="div-btn">
-                <button id="btn" aria-label="Expand">
-                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                </button>
-            </div>
+        <nav>
+            <a href="/" class="home">
+                <img alt="CANSLIM Logo" src="./assets/img/2.png" id="logo">
+            </a>
+            <a href="/top-stocks">top stocks</a>
+            <a href="/market-news">news</a>
+            <a href="/crypto-analysis">crypto</a>
         </nav>
     </header>
-    <div class="development">
-        <h2 style="text-align: center;">this page is still in development ...</h2>
+    <div class="content">
+        <section class="intro">
+            <h1>About CANSLIM Calculator</h1>
+            <p>
+                Welcome to CANSLIM Calculator, your go-to resource for mastering the CAN SLIM investment strategy. Our mission is to provide investors with the tools and knowledge they need to identify high-growth stocks and make informed investment decisions.
+            </p>
+        </section>
+        <section class="our-mission">
+            <h2>Our Mission</h2>
+            <p>
+                At CANSLIM Calculator, we aim to simplify the investment process for you. Our platform analyzes and calculates the key elements of the CAN SLIM strategy, helping you to easily identify stocks that meet these rigorous criteria. We provide a user-friendly interface where you can input data and get real-time analysis based on the CAN SLIM principles.
+            </p>
+        </section>
+        <section class="features">
+            <h2>Features</h2>
+            <ul>
+                <li>Real-time CAN SLIM stock screening</li>
+                <li>Detailed financial analysis tools</li>
+                <li>Educational resources to enhance your investment knowledge</li>
+                <li>Customized alerts for stocks that meet CAN SLIM criteria</li>
+            </ul>
+        </section>
+        <section class="contact">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need further information, feel free to contact us at <a href="mailto:support@canslimcalculator.com">support@canslimcalculator.com</a>.</p>
+        </section>
     </div>
-    
     <footer>
-        <p>
-            © 2024 CANSLIM Calculator. All rights reserved. &#169;
-        </p>
+        <div class="footer-content">
+        <div class="disclaimer">
+            <img src="./assets/img/1.png" alt="CAN SLIM card with logo">
+            <p>
+                Disclaimer: The information provided on this site is for educational and informational purposes only. 
+                We are not responsible for any actions taken based on this information. Please conduct your own research 
+                and consult with a qualified financial advisor before making any investment decisions.
+            </p>
+        </div>
+            <div class="footer-links">
+                <div class="link-container">
+                    <h3>learn more</h3>
+                    <a href="https://en.wikipedia.org/wiki/CAN_SLIM">Wikipedia</a>
+                    <a href="https://www.amazon.ca/dp/0071810110?psc=1&ref=ppx_yo2ov_dt_b_product_details#">Get the book</a>
+                    <a href="./assets/pdf/IBD_BuyingChecklist.pdf" download="IBD_Buying_Checklist">IBD's PDF</a>
+                </div>
+                <div class="link-container">
+                    <h3>team</h3>
+                    <a href="/about">About</a>
+                </div>
+                <!--
+                <div class="link-container">
+                    <h3>change theme</h3>
+                    <button id="light-theme">
+                        Light
+                    </a>
+                    <button id="dark-theme">
+                        Dark
+                    </a>
+                </div> 
+                -->
+                 
+            </div>
+        </div>
+        <p>© 2024 CANSLIM Calculator. All rights reserved. &#169;</p>
     </footer>
 </body>
 </html>
