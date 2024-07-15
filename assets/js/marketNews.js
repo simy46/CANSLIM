@@ -12,7 +12,6 @@ async function getNews() {
     let storedTickers = tickers ? JSON.parse(tickers) : [];
 
     const data = await fetchNews(storedTickers);
-    console.log(data);
     data.news.forEach(createNews);
     data.nav.forEach(createNav);
     data.lists.forEach(createList);
@@ -104,7 +103,6 @@ function createNews(news) {
 }
 
 function createNav(navItem) {
-    console.log('Creating nav item:', navItem); // Log data
     const div = document.createElement('div');
     div.classList.add('nav-item');
 
@@ -155,7 +153,6 @@ function createList(listItem) {
     listContainer.appendChild(div);
 }
 function createResearchReport(report) {
-    console.log('Creating research report:', report); // Log data
     const div = document.createElement('div');
     div.classList.add('research-report');
 
