@@ -165,6 +165,7 @@ footer > p {
   section p {
     text-align: justify;
     color: #80848f;
+    margin: 20px;
   }
 
   /* Content Sections */
@@ -206,6 +207,7 @@ footer > p {
   ul {
     list-style-type: none;
     padding: 0;
+    margin: 20px;
   }
   
   ul li {
@@ -403,35 +405,4 @@ footer > p {
       font-size: 12px;
     }
   }
-}
-
-/* Smallest screens */
-@media (max-width: 350px) {
-  /* Add any necessary adjustments for this range */
-}
-
-/* Specific device adjustments */
-@media (max-width: 930px) and (max-height: 450px) and (min-width: 910px) and (min-height: 400px) {
-  /* Specific adjustments for devices within this range */
-}
-
-@media (max-width: 860px) and (max-height: 1280px) and (min-width: 750px) and (min-height: 1000px) {
-  /* Specific adjustments for devices within this range */
-}
-
-/* General height adjustments */
-@media (max-height: 950px) {
-  /* Add any necessary adjustments for this range */
-}
-
-@media (max-height: 600px) {
-  /* Add any necessary adjustments for this range */
-}
-
-@media (max-height: 500px) {
-  /* Add any necessary adjustments for this range */
-}
-
-@media (max-height: 350px) {
-  /* Add any necessary adjustments for this range */
 }
