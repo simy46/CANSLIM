@@ -156,10 +156,9 @@ footer > p {
 
   /* Adjusting the logo image */
   #logo {
-    max-width: 100px;
+    max-width: 120px;
     height: auto;
     display: block;
-    scale: 1.45;
   }
 
   /* Main content :
@@ -742,6 +741,10 @@ footer > p {
 
   body > footer > div > div.disclaimer > p {
     margin: 35px 5px;
+  }
+
+  #logo {
+    max-width: 100px;
   }
 }
 

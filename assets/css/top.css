@@ -154,10 +154,9 @@ nav a:hover:not(:nth-child(1)) {
 
 /* Adjusting the logo image */
 #logo {
-  max-width: 100px;
+  max-width: 120px;
   height: auto;
   display: block;
-  scale: 1.45;
 }
 
 .hidden {
@@ -489,6 +488,10 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     font-size: 16px;
     margin: 20px;
     text-align: justify;
+  }
+
+  #logo {
+    max-width: 100px;
   }
 }
 

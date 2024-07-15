@@ -150,10 +150,9 @@ footer > p {
 
   /* Adjusting the logo image */
   #logo {
-    max-width: 100px;
+    max-width: 120px;
     height: auto;
     display: block;
-    scale: 1.45;
   }
 
   .book-container {
@@ -255,7 +254,6 @@ footer > p {
   .profile-picture p {
     max-width: 600px;
   }
-
 
 /* General Responsive Adjustments */
 @media (max-width: 1350px) {
@@ -361,8 +359,7 @@ footer > p {
   }
 
   #logo {
-    scale: 1.2;
-    width: 85px;
+    width: 100px;
   }
 }
 
