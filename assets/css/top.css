@@ -154,9 +154,10 @@ nav a:hover:not(:nth-child(1)) {
 
 /* Adjusting the logo image */
 #logo {
-  max-width: 120px;
+  max-width: 100px;
   height: auto;
   display: block;
+  scale: 1.45;
 }
 
 .hidden {
@@ -182,12 +183,7 @@ h1 {
   transition: all 0.3s ease;
   justify-content: flex-start;
   overflow-y: auto;
-  height: 70vh;
-}
-
-#trending-container, #gainers-container {
-  max-height: max-content;
-  min-height: 50vh;
+  height: 72dvh;
 }
 
 
@@ -207,6 +203,22 @@ cursor: pointer;
 color: #cccdd2;
 }
 
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  color: #cccdd2;
+}
+
+
+.title h1 {
+  text-align: center;
+  margin: 0 20px;
+  user-select: none;
+}
+
+
 /* Trending Stocks */
 div#stocks-container, div#daily-gainers-container {
   display: grid;
@@ -220,59 +232,70 @@ div#stocks-container, div#daily-gainers-container {
   overflow-y: auto;
   padding: 10px;
 }
-.stock {
-  border-radius: 20px;
-  transition: all .3s;
-  border: 2px solid #cccdd2;
-  text-align: center;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  width: 80%;
-  height: auto;
+
+.stock-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin: auto;
+  border-radius: 8px;
+  background-color: #333a4c;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  position: relative;
-  padding: 10px;
-  color: #cccdd2;
+  cursor: pointer;
+  width: 90%;
+  box-sizing: border-box;
 }
-
-.stock.pass {
-  background-color: #2c4358;
+.stock-card:hover {
+  transform: translateY(-5px);
 }
-
-.stock.fail {
-  background-color: #582c43;
+.stock-card.up {
+  border-left: 4px solid #4CAF50;
 }
-
-.stock:hover {
-  transform: scale(1.02);
+.stock-card.down {
+  border-left: 4px solid #af504c;
 }
-
-.stock.pass:hover {
-  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
-  border-color: #2c4358;
-}
-
-.stock.pass:hover {
-  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
-  border-color: #6b7b8a;
-}
-
-.stock.fail:hover {
-  box-shadow: 0px 8px 15px rgba(255, 0, 0, 0.2);
-  border-color: #99587a;
-}
-
-.title {
+.header {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  color: #cccdd2;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
-.title h2 {
-  margin-bottom: 0;
+.header .title {
+  display: flex;
+  align-items: baseline;
 }
+.header .ticker {
+  margin-left: 8px;
+  font-size: 0.9em;
+  color: #555;
+}
+.header .change p {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.header .change p.positive {
+  color: #4caf50;
+}
+.header .change p.negative {
+  color: #af504c;
+}
+.section {
+  margin-bottom: 16px;
+}
+.section h2, .section h3 {
+  margin-top: 0;
+  color: #b2b5bc;
+  font-size: 1.1em;
+  border-bottom: 1px solid #b2b5bc;
+  padding-bottom: 4px;
+}
+.section p, .section .price span {
+  color: #999ca5;
+  margin: 4px 0;
+}
+
 .title-trending {
   display: flex;
   justify-content: center;
@@ -281,50 +304,6 @@ div#stocks-container, div#daily-gainers-container {
   border-radius: 5px;
   gap: 10px;
 }
-
-.title-trending h4 {
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-max-width: 60%;
-}
-
-#ticker {
-  font-size: small;
-}
-.stock h4, .stock #ticker {
-display: inline;
-margin: 0;
-}
-
-.navigation-button {
-border: none;
-background-color: #818881;
-color: white;
-font-size: 16px;
-padding: 10px 15px;
-border-radius: 8px;
-cursor: pointer;
-transition: background-color 0.2s ease, box-shadow 0.2s ease;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.navigation-button:hover {
-background-color: #383938;
-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.navigation {
-  display: flex;
-  align-items: center;
-}
-
-.title h1 {
-  text-align: center;
-  margin: 0 20px;
-  user-select: none;
-}
-
 
 /* Loading screen */
 #loading, #loading-daily {
@@ -358,7 +337,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   font-size: 28px;
 }
 
-#note {
+.note {
   margin-left: 15px;
   font-size: 24px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -367,16 +346,6 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* General Responsive Adjustments */
-@media (max-width: 1350px) {
-  div#stocks-container, div#daily-gainers-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  div#stocks-container > .stock, div#daily-gainers-container > .stock {
-    grid-column: span 2;
-  }
-}
-
 @media (max-width: 1250px) {
   body > footer > div > div.disclaimer > p {
     font-size: 14px;
@@ -390,12 +359,9 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Responsive */
-@media (max-width: 1240px) {
-}
-
 @media (max-width: 1024px) {
   #section-title {
-    text-align: start;
+    justify-content: flex-start;
   }
 
   div#stocks-container {
@@ -409,14 +375,14 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   .footer-links a {
     font-size: 14px;
   }
-
-  @media (max-height: 800px) {
-    /* Specific adjustments for devices with max width 1024px and max height 800px */
-  }
 }
 
-/* Ipad */
-@media (max-width: 1024px) {
+@media (max-width: 960px) {
+  div#stocks-container, div#daily-gainers-container {
+    max-height: 560px;
+    overflow-y: auto;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 /* Ipad Mini */
@@ -435,10 +401,6 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     justify-content: space-around;
     margin-bottom: 20px;
   }
-
-  @media (max-height: 600px) {
-    /* Specific adjustments for devices with max width 900px and max height 600px */
-  }
 }
 
 @media (max-width: 908px) and (max-height: 600px) {
@@ -447,19 +409,29 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 }
 
-/* Ipad Mini */
-@media (max-width: 830px) {
-  /* Additional adjustments if needed for max-width 830px */
-}
-
-@media (max-width: 830px) {
-}
-
 @media (max-width: 668px) {
-  #section-title {
+  #section-title > h1 {
     font-size: 25px;
     align-self: center;
     margin-right: 10px;
+  }
+
+  #section-title > .fa-solid {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  #section-title {
+    display: flex;
+    align-items: baseline;
+  }
+
+  #daily-gainers-container > div > div.header {
+    flex-direction: column;
+  }
+
+  #daily-gainers-container > div > div.header > div.change > p {
+    margin: 0 auto;
   }
 }
 
@@ -489,10 +461,6 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     margin: 20px;
     text-align: justify;
   }
-
-  #logo {
-    max-width: 100px;
-  }
 }
 
 @media (max-width: 500px) {
@@ -506,16 +474,18 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
   #section-title {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #section-title > h1 {
     margin: 10px 0 0;
   }
 
   body > div.container {
     padding: 10px 0 0;
-  }
-
-  div#stocks-container > .stock, div#daily-gainers-container > .stock {
-    grid-column: span 4;
   }
 
   div#stocks-container, div#daily-gainers-container {
@@ -554,7 +524,7 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 350px) {
-  #section-title {
+  #section-title h1 {
     font-size: 18px;
     overflow: hidden; 
     white-space: nowrap;
@@ -564,29 +534,4 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   #stock-selector {
     max-width: 100px;
   }
-}
-
-/* Specific device adjustments */
-@media (max-width: 930px) and (max-height: 450px) and (min-width: 910px) and (min-height: 400px) {
-  /* Specific adjustments for devices within this range */
-}
-
-@media (max-width: 860px) and (max-height: 1280px) and (min-width: 750px) and (min-height: 1000px) {
-  /* Specific adjustments for devices within this range */
-}
-
-@media (max-height: 950px) {
-  /* Adjustments for max height 950px */
-}
-
-@media (max-height: 600px) {
-  /* Adjustments for max height 600px */
-}
-
-@media (max-height: 500px) {
-  /* Adjustments for max height 500px */
-}
-
-@media (max-height: 350px) {
-  /* Adjustments for max height 350px */
 }

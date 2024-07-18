@@ -156,9 +156,10 @@ footer > p {
 
   /* Adjusting the logo image */
   #logo {
-    max-width: 120px;
+    max-width: 100px;
     height: auto;
     display: block;
+    scale: 1.45;
   }
 
   /* Main content :
@@ -743,8 +744,18 @@ footer > p {
     margin: 35px 5px;
   }
 
-  #logo {
-    max-width: 100px;
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  body > div > div.title-container h1.calculator {
+    font-size: 40px;
+  }
+
+  body > div > div.title-container > div > h1.canslim,
+  body > div > div.title-container > div > h1.strategy {
+    font-size: 20px;
   }
 }
 
@@ -764,13 +775,13 @@ footer > p {
   }
 }
 
-@media (max-height: 950px) {
+@media (max-height: 950px) and (max-width: 800px){
   .search-container {
     margin-bottom: 100px;
   }
 
   body > div.container {
-    padding-bottom: 20px;
+    padding-bottom: 100px;
   }
 }
 
