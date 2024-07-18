@@ -152,10 +152,9 @@ footer > p {
 
   /* Adjusting the logo image */
   #logo {
-    max-width: 100px;
+    max-width: 110px;
     height: auto;
     display: block;
-    scale: 1.45;
   }
 
 /* Container */
