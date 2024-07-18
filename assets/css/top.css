@@ -154,9 +154,10 @@ nav a:hover:not(:nth-child(1)) {
 
 /* Adjusting the logo image */
 #logo {
-  max-width: 110px;
+  max-width: 100px;
   height: auto;
   display: block;
+  scale: 1.45;
 }
 
 .hidden {
@@ -182,7 +183,7 @@ h1 {
   transition: all 0.3s ease;
   justify-content: flex-start;
   overflow-y: auto;
-  height: 72dvh;
+  height: max-content;
 }
 
 
@@ -255,6 +256,7 @@ div#stocks-container, div#daily-gainers-container {
 .stock-card.down {
   border-left: 4px solid #af504c;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -270,14 +272,14 @@ div#stocks-container, div#daily-gainers-container {
   font-size: 0.9em;
   color: #555;
 }
-.header .change p {
+.header > p {
   font-size: 1.2em;
   font-weight: bold;
 }
-.header .change p.positive {
+div.header > p.positive {
   color: #4caf50;
 }
-.header .change p.negative {
+div.header > p.negative {
   color: #af504c;
 }
 .section {
@@ -302,6 +304,11 @@ div#stocks-container, div#daily-gainers-container {
   border-bottom: solid;
   border-radius: 5px;
   gap: 10px;
+}
+
+p.date {
+  color: #0073e6; /* Example color for dates */
+  font-style: italic;
 }
 
 /* Loading screen */

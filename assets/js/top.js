@@ -85,43 +85,57 @@ function showContainer() {
 
 function createStock(stock, container) {
     const stockDiv = document.createElement('div');
-    stockDiv.classList.add('stock-card', stock.regularMarketChangePercent >= 0 ? 'up' : 'down');
+    stockDiv.classList.add('stock-card');
+    stockDiv.classList.add(stock.regularMarketChangePercent >= 0 ? 'up' : 'down');
 
     // Header section with name, ticker and market change
     const headerDiv = document.createElement('div');
     headerDiv.classList.add('header');
 
-    const titleDiv = document.createElement('div');
-    titleDiv.classList.add('title');
-
-    const stockName = document.createElement('h3');
-    const name = stock.displayName || stock.longName;
+    const stockName = document.createElement('h2');
+    const name = stock.displayName || stock.longName || 'N/A';
     stockName.textContent = name;
 
     const ticker = document.createElement('span');
     ticker.textContent = `(${stock.symbol})`;
     ticker.classList.add('ticker');
 
-    titleDiv.append(stockName, ticker);
-
-    const changeDiv = document.createElement('div');
-    changeDiv.classList.add('change');
-
     const change = document.createElement('p');
-    change.textContent = `${stock.regularMarketChange ? stock.regularMarketChange.toFixed(2) : 'N/A'} (${stock.regularMarketChangePercent ? stock.regularMarketChangePercent.toFixed(2) : 'N/A'}%)`;
+    change.textContent = `${stock.regularMarketChange ? stock.regularMarketChange.toFixed(2) : '-'} (${stock.regularMarketChangePercent ? stock.regularMarketChangePercent.toFixed(2) : '-'}%)`;
     change.classList.add(stock.regularMarketChangePercent >= 0 ? 'positive' : 'negative');
 
-    changeDiv.appendChild(change);
+    headerDiv.append(stockName, ticker, change);
 
-    headerDiv.append(titleDiv, changeDiv);
+    // Section 1: Key Statistics
+    const keyStatsDiv = document.createElement('div');
+    keyStatsDiv.classList.add('section');
 
-    // Section 1: Overview
-    const overviewDiv = document.createElement('div');
-    overviewDiv.classList.add('section');
+    const keyStatsTitle = document.createElement('h3');
+    keyStatsTitle.textContent = 'Key Statistics';
+    keyStatsDiv.appendChild(keyStatsTitle);
 
-    const overviewTitle = document.createElement('h3');
-    overviewTitle.textContent = 'Overview';
-    overviewDiv.appendChild(overviewTitle);
+    const marketCap = document.createElement('p');
+    marketCap.textContent = `Market Cap: ${stock.marketCap ? stock.marketCap.toLocaleString() : '-'}`;
+
+    const beta = document.createElement('p');
+    beta.textContent = `Beta: ${stock.beta !== undefined ? stock.beta : '-'}`;
+
+    const dividendDate = document.createElement('p');
+    dividendDate.classList.add('date');
+    dividendDate.textContent = `Dividend Date: ${stock.dividendDate ? new Date(stock.dividendDate).toLocaleDateString() : '-'}`;
+
+    const trailingAnnualDividendYield = document.createElement('p');
+    trailingAnnualDividendYield.textContent = `Dividend Yield: ${stock.trailingAnnualDividendYield !== undefined ? (stock.trailingAnnualDividendYield * 100).toFixed(2) : '-'}%`;
+
+    keyStatsDiv.append(marketCap, beta, dividendDate, trailingAnnualDividendYield);
+
+    // Section 2: Market Performance
+    const performanceDiv = document.createElement('div');
+    performanceDiv.classList.add('section');
+
+    const performanceTitle = document.createElement('h3');
+    performanceTitle.textContent = 'Market Performance';
+    performanceDiv.appendChild(performanceTitle);
 
     const priceDiv = document.createElement('div');
     priceDiv.classList.add('price');
@@ -131,15 +145,19 @@ function createStock(stock, container) {
     priceValue.textContent = `${stock.regularMarketPrice} ${stock.currency}`;
     priceDiv.append(priceLabel, priceValue);
 
-    const marketCap = document.createElement('p');
-    marketCap.textContent = `Market Cap: ${stock.marketCap ? stock.marketCap.toLocaleString() : 'N/A'}`;
+    const regularMarketTime = document.createElement('p');
+    regularMarketTime.classList.add('date');
+    regularMarketTime.textContent = `Trading Time: ${stock.regularMarketTime ? new Date(stock.regularMarketTime).toLocaleString() : '-'}`;
 
-    const exchange = document.createElement('p');
-    exchange.textContent = `Exchange: ${stock.exchange || 'N/A'}`;
+    const todayRange = document.createElement('p');
+    todayRange.textContent = `Today's Range: ${stock.regularMarketDayLow !== undefined ? stock.regularMarketDayLow : '-'} - ${stock.regularMarketDayHigh !== undefined ? stock.regularMarketDayHigh : '-'}`;
 
-    overviewDiv.append(priceDiv, marketCap, exchange);
+    const fiftyTwoWeekRange = document.createElement('p');
+    fiftyTwoWeekRange.textContent = `52 Week Range: ${stock.fiftyTwoWeekRange ? `${stock.fiftyTwoWeekRange.low} - ${stock.fiftyTwoWeekRange.high}` : '-'}`;
 
-    // Section 2: Additional Information
+    performanceDiv.append(priceDiv, regularMarketTime, todayRange, fiftyTwoWeekRange);
+
+    // Section 3: Additional Information
     const additionalInfoDiv = document.createElement('div');
     additionalInfoDiv.classList.add('section');
 
@@ -148,33 +166,21 @@ function createStock(stock, container) {
     additionalInfoDiv.appendChild(additionalInfoTitle);
 
     const region = document.createElement('p');
-    region.textContent = `Region: ${stock.region || 'N/A'}`;
+    region.textContent = `Region: ${stock.region || '-'}`;
 
     const language = document.createElement('p');
-    language.textContent = `Language: ${stock.language || 'N/A'}`;
+    language.textContent = `Language: ${stock.language || '-'}`;
 
     const quoteSourceName = document.createElement('p');
-    quoteSourceName.textContent = `Quote Source: ${stock.quoteSourceName || 'N/A'}`;
-
-    const beta = document.createElement('p');
-    beta.textContent = `Beta: ${stock.beta !== undefined ? stock.beta : 'N/A'}`;
+    quoteSourceName.textContent = `Quote Source: ${stock.quoteSourceName || '-'}`;
 
     const market = document.createElement('p');
-    market.textContent = `Market: ${stock.market || 'N/A'}`;
+    market.textContent = `Market: ${stock.market || '-'}`;
 
-    const regularMarketTime = document.createElement('p');
-    regularMarketTime.textContent = `Trading Time: ${stock.regularMarketTime ? new Date(stock.regularMarketTime).toLocaleString() : 'N/A'}`;
-
-    const dividendDate = document.createElement('p');
-    dividendDate.textContent = `Dividend Date: ${stock.dividendDate ? new Date(stock.dividendDate).toLocaleDateString() : 'N/A'}`;
-
-    const trailingAnnualDividendYield = document.createElement('p');
-    trailingAnnualDividendYield.textContent = `Dividend Yield: ${stock.trailingAnnualDividendYield !== undefined ? (stock.trailingAnnualDividendYield * 100).toFixed(2) : 'N/A'}%`;
-
-    additionalInfoDiv.append(region, language, quoteSourceName, beta, market, regularMarketTime, dividendDate, trailingAnnualDividendYield);
+    additionalInfoDiv.append(region, language, quoteSourceName, market);
 
     // Append all sections to the main stockDiv
-    stockDiv.append(headerDiv, overviewDiv, additionalInfoDiv);
+    stockDiv.append(headerDiv, keyStatsDiv, performanceDiv, additionalInfoDiv);
 
     container.appendChild(stockDiv);
 
@@ -186,6 +192,7 @@ function createStock(stock, container) {
         }
     });
 }
+
 
 
 async function fetchTrendingStocks() {
