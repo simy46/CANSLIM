@@ -181,9 +181,9 @@ h1 {
   border-radius: 10px;
   padding: 20px;
   transition: all 0.3s ease;
-  justify-content: flex-start;
   overflow-y: auto;
   height: max-content;
+  min-height: 70vh;
 }
 
 
@@ -219,7 +219,7 @@ color: #cccdd2;
 }
 
 
-/* Trending Stocks */
+/* Top Stocks */
 div#stocks-container, div#daily-gainers-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -250,10 +250,10 @@ div#stocks-container, div#daily-gainers-container {
 .stock-card:hover {
   transform: translateY(-5px);
 }
-.stock-card.up {
+.stock-card.positive {
   border-left: 4px solid #4CAF50;
 }
-.stock-card.down {
+.stock-card.negative {
   border-left: 4px solid #af504c;
 }
 
@@ -270,22 +270,30 @@ div#stocks-container, div#daily-gainers-container {
 .header .ticker {
   margin-left: 8px;
   font-size: 0.9em;
-  color: #555;
 }
 .header > p {
   font-size: 1.2em;
   font-weight: bold;
 }
-div.header > p.positive {
+div.header > div > p.positive {
   color: #4caf50;
 }
-div.header > p.negative {
+div.header > div > p.negative {
   color: #af504c;
+}
+.header .change {
+  display: flex;
+  align-items: center;
+}
+.header .change-icon {
+  width: 12px;
+  height: auto;
+  margin-left: 8px;
 }
 .section {
   margin-bottom: 16px;
 }
-.section h2, .section h3 {
+.section h3 {
   margin-top: 0;
   color: #b2b5bc;
   font-size: 1.1em;
@@ -293,7 +301,7 @@ div.header > p.negative {
   padding-bottom: 4px;
 }
 .section p, .section .price span {
-  color: #999ca5;
+  color: #b8b7c2;
   margin: 4px 0;
 }
 
@@ -307,8 +315,23 @@ div.header > p.negative {
 }
 
 p.date {
-  color: #0073e6; /* Example color for dates */
+  color: #0073e6;
   font-style: italic;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+}
+.stat-label {
+  flex: 1;
+}
+.stat-value {
+  flex: 1;
+  text-align: right;
+  border-bottom: 1px dotted #ccc;
 }
 
 /* Loading screen */
@@ -370,7 +393,7 @@ p.date {
     justify-content: flex-start;
   }
 
-  div#stocks-container {
+  div#stocks-container, div#daily-gainers-container {
     padding: 20px;
   }
 
@@ -385,7 +408,7 @@ p.date {
 
 @media (max-width: 960px) {
   div#stocks-container, div#daily-gainers-container {
-    max-height: 560px;
+    max-height: 660px;
     overflow-y: auto;
     grid-template-columns: repeat(1, 1fr);
   }
@@ -432,12 +455,20 @@ p.date {
     align-items: baseline;
   }
 
-  #daily-gainers-container > div > div.header {
+  div > div.header > p {
+    margin: 10px auto;
+  }
+
+  .header {
     flex-direction: column;
   }
 
-  #daily-gainers-container > div > div.header > div.change > p {
+  .header .ticker {
     margin: 0 auto;
+  }
+  
+  div#stocks-container, div#daily-gainers-container {
+    max-height: 820px;
   }
 }
 
@@ -495,7 +526,6 @@ p.date {
   }
 
   div#stocks-container, div#daily-gainers-container {
-    max-height: 560px;
     overflow-y: auto;
   }
 }
