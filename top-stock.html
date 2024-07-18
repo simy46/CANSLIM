@@ -162,36 +162,42 @@
             <a href="/crypto-analysis">crypto</a>
         </nav>
     </header>
-        <div class="container">
-            <!-- Selection Input -->
-            <div class="title with-navigation">
-                    <h1 id="section-title">Trending Stocks</h1>
-                <select id="stock-selector">
-                    <option value="trending">Trending Stocks</option>
-                    <option value="gainers">Daily Gainers</option>
-                </select>
-            </div>
+    <div class="container">
 
-            <!-- TRENDING CONTAINER -->
-            <div id="trending-container">
-                <div id="stocks-container"></div>
-                <div id="loading">
-                    <div class="loader"></div>
-                </div>
-            </div>
-    
-            <!-- DAILY GAINERS CONTAINER -->
-            <div id="gainers-container" class="hidden">
-                <div id="daily-gainers-container"></div>
-                <div id="loading-daily">
-                    <div class="loader"></div>
-                </div>
-            </div>
+        <!-- Selection Input -->
+        <div class="title with-navigation">
+            <div class="title" id="section-title">
+                <h1></h1>
+                <i class="fa-solid fa-fire"></i>
+            </div>                
+            <select id="stock-selector">
+                <option value="trending">Trending Stocks</option>
+                <option value="gainers">Daily Gainers</option>
+            </select>
+        </div>
 
-            <p id="note">
+        <!-- TRENDING CONTAINER -->
+        <div id="trending-container">
+            <div id="stocks-container"></div>
+            <div id="loading">
+                <div class="loader"></div>
+            </div>
+            <p class="note">
                 Note: The stocks listed here are currently trending in the market. This does not imply a recommendation for investment.
             </p>
         </div>
+
+        <!-- DAILY GAINERS CONTAINER -->
+        <div id="gainers-container" class="hidden">
+            <div id="daily-gainers-container"></div>
+            <div id="loading-daily">
+                <div class="loader"></div>
+            </div>
+            <p class="note">
+                Note: The stocks listed in the Daily Gainers section are based on their performance within a specific time frame and do not constitute a recommendation for investment.                </p>
+        </div>
+
+    </div>
         <footer>
             <div class="footer-content">
             <div class="disclaimer">
