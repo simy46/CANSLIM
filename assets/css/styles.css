@@ -241,6 +241,10 @@ footer > p {
     grid-template-columns: 1fr 1fr;
     position: relative;
   }
+
+  #canslim-info {
+    display: block;
+  }
   
   .container h3 {
     font-family: 'Quicksand', sans-serif;
@@ -512,7 +516,7 @@ footer > p {
 }
 
 .title {
-  font-size: 32px;
+  font-size: 36px; /* Increase title size */
   color: #e0e0e0;
   text-align: center;
   animation: dropDownH3 1.0s ease forwards;
@@ -524,7 +528,7 @@ footer > p {
 }
 
 #canslim-explanation {
-  font-size: 24px;
+  font-size: 28px; /* Increase explanation size */
   color: #e0e0e0;
   margin-top: 20px;
   transition: opacity 1s ease-in-out;
@@ -543,12 +547,9 @@ footer > p {
     opacity: 0;
     transition: opacity 1s ease-in-out;
 }
-.section {
-  margin: 0 15px 40px;
-}
 
 .section-title {
-  font-size: 24px;
+  font-size: 28px; /* Increase section title size */
   margin-bottom: 10px;
   color: #e0e0e0;
   border-bottom: 1px solid #b2b5bc;
@@ -557,13 +558,13 @@ footer > p {
 }
 
 .subsection-title {
-  font-size: 20px;
+  font-size: 24px; /* Increase subsection title size */
   margin-bottom: 10px;
   color: #cccdd2;
 }
 
 .text {
-  font-size: 16px;
+  font-size: 18px; /* Increase text size */
   margin-bottom: 15px;
   line-height: 1.6;
 }

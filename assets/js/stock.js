@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const symbol = urlParams.get('symbol');
 
-    buttonEvent();
-
     if (!symbol) {
         console.error('Ticker symbol is missing');
         return;
@@ -29,62 +27,63 @@ document.addEventListener("DOMContentLoaded", async () => {
     setLoading(false);
 });
 
-function buttonEvent() {
-    const button = document.getElementById('error-button');
-
-    button.addEventListener('click', (e) => {
-        e.stopPropagation();
-        window.location.href = '/'
-    })
-}
-
 function updateCheckList(results) {
     const stockName = document.getElementById('stock-name');
     const stockTicker = document.getElementById('stock-ticker');
 
     stockName.textContent = results.stockInfo.displayName;
-    stockTicker.textContent = `(${results.stockInfo.symbol})`
-    console.log(results)
+    stockTicker.textContent = `(${results.stockInfo.symbol})`;
+    console.log(results);
 
     for (let key in results) {
         if (Object.prototype.hasOwnProperty.call(results, key)) {
             const element = document.getElementById(`${key}-result`);
-            const passElement = document.getElementById(`${key}-pass`);
-            const rowElement = element ? element.closest('tr') : null;
-            
+            const cardElement = element ? element.closest('.card') : null;
 
             if (element) {
                 const value = results[key].value;
-                element.textContent = value !== null ? value : 'N/A';
+                const weight = results[key].weight;
+                element.textContent = value !== null ? value : 'No data available';
 
-                if (rowElement) {
-                    if (!value) {
-                        rowElement.classList.add('undefined')
+                if (cardElement) {
+                    let size = getBubbleSize(weight);
+                    cardElement.style.width = `${size}px`;
+                    cardElement.style.height = 'auto';
+                    cardElement.style.fontSize = `${size / 15}px`;
+                    cardElement.style.padding = '10px';
+                    element.style.fontSize = '1.2em';
+
+                    if (value === undefined) {
+                        cardElement.classList.add('undefined');
+                        cardElement.style.backgroundColor = '#f0f0f0';
+                        cardElement.style.color = 'gray';
                     } else {
-                        rowElement.style.textDecoration = 'none';
-                        rowElement.style.backgroundColor = '';
+                        cardElement.classList.remove('undefined');
+                        cardElement.style.backgroundColor = '';
+                        cardElement.style.color = '';
                     }
                 }
             }
 
-            if (passElement) {
-                if (results[key].bool) {
-                    passElement.className = 'pass';
-                    passElement.textContent = 'pass';
-                    element.style.color = '#2ecc71';
-                } 
-                else if (results[key].bool === false) {
-                    passElement.className = 'fail'
-                    passElement.textContent = 'fail'
-                    element.style.color = '#e74c3c';
+            if (cardElement) {
+                if (results[key].bool === true) {
+                    cardElement.classList.add('pass');
+                } else if (results[key].bool === false) {
+                    cardElement.classList.add('fail');
                 } else {
-                    passElement.textContent = 'N/A'
-                    passElement.classList.add('undefined')
+                    cardElement.classList.add('undefined');
                 }
             }
         }
     }
 }
+
+function getBubbleSize(weight) {
+    const minSize = 200; // Minimum size of the cards
+    const maxSize = 400; // Maximum size of the cards
+    return minSize + (maxSize - minSize) * (weight / 10);
+}
+
 
 // SOON //
 async function displayStockInfos() {
@@ -133,9 +132,6 @@ function createNews(news) {
     h4.classList.add('news-title');
     div.appendChild(h4);
 
-    const div2 = document.createElement('div');
-    div2.classList.add('ticker-publisher-container');
-
     if (news.relatedTickers) {
         const tickers = document.createElement('div');
         tickers.classList.add('news-tickers');
@@ -150,15 +146,14 @@ function createNews(news) {
             tickers.appendChild(tickerSpan);
         });
     
-        div2.appendChild(tickers);
+        div.appendChild(tickers);
     }
 
+    // PUBLISHER //
     const publisher = document.createElement('p');
     publisher.textContent = `Published by ${news.publisher}`;
     publisher.classList.add('news-publisher');
-    div2.appendChild(publisher);
-
-    div.appendChild(div2);
+    div.appendChild(publisher);
 
     div.addEventListener('click', () => {
         window.open(news.link, '_blank');

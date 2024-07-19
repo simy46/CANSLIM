@@ -174,7 +174,7 @@ h1 {
 /* Container */
 .container {
   width: 90%;
-  margin: 60px auto ;
+  margin: 40px auto ;
   background-color: #010920;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
   border: 1px solid #2c2c2c;
@@ -290,6 +290,10 @@ div.header > div > p.negative {
   height: auto;
   margin-left: 8px;
 }
+
+.header h3 {
+  white-space: nowrap;
+}
 .section {
   margin-bottom: 16px;
 }
@@ -314,8 +318,7 @@ div.header > div > p.negative {
   gap: 10px;
 }
 
-p.date {
-  color: #0073e6;
+.date {
   font-style: italic;
 }
 
@@ -384,6 +387,13 @@ p.date {
     max-width: 200px;
     height: 200px;
     align-self: center;
+  }
+  div#stocks-container, div#daily-gainers-container {
+    display: block;
+  }
+
+  div.stock-card {
+    margin: 40px auto;
   }
 }
 

@@ -1,9 +1,9 @@
 import { SERVER_URL, TRENDING_STOCKS_TICKERS } from "./const.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
-    //setLoading(true);
+    setLoading(true);
     await getNews();
-    //setTimeout(() => setLoading(false), 1000);
+    setTimeout(() => setLoading(false), 1000);
 });
 
 
@@ -12,6 +12,11 @@ async function getNews() {
     let storedTickers = tickers ? JSON.parse(tickers) : [];
 
     const data = await fetchNews(storedTickers);
+
+    if (data.length === 0) {
+        return;
+    }
+
     data.news.forEach(createNews);
     data.nav.forEach(createNav);
     data.lists.forEach(createList);
@@ -19,10 +24,10 @@ async function getNews() {
 }
 
 function setLoading(isLoading) {
-    const loading = document.getElementById('hamster-loading');
-    const newsContainer = document.querySelector('.container');
+    const loading = document.getElementById('loader');
+    const newsContainer = document.getElementById('news-container');
     isLoading ? loading.style.display = 'flex' : loading.style.display = 'none';
-    isLoading ? newsContainer.style.display = 'none' : newsContainer.style.display = 'block';
+    isLoading ? newsContainer.style.display = 'none' : newsContainer.style.display = 'flex';
 }
 
 async function fetchNews(tickers) {
@@ -42,8 +47,14 @@ async function fetchNews(tickers) {
         return data;
     } catch (error) {
         console.error('Error retrieving news:', error);
+        showErrorPage();
         return [];
     }
+}
+
+function showErrorPage() {
+    document.getElementById('news-container').style.display = 'none';
+    document.getElementById('error-page').style.display = 'block';
 }
 
 function createNews(news) {
@@ -117,41 +128,60 @@ function createNav(navItem) {
 }
 
 function createList(listItem) {
+    console.log(listItem);
     const div = document.createElement('div');
     div.classList.add('list-item');
 
     const icon = document.createElement('img');
     icon.src = listItem.iconUrl;
-    icon.alt = listItem.name;
+    icon.alt = listItem.name || listItem.title || 'No Name Available';
     div.appendChild(icon);
 
     const h3 = document.createElement('h3');
-    h3.textContent = listItem.name;
+    h3.textContent = listItem.name || listItem.title || 'No Name Available';
     div.appendChild(h3);
 
-    const p = document.createElement('p');
-    p.textContent = `Daily Gain: ${(listItem.dailyPercentGain * 100).toFixed(2)}%`;
-    div.appendChild(p);
+    if (listItem.dailyPercentGain !== undefined) {
+        const p = document.createElement('p');
+        p.textContent = `Daily Gain: ${(listItem.dailyPercentGain * 100).toFixed(2)}%`;
+        div.appendChild(p);
+    }
 
-    const p2 = document.createElement('p');
-    p2.textContent = `Followers: ${listItem.followerCount}`;
-    div.appendChild(p2);
+    if (listItem.followerCount !== undefined) {
+        const p2 = document.createElement('p');
+        p2.textContent = `Followers: ${listItem.followerCount}`;
+        div.appendChild(p2);
+    }
 
-    const p3 = document.createElement('p');
-    p3.textContent = `Score: ${listItem.score}`;
-    div.appendChild(p3);
+    if (listItem.score !== undefined) {
+        const p3 = document.createElement('p');
+        p3.textContent = `Score: ${listItem.score}`;
+        div.appendChild(p3);
+    }
 
     const p4 = document.createElement('p');
-    p4.textContent = `Symbol Count: ${listItem.symbolCount}`;
+    if (listItem.symbolCount !== undefined) {
+        p4.textContent = `Symbol Count: ${listItem.symbolCount}`;
+    } else if (listItem.total !== undefined) {
+        p4.textContent = `Symbol Count: ${listItem.total}`;
+    } else {
+        p4.textContent = 'Symbol Count: -';
+    }
     div.appendChild(p4);
 
     div.addEventListener('click', () => {
-        window.open(`https://finance.yahoo.com/u/yahoo-finance/watchlists/${listItem.slug}`, '_blank');
+        const url = listItem.slug ? 
+            `https://finance.yahoo.com/u/yahoo-finance/watchlists/${listItem.slug}` :
+            `https://finance.yahoo.com/screener/predefined/${listItem.canonicalName}`;
+        window.open(url, '_blank');
     });
 
     const listContainer = document.getElementById('list-container');
     listContainer.appendChild(div);
 }
+
+
+
 function createResearchReport(report) {
     const div = document.createElement('div');
     div.classList.add('research-report');
