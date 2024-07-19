@@ -57,177 +57,142 @@
         <div class="spin"></div>
     </div>
     <div class="container">
-        <div class="checklist-container">
-            <div class="tilte-container">
-                <h1>Buying Checklist</h1>
-                <div id="stock-info">
-                    <h2 id="stock-name"></h2>
-                    <p id="stock-ticker"></p>
+        <div class="title-container">
+            <h1>Buying Checklist</h1>
+            <div id="stock-info">
+                <h2 id="stock-name"></h2>
+                <p id="stock-ticker"></p>
+            </div>
+        </div>
+
+        <div class="big-rock" id="big-rock-1">
+            <h2>Big Rock #1: Only buy stocks in a market uptrend</h2>
+            <div>
+                <div class="card">
+                    <h3>Market in confirmed uptrend</h3>
+                    <div class="card-divider"></div>
+                    <p>Buying stocks during a market uptrend means investing when the overall market is rising, which typically provides a favorable environment for stock gains.</p>
+                    <div class="result" id="marketUptrend-result"></div>
                 </div>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Calculated Value</th>
-                        <th>Desired Value</th>
-                        <th>Pass/Fail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="4" class="big-rock-header">Big Rock #1: Only buy stocks in a market uptrend</td>
-                    </tr>
-                    <tr>
-                        <td>Market in confirmed uptrend</td>
-                        <td id="marketUptrend-result" class="real-value"></td>
-                        <td class="desired-value">Yes</td>
-                        <td id="marketUptrend-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="big-rock-header">Big Rock #2: Focus on companies with big earnings growth and a new, innovative product or service</td>
-                    </tr>
-                    <tr>
-                        <td>Composite Rating of 95 or higher</td>
-                        <td id="compositeRatingResult-result" class="real-value"></td>
-                        <td class="desired-value">95 +</td>
-                        <td id="compositeRatingResult-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>EPS Rating of 80 or higher</td>
-                        <td id="epsRatingResult-result" class="real-value"></td>
-                        <td class="desired-value">80%+</td>
-                        <td id="epsRatingResult-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>EPS growth 25% or higher in recent quarters</td>
-                        <td id="epsGrowth-result" class="real-value"></td>
-                        <td class="desired-value">25%+</td>
-                        <td id="epsGrowth-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Accelerating earnings growth</td>
-                        <td id="acceleratingEarningsGrowth-result" class="real-value"></td>
-                        <td class="desired-value">Yes</td>
-                        <td id="acceleratingEarningsGrowth-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Average Annual EPS growth 25% or more over last 3 years</td>
-                        <td id="annualEpsGrowth-result" class="real-value"></td>
-                        <td class="desired-value">25%+</td>
-                        <td id="annualEpsGrowth-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Sales growth 20%-25% or higher in most recent quarter</td>
-                        <td id="salesGrowth-result" class="real-value"></td>
-                        <td class="desired-value">20-25%+</td>
-                        <td id="salesGrowth-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Return on equity (ROE) of 17% or higher</td>
-                        <td id="roe-result" class="real-value"></td>
-                        <td class="desired-value">17%+</td>
-                        <td id="roe-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>SMR Rating (Sales + Margins + Return on Equity) of A or B</td>
-                        <td id="smrRating-result" class="real-value"></td>
-                        <td class="desired-value">A/B</td>
-                        <td id="smrRating-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>New products, service, or management</td>
-                        <td id="newProducts-result" class="real-value"></td>
-                        <td class="desired-value">Yes</td>
-                        <td id="newProducts-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Among top-rated stocks in its industry group</td>
-                        <td id="topRatedStocks-result" class="real-value"></td>
-                        <td class="desired-value">Yes</td>
-                        <td id="topRatedStocks-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Ranked in top 40-50 of IBD's 197 industry groups</td>
-                        <td id="industryGroupRank-result" class="real-value"></td>
-                        <td class="desired-value">Top 40-50</td>
-                        <td id="industryGroupRank-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="big-rock-header">Big Rock #3: Buy stocks being heavily bought by mutual funds</td>
-                    </tr>
-                    <tr>
-                        <td>Increase in number of funds that own the stock in recent quarters</td>
-                        <td id="increaseInFundsOwnership-result" class="real-value"></td>
-                        <td class="desired-value" id="desired-value-increase">Positive</td>
-                        <td id="increaseInFundsOwnership-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Accumulation/Distribution Rating of A, B or C</td>
-                        <td id="accumulationDistributionRating-result" class="real-value"></td>
-                        <td class="desired-value">A/B/C</td>
-                        <td id="accumulationDistributionRating-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Relative Strength Rating of 80 or higher</td>
-                        <td id="relativeStrengthRating-result" class="real-value"></td>
-                        <td class="desired-value">80%+</td>
-                        <td id="relativeStrengthRating-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Share price above $15</td>
-                        <td id="currentSharePrice-result" class="real-value"></td>
-                        <td class="desired-value">$15+</td>
-                        <td id="currentSharePrice-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Average daily volume of 400,000 shares or more</td>
-                        <td id="averageDailyVolume-result" class="real-value"></td>
-                        <td class="desired-value">400,000+</td>
-                        <td id="averageDailyVolume-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="big-rock-header">Chart Analysis: Buy stocks as they break out of the common patterns that launch big moves</td>
-                    </tr>
-                    <tr>
-                        <td>Breaking out of sound base or alternative buy point</td>
-                        <td id="breakingOutOfSoundBase-result" class="real-value"></td>
-                        <td class="desired-value">Yes</td>
-                        <td id="breakingOutOfSoundBase-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Volume at least 40% to 50% above average on breakout</td>
-                        <td id="volumeAboveAverage-result" class="real-value"></td>
-                        <td class="desired-value">40-50%+</td>
-                        <td id="volumeAboveAverage-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Relative strength line in new high ground</td>
-                        <td id="rsLine-result" class="real-value"></td>
-                        <td class="desired-value">Yes</td>
-                        <td id="rsLine-pass" class="real-value"></td>
-                    </tr>
-                    <tr>
-                        <td>Within 5% of ideal buy point</td>
-                        <td id="withinBuyPoint-result" class="real-value"></td>
-                        <td class="desired-value">Within 5%</td>
-                        <td id="withinBuyPoint-pass" class="real-value"></td>
-                    </tr>
-                </tbody>
-            </table>
+    
+            <div class="big-rock" id="big-rock-2">
+                <h2>Big Rock #2: Focus on companies with big earnings growth and a new, innovative product or service</h2>
+                <div class="card">
+                    <h3>EPS growth 25% or higher in recent quarters</h3>
+                    <p>Earnings per Share (EPS) growth reflects a company's profitability. A high growth rate indicates the company is generating more profit per share, which is a positive sign for investors.</p>
+                    <div class="result" id="epsGrowth-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Composite Rating of 95 or higher</h3>
+                    <p>Combines various fundamental and technical factors into one score. A high rating suggests the company excels in multiple key areas, making it a strong overall performer.</p>
+                    <div class="result" id="compositeRatingResult-result"></div>
+                </div>
+                <div class="card">
+                    <h3>EPS Rating of 80 or higher</h3>
+                    <p>Evaluates a company's earnings growth over the past five years. A high rating indicates consistent and strong earnings growth, which is attractive to investors.</p>
+                    <div class="result" id="epsRatingResult-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Average Annual EPS growth 25% or more over last 3 years</h3>
+                    <p>Shows the average yearly growth in EPS over the past three years, highlighting companies with sustained profitability and growth.</p>
+                    <div class="result" id="annualEpsGrowth-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Sales growth 20%-25% or higher in most recent quarter</h3>
+                    <p>Indicates increasing demand for a company's products or services, which is a positive indicator of business health and potential future growth.</p>
+                    <div class="result" id="salesGrowth-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Return on equity (ROE) of 17% or higher</h3>
+                    <p>Measures how effectively a company uses shareholders' equity to generate profit. A high ROE indicates efficient management and strong financial performance.</p>
+                    <div class="result" id="roe-result"></div>
+                </div>
+                <div class="card">
+                    <h3>SMR Rating (Sales + Margins + Return on Equity) of A or B</h3>
+                    <p>The SMR Rating combines sales growth, profit margins, and return on equity into one measure. A high rating signifies a company performing well across these key metrics.</p>
+                    <div class="result" id="smrRating-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Accelerating earnings growth</h3>
+                    <p>Company's earnings are increasing at a faster rate over time, indicating robust financial health and potential for future gains.</p>
+                    <div class="result" id="acceleratingEarningsGrowth-result"></div>
+                </div>
+                <div class="card">
+                    <h3>New products, service, or management</h3>
+                    <p>Investing in companies with new products, services, or management can indicate innovation and positive change, potentially driving future growth and profitability.</p>
+                    <div class="result" id="newProducts-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Among top-rated stocks in its industry group</h3>
+                    <p>Being among the top-rated stocks in its industry group indicates that the company is performing better than its peers, making it a strong candidate for investment.</p>
+                    <div class="result" id="topRatedStocks-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Ranked in top 40-50 of IBD's 197 industry groups</h3>
+                    <p>Ranking in the top 40-50 of IBD's industry groups shows that the company is a leader within its sector, demonstrating strong performance and potential for further success.</p>
+                    <div class="result" id="industryGroupRank-result"></div>
+                </div>
+            </div>
         </div>
-        <div class="aside-container">
-            <aside id="news-container">
-                <div class="news-header">
-                    <h2>Latest News</h2>
-                </div>
-                <div id="news-content" class="news-content">
-                </div>
-            </aside>
-            <aside id="stock-chart">
-                <h2>Stock Chart</h2>
-                <div id="chart-content">allo</div>
-            </aside>
+
+        <div class="big-rock" id="big-rock-3">
+            <h2>Big Rock #3: Buy stocks being heavily bought by mutual funds</h2>
+            <div>
+                <div class="card">
+                <h3>Increase in number of funds that own the stock in recent quarters</h3>
+                <p>An increase in the number of mutual funds owning a stock suggests institutional confidence and can drive the stock's price higher.</p>
+                <div class="result" id="increaseInFundsOwnership-result"></div>
+            </div>
+            <div class="card">
+                <h3>Accumulation/Distribution Rating of A, B or C</h3>
+                <p>Indicates the balance of buying and selling of a stock. A high rating shows more accumulation (buying) than distribution (selling), suggesting demand for the stock.</p>
+                <div class="result" id="accumulationDistributionRating-result"></div>
+            </div>
+            <div class="card">
+                <h3>Relative Strength Rating of 80 or higher</h3>
+                <p>Compares a stock's price performance to other stocks. A high rating indicates that the stock is outperforming most other stocks in the market.</p>
+                <div class="result" id="relativeStrengthRating-result"></div>
+            </div>
+            <div class="card">
+                <h3>Share price above $15</h3>
+                <p>Stocks with share prices above $15 are generally more stable and less volatile than lower-priced stocks, making them safer investments.</p>
+                <div class="result" id="currentSharePrice-result"></div>
+            </div>
+            <div class="card">
+                <h3>Average daily volume of 400,000 shares or more</h3>
+                <p>Indicates strong liquidity, making it easier to buy and sell shares without affecting the stock price significantly.</p>
+                <div class="result" id="averageDailyVolume-result"></div>
+            </div>
+            </div>
+            
+        </div>
+
+        <div class="big-rock" id="big-rock-4">
+            <h2>Chart Analysis: Buy stocks as they break out of the common patterns that launch big moves</h2>
+            <div>
+                <div class="card">
+                <h3>Breaking out of sound base or alternative buy point</h3>
+                <p>Buying stocks as they break out of a sound base or alternative buy point can capitalize on momentum, leading to significant gains as the stock continues to rise.</p>
+                <div class="result" id="breakingOutOfSoundBase-result"></div>
+            </div>
+            <div class="card">
+                <h3>Volume at least 40% to 50% above average on breakout</h3>
+                <p>Higher-than-average volume during a breakout indicates strong interest and buying pressure, which can drive the stock price higher.</p>
+                <div class="result" id="volumeAboveAverage-result"></div>
+            </div>
+            <div class="card">
+                <h3>Relative strength line in new high ground</h3>
+                <p>Compares the stock's performance to the market. A new high in this line indicates the stock is outperforming the market, signaling strength.</p>
+                <div class="result" id="rsLine-result"></div>
+            </div>
+            <div class="card">
+                <h3>Within 5% of ideal buy point</h3>
+                <p>Buying within 5% of the ideal buy point ensures that you are entering the stock at a favorable price, maximizing potential gains while minimizing risk.</p>
+                <div class="result" id="withinBuyPoint-result"></div>
+            </div>
+            </div>
+            
         </div>
     </div>
     <div id="error-page">
@@ -240,6 +205,22 @@
         <button id="error-button">
             Click here to go to home page
         </button>  
+    </div>
+
+    <div class="container">
+        <div class="aside-container">
+            <aside id="news-container">
+                <div class="news-header">
+                    <h2>Latest News</h2>
+                </div>
+                <div id="news-content" class="news-content">
+                </div>
+            </aside>
+            <aside id="stock-chart">
+                <h2>Stock Chart</h2>
+                <div id="chart-content" style="text-align: center;">still in progess...</div>
+            </aside>
+        </div>
     </div>
     <footer>
         <div class="footer-content">
