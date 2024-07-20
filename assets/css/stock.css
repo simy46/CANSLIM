@@ -270,17 +270,13 @@ header > div {
 
 
 .container {
-  width: 90%;
+  width: 50%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  margin: 60px auto;
-  background-color: #010920;
-  border: 1px solid #2c2c2c;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-  border-radius: 10px;
+  margin: 40px auto 60px;
   position: relative;
   box-sizing: border-box;
 }
@@ -302,10 +298,6 @@ header > div {
   justify-content: space-around;
   border-bottom: 1px solid #b2b5bc;
   padding-bottom: 10px;
-}
-
-.big-rock {
-  margin-bottom: 40px;
 }
 
 .big-rock > div {
@@ -340,19 +332,17 @@ header > div {
   margin-top: 0;
   margin-bottom: 10px;
   padding-bottom: 10px;
+  border-bottom: 2px solid;
 }
 
 /* Styles for card paragraphs */
 .card p {
   font-size: 18px;
   color: #cccdd2;
+  padding-bottom: 10px;
   margin: 10px 0;
   text-align: justify;
-}
-
-.card-divider {
-  border-bottom: 1px solid #ddd;
-  margin: 10px 0;
+  border-bottom: 2px solid #cccdd2;
 }
 
 /* Styles for result text */
@@ -390,7 +380,7 @@ header > div {
   color: #4caf50;
 }
 
-.card.pass h3 {
+.card.pass h3, .card.pass .result {
   color: #4caf50;
 }
 
@@ -399,24 +389,25 @@ header > div {
   color: #f44336;
 }
 
-.card.fail h3 {
+.card.fail h3, .card.fail .result {
   color: #f44336;
+}
+
+.card.fail p {
+  color: #f44336;
+  border-bottom: 1px solid #f44336;
+}
+
+.card.pass p {
+  color: #4caf50;
+  border-bottom: 1px solid #4caf50;
 }
 
 .card.undefined > h3 {
   text-decoration: line-through;
 }
 
-
 /* NEWS */
-.aside-container {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  width: 30%;
-  gap: 20px;
-}
-
 #news-container {
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -544,7 +535,6 @@ header > div {
   overflow: hidden;
 }
 
-
 /* BOUTON PEU ETREE A CHANGER */
 button {
   margin-top: 20px;
@@ -637,6 +627,82 @@ button {
   outline: none;
  }
 
+ .nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 2px solid #b2b5bc;
+  position: relative;
+}
+
+.nav-item {
+  margin: 0 20px;
+  color: #666b79;
+  font-variant: small-caps;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-item:hover {
+  color: #cccdd2;
+}
+
+.nav-item.active {
+  color: #cccdd2;
+  font-weight: bold;
+}
+
+/* Main content and aside styles */
+.main-container {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.main-content {
+  width: 50%;
+  padding: 20px;
+}
+
+.aside-container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+aside {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+aside h2 {
+  font-size: 20px;
+  color: #0073e6;
+  margin-top: 0;
+}
+
+.recommendations-header,
+.news-header,
+.insights-header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.recommendations-content,
+.news-content,
+.insights-content {
+  padding: 10px 0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1240px) {
   /* Add styles if needed */
@@ -662,11 +728,6 @@ button {
 }
 
 @media (max-width: 830px) {
-  .aside-container {
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-  }
   .main-content {
     flex-direction: column-reverse;
   }
@@ -683,10 +744,6 @@ button {
 }
 
 @media (max-width: 668px) {
-  .aside-container {
-    flex-direction: column;
-    align-items: center;
-  }
   #news-container, #stock-chart {
     width: 85%;
   }
