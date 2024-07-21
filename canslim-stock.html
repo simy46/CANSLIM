@@ -52,32 +52,33 @@
             <a href="/crypto-analysis">crypto</a>
         </nav>
     </header>
-    <div class="loader" id="loading">
-        <div class="loader-text"><b>Calculating</b></div>
-        <div class="spin"></div>
-    </div>
-    <div class="container">
-        <div class="title-container">
-            <h1>Buying Checklist</h1>
-            <div id="stock-info">
-                <h2 id="stock-name"></h2>
-                <p id="stock-ticker"></p>
-            </div>
+    <div class="title-container">
+        <h1>Buying Checklist</h1>
+        <div id="stock-info">
+            <h2 id="stock-name"></h2>
+            <p id="stock-ticker"></p>
         </div>
-
-        <div class="big-rock" id="big-rock-1">
-            <h2>Big Rock #1: Only buy stocks in a market uptrend</h2>
-            <div>
-                <div class="card">
-                    <h3>Market in confirmed uptrend</h3>
-                    <div class="card-divider"></div>
-                    <p>Buying stocks during a market uptrend means investing when the overall market is rising, which typically provides a favorable environment for stock gains.</p>
-                    <div class="result" id="marketUptrend-result"></div>
+    </div>
+    <div class="container" id="buying-checklist">
+            <div class="big-rock" id="big-rock-1">
+                <h2>Big Rock #1: Only buy stocks in a market uptrend</h2>
+                <div class="content-container">
+                    <div class="card">
+                        <h3>Market in confirmed uptrend</h3>
+                        <p>Buying stocks during a market uptrend means investing when the overall market is rising, which typically provides a favorable environment for stock gains.</p>
+                        <div class="result" id="marketUptrend-result"></div>
+                    </div>
+                </div>
+                <div class="skeleton-card skeleton-container">
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-paragraph"></div>
+                    <div class="skeleton skeleton-result"></div>
                 </div>
             </div>
-    
+        
             <div class="big-rock" id="big-rock-2">
                 <h2>Big Rock #2: Focus on companies with big earnings growth and a new, innovative product or service</h2>
+                <div class="content-container">
                 <div class="card">
                     <h3>EPS growth 25% or higher in recent quarters</h3>
                     <p>Earnings per Share (EPS) growth reflects a company's profitability. A high growth rate indicates the company is generating more profit per share, which is a positive sign for investors.</p>
@@ -133,92 +134,352 @@
                     <p>Ranking in the top 40-50 of IBD's industry groups shows that the company is a leader within its sector, demonstrating strong performance and potential for further success.</p>
                     <div class="result" id="industryGroupRank-result"></div>
                 </div>
-            </div>
-        </div>
-
-        <div class="big-rock" id="big-rock-3">
-            <h2>Big Rock #3: Buy stocks being heavily bought by mutual funds</h2>
-            <div>
-                <div class="card">
-                <h3>Increase in number of funds that own the stock in recent quarters</h3>
-                <p>An increase in the number of mutual funds owning a stock suggests institutional confidence and can drive the stock's price higher.</p>
-                <div class="result" id="increaseInFundsOwnership-result"></div>
-            </div>
-            <div class="card">
-                <h3>Accumulation/Distribution Rating of A, B or C</h3>
-                <p>Indicates the balance of buying and selling of a stock. A high rating shows more accumulation (buying) than distribution (selling), suggesting demand for the stock.</p>
-                <div class="result" id="accumulationDistributionRating-result"></div>
-            </div>
-            <div class="card">
-                <h3>Relative Strength Rating of 80 or higher</h3>
-                <p>Compares a stock's price performance to other stocks. A high rating indicates that the stock is outperforming most other stocks in the market.</p>
-                <div class="result" id="relativeStrengthRating-result"></div>
-            </div>
-            <div class="card">
-                <h3>Share price above $15</h3>
-                <p>Stocks with share prices above $15 are generally more stable and less volatile than lower-priced stocks, making them safer investments.</p>
-                <div class="result" id="currentSharePrice-result"></div>
-            </div>
-            <div class="card">
-                <h3>Average daily volume of 400,000 shares or more</h3>
-                <p>Indicates strong liquidity, making it easier to buy and sell shares without affecting the stock price significantly.</p>
-                <div class="result" id="averageDailyVolume-result"></div>
-            </div>
-            </div>
-            
-        </div>
-
-        <div class="big-rock" id="big-rock-4">
-            <h2>Chart Analysis: Buy stocks as they break out of the common patterns that launch big moves</h2>
-            <div>
-                <div class="card">
-                <h3>Breaking out of sound base or alternative buy point</h3>
-                <p>Buying stocks as they break out of a sound base or alternative buy point can capitalize on momentum, leading to significant gains as the stock continues to rise.</p>
-                <div class="result" id="breakingOutOfSoundBase-result"></div>
-            </div>
-            <div class="card">
-                <h3>Volume at least 40% to 50% above average on breakout</h3>
-                <p>Higher-than-average volume during a breakout indicates strong interest and buying pressure, which can drive the stock price higher.</p>
-                <div class="result" id="volumeAboveAverage-result"></div>
-            </div>
-            <div class="card">
-                <h3>Relative strength line in new high ground</h3>
-                <p>Compares the stock's performance to the market. A new high in this line indicates the stock is outperforming the market, signaling strength.</p>
-                <div class="result" id="rsLine-result"></div>
-            </div>
-            <div class="card">
-                <h3>Within 5% of ideal buy point</h3>
-                <p>Buying within 5% of the ideal buy point ensures that you are entering the stock at a favorable price, maximizing potential gains while minimizing risk.</p>
-                <div class="result" id="withinBuyPoint-result"></div>
-            </div>
-            </div>
-            
-        </div>
-    </div>
-    <div id="error-page">
-        <div style="display: flex; gap:10px;">
-            <h1>No Data Available</h1><i class="material-icons" style="font-size:48px;color:red">error_outline</i>
-
-        </div>
-
-        <p>Unfortunately, we're unable to load data for the selected stock at this moment.</p>
-        <button id="error-button">
-            Click here to go to home page
-        </button>  
-    </div>
-
-    <div class="container">
-        <div class="aside-container">
-            <aside id="news-container">
-                <div class="news-header">
-                    <h2>Latest News</h2>
                 </div>
-                <div id="news-content" class="news-content">
+                <div class="skeleton-container" id="skeleton-2">
+                    <div class="skeleton-card">
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-paragraph"></div>
+                        <div class="skeleton skeleton-result"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-paragraph"></div>
+                        <div class="skeleton skeleton-result"></div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="big-rock" id="big-rock-3">
+                <h2>Big Rock #3: Buy stocks being heavily bought by mutual funds</h2>
+                <div class="content-container">
+                <div class="card">
+                    <h3>Increase in number of funds that own the stock in recent quarters</h3>
+                    <p>An increase in the number of mutual funds owning a stock suggests institutional confidence and can drive the stock's price higher.</p>
+                    <div class="result" id="increaseInFundsOwnership-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Accumulation/Distribution Rating of A, B or C</h3>
+                    <p>Indicates the balance of buying and selling of a stock. A high rating shows more accumulation (buying) than distribution (selling), suggesting demand for the stock.</p>
+                    <div class="result" id="accumulationDistributionRating-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Relative Strength Rating of 80 or higher</h3>
+                    <p>Compares a stock's price performance to other stocks. A high rating indicates that the stock is outperforming most other stocks in the market.</p>
+                    <div class="result" id="relativeStrengthRating-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Share price above $15</h3>
+                    <p>Stocks with share prices above $15 are generally more stable and less volatile than lower-priced stocks, making them safer investments.</p>
+                    <div class="result" id="currentSharePrice-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Average daily volume of 400,000 shares or more</h3>
+                    <p>Indicates strong liquidity, making it easier to buy and sell shares without affecting the stock price significantly.</p>
+                    <div class="result" id="averageDailyVolume-result"></div>
+                </div>
+                </div>
+                <div class="skeleton-container" id="skeleton-2">
+                    <div class="skeleton-card">
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-paragraph"></div>
+                        <div class="skeleton skeleton-result"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-paragraph"></div>
+                        <div class="skeleton skeleton-result"></div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="big-rock" id="big-rock-4">
+                <h2>Chart Analysis: Buy stocks as they break out of the common patterns that launch big moves</h2>
+                <div class="content-container">
+                <div class="card">
+                    <h3>Breaking out of sound base or alternative buy point</h3>
+                    <p>Buying stocks as they break out of a sound base or alternative buy point can capitalize on momentum, leading to significant gains as the stock continues to rise.</p>
+                    <div class="result" id="breakingOutOfSoundBase-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Volume at least 40% to 50% above average on breakout</h3>
+                    <p>Higher-than-average volume during a breakout indicates strong interest and buying pressure, which can drive the stock price higher.</p>
+                    <div class="result" id="volumeAboveAverage-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Relative strength line in new high ground</h3>
+                    <p>Compares the stock's performance to the market. A new high in this line indicates the stock is outperforming the market, signaling strength.</p>
+                    <div class="result" id="rsLine-result"></div>
+                </div>
+                <div class="card">
+                    <h3>Within 5% of ideal buy point</h3>
+                    <p>Buying within 5% of the ideal buy point ensures that you are entering the stock at a favorable price, maximizing potential gains while minimizing risk.</p>
+                    <div class="result" id="withinBuyPoint-result"></div>
+                </div>
+                </div>
+                <div class="skeleton-container" id="skeleton-2">
+                    <div class="skeleton-card">
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-paragraph"></div>
+                        <div class="skeleton skeleton-result"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-paragraph"></div>
+                        <div class="skeleton skeleton-result"></div>
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </div>
+    <nav class="nav">
+        <h4 class="nav-item active" id="nav-overview">Overview</h4>
+        <h4 class="nav-item" id="nav-profile">Profile</h4>
+        <h4 class="nav-item" id="nav-financials">Financials</h4>
+        <h4 class="nav-item" id="nav-options">Options</h4>
+        <h4 class="nav-item" id="nav-chart">Chart</h4>
+        <h4 class="nav-item" id="nav-insights">Insights</h4>
+    </nav>
+    
+    
+
+    <div class="main-container" id="informations-container">
+        <div class="main-content">
+        <!-- Overview Section -->
+        <section id="overview-section">
+            <div class="overview-grid">
+                <!-- Current Price and Volume Subsection -->
+                <div class="overview-subsection" id="price-volume">
+                    <h3>Current Price and Volume</h3>
+                    <div class="overview-row">
+                        <span class="attribute">Previous Close:</span>
+                        <span class="dots"></span>
+                        <span id="previous-close" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Open:</span>
+                        <span class="dots"></span>
+                        <span id="open" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Day Low:</span>
+                        <span class="dots"></span>
+                        <span id="day-low" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Day High:</span>
+                        <span class="dots"></span>
+                        <span id="day-high" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Volume:</span>
+                        <span class="dots"></span>
+                        <span id="volume" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Average Volume:</span>
+                        <span class="dots"></span>
+                        <span id="average-volume" class="value"></span>
+                    </div>
+                    
+                </div>
+                
+                <!-- Dividend Information Subsection -->
+                <div class="overview-subsection" id="dividends-yields">
+                    <h3>Dividend Information</h3>
+                    <div class="overview-row">
+                        <span class="attribute">Dividend Rate:</span>
+                        <span class="dots"></span>
+                        <span id="dividend-rate" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Dividend Yield:</span>
+                        <span class="dots"></span>
+                        <span id="dividend-yield" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Ex-Dividend Date:</span>
+                        <span class="dots"></span>
+                        <span id="ex-dividend-date" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Payout Ratio:</span>
+                        <span class="dots"></span>
+                        <span id="payout-ratio" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">5-Year Avg Dividend Yield:</span>
+                        <span class="dots"></span>
+                        <span id="five-year-avg-dividend-yield" class="value"></span>
+                    </div>
+                </div>
+
+                <!-- Valuation Ratios Subsection -->
+                <div class="overview-subsection" id="valuation-ratios">
+                    <h3>Valuation Ratios</h3>
+                    <div class="overview-row">
+                        <span class="attribute">Beta:</span>
+                        <span class="dots"></span>
+                        <span id="beta" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Trailing P/E:</span>
+                        <span class="dots"></span>
+                        <span id="trailing-pe" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Forward P/E:</span>
+                        <span class="dots"></span>
+                        <span id="forward-pe" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Price to Sales:</span>
+                        <span class="dots"></span>
+                        <span id="price-to-sales" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">Market Cap:</span>
+                        <span class="dots"></span>
+                        <span id="market-cap" class="value"></span>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics Subsection -->
+                <div class="overview-subsection" id="performance-metrics">
+                    <h3>Performance Metrics</h3>
+                    <div class="overview-row">
+                        <span class="attribute">52-Week Low:</span>
+                        <span class="dots"></span>
+                        <span id="fifty-two-week-low" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">52-Week High:</span>
+                        <span class="dots"></span>
+                        <span id="fifty-two-week-high" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">50-Day Average:</span>
+                        <span class="dots"></span>
+                        <span id="fifty-day-average" class="value"></span>
+                    </div>
+                    <div class="overview-row">
+                        <span class="attribute">200-Day Average:</span>
+                        <span class="dots"></span>
+                        <span id="two-hundred-day-average" class="value"></span>
+                    </div>
+                </div>
+
+        </section>
+
+
+    
+            <!-- Profile Section -->
+            <section id="profile-section">
+                <div class="profile-item">
+                    <h3>General Information</h3>
+                    <p id="company-description"></p>
+                </div>
+                <div class="profile-item">
+                    <h3>Industry</h3>
+                    <p id="industry"></p>
+                </div>
+                <div class="profile-item">
+                    <h3>Sector</h3>
+                    <p id="sector"></p>
+                </div>
+            </section>
+    
+            <!-- Financials Section -->
+            <section id="financials-section">
+                <div class="financials-item">
+                    <h3>Balance Sheet</h3>
+                    <div id="balance-sheet-content"></div>
+                </div>
+                <div class="financials-item">
+                    <h3>Cash Flow Statements</h3>
+                    <div id="cash-flow-content"></div>
+                </div>
+                <div class="financials-item">
+                    <h3>Income Statements</h3>
+                    <div id="income-statement-content"></div>
+                </div>
+            </section>
+    
+            <!-- Options Section -->
+            <section id="options-section">
+                <div class="options-item">
+                    <h3>Expiration Dates</h3>
+                    <div id="expiration-dates-content"></div>
+                </div>
+                <div class="options-item">
+                    <h3>Strikes</h3>
+                    <div id="strikes-content"></div>
+                </div>
+                <div class="options-item">
+                    <h3>Calls</h3>
+                    <div id="calls-content"></div>
+                </div>
+                <div class="options-item">
+                    <h3>Puts</h3>
+                    <div id="puts-content"></div>
+                </div>
+            </section>
+    
+            <!-- Insights Section -->
+            <section id="insights-section">
+                <div class="insights-item">
+                    <h3>Technical Events</h3>
+                    <div id="technical-events-content"></div>
+                </div>
+                <div class="insights-item">
+                    <h3>Valuation</h3>
+                    <div id="valuation-content"></div>
+                </div>
+                <div class="insights-item">
+                    <h3>Company Snapshot</h3>
+                    <div id="company-snapshot-content"></div>
+                </div>
+                <div class="insights-item">
+                    <h3>Recommendations</h3>
+                    <div id="recommendations-content"></div>
+                </div>
+                <div class="insights-item">
+                    <h3>Reports</h3>
+                    <div id="reports-content"></div>
+                </div>
+            </section>
+    
+            <!-- Chart Section -->
+            <section id="chart-section">
+                <div id="chart-content" style="text-align: center;">
+                    <!-- Chart content will go here -->
+                </div>
+            </section>
+    
+            <!-- Quote Summary Section -->
+            <section id="quote-summary-section">
+                <div id="quote-summary-content">
+                    <!-- Quote Summary content will go here -->
+                </div>
+            </section>
+        </div>
+    
+        <!-- Aside Container -->
+        <div class="aside-container">
+            <aside id="recommendations-container">
+                <div class="aside-header">
+                    <h2>Recommendations</h2>
+                </div>
+                <div id="recommendations-content" class="aside-content">
+                    <!-- Recommendations content will go here -->
                 </div>
             </aside>
-            <aside id="stock-chart">
-                <h2>Stock Chart</h2>
-                <div id="chart-content" style="text-align: center;">still in progess...</div>
+            <aside id="news-container">
+                <div class="aside-header">
+                    <h2>News</h2>
+                </div>
+                <div id="news-content" class="aside-content">
+                    <!-- News content will go here -->
+                </div>
             </aside>
         </div>
     </div>
