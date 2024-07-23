@@ -156,7 +156,6 @@ footer > p {
     height: auto;
     display: block;
   }
-
 /* Container */
 .container {
   width: 90%;
@@ -407,13 +406,18 @@ body > div:nth-child(2) {
   border-radius: 8px;
   margin-bottom: 10px;
   align-self: center;
+  justify-self: center;
 }
 
 .news h3 {
   margin: 10px 0;
   font-size: 1.25em;
   color: #b2b5bc;
+  background-color: #525e75;
+  padding: 10px;
+  border-radius: 10px;
   text-align: justify; 
+  align-self: flex-start;
 }
 
 

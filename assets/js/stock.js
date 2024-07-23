@@ -30,13 +30,61 @@ document.addEventListener("DOMContentLoaded", async () => {
             throw new Error('Network response was not ok for stock-details');
         }
         const data2 = await response2.json();
+        console.log(data2)
         updateStockDetails(data2);
         setLoadingInformations(false);
+        // Example usage
+        const overallScore = 85;
+        const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
+        
+        updateCANSlimScores(overallScore, bigRockScores);
 
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 });
+
+function updateCANSlimScores(overallScore, bigRockScores) {
+    // Function to set the progress
+    function setProgress(circle, score) {
+        const radius = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (score / 100) * circumference;
+
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = offset;
+
+        if (score <= 25) {
+            circle.classList.add('low-score');
+        } else if (score <= 50) {
+            circle.classList.add('medium-score');
+        } else if (score <= 75) {
+            circle.classList.add('high-score');
+        } else {
+            circle.classList.add('very-high-score');
+        }
+    }
+
+    // Update overall score
+    const overallCircle = document.querySelector('#overall-score').parentNode.querySelector('.progress-circle-fg');
+    document.getElementById('overall-score').textContent = overallScore;
+    setProgress(overallCircle, overallScore);
+
+    // Update big rock scores
+    const bigRockCircles = [
+        document.querySelector('#big-rock-2-score').parentNode.querySelector('.progress-circle-fg'),
+        document.querySelector('#big-rock-3-score').parentNode.querySelector('.progress-circle-fg'),
+        document.querySelector('#big-rock-4-score').parentNode.querySelector('.progress-circle-fg')
+    ];
+
+    bigRockScores.forEach((score, index) => {
+        if (score !== null) {
+            document.getElementById(`big-rock-${index + 2}-score`).textContent = score;
+            setProgress(bigRockCircles[index], score);
+        }
+    });
+}
+
 
 function listenToNavEvents() {
     const navItems = document.querySelectorAll('.nav-item');
@@ -116,47 +164,47 @@ function setLoadingInformations(isLoading) {
 function updateStockDetails(data) {
     // Mettez à jour les sections avec les détails du stock
     if (data.quoteSummary && data.quoteSummary.price) {
-        document.getElementById('stock-name').innerText = data.quoteSummary.price.longName || '-';
-        document.getElementById('stock-ticker').innerText = data.quoteSummary.price.symbol || '-';
+        document.getElementById('stock-name').textContent = data.quoteSummary.price.longName || '-';
+        document.getElementById('stock-ticker').textContent = `(${data.quoteSummary.price.symbol})` || '-';
     }
 
     // Overview //
     updateOverviewSection(data.quoteSummary ? data.quoteSummary.summaryDetail : null);
     updateNewsSection(data.news);
-    updateProfileSection(data.profile);
-    updateFinancialsSection(data.quoteSummary ? data.quoteSummary.incomeStatementHistory : null);
+    updateRecommendationsSection(data.recommendations.recommendedSymbols);
+    updateProfileSection(data.quoteSummary);
+    /*updateFinancialsSection(data.quoteSummary ? data.quoteSummary.incomeStatementHistory : null);
     updateOptionsSection(data.options);
     updateChartSection(data.chart);
     updateQuoteSummarySection(data.quoteSummary);
-    updateRecommendationsSection(data.recommendations);
-    updateInsightsSection(data.insights);
+    updateInsightsSection(data.insights);*/
 }
 
 function updateOverviewSection(overview) {
     if (overview) {
-        document.getElementById('previous-close').textContent = overview.previousClose || 'N/A';
-        document.getElementById('open').textContent = overview.open || 'N/A';
-        document.getElementById('day-low').textContent = overview.dayLow || 'N/A';
-        document.getElementById('day-high').textContent = overview.dayHigh || 'N/A';
-        document.getElementById('volume').textContent = overview.volume || 'N/A';
-        document.getElementById('average-volume').textContent = overview.averageVolume || 'N/A';
+        document.getElementById('previous-close').textContent = overview.previousClose || '-';
+        document.getElementById('open').textContent = overview.open || '-';
+        document.getElementById('day-low').textContent = overview.dayLow || '-';
+        document.getElementById('day-high').textContent = overview.dayHigh || '-';
+        document.getElementById('volume').textContent = overview.volume || '-';
+        document.getElementById('average-volume').textContent = overview.averageVolume || '-';
 
-        document.getElementById('dividend-rate').textContent = overview.dividendRate || 'N/A';
-        document.getElementById('dividend-yield').textContent = overview.dividendYield || 'N/A';
-        document.getElementById('ex-dividend-date').textContent = overview.exDividendDate ? new Date(overview.exDividendDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A';
-        document.getElementById('payout-ratio').textContent = overview.payoutRatio || 'N/A';
-        document.getElementById('five-year-avg-dividend-yield').textContent = overview.fiveYearAvgDividendYield || 'N/A';
+        document.getElementById('dividend-rate').textContent = overview.dividendRate || '-';
+        document.getElementById('dividend-yield').textContent = overview.dividendYield || '-';
+        document.getElementById('ex-dividend-date').textContent = overview.exDividendDate ? new Date(overview.exDividendDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
+        document.getElementById('payout-ratio').textContent = overview.payoutRatio || '-';
+        document.getElementById('five-year-avg-dividend-yield').textContent = overview.fiveYearAvgDividendYield || '-';
 
-        document.getElementById('beta').textContent = overview.beta || 'N/A';
-        document.getElementById('trailing-pe').textContent = overview.trailingPE || 'N/A';
-        document.getElementById('forward-pe').textContent = overview.forwardPE || 'N/A';
-        document.getElementById('price-to-sales').textContent = overview.priceToSalesTrailing12Months || 'N/A';
-        document.getElementById('market-cap').textContent = overview.marketCap || 'N/A';
+        document.getElementById('beta').textContent = overview.beta || '-';
+        document.getElementById('trailing-pe').textContent = overview.trailingPE || '-';
+        document.getElementById('forward-pe').textContent = overview.forwardPE || '-';
+        document.getElementById('price-to-sales').textContent = overview.priceToSalesTrailing12Months || '-';
+        document.getElementById('market-cap').textContent = overview.marketCap || '-';
 
-        document.getElementById('fifty-two-week-low').textContent = overview.fiftyTwoWeekLow || 'N/A';
-        document.getElementById('fifty-two-week-high').textContent = overview.fiftyTwoWeekHigh || 'N/A';
-        document.getElementById('fifty-day-average').textContent = overview.fiftyDayAverage || 'N/A';
-        document.getElementById('two-hundred-day-average').textContent = overview.twoHundredDayAverage || 'N/A';
+        document.getElementById('fifty-two-week-low').textContent = overview.fiftyTwoWeekLow || '-';
+        document.getElementById('fifty-two-week-high').textContent = overview.fiftyTwoWeekHigh || '-';
+        document.getElementById('fifty-day-average').textContent = overview.fiftyDayAverage || '-';
+        document.getElementById('two-hundred-day-average').textContent = overview.twoHundredDayAverage || '-';
     } else {
         document.getElementById('overview-section').textContent = 'No data available';
     }
@@ -171,13 +219,71 @@ function updateNewsSection(news) {
     }
 }
 
-function updateProfileSection(profile) {
-    const profileElement = document.getElementById('profile-content');
-    if (profile) {
-        profileElement.innerText = JSON.stringify(profile, null, 2);
+async function updateProfileSection(quoteSummary) {
+    const assetProfile = quoteSummary.assetProfile || {};
+    const summaryProfile = quoteSummary.summaryProfile || {};
+
+    document.getElementById('company-description').textContent = assetProfile.longBusinessSummary || summaryProfile.longBusinessSummary || 'N/A';
+    document.getElementById('industry').textContent = assetProfile.industry || summaryProfile.industry || 'N/A';
+    document.getElementById('sector').textContent = assetProfile.sector || summaryProfile.sector || 'N/A';
+    document.getElementById('address').textContent = `${assetProfile.address1 || ''}, ${assetProfile.address2 || ''}, ${assetProfile.city || ''}, ${assetProfile.state || ''}, ${assetProfile.zip || ''}, ${assetProfile.country || ''}`;
+    document.getElementById('phone').textContent = assetProfile.phone || summaryProfile.phone || 'N/A';
+
+    // website //
+   createWebsite(assetProfile);
+
+    // Officers
+    const officersContainer = document.getElementById('company-officers');
+    officersContainer.innerHTML = '';
+    const officers = assetProfile.companyOfficers || [];
+    officers.forEach(officer => createOfficers(officer, officersContainer));
+
+    // Risk Metrics
+    document.getElementById('audit-risk').textContent = assetProfile.auditRisk || 'N/A';
+    document.getElementById('board-risk').textContent = assetProfile.boardRisk || 'N/A';
+    document.getElementById('compensation-risk').textContent = assetProfile.compensationRisk || 'N/A';
+    document.getElementById('shareholder-rights-risk').textContent = assetProfile.shareHolderRightsRisk || 'N/A';
+    document.getElementById('overall-risk').textContent = assetProfile.overallRisk || 'N/A';
+
+}
+
+function createWebsite(assetProfile) {
+    const websiteElement = document.getElementById('website');
+    if (assetProfile.website) {
+        const a = document.createElement('a');
+        a.href = assetProfile.website;
+        a.target = '_blank';
+        a.textContent = assetProfile.website;
+        websiteElement.textContent = '';
+        websiteElement.appendChild(a);
     } else {
-        profileElement.innerText = 'No data available';
+        websiteElement.textContent = 'N/A';
     }
+}
+
+function createOfficers(officer, container) {
+    const officerElement = document.createElement('div');
+    officerElement.classList.add('officer');
+
+    const nameElement = document.createElement('div');
+    nameElement.classList.add('name');
+    nameElement.textContent = officer.name;
+
+    const titleElement = document.createElement('div');
+    titleElement.classList.add('title');
+    titleElement.textContent = officer.title;
+
+    officerElement.appendChild(nameElement);
+    officerElement.appendChild(titleElement);
+
+    if (officer.totalPay) {
+        const compensationElement = document.createElement('div');
+        compensationElement.classList.add('compensation');
+        compensationElement.textContent = `Total Pay: $${officer.totalPay.toLocaleString()}`;
+        officerElement.appendChild(compensationElement);
+    }
+
+    container.appendChild(officerElement);
 }
 
 function updateFinancialsSection(financials) {
@@ -217,14 +323,65 @@ function updateQuoteSummarySection(quoteSummary) {
 }
 
 function updateRecommendationsSection(recommendations) {
-    console.log(recommendations)
+    console.log(recommendations);
     const recommendationsElement = document.getElementById('recommendations-content');
+    recommendationsElement.innerHTML = ''; // Clear previous content
     if (recommendations) {
-        recommendationsElement.innerText = JSON.stringify(recommendations, null, 2);
+        createRecommendation(recommendations, recommendationsElement);
     } else {
-        recommendationsElement.innerText = 'No data available';
+        recommendationsElement.textContent = 'No data available';
     }
 }
+
+function createRecommendation(recommendations, parentElement) {
+    // Trouver la longueur maximale du texte des recommandations
+    const maxLength = Math.max(...recommendations.map(rec => `${rec.symbol}`)) + 1;
+
+    recommendations.forEach(recommendation => {
+        const recommendationElement = document.createElement('div');
+        recommendationElement.classList.add('recommendation');
+
+        // Calculate background color based on score
+        const score = recommendation.score;
+        const color = scoreToColor(score);
+        recommendationElement.style.backgroundColor = color;
+
+        // Set the text content
+        const text = `${recommendation.symbol}`;
+        recommendationElement.textContent = text;
+
+        // Appliquer la largeur uniforme
+        recommendationElement.style.width = `${maxLength}ch`;
+
+        // Add click event to redirect
+        recommendationElement.onclick = (e) => {
+            e.stopPropagation();
+            window.location.href = `/canslim-stock?symbol=${recommendation.symbol}`;
+        };
+
+        // Append to parent element
+        parentElement.appendChild(recommendationElement);
+    });
+}
+
+
+
+function scoreToColor(score) {
+    const startColor = { r: 105, g: 53, b: 80 }; // #693550
+    const endColor = { r: 44, g: 67, b: 88 }; // #2c4358
+
+    // Convert score to a value between 0 and 1
+    const normalizedScore = Math.min(Math.max(score, 0), 1);
+
+    // Interpolate between startColor and endColor
+    const r = Math.floor(startColor.r + normalizedScore * (endColor.r - startColor.r));
+    const g = Math.floor(startColor.g + normalizedScore * (endColor.g - startColor.g));
+    const b = Math.floor(startColor.b + normalizedScore * (endColor.b - startColor.b));
+
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+
 
 function updateInsightsSection(insights) {
     const insightsElement = document.getElementById('insights-content');
@@ -240,33 +397,28 @@ function updateCheckList(results) {
     console.log(results);
 
     for (let key in results) {
-        if (Object.prototype.hasOwnProperty.call(results, key)) {
+        if (Object.prototype.hasOwnProperty.call(results, key) && key !== 'marketTrend') {
             const element = document.getElementById(`${key}-result`);
             const cardElement = element ? element.closest('.card') : null;
 
             if (element) {
                 const value = results[key].value;
-                const weight = results[key].weight;
-                element.textContent = value !== null ? value : 'No data available';
+                element.textContent = value;
+
 
                 if (cardElement) {
-                    let size = getBubbleSize(weight);
-                    cardElement.style.width = `${size}px`;
-                    cardElement.style.height = 'auto';
-                    cardElement.style.fontSize = `${size / 15}px`;
-                    cardElement.style.padding = '10px';
-                    element.style.fontSize = '1.2em';
-
                     if (value === undefined) {
                         cardElement.classList.add('undefined');
                         cardElement.style.backgroundColor = '#f0f0f0';
                         cardElement.style.color = 'gray';
+                        element.textContent = 'No data available'
                     } else {
                         cardElement.classList.remove('undefined');
                         cardElement.style.backgroundColor = '';
                         cardElement.style.color = '';
                     }
                 }
+                
             }
 
             if (cardElement) {
@@ -280,12 +432,24 @@ function updateCheckList(results) {
             }
         }
     }
+
+    checkInCorrection(results.marketTrend);
 }
 
-function getBubbleSize(weight) {
-    const minSize = 200; // Minimum size of the cards
-    const maxSize = 400; // Maximum size of the cards
-    return minSize + (maxSize - minSize) * (weight / 10);
+function checkInCorrection(marketTrend) {
+    const marketResult = document.getElementById('marketTrend-result');
+    const cardElement = marketResult ? marketResult.closest('.card') : null;
+
+    if (marketResult) {
+        const value = marketTrend.value;
+        const isInCorrection = marketTrend.isInCorrection;
+
+        marketResult.textContent = value;
+
+        if (cardElement && isInCorrection) {
+                cardElement.classList.add('correction');
+        }
+    }
 }
 
 
@@ -331,7 +495,7 @@ function createNews(news) {
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = (e) => {
                 e.stopPropagation();
-                window.location.href = `/stock?symbol=${ticker}`;
+                window.location.href = `/canslim-stock?symbol=${ticker}`;
             };
             tickers.appendChild(tickerSpan);
         });

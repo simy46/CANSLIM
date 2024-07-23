@@ -52,6 +52,9 @@
             <a href="/crypto-analysis">crypto</a>
         </nav>
     </header>
+    <div style="height: 100vh;">
+
+    </div>
     <div class="title-container">
         <h1>Buying Checklist</h1>
         <div id="stock-info">
@@ -60,13 +63,20 @@
         </div>
     </div>
     <div class="container" id="buying-checklist">
+        <div class="title-container">
+            <h1>Buying Checklist</h1>
+            <div id="stock-info">
+                <h2 id="stock-name"></h2>
+                <p id="stock-ticker"></p>
+            </div>
+        </div>
             <div class="big-rock" id="big-rock-1">
                 <h2>Big Rock #1: Only buy stocks in a market uptrend</h2>
                 <div class="content-container">
                     <div class="card">
                         <h3>Market in confirmed uptrend</h3>
                         <p>Buying stocks during a market uptrend means investing when the overall market is rising, which typically provides a favorable environment for stock gains.</p>
-                        <div class="result" id="marketUptrend-result"></div>
+                        <div class="result" id="marketTrend-result"></div>
                     </div>
                 </div>
                 <div class="skeleton-card skeleton-container">
@@ -253,34 +263,33 @@
                     <div class="overview-row">
                         <span class="attribute">Previous Close:</span>
                         <span class="dots"></span>
-                        <span id="previous-close" class="value"></span>
+                        <span id="previous-close" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Open:</span>
                         <span class="dots"></span>
-                        <span id="open" class="value"></span>
+                        <span id="open" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Day Low:</span>
                         <span class="dots"></span>
-                        <span id="day-low" class="value"></span>
+                        <span id="day-low" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Day High:</span>
                         <span class="dots"></span>
-                        <span id="day-high" class="value"></span>
+                        <span id="day-high" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Volume:</span>
                         <span class="dots"></span>
-                        <span id="volume" class="value"></span>
+                        <span id="volume" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Average Volume:</span>
                         <span class="dots"></span>
-                        <span id="average-volume" class="value"></span>
+                        <span id="average-volume" class="value">-</span>
                     </div>
-                    
                 </div>
                 
                 <!-- Dividend Information Subsection -->
@@ -289,27 +298,27 @@
                     <div class="overview-row">
                         <span class="attribute">Dividend Rate:</span>
                         <span class="dots"></span>
-                        <span id="dividend-rate" class="value"></span>
+                        <span id="dividend-rate" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Dividend Yield:</span>
                         <span class="dots"></span>
-                        <span id="dividend-yield" class="value"></span>
+                        <span id="dividend-yield" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Ex-Dividend Date:</span>
                         <span class="dots"></span>
-                        <span id="ex-dividend-date" class="value"></span>
+                        <span id="ex-dividend-date" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Payout Ratio:</span>
                         <span class="dots"></span>
-                        <span id="payout-ratio" class="value"></span>
+                        <span id="payout-ratio" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">5-Year Avg Dividend Yield:</span>
                         <span class="dots"></span>
-                        <span id="five-year-avg-dividend-yield" class="value"></span>
+                        <span id="five-year-avg-dividend-yield" class="value">-</span>
                     </div>
                 </div>
 
@@ -319,27 +328,27 @@
                     <div class="overview-row">
                         <span class="attribute">Beta:</span>
                         <span class="dots"></span>
-                        <span id="beta" class="value"></span>
+                        <span id="beta" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Trailing P/E:</span>
                         <span class="dots"></span>
-                        <span id="trailing-pe" class="value"></span>
+                        <span id="trailing-pe" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Forward P/E:</span>
                         <span class="dots"></span>
-                        <span id="forward-pe" class="value"></span>
+                        <span id="forward-pe" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Price to Sales:</span>
                         <span class="dots"></span>
-                        <span id="price-to-sales" class="value"></span>
+                        <span id="price-to-sales" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Market Cap:</span>
                         <span class="dots"></span>
-                        <span id="market-cap" class="value"></span>
+                        <span id="market-cap" class="value">-</span>
                     </div>
                 </div>
 
@@ -349,44 +358,91 @@
                     <div class="overview-row">
                         <span class="attribute">52-Week Low:</span>
                         <span class="dots"></span>
-                        <span id="fifty-two-week-low" class="value"></span>
+                        <span id="fifty-two-week-low" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">52-Week High:</span>
                         <span class="dots"></span>
-                        <span id="fifty-two-week-high" class="value"></span>
+                        <span id="fifty-two-week-high" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">50-Day Average:</span>
                         <span class="dots"></span>
-                        <span id="fifty-day-average" class="value"></span>
+                        <span id="fifty-day-average" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">200-Day Average:</span>
                         <span class="dots"></span>
-                        <span id="two-hundred-day-average" class="value"></span>
+                        <span id="two-hundred-day-average" class="value">-</span>
                     </div>
                 </div>
-
+            </div>
         </section>
 
 
-    
-            <!-- Profile Section -->
-            <section id="profile-section">
-                <div class="profile-item">
-                    <h3>General Information</h3>
-                    <p id="company-description"></p>
+        <!-- Profile Section -->
+        <section id="profile-section">
+            <div class="profile-header">
+                <h2>Company Profile</h2>
+                <p id="company-description"></p>
+            </div>
+            <div class="profile-item">
+                <h3>General Information</h3>
+                <div class="profile-detail">
+                    <span class="attribute">Industry:</span>
+                    <span id="industry" class="value"></span>
                 </div>
-                <div class="profile-item">
-                    <h3>Industry</h3>
-                    <p id="industry"></p>
+                <div class="profile-detail">
+                    <span class="attribute">Sector:</span>
+                    <span id="sector" class="value"></span>
                 </div>
-                <div class="profile-item">
-                    <h3>Sector</h3>
-                    <p id="sector"></p>
+                <div class="profile-detail">
+                    <span class="attribute">Employees:</span>
+                    <span id="employees" class="value"></span>
                 </div>
-            </section>
+                <div class="profile-detail">
+                    <span class="attribute">Address:</span>
+                    <span id="address" class="value"></span>
+                </div>
+                <div class="profile-detail">
+                    <span class="attribute">Phone:</span>
+                    <span id="phone" class="value"></span>
+                </div>
+                <div class="profile-detail">
+                    <span class="attribute">Website:</span>
+                    <span id="website" class="value"></span>
+                </div>
+            </div>
+            <div class="profile-item">
+                <h3>Company Officers</h3>
+                <div id="company-officers"></div>
+            </div>
+            <div class="profile-item">
+                <h3>Risk Metrics</h3>
+                <div class="profile-detail">
+                    <span class="attribute">Audit Risk:</span>
+                    <span id="audit-risk" class="value"></span>
+                </div>
+                <div class="profile-detail">
+                    <span class="attribute">Board Risk:</span>
+                    <span id="board-risk" class="value"></span>
+                </div>
+                <div class="profile-detail">
+                    <span class="attribute">Compensation Risk:</span>
+                    <span id="compensation-risk" class="value"></span>
+                </div>
+                <div class="profile-detail">
+                    <span class="attribute">Shareholder Rights Risk:</span>
+                    <span id="shareholder-rights-risk" class="value"></span>
+                </div>
+                <div class="profile-detail">
+                    <span class="attribute">Overall Risk:</span>
+                    <span id="overall-risk" class="value"></span>
+                </div>
+            </div>
+        </section>
+
+
     
             <!-- Financials Section -->
             <section id="financials-section">
@@ -439,10 +495,6 @@
                     <div id="company-snapshot-content"></div>
                 </div>
                 <div class="insights-item">
-                    <h3>Recommendations</h3>
-                    <div id="recommendations-content"></div>
-                </div>
-                <div class="insights-item">
                     <h3>Reports</h3>
                     <div id="reports-content"></div>
                 </div>
@@ -467,7 +519,7 @@
         <div class="aside-container">
             <aside id="recommendations-container">
                 <div class="aside-header">
-                    <h2>Recommendations</h2>
+                    <h2>Featured Stocks</h2>
                 </div>
                 <div id="recommendations-content" class="aside-content">
                     <!-- Recommendations content will go here -->
@@ -483,6 +535,7 @@
             </aside>
         </div>
     </div>
+    
     <footer>
         <div class="footer-content">
         <div class="disclaimer">
@@ -496,8 +549,8 @@
             <div class="footer-links">
                 <div class="link-container">
                     <h3>learn more</h3>
-                    <a href="https://en.wikipedia.org/wiki/CAN_SLIM">Wikipedia</a>
-                    <a href="https://www.amazon.ca/dp/0071810110?psc=1&ref=ppx_yo2ov_dt_b_product_details#">Get the book</a>
+                    <a href="https://en.wikipedia.org/wiki/CAN_SLIM" target="_blank">Wikipedia</a>
+                    <a href="https://www.amazon.ca/dp/0071810110?psc=1&ref=ppx_yo2ov_dt_b_product_details#" target="_blank">Get the book</a>
                     <a href="./assets/pdf/IBD_BuyingChecklist.pdf" download="IBD_Buying_Checklist">IBD's PDF</a>
                 </div>
                 <div class="link-container">

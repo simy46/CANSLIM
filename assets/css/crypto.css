@@ -344,10 +344,6 @@ footer > p {
   body > footer > div > div.disclaimer > p {
     margin: 35px 5px;
   }
-
-  #logo {
-    max-width: 100px;
-  }
 }
 
 @media (max-width: 500px) {
