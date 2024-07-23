@@ -10,8 +10,7 @@ export default defineConfig({
         crypto: './crypto-analysis.html',
         market: '/market-news.html',
         stock: '/canslim-stock.html',
-        trending: '/top-stock.html',
-        info: 'stock-info.html'
+        trending: '/top-stock.html'
       }
     }
   },
