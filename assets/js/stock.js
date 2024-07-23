@@ -33,11 +33,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(data2)
         updateStockDetails(data2);
         setLoadingInformations(false);
-        // Example usage
+        /*// Example usage
         const overallScore = 85;
         const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
         
-        updateCANSlimScores(overallScore, bigRockScores);
+        updateCANSlimScores(overallScore, bigRockScores);*/
 
     } catch (error) {
         console.error('Error fetching data:', error);
