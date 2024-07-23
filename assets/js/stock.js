@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const symbol = urlParams.get('symbol');
     
-    listenToNavEvents();
-
     if (!symbol) {
         console.error('Ticker symbol is missing');
         return;
@@ -38,6 +36,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
         
         updateCANSlimScores(overallScore, bigRockScores);*/
+
+        listenToNavEvents();
+        listenToNewsEvents();
 
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -85,6 +86,22 @@ function updateCANSlimScores(overallScore, bigRockScores) {
     });
 }
 
+
+function listenToNewsEvents() {
+    const newsContent = document.getElementById('news-content');
+    const seeMoreButton = document.getElementById('see-more-news');
+    let maxHeightIncrement = 300; // Height to add each time "See more" is clicked
+
+    seeMoreButton.addEventListener('click', () => {
+        let currentMaxHeight = parseInt(window.getComputedStyle(newsContent).maxHeight);
+        newsContent.style.maxHeight = (currentMaxHeight + maxHeightIncrement) + 'px';
+        
+        // Hide the button if all news are shown
+        if (newsContent.scrollHeight <= newsContent.offsetHeight) {
+            seeMoreButton.style.display = 'none';
+        }
+    });
+}
 
 function listenToNavEvents() {
     const navItems = document.querySelectorAll('.nav-item');
