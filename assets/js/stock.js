@@ -262,7 +262,7 @@ function createNews(news) {
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = (e) => {
                 e.stopPropagation();
-                window.location.href = `/canslim-stock?symbol=${ticker}`;
+                window.location.href = `/stock?symbol=${ticker}`;
             };
             tickers.appendChild(tickerSpan);
         });
@@ -744,13 +744,15 @@ function createRecommendation(recommendations, parentElement) {
         // Add click event to redirect
         recommendationElement.onclick = (e) => {
             e.stopPropagation();
-            window.location.href = `/canslim-stock?symbol=${recommendation.symbol}`;
+            window.location.href = `/stock?symbol=${recommendation.symbol}`;
         };
 
         // Append to parent element
         parentElement.appendChild(recommendationElement);
     });
 }
+
+
 
 function scoreToColor(score) {
     const startColor = { r: 105, g: 53, b: 80 }; // #693550
@@ -789,20 +791,14 @@ function updateCheckList(results) {
                         element.textContent = 'No data available'
                     } else {
                         cardElement.classList.remove('undefined');
-                        cardElement.style.backgroundColor = '';
-                        cardElement.style.color = '';
+                        if (results[key].bool === true) {
+                            cardElement.classList.add('pass');
+                        } else if (results[key].bool === false) {
+                            cardElement.classList.add('fail');
+                        } else {
+                            cardElement.classList.add('undefined');
+                        }
                     }
-                }
-                
-            }
-
-            if (cardElement) {
-                if (results[key].bool === true) {
-                    cardElement.classList.add('pass');
-                } else if (results[key].bool === false) {
-                    cardElement.classList.add('fail');
-                } else {
-                    cardElement.classList.add('undefined');
                 }
             }
         }
