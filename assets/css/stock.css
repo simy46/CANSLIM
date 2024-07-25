@@ -385,6 +385,10 @@ h2, h3,  h1 {
   margin: auto;
 }
 
+#stock-name {
+  color: rgb(214, 178, 255);
+}
+
 .big-rock > .content-container {
   display: flex;
   flex-wrap: wrap;
@@ -553,17 +557,6 @@ h2, h3,  h1 {
   100% {
       transform: translateX(100%);
   }
-}
-
-
-/* NEWS */
-#news-container {
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  width: 90%;
-  padding: 10px;
-  overflow-y: auto;
-  align-self: center;
 }
 
 .news-header {
@@ -834,17 +827,13 @@ a:hover {
 .attribute {
   white-space: nowrap;
   flex: 1;
+  flex: 0 0 25%;
 }
 
 .dots {
   flex: 2;
   border-bottom: 1px dotted #4a4a6a;
   margin: 0 10px;
-}
-
-.value {
-  flex: 1;
-  text-align: right;
 }
 
 /* Profile Section */
@@ -888,18 +877,6 @@ a:hover {
   justify-content: space-between;
   margin-bottom: 10px;
   font-size: 1.2em;
-}
-
-.attribute {
-  flex: 1;
-  font-weight: bold;
-}
-
-.value {
-  flex: 2;
-  text-align: right;
-  padding-left: 10px;
-  border-bottom: 1px dotted #4a4a6a;
 }
 
 .profile-detail .value a {
@@ -958,6 +935,130 @@ a:hover {
 .officer .compensation {
   font-size: 0.9em;
   color: #ffffff;
+}
+
+#show-more-button, #show-less-button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ad74ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#show-more-button:hover, #show-less-button:hover {
+  background-color: #9b63d3;
+}
+
+#profile-section > div:nth-child(3) {
+  position: relative;
+  padding-bottom: 50px;
+}
+
+#show-more-button {
+  position: absolute;
+  left: 5px;
+}
+
+#show-less-button {
+  position: absolute;
+  right: 5px;
+}
+
+/* INSIGHTS */
+#insights-section {
+  padding: 0 20px 20px;
+  background-color: #1a1a2e;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  margin: 0 auto 40px;
+}
+
+.insight-content {
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #2c2c3e;
+}
+
+.insight-content h4 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #ad74ff;
+}
+
+.insight-content .attribute {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.insight-content .bullish {
+    color: #0f0;
+}
+
+.insight-content .bearish {
+    color: #f00;
+}
+
+.insight-content .neutral  {
+  color: #ffff4c;
+}
+
+#company-snapshot-content .attribute {
+  font-weight: bold;
+  flex: none;
+}
+
+.value-insight, .company-value, .sector-value {
+  text-align: right;
+  flex: 0 0 25%;
+}
+
+#company-snapshot-content .value-insight,.snapshot-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.value-insight {
+  text-align: right;
+  padding-left: 10px;
+  color: #ccc;
+}
+
+#sec-reports-content img {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+.insight-item:not(#reports-content > div > div, #sec-reports-content > div > div > div, #significant-developments-content > div > div), .snapshot-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+
+.dots {
+  flex: 1;
+  border-bottom: 1px dotted #4a4a6a;
+  margin: 0 10px;
+}
+
+#sec-reports-content > div {
+  display: flex;
+  gap: 10%;
+}
+
+#sec-reports-content > div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
 
 /* Responsive adjustments */

@@ -1,13 +1,18 @@
 import { SERVER_URL } from './const.js'
 
+let officersDisplayed = 2;
+let officers = [];
+
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const symbol = urlParams.get('symbol');
-    
+
     if (!symbol) {
         console.error('Ticker symbol is missing');
         return;
     }
+
+    listenToNavEvents();
 
     setLoadingBuyingCheckList(true)
     setLoadingInformations(true);
@@ -31,14 +36,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(data2)
         updateStockDetails(data2);
         setLoadingInformations(false);
-        /*// Example usage
+        // Example usage
         const overallScore = 85;
         const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
         
-        updateCANSlimScores(overallScore, bigRockScores);*/
-
-        listenToNavEvents();
-        listenToNewsEvents();
+        updateCANSlimScores(overallScore, bigRockScores);
 
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -190,13 +192,15 @@ function updateStockDetails(data) {
     updateNewsSection(data.news);
     updateRecommendationsSection(data.recommendations.recommendedSymbols);
     updateProfileSection(data.quoteSummary);
+    updateInsightsSection(data.insights);
     /*updateFinancialsSection(data.quoteSummary ? data.quoteSummary.incomeStatementHistory : null);
     updateOptionsSection(data.options);
     updateChartSection(data.chart);
     updateQuoteSummarySection(data.quoteSummary);
-    updateInsightsSection(data.insights);*/
+    */
 }
 
+// OVERVIEW //
 function updateOverviewSection(overview) {
     if (overview) {
         document.getElementById('previous-close').textContent = overview.previousClose || '-';
@@ -227,6 +231,7 @@ function updateOverviewSection(overview) {
     }
 }
 
+// NEWS //
 function updateNewsSection(news) {
     if (news) {
         news.forEach(createNews);
@@ -234,8 +239,66 @@ function updateNewsSection(news) {
         const newsElement = document.getElementById('news-content');
         newsElement.innerText = 'No data available';
     }
+
+    listenToNewsEvents();
 }
 
+function createNews(news) {
+    const newsContainer = document.getElementById('news-content');
+    const div = document.createElement('div');
+    div.classList.add('news-item');
+
+    const h4 = document.createElement('h7');
+    h4.textContent = news.title;
+    h4.classList.add('news-title');
+    div.appendChild(h4);
+
+    if (news.relatedTickers) {
+        const tickers = document.createElement('div');
+        tickers.classList.add('news-tickers');
+    
+        news.relatedTickers.forEach((ticker) => {
+            const tickerSpan = document.createElement('span');
+            tickerSpan.textContent = ticker;
+            tickerSpan.onclick = (e) => {
+                e.stopPropagation();
+                window.location.href = `/canslim-stock?symbol=${ticker}`;
+            };
+            tickers.appendChild(tickerSpan);
+        });
+    
+        div.appendChild(tickers);
+    }
+
+    // PUBLISH TIME //
+    const publishTime = document.createElement('p');
+    const publishDate = new Date(news.providerPublishTime);
+    const formattedDate = publishDate.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    publishTime.textContent = formattedDate;
+    publishTime.classList.add('news-publish-time');
+    div.appendChild(publishTime);
+
+    // PUBLISHER //
+    const publisher = document.createElement('p');
+    publisher.textContent = `Published by ${news.publisher}`;
+    publisher.classList.add('news-publisher');
+    div.appendChild(publisher);
+
+    div.addEventListener('click', () => {
+        window.open(news.link, '_blank');
+    });
+
+    newsContainer.appendChild(div);
+}
+
+
+// PROFILE //
 async function updateProfileSection(quoteSummary) {
     const assetProfile = quoteSummary.assetProfile || {};
     const summaryProfile = quoteSummary.summaryProfile || {};
@@ -246,14 +309,12 @@ async function updateProfileSection(quoteSummary) {
     document.getElementById('address').textContent = `${assetProfile.address1 || ''}, ${assetProfile.address2 || ''}, ${assetProfile.city || ''}, ${assetProfile.state || ''}, ${assetProfile.zip || ''}, ${assetProfile.country || ''}`;
     document.getElementById('phone').textContent = assetProfile.phone || summaryProfile.phone || 'N/A';
 
-    // website //
-   createWebsite(assetProfile);
+    // Website
+    createWebsite(assetProfile);
 
     // Officers
-    const officersContainer = document.getElementById('company-officers');
-    officersContainer.innerHTML = '';
     const officers = assetProfile.companyOfficers || [];
-    officers.forEach(officer => createOfficers(officer, officersContainer));
+    initOfficers(officers);
 
     // Risk Metrics
     document.getElementById('audit-risk').textContent = assetProfile.auditRisk || 'N/A';
@@ -261,7 +322,33 @@ async function updateProfileSection(quoteSummary) {
     document.getElementById('compensation-risk').textContent = assetProfile.compensationRisk || 'N/A';
     document.getElementById('shareholder-rights-risk').textContent = assetProfile.shareHolderRightsRisk || 'N/A';
     document.getElementById('overall-risk').textContent = assetProfile.overallRisk || 'N/A';
+}
 
+function initOfficers(officers) {
+    let officersDisplayed = 2;
+
+    function displayOfficers() {
+        const officersContainer = document.getElementById('company-officers');
+        officersContainer.innerHTML = '';
+
+        const officersToShow = officers.slice(0, officersDisplayed);
+        officersToShow.forEach(officer => createOfficers(officer, officersContainer));
+
+        document.getElementById('show-more-button').style.display = officersDisplayed < officers.length ? 'block' : 'none';
+        document.getElementById('show-less-button').style.display = officersDisplayed > 2 ? 'block' : 'none';
+    }
+
+    document.getElementById('show-more-button').addEventListener('click', () => {
+        officersDisplayed += 2;
+        displayOfficers();
+    });
+
+    document.getElementById('show-less-button').addEventListener('click', () => {
+        officersDisplayed = 2;
+        displayOfficers();
+    });
+
+    displayOfficers();
 }
 
 function createWebsite(assetProfile) {
@@ -276,6 +363,16 @@ function createWebsite(assetProfile) {
     } else {
         websiteElement.textContent = 'N/A';
     }
+}
+
+function showMoreOfficers(officers) {
+    officersDisplayed += 2;
+    displayOfficers(officers);
+}
+
+function showLessOfficers(officers) {
+    officersDisplayed = 2;
+    displayOfficers(officers);
 }
 
 function createOfficers(officer, container) {
@@ -302,6 +399,279 @@ function createOfficers(officer, container) {
 
     container.appendChild(officerElement);
 }
+
+// INSIGHTS //
+// Helper function to format dates
+function formatDate(dateString, locale = 'en-US') {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(locale, options);
+}
+
+function updateInsightsSection(insights) {
+    // Technical Events
+    const technicalEventsContent = document.getElementById('technical-events-content');
+    if (insights.instrumentInfo && insights.instrumentInfo.technicalEvents) {
+        const techEvents = insights.instrumentInfo.technicalEvents;
+        technicalEventsContent.appendChild(createTechnicalEventSection(techEvents.shortTermOutlook, 'Short Term'));
+        technicalEventsContent.appendChild(createTechnicalEventSection(techEvents.intermediateTermOutlook, 'Intermediate Term'));
+        technicalEventsContent.appendChild(createTechnicalEventSection(techEvents.longTermOutlook, 'Long Term'));
+    } else {
+        technicalEventsContent.textContent = 'No data available';
+    }
+
+    // Key Technicals
+    const keyTechnicalsContent = document.getElementById('key-technicals-content');
+    if (insights.instrumentInfo && insights.instrumentInfo.keyTechnicals) {
+        const keyTechnicals = insights.instrumentInfo.keyTechnicals;
+        keyTechnicalsContent.appendChild(createKeyTechnicalItem('Support', keyTechnicals.support));
+        keyTechnicalsContent.appendChild(createKeyTechnicalItem('Resistance', keyTechnicals.resistance));
+        keyTechnicalsContent.appendChild(createKeyTechnicalItem('Stop Loss', keyTechnicals.stopLoss));
+    } else {
+        keyTechnicalsContent.textContent = 'No data available';
+    }
+
+    // Valuation
+    const valuationContent = document.getElementById('valuation-content');
+    if (insights.instrumentInfo && insights.instrumentInfo.valuation) {
+        const valuation = insights.instrumentInfo.valuation;
+        valuationContent.appendChild(createValuationItem(valuation));
+    } else {
+        valuationContent.textContent = 'No data available';
+    }
+
+    // Company Snapshot
+    const companySnapshotContent = document.getElementById('company-snapshot-content');
+    if (insights.companySnapshot) {
+        const company = insights.companySnapshot.company;
+        const sector = insights.companySnapshot.sector;
+        companySnapshotContent.appendChild(createSnapshotItem('Innovativeness', company.innovativeness, sector.innovativeness));
+        companySnapshotContent.appendChild(createSnapshotItem('Hiring', company.hiring, sector.hiring));
+        companySnapshotContent.appendChild(createSnapshotItem('Sustainability', company.sustainability, sector.sustainability));
+        companySnapshotContent.appendChild(createSnapshotItem('Insider Sentiments', company.insiderSentiments, sector.insiderSentiments));
+        companySnapshotContent.appendChild(createSnapshotItem('Earnings Reports', company.earningsReports, sector.earningsReports));
+        companySnapshotContent.appendChild(createSnapshotItem('Dividends', company.dividends, sector.dividends));
+    } else {
+        companySnapshotContent.textContent = 'No data available';
+    }
+
+    // Recommendation
+    const recommendationContent = document.getElementById('recommendation-content');
+    if (insights.recommendation) {
+        const recommendation = insights.recommendation;
+        recommendationContent.appendChild(createRecommendationItem(recommendation));
+    } else {
+        recommendationContent.textContent = 'No data available';
+    }
+
+    // Events
+    const eventsContent = document.getElementById('events-content');
+    if (insights.events) {
+        insights.events.forEach(event => {
+            eventsContent.appendChild(createEventItem(event));
+        });
+    } else {
+        eventsContent.textContent = 'No data available';
+    }
+
+    // Reports
+    const reportsContent = document.getElementById('reports-content');
+    if (insights.reports) {
+        insights.reports.forEach(report => {
+            reportsContent.appendChild(createReportItem(report));
+        });
+    } else {
+        reportsContent.textContent = 'No data available';
+    }
+
+    // Significant Developments
+    const sigDevsContent = document.getElementById('significant-developments-content');
+    if (insights.sigDevs) {
+        insights.sigDevs.forEach(dev => {
+            sigDevsContent.appendChild(createSignificantDevelopmentItem(dev));
+        });
+    } else {
+        sigDevsContent.textContent = 'No data available';
+    }
+
+    // SEC Reports
+    const secReportsContent = document.getElementById('sec-reports-content');
+    if (insights.secReports) {
+        insights.secReports.forEach(report => {
+            secReportsContent.appendChild(createSECReportItem(report));
+        });
+    } else {
+        secReportsContent.textContent = 'No data available';
+    }
+}
+
+// Helper functions to create elements
+function createTechnicalEventSection(event, term) {
+    const section = document.createElement('div');
+    section.classList.add('insight-content');
+
+    const termHeading = document.createElement('h4');
+    termHeading.textContent = `${term} Outlook`;
+    section.appendChild(termHeading);
+
+    section.appendChild(createInsightItem('State Description', event.stateDescription));
+    section.appendChild(createInsightItem('Direction', event.direction, getHighlightClass(event.direction)));
+    section.appendChild(createInsightItem('Score', event.score));
+    section.appendChild(createInsightItem('Score Description', event.scoreDescription, getHighlightClass(event.scoreDescription)));
+    section.appendChild(createInsightItem('Sector Direction', event.sectorDirection, getHighlightClass(event.sectorDirection)));
+    section.appendChild(createInsightItem('Sector Score', event.sectorScore));
+    section.appendChild(createInsightItem('Sector Score Description', event.sectorScoreDescription, getHighlightClass(event.sectorScoreDescription)));
+    section.appendChild(createInsightItem('Index Direction', event.indexDirection, getHighlightClass(event.indexDirection)));
+    section.appendChild(createInsightItem('Index Score', event.indexScore));
+    section.appendChild(createInsightItem('Index Score Description', event.indexScoreDescription, getHighlightClass(event.indexScoreDescription)));
+
+    return section;
+}
+
+function getHighlightClass(value) {
+    if (typeof value === 'string') {
+        if (value.toLowerCase().includes('bullish')) {
+            return 'bullish';
+        } else if (value.toLowerCase().includes('bearish')) {
+            return 'bearish';
+        } else if (value.toLowerCase().includes('neutral')) {
+            return 'neutral';
+        }
+    }
+    return '';
+}
+
+function createInsightItem(attribute, value, highlightClass) {
+    const item = document.createElement('div');
+    item.classList.add('insight-item');
+
+    const attrSpan = document.createElement('span');
+    attrSpan.classList.add('attribute');
+    attrSpan.textContent = attribute;
+
+    const dotsSpan = document.createElement('span');
+    dotsSpan.classList.add('dots');
+
+    const valueSpan = document.createElement('span');
+    valueSpan.classList.add('value-insight');
+    if (highlightClass) {
+        valueSpan.classList.add(highlightClass);
+    }
+    valueSpan.textContent = value;
+
+    item.appendChild(attrSpan);
+    item.appendChild(dotsSpan);
+    item.appendChild(valueSpan);
+
+    return item;
+}
+
+function createKeyTechnicalItem(attribute, value) {
+    return createInsightItem(attribute, value);
+}
+
+function createValuationItem(valuation) {
+    const section = document.createElement('div');
+    section.classList.add('insight-content');
+
+    section.appendChild(createInsightItem('Description', valuation.description));
+    section.appendChild(createInsightItem('Discount', valuation.discount));
+    section.appendChild(createInsightItem('Relative Value', valuation.relativeValue));
+    section.appendChild(createInsightItem('Provider', valuation.provider));
+
+    return section;
+}
+
+function createSnapshotItem(attribute, companyValue, sectorValue) {
+    const item = document.createElement('div');
+    item.classList.add('snapshot-item');
+
+    const attrSpan = document.createElement('span');
+    attrSpan.classList.add('attribute');
+    attrSpan.textContent = attribute;
+
+    const companyValueSpan = document.createElement('span');
+    companyValueSpan.classList.add('company-value');
+    companyValueSpan.textContent = companyValue;
+
+    const sectorValueSpan = document.createElement('span');
+    sectorValueSpan.classList.add('sector-value');
+    sectorValueSpan.textContent = sectorValue;
+
+    item.appendChild(attrSpan);
+    item.appendChild(companyValueSpan);
+    item.appendChild(sectorValueSpan);
+
+    return item;
+}
+
+function createRecommendationItem(recommendation) {
+    const section = document.createElement('div');
+    section.classList.add('insight-content');
+
+    section.appendChild(createInsightItem('Provider', recommendation.provider));
+    section.appendChild(createInsightItem('Target Price', recommendation.targetPrice));
+    section.appendChild(createInsightItem('Rating', recommendation.rating));
+
+    return section;
+}
+
+function createEventItem(event) {
+    const section = document.createElement('div');
+    section.classList.add('insight-content');
+
+    section.appendChild(createInsightItem('Event Type', event.eventType));
+    section.appendChild(createInsightItem('Price Period', event.pricePeriod));
+    section.appendChild(createInsightItem('Trading Horizon', event.tradingHorizon));
+    section.appendChild(createInsightItem('Trade Type', event.tradeType));
+    section.appendChild(createInsightItem('Start Date', formatDate(event.startDate)));
+    section.appendChild(createInsightItem('End Date', formatDate(event.endDate)));
+
+    return section;
+}
+
+function createReportItem(report) {
+    const section = document.createElement('div');
+    section.classList.add('insight-content');
+
+    section.appendChild(createInsightItem('Provider', report.provider));
+    section.appendChild(createInsightItem('Report Date', formatDate(report.reportDate)));
+    section.appendChild(createInsightItem('Report Title', report.reportTitle));
+
+    return section;
+}
+
+function createSignificantDevelopmentItem(dev) {
+    const section = document.createElement('div');
+    section.classList.add('insight-content');
+
+    section.appendChild(createInsightItem('Headline', dev.headline));
+    section.appendChild(createInsightItem('Date', formatDate(dev.date)));
+
+    return section;
+}
+
+
+function createSECReportItem(report) {
+    const section = document.createElement('div');
+    const div = document.createElement('div');
+    section.classList.add('insight-content');
+
+    const img = document.createElement('img');
+    img.src = report.snapshotUrl;
+    img.alt = report.formType;
+
+    section.appendChild(img);
+    div.appendChild(createInsightItem('Form Type', report.formType));
+    div.appendChild(createInsightItem('Title', report.title));
+    div.appendChild(createInsightItem('Description', report.description));
+    div.appendChild(createInsightItem('Filing Date', formatDate(report.filingDate)));
+
+    section.appendChild(div);
+
+    return section;
+}
+
+
 
 function updateFinancialsSection(financials) {
     const financialsElement = document.getElementById('financials-content');
@@ -339,6 +709,7 @@ function updateQuoteSummarySection(quoteSummary) {
     }
 }
 
+// RECOMMENDATIONS //
 function updateRecommendationsSection(recommendations) {
     console.log(recommendations);
     const recommendationsElement = document.getElementById('recommendations-content');
@@ -381,8 +752,6 @@ function createRecommendation(recommendations, parentElement) {
     });
 }
 
-
-
 function scoreToColor(score) {
     const startColor = { r: 105, g: 53, b: 80 }; // #693550
     const endColor = { r: 44, g: 67, b: 88 }; // #2c4358
@@ -396,17 +765,6 @@ function scoreToColor(score) {
     const b = Math.floor(startColor.b + normalizedScore * (endColor.b - startColor.b));
 
     return `rgb(${r}, ${g}, ${b})`;
-}
-
-
-
-function updateInsightsSection(insights) {
-    const insightsElement = document.getElementById('insights-content');
-    if (insights) {
-        insightsElement.innerText = JSON.stringify(insights, null, 2);
-    } else {
-        insightsElement.innerText = 'No data available';
-    }
 }
 
 
@@ -463,8 +821,14 @@ function checkInCorrection(marketTrend) {
 
         marketResult.textContent = value;
 
-        if (cardElement && isInCorrection) {
+        if (cardElement) {
+            if (isInCorrection) {
                 cardElement.classList.add('correction');
+            } else if(marketTrend.bool) {
+                cardElement.classList.add('pass');
+            } else {
+                cardElement.classList.add('fail');
+            }
         }
     }
 }
@@ -493,56 +857,3 @@ async function fetchStockData(symbol) {
 function noStockFound() {
 }
 
-function createNews(news) {
-    const newsContainer = document.getElementById('news-content');
-    const div = document.createElement('div');
-    div.classList.add('news-item');
-
-    const h4 = document.createElement('h7');
-    h4.textContent = news.title;
-    h4.classList.add('news-title');
-    div.appendChild(h4);
-
-    if (news.relatedTickers) {
-        const tickers = document.createElement('div');
-        tickers.classList.add('news-tickers');
-    
-        news.relatedTickers.forEach((ticker) => {
-            const tickerSpan = document.createElement('span');
-            tickerSpan.textContent = ticker;
-            tickerSpan.onclick = (e) => {
-                e.stopPropagation();
-                window.location.href = `/canslim-stock?symbol=${ticker}`;
-            };
-            tickers.appendChild(tickerSpan);
-        });
-    
-        div.appendChild(tickers);
-    }
-
-    // PUBLISH TIME //
-    const publishTime = document.createElement('p');
-    const publishDate = new Date(news.providerPublishTime);
-    const formattedDate = publishDate.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-    publishTime.textContent = formattedDate;
-    publishTime.classList.add('news-publish-time');
-    div.appendChild(publishTime);
-
-    // PUBLISHER //
-    const publisher = document.createElement('p');
-    publisher.textContent = `Published by ${news.publisher}`;
-    publisher.classList.add('news-publisher');
-    div.appendChild(publisher);
-
-    div.addEventListener('click', () => {
-        window.open(news.link, '_blank');
-    });
-
-    newsContainer.appendChild(div);
-}
