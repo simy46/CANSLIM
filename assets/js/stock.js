@@ -262,7 +262,7 @@ function createNews(news) {
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = (e) => {
                 e.stopPropagation();
-                window.location.href = `/stock?symbol=${ticker}`;
+                window.location.href = `/canslim-stock?symbol=${ticker}`;
             };
             tickers.appendChild(tickerSpan);
         });
@@ -744,7 +744,7 @@ function createRecommendation(recommendations, parentElement) {
         // Add click event to redirect
         recommendationElement.onclick = (e) => {
             e.stopPropagation();
-            window.location.href = `/stock?symbol=${recommendation.symbol}`;
+            window.location.href = `/canslim-stock?symbol=${recommendation.symbol}`;
         };
 
         // Append to parent element
