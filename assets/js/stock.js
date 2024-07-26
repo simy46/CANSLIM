@@ -536,21 +536,28 @@ function createBullishBearishSummaryItem(upsell) {
     const section = document.createElement('div');
     section.classList.add('insight-content');
 
-    const bullishHeading = document.createElement('h4');
-    bullishHeading.textContent = 'Bullish Summary';
-    section.appendChild(bullishHeading);
+    
 
-    upsell.msBullishSummary.forEach(summary => {
+    if (upsell.msBullishSummary &&  upsell.msBullishSummary.length !== 0) {
+        const bullishHeading = document.createElement('h4');
+        bullishHeading.textContent = 'Bullish Summary';
+        section.appendChild(bullishHeading);
+        upsell.msBullishSummary.forEach(summary => {
         section.appendChild(createInsightItem('Bullish', summary, 'bullish'));
     });
+    }
+    
+    if (upsell.msBearishSummary &&  upsell.msBearishSummary.length !== 0) {
+        const bearishHeading = document.createElement('h4');
+        bearishHeading.textContent = 'Bearish Summary';
+        section.appendChild(bearishHeading);
+    
+        upsell.msBearishSummary.forEach(summary => {
+            section.appendChild(createInsightItem('Bearish', summary, 'bearish'));
+        });
+    }
 
-    const bearishHeading = document.createElement('h4');
-    bearishHeading.textContent = 'Bearish Summary';
-    section.appendChild(bearishHeading);
-
-    upsell.msBearishSummary.forEach(summary => {
-        section.appendChild(createInsightItem('Bearish', summary, 'bearish'));
-    });
+   
 
     return section;
 }
