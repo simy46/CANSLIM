@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const overallScore = 85;
         const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
         
-        // updateCANSlimScores(overallScore, bigRockScores);
+        updateCANSlimScores(overallScore, bigRockScores);
 
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -84,23 +84,6 @@ function updateCANSlimScores(overallScore, bigRockScores) {
         if (score !== null) {
             document.getElementById(`big-rock-${index + 2}-score`).textContent = score;
             setProgress(bigRockCircles[index], score);
-        }
-    });
-}
-
-
-function listenToNewsEvents() {
-    const newsContent = document.getElementById('news-content');
-    const seeMoreButton = document.getElementById('see-more-news');
-    let maxHeightIncrement = 300; // Height to add each time "See more" is clicked
-
-    seeMoreButton.addEventListener('click', () => {
-        let currentMaxHeight = parseInt(window.getComputedStyle(newsContent).maxHeight);
-        newsContent.style.maxHeight = (currentMaxHeight + maxHeightIncrement) + 'px';
-        
-        // Hide the button if all news are shown
-        if (newsContent.scrollHeight <= newsContent.offsetHeight) {
-            seeMoreButton.style.display = 'none';
         }
     });
 }
@@ -193,8 +176,8 @@ function updateStockDetails(data) {
     updateRecommendationsSection(data.recommendations.recommendedSymbols);
     updateProfileSection(data.quoteSummary);
     updateInsightsSection(data.insights);
-    /*updateFinancialsSection(data.quoteSummary ? data.quoteSummary.incomeStatementHistory : null);
     updateOptionsSection(data.options);
+    /*updateFinancialsSection(data.quoteSummary ? data.quoteSummary.incomeStatementHistory : null);
     updateChartSection(data.chart);
     updateQuoteSummarySection(data.quoteSummary);
     */
@@ -234,21 +217,46 @@ function updateOverviewSection(overview) {
 // NEWS //
 function updateNewsSection(news) {
     if (news) {
-        news.forEach(createNews);
+        displayNews(news, 3); // Display 3 news items initially
+        listenToNewsEvents(news);
     } else {
         const newsElement = document.getElementById('news-content');
         newsElement.innerText = 'No data available';
     }
-
-    listenToNewsEvents();
 }
+
+function displayNews(news, maxDisplayed) {
+    const newsContent = document.getElementById('news-content');
+    newsContent.innerHTML = '';
+
+    const newsToShow = news.slice(0, maxDisplayed);
+    newsToShow.forEach(createNews);
+
+    document.getElementById('see-more-news').style.display = maxDisplayed < news.length ? 'block' : 'none';
+    document.getElementById('see-less-news').style.display = maxDisplayed > 3 ? 'block' : 'none';
+}
+
+function listenToNewsEvents(news) {
+    let newsDisplayed = 3;
+
+    document.getElementById('see-more-news').addEventListener('click', () => {
+        newsDisplayed += 2;
+        displayNews(news, newsDisplayed);
+    });
+
+    document.getElementById('see-less-news').addEventListener('click', () => {
+        newsDisplayed = 3;
+        displayNews(news, newsDisplayed);
+    });
+}
+
 
 function createNews(news) {
     const newsContainer = document.getElementById('news-content');
     const div = document.createElement('div');
     div.classList.add('news-item');
 
-    const h4 = document.createElement('h7');
+    const h4 = document.createElement('h4');
     h4.textContent = news.title;
     h4.classList.add('news-title');
     div.appendChild(h4);
@@ -303,11 +311,11 @@ async function updateProfileSection(quoteSummary) {
     const assetProfile = quoteSummary.assetProfile || {};
     const summaryProfile = quoteSummary.summaryProfile || {};
 
-    document.getElementById('company-description').textContent = assetProfile.longBusinessSummary || summaryProfile.longBusinessSummary || 'N/A';
-    document.getElementById('industry').textContent = assetProfile.industry || summaryProfile.industry || 'N/A';
-    document.getElementById('sector').textContent = assetProfile.sector || summaryProfile.sector || 'N/A';
+    document.getElementById('company-description').textContent = assetProfile.longBusinessSummary || summaryProfile.longBusinessSummary || '-';
+    document.getElementById('industry').textContent = assetProfile.industry || summaryProfile.industry || '-';
+    document.getElementById('sector').textContent = assetProfile.sector || summaryProfile.sector || '-';
     document.getElementById('address').textContent = `${assetProfile.address1 || ''}, ${assetProfile.address2 || ''}, ${assetProfile.city || ''}, ${assetProfile.state || ''}, ${assetProfile.zip || ''}, ${assetProfile.country || ''}`;
-    document.getElementById('phone').textContent = assetProfile.phone || summaryProfile.phone || 'N/A';
+    document.getElementById('phone').textContent = assetProfile.phone || summaryProfile.phone || '-';
 
     // Website
     createWebsite(assetProfile);
@@ -317,11 +325,11 @@ async function updateProfileSection(quoteSummary) {
     initOfficers(officers);
 
     // Risk Metrics
-    document.getElementById('audit-risk').textContent = assetProfile.auditRisk || 'N/A';
-    document.getElementById('board-risk').textContent = assetProfile.boardRisk || 'N/A';
-    document.getElementById('compensation-risk').textContent = assetProfile.compensationRisk || 'N/A';
-    document.getElementById('shareholder-rights-risk').textContent = assetProfile.shareHolderRightsRisk || 'N/A';
-    document.getElementById('overall-risk').textContent = assetProfile.overallRisk || 'N/A';
+    document.getElementById('audit-risk').textContent = assetProfile.auditRisk || '-';
+    document.getElementById('board-risk').textContent = assetProfile.boardRisk || '-';
+    document.getElementById('compensation-risk').textContent = assetProfile.compensationRisk || '-';
+    document.getElementById('shareholder-rights-risk').textContent = assetProfile.shareHolderRightsRisk || '-';
+    document.getElementById('overall-risk').textContent = assetProfile.overallRisk || '-';
 }
 
 function initOfficers(officers) {
@@ -329,13 +337,18 @@ function initOfficers(officers) {
 
     function displayOfficers() {
         const officersContainer = document.getElementById('company-officers');
-        officersContainer.innerHTML = '';
+        if (officers) {
+            officersContainer.innerHTML = '';
 
-        const officersToShow = officers.slice(0, officersDisplayed);
-        officersToShow.forEach(officer => createOfficers(officer, officersContainer));
+            const officersToShow = officers.slice(0, officersDisplayed);
+            officersToShow.forEach(officer => createOfficers(officer, officersContainer));
 
-        document.getElementById('show-more-officers').style.display = officersDisplayed < officers.length ? 'block' : 'none';
-        document.getElementById('show-less-officers').style.display = officersDisplayed > 2 ? 'block' : 'none';
+            document.getElementById('show-more-officers').style.display = officersDisplayed < officers.length ? 'block' : 'none';
+            document.getElementById('show-less-officers').style.display = officersDisplayed > 2 ? 'block' : 'none';
+        } else {
+            officersContainer.textContent = "No data on officers"
+        }
+        
     }
 
     document.getElementById('show-more-officers').addEventListener('click', () => {
@@ -361,7 +374,7 @@ function createWebsite(assetProfile) {
         websiteElement.textContent = '';
         websiteElement.appendChild(a);
     } else {
-        websiteElement.textContent = 'N/A';
+        websiteElement.textContent = '-';
     }
 }
 
@@ -763,13 +776,157 @@ function updateFinancialsSection(financials) {
     }
 }
 
-function updateOptionsSection(options) {
-    const optionsElement = document.getElementById('options-content');
-    if (options) {
-        optionsElement.innerText = JSON.stringify(options, null, 2);
+// OPTIONS //
+function updateOptionsSection(optionsData) {
+    if (optionsData) {
+        displayOptionsDetails(optionsData.options);
     } else {
-        optionsElement.innerText = 'No data available';
+        document.getElementById('expiration-dates-content').innerText = 'No data available';
+        document.getElementById('options-details-content').innerText = 'No data available';
     }
+}
+
+function displayOptionsDetails(options) {
+    const content = document.getElementById('options-details-content');
+    content.innerHTML = ''; // Clear previous content
+
+    options.forEach(optionSet => {
+        const dateObj = new Date(optionSet.expirationDate);
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+
+        const calls = optionSet.calls;
+        const puts = optionSet.puts;
+
+        const div = document.createElement('div');
+        div.classList.add('expiration-date-block');
+        
+        const dateHeading = document.createElement('h4');
+        dateHeading.textContent = `Expiration Date: ${formattedDate}`;
+        div.appendChild(dateHeading);
+
+        const table = document.createElement('table');
+        table.classList.add('option-details-table');
+        
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        ['Expiration Date', 'Strike', 'Type', 'Last Price', 'Change', '% Change', 'Volume', 'Open Interest', 'Bid', 'Ask', 'Implied Volatility'].forEach(text => {
+            const th = document.createElement('th');
+            th.textContent = text;
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+
+        calls.forEach(call => {
+            const row = document.createElement('tr');
+
+            const expirationDateCell = document.createElement('td');
+            expirationDateCell.textContent = formattedDate;
+            row.appendChild(expirationDateCell);
+
+            const strikeCell = document.createElement('td');
+            strikeCell.textContent = call.strike ? call.strike.toFixed(2) : '-';
+            row.appendChild(strikeCell);
+
+            const typeCell = document.createElement('td');
+            typeCell.textContent = 'Call';
+            row.appendChild(typeCell);
+
+            const lastPriceCell = document.createElement('td');
+            lastPriceCell.textContent = call.lastPrice ? call.lastPrice.toFixed(2) : '-';
+            row.appendChild(lastPriceCell);
+
+            const changeCell = document.createElement('td');
+            changeCell.textContent = call.change ? call.change.toFixed(2) : '-';
+            row.appendChild(changeCell);
+
+            const percentChangeCell = document.createElement('td');
+            percentChangeCell.textContent = call.percentChange ? call.percentChange.toFixed(2) + '%' : '-';
+            row.appendChild(percentChangeCell);
+
+            const volumeCell = document.createElement('td');
+            volumeCell.textContent = call.volume || '-';
+            row.appendChild(volumeCell);
+
+            const openInterestCell = document.createElement('td');
+            openInterestCell.textContent = call.openInterest || '-';
+            row.appendChild(openInterestCell);
+
+            const bidCell = document.createElement('td');
+            bidCell.textContent = call.bid ? call.bid.toFixed(2) : '-';
+            row.appendChild(bidCell);
+
+            const askCell = document.createElement('td');
+            askCell.textContent = call.ask ? call.ask.toFixed(2) : '-';
+            row.appendChild(askCell);
+
+            const impliedVolatilityCell = document.createElement('td');
+            impliedVolatilityCell.textContent = call.impliedVolatility ? (call.impliedVolatility * 100).toFixed(2) + '%' : '-';
+            row.appendChild(impliedVolatilityCell);
+
+            tbody.appendChild(row);
+        });
+
+        puts.forEach(put => {
+            const row = document.createElement('tr');
+
+            const expirationDateCell = document.createElement('td');
+            expirationDateCell.textContent = formattedDate;
+            row.appendChild(expirationDateCell);
+
+            const strikeCell = document.createElement('td');
+            strikeCell.textContent = put.strike ? put.strike.toFixed(2) : '-';
+            row.appendChild(strikeCell);
+
+            const typeCell = document.createElement('td');
+            typeCell.textContent = 'Put';
+            row.appendChild(typeCell);
+
+            const lastPriceCell = document.createElement('td');
+            lastPriceCell.textContent = put.lastPrice ? put.lastPrice.toFixed(2) : '-';
+            row.appendChild(lastPriceCell);
+
+            const changeCell = document.createElement('td');
+            changeCell.textContent = put.change ? put.change.toFixed(2) : '-';
+            row.appendChild(changeCell);
+
+            const percentChangeCell = document.createElement('td');
+            percentChangeCell.textContent = put.percentChange ? put.percentChange.toFixed(2) + '%' : '-';
+            row.appendChild(percentChangeCell);
+
+            const volumeCell = document.createElement('td');
+            volumeCell.textContent = put.volume || '-';
+            row.appendChild(volumeCell);
+
+            const openInterestCell = document.createElement('td');
+            openInterestCell.textContent = put.openInterest || '-';
+            row.appendChild(openInterestCell);
+
+            const bidCell = document.createElement('td');
+            bidCell.textContent = put.bid ? put.bid.toFixed(2) : '-';
+            row.appendChild(bidCell);
+
+            const askCell = document.createElement('td');
+            askCell.textContent = put.ask ? put.ask.toFixed(2) : '-';
+            row.appendChild(askCell);
+
+            const impliedVolatilityCell = document.createElement('td');
+            impliedVolatilityCell.textContent = put.impliedVolatility ? (put.impliedVolatility * 100).toFixed(2) + '%' : '-';
+            row.appendChild(impliedVolatilityCell);
+
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+        div.appendChild(table);
+        content.appendChild(div);
+    });
 }
 
 function updateChartSection(chart) {
@@ -804,7 +961,7 @@ function updateRecommendationsSection(recommendations) {
 
 function createRecommendation(recommendations, parentElement) {
     // Trouver la longueur maximale du texte des recommandations
-    const maxLength = Math.max(...recommendations.map(rec => `${rec.symbol}`)) + 1;
+    const maxLength = Math.max(...recommendations.map(rec => rec.symbol.length)) + 1;
 
     recommendations.forEach(recommendation => {
         const recommendationElement = document.createElement('div');
@@ -833,23 +990,20 @@ function createRecommendation(recommendations, parentElement) {
     });
 }
 
-
-
 function scoreToColor(score) {
-    const startColor = { r: 105, g: 53, b: 80 }; // #693550
-    const endColor = { r: 44, g: 67, b: 88 }; // #2c4358
+    const startColor = { r: 178, g: 34, b: 34 };
+    const endColor = { r: 34, g: 139, b: 34 };
 
-    // Convert score to a value between 0 and 1
-    const normalizedScore = Math.min(Math.max(score, 0), 1);
+    // Ajuster la plage de score pour qu'elle soit de 0 à 0.5
+    const adjustedScore = Math.min(Math.max(score / 0.5, 0), 1);
 
-    // Interpolate between startColor and endColor
-    const r = Math.floor(startColor.r + normalizedScore * (endColor.r - startColor.r));
-    const g = Math.floor(startColor.g + normalizedScore * (endColor.g - startColor.g));
-    const b = Math.floor(startColor.b + normalizedScore * (endColor.b - startColor.b));
+    // Interpoler entre startColor et endColor
+    const r = Math.floor(startColor.r + adjustedScore * (endColor.r - startColor.r));
+    const g = Math.floor(startColor.g + adjustedScore * (endColor.g - startColor.g));
+    const b = Math.floor(startColor.b + adjustedScore * (endColor.b - startColor.b));
 
     return `rgb(${r}, ${g}, ${b})`;
 }
-
 
 function updateCheckList(results) {
     console.log(results);
@@ -874,7 +1028,7 @@ function updateCheckList(results) {
                         cardElement.classList.remove('undefined');
                         if (results[key].bool === true) {
                             cardElement.classList.add('pass');
-                        } else if (results[key].bool === false) {
+                        } else if (results[key].bool === false && results[key].value !== null) {
                             cardElement.classList.add('fail');
                         } else {
                             cardElement.classList.add('undefined');
