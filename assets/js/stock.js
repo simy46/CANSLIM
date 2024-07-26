@@ -334,16 +334,16 @@ function initOfficers(officers) {
         const officersToShow = officers.slice(0, officersDisplayed);
         officersToShow.forEach(officer => createOfficers(officer, officersContainer));
 
-        document.getElementById('show-more-button').style.display = officersDisplayed < officers.length ? 'block' : 'none';
-        document.getElementById('show-less-button').style.display = officersDisplayed > 2 ? 'block' : 'none';
+        document.getElementById('show-more-officers').style.display = officersDisplayed < officers.length ? 'block' : 'none';
+        document.getElementById('show-less-officers').style.display = officersDisplayed > 2 ? 'block' : 'none';
     }
 
-    document.getElementById('show-more-button').addEventListener('click', () => {
+    document.getElementById('show-more-officers').addEventListener('click', () => {
         officersDisplayed += 2;
         displayOfficers();
     });
 
-    document.getElementById('show-less-button').addEventListener('click', () => {
+    document.getElementById('show-less-officers').addEventListener('click', () => {
         officersDisplayed = 2;
         displayOfficers();
     });
@@ -407,7 +407,7 @@ function formatDate(dateString, locale = 'en-US') {
     return new Date(dateString).toLocaleDateString(locale, options);
 }
 
-function updateInsightsSection(insights) {
+function updateInsightsSection(insights, symbol) {
     // Technical Events
     const technicalEventsContent = document.getElementById('technical-events-content');
     if (insights.instrumentInfo && insights.instrumentInfo.technicalEvents) {
@@ -496,12 +496,63 @@ function updateInsightsSection(insights) {
     // SEC Reports
     const secReportsContent = document.getElementById('sec-reports-content');
     if (insights.secReports) {
-        insights.secReports.forEach(report => {
-            secReportsContent.appendChild(createSECReportItem(report));
-        });
+        displaySECReports(insights.secReports, symbol, 3);
+        listenToSecButtonEvents(insights.secReports, symbol);
     } else {
         secReportsContent.textContent = 'No data available';
     }
+
+    // Bullish & Bearish Summary
+    const bullishBearishSummaryContent = document.getElementById('bullish-bearish-summary-content');
+    if (insights.upsell) {
+        bullishBearishSummaryContent.appendChild(createBullishBearishSummaryItem(insights.upsell));
+    } else {
+        bullishBearishSummaryContent.textContent = 'No data available';
+    }
+
+    // Research Reports
+    const researchReportsContent = document.getElementById('research-reports-content');
+    if (insights.upsellSearchDD && insights.upsellSearchDD.researchReports) {
+        researchReportsContent.appendChild(createResearchReportItem(insights.upsellSearchDD.researchReports));
+    } else {
+        researchReportsContent.textContent = 'No data available';
+    }
+}
+
+function createBullishBearishSummaryItem(upsell) {
+    const section = document.createElement('div');
+    section.classList.add('insight-content');
+
+    const bullishHeading = document.createElement('h4');
+    bullishHeading.textContent = 'Bullish Summary';
+    section.appendChild(bullishHeading);
+
+    upsell.msBullishSummary.forEach(summary => {
+        section.appendChild(createInsightItem('Bullish', summary, 'bullish'));
+    });
+
+    const bearishHeading = document.createElement('h4');
+    bearishHeading.textContent = 'Bearish Summary';
+    section.appendChild(bearishHeading);
+
+    upsell.msBearishSummary.forEach(summary => {
+        section.appendChild(createInsightItem('Bearish', summary, 'bearish'));
+    });
+
+    return section;
+}
+
+function createResearchReportItem(report) {
+    const section = document.createElement('div');
+    section.classList.add('insight-content');
+
+    section.appendChild(createInsightItem('Provider', report.provider));
+    section.appendChild(createInsightItem('Title', report.title));
+    section.appendChild(createInsightItem('Summary', report.summary));
+    section.appendChild(createInsightItem('Investment Rating', report.investmentRating));
+    section.appendChild(createInsightItem('Report Date', formatDate(report.reportDate)));
+
+    return section;
 }
 
 // Helper functions to create elements
@@ -650,8 +701,34 @@ function createSignificantDevelopmentItem(dev) {
     return section;
 }
 
+function displaySECReports(reports, symbol, maxDisplayed) {
+    const secReportsContent = document.getElementById('sec-reports-content');
+    secReportsContent.innerHTML = '';
 
-function createSECReportItem(report) {
+    const reportsToShow = reports.slice(0, maxDisplayed);
+    reportsToShow.forEach(report => {
+        secReportsContent.appendChild(createSECReportItem(report, symbol));
+    });
+
+    document.getElementById('show-more-sec-reports').style.display = maxDisplayed < reports.length ? 'block' : 'none';
+    document.getElementById('show-less-sec-reports').style.display = maxDisplayed > 3 ? 'block' : 'none';
+}
+
+function listenToSecButtonEvents(reports, symbol) {
+    let secReportsDisplayed = 3;
+
+    document.getElementById('show-more-sec-reports').addEventListener('click', () => {
+        secReportsDisplayed += 2;
+        displaySECReports(reports, symbol, secReportsDisplayed);
+    });
+
+    document.getElementById('show-less-sec-reports').addEventListener('click', () => {
+        secReportsDisplayed = 3;
+        displaySECReports(reports, symbol, secReportsDisplayed);
+    });
+}
+
+function createSECReportItem(report, symbol) {
     const section = document.createElement('div');
     const div = document.createElement('div');
     section.classList.add('insight-content');
@@ -668,9 +745,13 @@ function createSECReportItem(report) {
 
     section.appendChild(div);
 
+    section.onclick = () => {
+        const url = `https://finance.yahoo.com/sec-filing/${symbol}/${report.id};`
+        window.open(url, '_blank')
+    }
+
     return section;
 }
-
 
 
 function updateFinancialsSection(financials) {

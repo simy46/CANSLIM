@@ -724,10 +724,10 @@ h2, h3,  h1 {
   width: 50%;
   height: fit-content;
   padding: 0 20px 20px;
+  margin: 0 auto 60px;
 }
 
 /* ASIDE STYLES */
-/* Styles de base pour le conteneur aside */
 .aside-container {
   width: 20%;
   display: flex;
@@ -937,7 +937,7 @@ a:hover {
   color: #ffffff;
 }
 
-#show-more-button, #show-less-button {
+.show-more-button, .show-less-button {
   margin-top: 10px;
   padding: 10px;
   background-color: #ad74ff;
@@ -947,7 +947,7 @@ a:hover {
   cursor: pointer;
 }
 
-#show-more-button:hover, #show-less-button:hover {
+.show-more-button:hover, .show-less-button:hover {
   background-color: #9b63d3;
 }
 
@@ -956,24 +956,25 @@ a:hover {
   padding-bottom: 50px;
 }
 
-#show-more-button {
+.show-more-button {
   position: absolute;
   left: 5px;
 }
 
-#show-less-button {
+.show-less-button {
   position: absolute;
   right: 5px;
 }
 
 /* INSIGHTS */
 #insights-section {
-  padding: 0 20px 20px;
-  background-color: #1a1a2e;
   color: #ffffff;
   font-family: Arial, sans-serif;
-  border-radius: 8px;
-  margin: 0 auto 40px;
+}
+
+#insights-section > div:nth-child(9) {
+  position: relative;
+  padding-bottom: 100px;
 }
 
 .insight-content {
@@ -1012,7 +1013,7 @@ a:hover {
   flex: none;
 }
 
-.value-insight, .company-value, .sector-value {
+.value-insight:not(#bullish-bearish-summary-content > div > div> span.value-insight), .company-value, .sector-value {
   text-align: right;
   flex: 0 0 25%;
 }
@@ -1035,12 +1036,20 @@ a:hover {
     margin: 10px 0;
 }
 
-.insight-item:not(#reports-content > div > div, #sec-reports-content > div > div > div, #significant-developments-content > div > div), .snapshot-item {
+.insight-item:not(#reports-content > div > div, 
+        #sec-reports-content > div > div > div, 
+        #significant-developments-content > div > div,
+        #research-reports-content > div > div)
+        , .snapshot-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
   white-space: nowrap;
+}
+
+#bullish-bearish-summary-content > div > div > span.value-insight {
+  white-space: wrap;
 }
 
 .dots {
@@ -1052,6 +1061,7 @@ a:hover {
 #sec-reports-content > div {
   display: flex;
   gap: 10%;
+  cursor: pointer;
 }
 
 #sec-reports-content > div > div {
