@@ -452,6 +452,13 @@ body > div:nth-child(2) {
   background-color: #1a2136;
 }
 
+div > p.news-publish-time {
+  font-size: 14px;
+  color: #8d8db8;
+  margin-bottom: 0;
+  text-align: center;
+}
+
 #important > *:not(h2) {
   font-size: 16px;
 }
