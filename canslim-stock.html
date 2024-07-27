@@ -265,8 +265,35 @@
     <div class="main-content" id="informations-container">
         <!-- Overview Section -->
         <section id="overview-section">
+            <!-- Recent Performance Section -->
+            <div id="recent-performance">
+                <h3>Recent Performance</h3>
+                <div class="performance-row">
+                    <div class="performance-item">
+                        <span class="value" id="regular-market-price">-</span>
+                        <span class="label">Last</span>
+                    </div>
+                    <div class="performance-item">
+                        <span class="value" id="todays-change">-</span>
+                        <span class="label">Today's Change</span>
+                    </div>
+                    <div class="performance-item">
+                        <span class="value" id="regular-market-day-high">-</span>
+                        <span class="label">Day High</span>
+                    </div>
+                    <div class="performance-item">
+                        <span class="value" id="regular-market-day-low">-</span>
+                        <span class="label">Day Low</span>
+                    </div>
+                    <div class="performance-item">
+                        <span class="value" id="volume">-</span>
+                        <span class="label">Volume</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Price and Volume Subsection -->
             <div class="overview-grid">
-                <!-- Current Price and Volume Subsection -->
                 <div class="overview-subsection" id="price-volume">
                     <h3>Current Price and Volume</h3>
                     <div class="overview-row">
@@ -288,11 +315,6 @@
                         <span class="attribute">Day High:</span>
                         <span class="dots"></span>
                         <span id="day-high" class="value">-</span>
-                    </div>
-                    <div class="overview-row">
-                        <span class="attribute">Volume:</span>
-                        <span class="dots"></span>
-                        <span id="volume" class="value">-</span>
                     </div>
                     <div class="overview-row">
                         <span class="attribute">Average Volume:</span>
@@ -386,8 +408,42 @@
                     </div>
                 </div>
             </div>
-        </section>
 
+            <!-- Additional Information Section -->
+            <div id="additional-info">
+                <h3>Additional Information</h3>
+                <div class="overview-row">
+                    <span class="attribute">Exchange:</span>
+                    <span class="dots"></span>
+                    <span id="exchange" class="value">-</span>
+                </div>
+                <div class="overview-row">
+                    <span class="attribute">Market State:</span>
+                    <span class="dots"></span>
+                    <span id="market-state" class="value">-</span>
+                </div>
+                <div class="overview-row">
+                    <span class="attribute">Quote Type:</span>
+                    <span class="dots"></span>
+                    <span id="quote-type" class="value">-</span>
+                </div>
+                <div class="overview-row">
+                    <span class="attribute">Market:</span>
+                    <span class="dots"></span>
+                    <span id="market" class="value">-</span>
+                </div>
+                <div class="overview-row">
+                    <span class="attribute">Tradeable:</span>
+                    <span class="dots"></span>
+                    <span id="tradeable" class="value">-</span>
+                </div>
+                <div class="overview-row">
+                    <span class="attribute">Crypto Tradeable:</span>
+                    <span class="dots"></span>
+                    <span id="crypto-tradeable" class="value">-</span>
+                </div>
+            </div>
+        </section>
 
         <!-- Profile Section -->
         <section id="profile-section">
@@ -471,11 +527,31 @@
     
             <!-- Options Section -->
             <section id="options-section">
+                <div class="options-intro">
+                    <h3>Options Details</h3>
+                    <p>An option is a financial contract that gives the buyer the right, but not the obligation, to buy or sell an underlying asset at a predetermined price before or on a specific date.</p>
+                    <h4>Types of Options</h4>
+                    <ul>
+                        <li><strong>Call Options:</strong> The right to buy the underlying asset.</li>
+                        <li><strong>Put Options:</strong> The right to sell the underlying asset.</li>
+                    </ul>
+                </div>
+                <div class="options-select">
+                    <label for="option-type">Select Option Type:</label>
+                    <select id="option-type">
+                      <option value="calls">Calls</option>
+                      <option value="puts">Puts</option>
+                    </select>
+                  </div>
                 <div class="options-item">
                     <h3>Options Details</h3>
                     <div id="options-details-content"></div>
                 </div>
-            </section> 
+                <div class="options-upcoming-expirations">
+                    <h4>Upcoming Expiration Dates</h4>
+                    <div id="upcoming-expirations-content"></div>
+                </div>
+            </section>
 
             <!-- INSIGHTS -->
             <section id="insights-section">

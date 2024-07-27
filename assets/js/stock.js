@@ -34,13 +34,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         const data2 = await response2.json();
         console.log(data2)
-        updateStockDetails(data2);
+        updateStockDetails(data2, data1.stockInfo);
         setLoadingInformations(false);
         // Example usage
         const overallScore = 85;
         const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
         
-        // updateCANSlimScores(overallScore, bigRockScores);
+        updateCANSlimScores(overallScore, bigRockScores);
 
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -163,7 +163,7 @@ function setLoadingInformations(isLoading) {
 }
 
 
-function updateStockDetails(data) {
+function updateStockDetails(data, stockInfo) {
     // Mettez à jour les sections avec les détails du stock
     if (data.quoteSummary && data.quoteSummary.price) {
         document.getElementById('stock-name').textContent = data.quoteSummary.price.longName || '-';
@@ -171,9 +171,9 @@ function updateStockDetails(data) {
     }
 
     // Overview //
-    updateOverviewSection(data.quoteSummary ? data.quoteSummary.summaryDetail : null);
+    updateOverviewSection(stockInfo, data.quoteSummary.summaryDetail);
     updateNewsSection(data.news);
-    updateRecommendationsSection(data.recommendations.recommendedSymbols);
+    updateRecommendationsSection(data.recommendations ? data.recommendations.recommendedSymbols : null);
     updateProfileSection(data.quoteSummary);
     updateInsightsSection(data.insights);
     updateOptionsSection(data.options);
@@ -184,33 +184,91 @@ function updateStockDetails(data) {
 }
 
 // OVERVIEW //
-function updateOverviewSection(overview) {
-    if (overview) {
-        document.getElementById('previous-close').textContent = overview.previousClose || '-';
-        document.getElementById('open').textContent = overview.open || '-';
-        document.getElementById('day-low').textContent = overview.dayLow || '-';
-        document.getElementById('day-high').textContent = overview.dayHigh || '-';
-        document.getElementById('volume').textContent = overview.volume || '-';
-        document.getElementById('average-volume').textContent = overview.averageVolume || '-';
-
-        document.getElementById('dividend-rate').textContent = overview.dividendRate || '-';
-        document.getElementById('dividend-yield').textContent = overview.dividendYield || '-';
-        document.getElementById('ex-dividend-date').textContent = overview.exDividendDate ? new Date(overview.exDividendDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
-        document.getElementById('payout-ratio').textContent = overview.payoutRatio || '-';
-        document.getElementById('five-year-avg-dividend-yield').textContent = overview.fiveYearAvgDividendYield || '-';
-
-        document.getElementById('beta').textContent = overview.beta || '-';
-        document.getElementById('trailing-pe').textContent = overview.trailingPE || '-';
-        document.getElementById('forward-pe').textContent = overview.forwardPE || '-';
-        document.getElementById('price-to-sales').textContent = overview.priceToSalesTrailing12Months || '-';
-        document.getElementById('market-cap').textContent = overview.marketCap || '-';
-
-        document.getElementById('fifty-two-week-low').textContent = overview.fiftyTwoWeekLow || '-';
-        document.getElementById('fifty-two-week-high').textContent = overview.fiftyTwoWeekHigh || '-';
-        document.getElementById('fifty-day-average').textContent = overview.fiftyDayAverage || '-';
-        document.getElementById('two-hundred-day-average').textContent = overview.twoHundredDayAverage || '-';
+function updateOverviewSection(stockInfo, summaryDetail) {
+    if (stockInfo && summaryDetail) {
+        updateRecentPerformance(stockInfo, summaryDetail);
+        updateOverviewGrid(summaryDetail);
+        updateAdditionalInfo(stockInfo);
     } else {
         document.getElementById('overview-section').textContent = 'No data available';
+    }
+}
+
+function updateRecentPerformance(stockInfo, summaryDetail) {
+    const regularMarketPrice = stockInfo.regularMarketPrice || '-';
+    const previousClose = summaryDetail.previousClose || 0;
+    const change = regularMarketPrice - previousClose;
+    const percentChange = (change / previousClose * 100).toFixed(2);
+
+    document.getElementById('regular-market-price').textContent = regularMarketPrice;
+    
+    const changeElement = document.getElementById('todays-change');
+    changeElement.innerHTML = ''; // Clear previous content
+    
+    const changeSpan = document.createElement('span');
+    changeSpan.textContent = `${change.toFixed(2)} (${percentChange}%)`;
+    changeSpan.classList.add(change >= 0 ? 'bullish' : 'bearish');
+    changeElement.appendChild(changeSpan);
+
+    const img = document.createElement('img');
+    img.id='change-img'
+    img.src = change >= 0 ? '/up.png' : '/down.png';
+    img.alt = change >= 0 ? 'Up' : 'Down';
+
+    changeElement.appendChild(img);
+
+    document.getElementById('regular-market-day-high').textContent = summaryDetail.dayHigh || '-';
+    document.getElementById('regular-market-day-low').textContent = summaryDetail.dayLow || '-';
+    document.getElementById('volume').textContent = summaryDetail.volume || '-';
+}
+
+function updateOverviewGrid(summaryDetail) {
+    document.getElementById('previous-close').textContent = summaryDetail.previousClose || '-';
+    document.getElementById('open').textContent = summaryDetail.open || '-';
+    document.getElementById('day-low').textContent = summaryDetail.dayLow || '-';
+    document.getElementById('day-high').textContent = summaryDetail.dayHigh || '-';
+    document.getElementById('average-volume').textContent = summaryDetail.averageVolume || '-';
+
+    document.getElementById('dividend-rate').textContent = summaryDetail.trailingAnnualDividendRate || '-';
+    document.getElementById('dividend-yield').textContent = summaryDetail.trailingAnnualDividendYield ? (summaryDetail.trailingAnnualDividendYield * 100).toFixed(2) + '%' : '-';
+    document.getElementById('ex-dividend-date').textContent = summaryDetail.exDividendDate ? new Date(summaryDetail.exDividendDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
+    document.getElementById('payout-ratio').textContent = summaryDetail.payoutRatio ? (summaryDetail.payoutRatio * 100).toFixed(2) + '%' : '-';
+    document.getElementById('five-year-avg-dividend-yield').textContent = summaryDetail.fiveYearAvgDividendYield ? (summaryDetail.fiveYearAvgDividendYield * 100).toFixed(2) + '%' : '-';
+
+    document.getElementById('beta').textContent = summaryDetail.beta || '-';
+    document.getElementById('trailing-pe').textContent = summaryDetail.trailingPE || '-';
+    document.getElementById('forward-pe').textContent = summaryDetail.forwardPE || '-';
+    document.getElementById('price-to-sales').textContent = summaryDetail.priceToSalesTrailing12Months || '-';
+    document.getElementById('market-cap').textContent = summaryDetail.marketCap || '-';
+
+    document.getElementById('fifty-two-week-low').textContent = summaryDetail.fiftyTwoWeekLow || '-';
+    document.getElementById('fifty-two-week-high').textContent = summaryDetail.fiftyTwoWeekHigh || '-';
+    document.getElementById('fifty-day-average').textContent = summaryDetail.fiftyDayAverage || '-';
+    document.getElementById('two-hundred-day-average').textContent = summaryDetail.twoHundredDayAverage || '-';
+}
+
+function updateAdditionalInfo(stockInfo) {
+    const tradeable = document.getElementById('tradeable');
+    const crypto = document.getElementById('crypto-tradeable');
+
+    document.getElementById('exchange').textContent = stockInfo.exchange || '-';
+    document.getElementById('market-state').textContent = stockInfo.marketState || '-';
+    document.getElementById('quote-type').textContent = stockInfo.quoteType || '-';
+    document.getElementById('market').textContent = stockInfo.market || '-';
+    if (stockInfo.tradeable) {
+        tradeable.textContent = 'Yes';
+        tradeable.classList.add('bullish')
+    } else {
+        tradeable.textContent = 'No';
+        tradeable.classList.add('bearish');
+    }
+
+    if (stockInfo.cryptoTradeable) {
+        crypto.textContent = 'Yes';
+        crypto.classList.add('bullish')
+    } else {
+        crypto.textContent = 'No';
+        crypto.classList.add('bearish');
     }
 }
 
@@ -420,7 +478,8 @@ function formatDate(dateString, locale = 'en-US') {
     return new Date(dateString).toLocaleDateString(locale, options);
 }
 
-function updateInsightsSection(insights, symbol) {
+function updateInsightsSection(insights) {
+    const symbol = insights.symbol;
     // Technical Events
     const technicalEventsContent = document.getElementById('technical-events-content');
     if (insights.instrumentInfo && insights.instrumentInfo.technicalEvents) {
@@ -536,28 +595,27 @@ function createBullishBearishSummaryItem(upsell) {
     const section = document.createElement('div');
     section.classList.add('insight-content');
 
-    
+    if (!upsell.msBullishSummary || !upsell.msBearishSummary) {
+        section.textContent = 'No data available';
+        return section;
+    }
 
-    if (upsell.msBullishSummary &&  upsell.msBullishSummary.length !== 0) {
-        const bullishHeading = document.createElement('h4');
-        bullishHeading.textContent = 'Bullish Summary';
-        section.appendChild(bullishHeading);
-        upsell.msBullishSummary.forEach(summary => {
+    const bullishHeading = document.createElement('h4');
+    bullishHeading.textContent = 'Bullish Summary';
+    section.appendChild(bullishHeading);
+    upsell.msBullishSummary.forEach(summary => {
         section.appendChild(createInsightItem('Bullish', summary, 'bullish'));
     });
-    }
-    
-    if (upsell.msBearishSummary &&  upsell.msBearishSummary.length !== 0) {
-        const bearishHeading = document.createElement('h4');
-        bearishHeading.textContent = 'Bearish Summary';
-        section.appendChild(bearishHeading);
-    
-        upsell.msBearishSummary.forEach(summary => {
-            section.appendChild(createInsightItem('Bearish', summary, 'bearish'));
-        });
-    }
 
-   
+
+    const bearishHeading = document.createElement('h4');
+    bearishHeading.textContent = 'Bearish Summary';
+    section.appendChild(bearishHeading);
+
+    upsell.msBearishSummary.forEach(summary => {
+        section.appendChild(createInsightItem('Bearish', summary, 'bearish'));
+    });
+    
 
     return section;
 }
@@ -786,154 +844,106 @@ function updateFinancialsSection(financials) {
 // OPTIONS //
 function updateOptionsSection(optionsData) {
     if (optionsData) {
-        displayOptionsDetails(optionsData.options);
+        populateUpcomingExpirations(optionsData.expirationDates);
+        attachEventListeners(optionsData.options[0]); // Use the first expiration date's options by default
+        displayOptionsDetails(optionsData.options[0].calls); // Display the first set of call options by default
     } else {
         document.getElementById('expiration-dates-content').innerText = 'No data available';
         document.getElementById('options-details-content').innerText = 'No data available';
     }
 }
 
-function displayOptionsDetails(options) {
+function populateUpcomingExpirations(expirationDates) {
+    const upcomingExpirationsContent = document.getElementById('upcoming-expirations-content');
+    upcomingExpirationsContent.innerHTML = '';
+    expirationDates.forEach(date => {
+        const dateElement = document.createElement('div');
+        const formattedDate = new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        dateElement.textContent = formattedDate;
+        upcomingExpirationsContent.appendChild(dateElement);
+    });
+}
+
+function attachEventListeners(options) {
+    const optionTypeSelect = document.getElementById('option-type');
+    
+    optionTypeSelect.addEventListener('change', () => {
+        const selectedType = optionTypeSelect.value;
+        displayOptionsDetails(options[selectedType]);
+    });
+}
+
+function displayOptionsDetails(optionDetails) {
     const content = document.getElementById('options-details-content');
     content.innerHTML = ''; // Clear previous content
 
-    options.forEach(optionSet => {
-        const dateObj = new Date(optionSet.expirationDate);
-        const formattedDate = dateObj.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        });
+    if (optionDetails.length === 0) {
+        content.textContent = 'No options data available for the selected criteria';
+        return;
+    }
 
-        const calls = optionSet.calls;
-        const puts = optionSet.puts;
-
-        const div = document.createElement('div');
-        div.classList.add('expiration-date-block');
-        
-        const dateHeading = document.createElement('h4');
-        dateHeading.textContent = `Expiration Date: ${formattedDate}`;
-        div.appendChild(dateHeading);
-
-        const table = document.createElement('table');
-        table.classList.add('option-details-table');
-        
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-        ['Expiration Date', 'Strike', 'Type', 'Last Price', 'Change', '% Change', 'Volume', 'Open Interest', 'Bid', 'Ask', 'Implied Volatility'].forEach(text => {
-            const th = document.createElement('th');
-            th.textContent = text;
-            headerRow.appendChild(th);
-        });
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
-
-        calls.forEach(call => {
-            const row = document.createElement('tr');
-
-            const expirationDateCell = document.createElement('td');
-            expirationDateCell.textContent = formattedDate;
-            row.appendChild(expirationDateCell);
-
-            const strikeCell = document.createElement('td');
-            strikeCell.textContent = call.strike ? call.strike.toFixed(2) : '-';
-            row.appendChild(strikeCell);
-
-            const typeCell = document.createElement('td');
-            typeCell.textContent = 'Call';
-            row.appendChild(typeCell);
-
-            const lastPriceCell = document.createElement('td');
-            lastPriceCell.textContent = call.lastPrice ? call.lastPrice.toFixed(2) : '-';
-            row.appendChild(lastPriceCell);
-
-            const changeCell = document.createElement('td');
-            changeCell.textContent = call.change ? call.change.toFixed(2) : '-';
-            row.appendChild(changeCell);
-
-            const percentChangeCell = document.createElement('td');
-            percentChangeCell.textContent = call.percentChange ? call.percentChange.toFixed(2) + '%' : '-';
-            row.appendChild(percentChangeCell);
-
-            const volumeCell = document.createElement('td');
-            volumeCell.textContent = call.volume || '-';
-            row.appendChild(volumeCell);
-
-            const openInterestCell = document.createElement('td');
-            openInterestCell.textContent = call.openInterest || '-';
-            row.appendChild(openInterestCell);
-
-            const bidCell = document.createElement('td');
-            bidCell.textContent = call.bid ? call.bid.toFixed(2) : '-';
-            row.appendChild(bidCell);
-
-            const askCell = document.createElement('td');
-            askCell.textContent = call.ask ? call.ask.toFixed(2) : '-';
-            row.appendChild(askCell);
-
-            const impliedVolatilityCell = document.createElement('td');
-            impliedVolatilityCell.textContent = call.impliedVolatility ? (call.impliedVolatility * 100).toFixed(2) + '%' : '-';
-            row.appendChild(impliedVolatilityCell);
-
-            tbody.appendChild(row);
-        });
-
-        puts.forEach(put => {
-            const row = document.createElement('tr');
-
-            const expirationDateCell = document.createElement('td');
-            expirationDateCell.textContent = formattedDate;
-            row.appendChild(expirationDateCell);
-
-            const strikeCell = document.createElement('td');
-            strikeCell.textContent = put.strike ? put.strike.toFixed(2) : '-';
-            row.appendChild(strikeCell);
-
-            const typeCell = document.createElement('td');
-            typeCell.textContent = 'Put';
-            row.appendChild(typeCell);
-
-            const lastPriceCell = document.createElement('td');
-            lastPriceCell.textContent = put.lastPrice ? put.lastPrice.toFixed(2) : '-';
-            row.appendChild(lastPriceCell);
-
-            const changeCell = document.createElement('td');
-            changeCell.textContent = put.change ? put.change.toFixed(2) : '-';
-            row.appendChild(changeCell);
-
-            const percentChangeCell = document.createElement('td');
-            percentChangeCell.textContent = put.percentChange ? put.percentChange.toFixed(2) + '%' : '-';
-            row.appendChild(percentChangeCell);
-
-            const volumeCell = document.createElement('td');
-            volumeCell.textContent = put.volume || '-';
-            row.appendChild(volumeCell);
-
-            const openInterestCell = document.createElement('td');
-            openInterestCell.textContent = put.openInterest || '-';
-            row.appendChild(openInterestCell);
-
-            const bidCell = document.createElement('td');
-            bidCell.textContent = put.bid ? put.bid.toFixed(2) : '-';
-            row.appendChild(bidCell);
-
-            const askCell = document.createElement('td');
-            askCell.textContent = put.ask ? put.ask.toFixed(2) : '-';
-            row.appendChild(askCell);
-
-            const impliedVolatilityCell = document.createElement('td');
-            impliedVolatilityCell.textContent = put.impliedVolatility ? (put.impliedVolatility * 100).toFixed(2) + '%' : '-';
-            row.appendChild(impliedVolatilityCell);
-
-            tbody.appendChild(row);
-        });
-
-        table.appendChild(tbody);
-        div.appendChild(table);
-        content.appendChild(div);
+    const table = document.createElement('table');
+    table.classList.add('option-details-table');
+    
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['Strike', 'Last Price', 'Change', '% Change', 'Volume', 'Open Interest', 'Bid', 'Ask', 'Implied Volatility'].forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        headerRow.appendChild(th);
     });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    optionDetails.forEach(option => {
+        const row = document.createElement('tr');
+        
+        const strikeCell = document.createElement('td');
+        strikeCell.textContent = option.strike ? option.strike.toFixed(2) : '-';
+        row.appendChild(strikeCell);
+
+        const lastPriceCell = document.createElement('td');
+        lastPriceCell.textContent = option.lastPrice ? option.lastPrice.toFixed(2) : '-';
+        row.appendChild(lastPriceCell);
+
+        const changeCell = document.createElement('td');
+        changeCell.textContent = option.change ? option.change.toFixed(2) : '-';
+        row.appendChild(changeCell);
+
+        const percentChangeCell = document.createElement('td');
+        percentChangeCell.textContent = option.percentChange ? option.percentChange.toFixed(2) + '%' : '-';
+        row.appendChild(percentChangeCell);
+
+        const volumeCell = document.createElement('td');
+        volumeCell.textContent = option.volume || '-';
+        row.appendChild(volumeCell);
+
+        const openInterestCell = document.createElement('td');
+        openInterestCell.textContent = option.openInterest || '-';
+        row.appendChild(openInterestCell);
+
+        const bidCell = document.createElement('td');
+        bidCell.textContent = option.bid ? option.bid.toFixed(2) : '-';
+        row.appendChild(bidCell);
+
+        const askCell = document.createElement('td');
+        askCell.textContent = option.ask ? option.ask.toFixed(2) : '-';
+        row.appendChild(askCell);
+
+        const impliedVolatilityCell = document.createElement('td');
+        impliedVolatilityCell.textContent = option.impliedVolatility ? (option.impliedVolatility * 100).toFixed(2) + '%' : '-';
+        row.appendChild(impliedVolatilityCell);
+
+        tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    content.appendChild(table);
 }
 
 function updateChartSection(chart) {
@@ -956,7 +966,6 @@ function updateQuoteSummarySection(quoteSummary) {
 
 // RECOMMENDATIONS //
 function updateRecommendationsSection(recommendations) {
-    console.log(recommendations);
     const recommendationsElement = document.getElementById('recommendations-content');
     recommendationsElement.innerHTML = ''; // Clear previous content
     if (recommendations) {

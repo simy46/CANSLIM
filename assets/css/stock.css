@@ -725,7 +725,7 @@ h2, h3,  h1 {
 }
 
 .main-content {
-  width: 85%;
+  width: 65%;
   height: fit-content;
   padding: 0 20px 20px;
   margin: 0 auto 60px;
@@ -792,7 +792,7 @@ a:hover {
   cursor: pointer;
   border-radius: 4px;
   color: white;
-  width: calc(max-content);
+  text-align: center;
 }
 
 /* Overview Section */
@@ -803,19 +803,47 @@ a:hover {
   font-family: Arial, sans-serif;
 }
 
+.performance-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #444;
+}
+
+.performance-item {
+  text-align: center;
+  flex: 1;
+}
+
+.performance-item .value {
+  display: block;
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.performance-item .label {
+  display: block;
+  font-size: 0.9em;
+  color: #bbb;
+}
+
 .overview-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-.overview-subsection {
+.overview-subsection, 
+#recent-performance, 
+#additional-info {
   padding: 20px;
   background-color: #27293d;
   border-radius: 8px;
+  margin: 10px;
 }
 
-.overview-subsection h3 {
+.overview-subsection h3, #recent-performance h3, #additional-info h3 {
   margin-bottom: 15px;
   font-size: 1.5em;
   color: #ad74ff;
@@ -840,6 +868,17 @@ a:hover {
   margin: 0 10px;
 }
 
+.value {
+  flex: 1;
+  text-align: right;
+}
+
+#change-img {
+  width: 15px;
+  height: 15px;
+  margin: 0 0 2px 5px;
+}
+
 /* Profile Section */
 #profile-section {
   padding: 0 20px 20px;
@@ -847,7 +886,6 @@ a:hover {
   color: #ffffff;
   font-family: Arial, sans-serif;
   border-radius: 8px;
-  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -1000,12 +1038,12 @@ a:hover {
   margin-right: 10px;
 }
 
-.insight-content .bullish {
-    color: #0f0;
+.bullish, .value-insight.bullish {
+    color: #4CAF50;
 }
 
-.insight-content .bearish {
-    color: #f00;
+.bearish, .value-insight.bearish {
+    color: #af504c;
 }
 
 .insight-content .neutral  {
@@ -1075,15 +1113,42 @@ a:hover {
   gap: 20px;
 }
 
+/* OPTIONS */
 /* Options Styles */
 #options-section {
-  padding: 0 20px 20px;
+  padding: 20px;
   background-color: #1a1a2e;
   color: #ffffff;
   font-family: Arial, sans-serif;
   border-radius: 8px;
-  margin: 0 auto;
+  margin: 20px auto;
   overflow-x: auto;
+}
+
+.options-intro {
+  background-color: #27293d;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.options-intro h3, .options-intro h4 {
+  color: #ad74ff;
+}
+
+.options-intro p {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.options-intro ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.options-intro li {
+  margin-bottom: 5px;
+  font-size: 1.1em;
 }
 
 .options-item {
@@ -1112,6 +1177,67 @@ a:hover {
   color: #ffffff;
 }
 
+.options-upcoming-expirations {
+  background-color: #27293d;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Styling for select input */
+.options-select label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.2em;
+  color: #ad74ff;
+}
+
+.options-select select {
+  background-color: #23233a;
+  color: #ffffff;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.1em;
+  margin-top: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+}
+
+.options-select select:hover {
+  background-color: #2c2c3e;
+  color: #ad74ff;
+}
+
+.options-select select:focus {
+  outline: none;
+  border-color: #ad74ff;
+}
+
+.options-upcoming-expirations h4 {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  color: #ad74ff;
+}
+
+.options-upcoming-expirations div {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #ffffff;
+}
+
+.options-select {
+  background-color: #23233a;
+  color: #ffffff;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 /* Responsive adjustments */
 @media (max-width: 1240px) {
