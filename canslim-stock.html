@@ -58,33 +58,36 @@
             <a href="/crypto-analysis">crypto</a>
         </nav>
     </header>    
-    <div class="container" id="buying-checklist">
-        <div class="title-container">
-            <h1>Buying Checklist</h1>
-            <div id="stock-info">
-                <h2 id="stock-name"></h2>
-                <p id="stock-ticker"></p>
-            </div>
-        </div>
-            <div class="big-rock" id="big-rock-1">
-                <h2>Big Rock #1: Only buy stocks in a market uptrend</h2>
-                <div class="content-container">
-                    <div class="card">
-                        <h3>Market in confirmed uptrend</h3>
-                        <p>Buying stocks during a market uptrend means investing when the overall market is rising, which typically provides a favorable environment for stock gains.</p>
-                        <div class="result" id="marketTrend-result"></div>
-                    </div>
-                </div>
-                <div class="skeleton-card skeleton-container">
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-paragraph"></div>
-                    <div class="skeleton skeleton-result"></div>
+    <div class="content" id="buying-checklist">
+        <section class="intro">
+            <div class="title-container">
+                <h1>Buying Checklist</h1>
+                <div id="stock-info">
+                    <h2 id="stock-name"></h2>
+                    <p id="stock-ticker"></p>
                 </div>
             </div>
+        </section>
+
+        <section class="big-rock" id="big-rock-1">
+            <h2>Big Rock #1: Only buy stocks in a market uptrend</h2>
+            <div class="content-container">
+                <div class="card">
+                    <h3>Market in confirmed uptrend</h3>
+                    <p>Buying stocks during a market uptrend means investing when the overall market is rising, which typically provides a favorable environment for stock gains.</p>
+                    <div class="result" id="marketTrend-result"></div>
+                </div>
+            </div>
+            <div class="skeleton-card skeleton-container">
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-paragraph"></div>
+                <div class="skeleton skeleton-result"></div>
+            </div>
+        </section>
         
-            <div class="big-rock" id="big-rock-2">
-                <h2>Big Rock #2: Focus on companies with big earnings growth and a new, innovative product or service</h2>
-                <div class="content-container">
+        <section class="big-rock" id="big-rock-2">
+            <h2>Big Rock #2: Focus on companies with big earnings growth and a new, innovative product or service</h2>
+            <div class="content-container">
                 <div class="card">
                     <h3>EPS growth 25% or higher in recent quarters</h3>
                     <p>Earnings per Share (EPS) growth reflects a company's profitability. A high growth rate indicates the company is generating more profit per share, which is a positive sign for investors.</p>
@@ -125,6 +128,8 @@
                     <p>Company's earnings are increasing at a faster rate over time, indicating robust financial health and potential for future gains.</p>
                     <div class="result" id="acceleratingEarningsGrowth-result"></div>
                 </div>
+                
+                <!--
                 <div class="card">
                     <h3>New products, service, or management</h3>
                     <p>Investing in companies with new products, services, or management can indicate innovation and positive change, potentially driving future growth and profitability.</p>
@@ -140,24 +145,25 @@
                     <p>Ranking in the top 40-50 of IBD's industry groups shows that the company is a leader within its sector, demonstrating strong performance and potential for further success.</p>
                     <div class="result" id="industryGroupRank-result"></div>
                 </div>
+                -->
+            </div>
+            <div class="skeleton-container" id="skeleton-2">
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-paragraph"></div>
+                    <div class="skeleton skeleton-result"></div>
                 </div>
-                <div class="skeleton-container" id="skeleton-2">
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-paragraph"></div>
+                    <div class="skeleton skeleton-result"></div>
                 </div>
             </div>
+        </section>
     
-            <div class="big-rock" id="big-rock-3">
-                <h2>Big Rock #3: Buy stocks being heavily bought by mutual funds</h2>
-                <div class="content-container">
+        <section class="big-rock" id="big-rock-3">
+            <h2>Big Rock #3: Buy stocks being heavily bought by mutual funds</h2>
+            <div class="content-container">
                 <div class="card">
                     <h3>Increase in number of funds that own the stock in recent quarters</h3>
                     <p>An increase in the number of mutual funds owning a stock suggests institutional confidence and can drive the stock's price higher.</p>
@@ -183,24 +189,24 @@
                     <p>Indicates strong liquidity, making it easier to buy and sell shares without affecting the stock price significantly.</p>
                     <div class="result" id="averageDailyVolume-result"></div>
                 </div>
+            </div>
+            <div class="skeleton-container" id="skeleton-2">
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-paragraph"></div>
+                    <div class="skeleton skeleton-result"></div>
                 </div>
-                <div class="skeleton-container" id="skeleton-2">
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-paragraph"></div>
+                    <div class="skeleton skeleton-result"></div>
                 </div>
             </div>
+        </section>
     
-            <div class="big-rock" id="big-rock-4">
-                <h2>Chart Analysis: Buy stocks as they break out of the common patterns that launch big moves</h2>
-                <div class="content-container">
+        <section class="big-rock" id="big-rock-4">
+            <h2>Chart Analysis: Buy stocks as they break out of the common patterns that launch big moves</h2>
+            <div class="content-container">
                 <div class="card">
                     <h3>Breaking out of sound base or alternative buy point</h3>
                     <p>Buying stocks as they break out of a sound base or alternative buy point can capitalize on momentum, leading to significant gains as the stock continues to rise.</p>
@@ -221,43 +227,35 @@
                     <p>Buying within 5% of the ideal buy point ensures that you are entering the stock at a favorable price, maximizing potential gains while minimizing risk.</p>
                     <div class="result" id="withinBuyPoint-result"></div>
                 </div>
+            </div>
+            <div class="skeleton-container" id="skeleton-2">
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-paragraph"></div>
+                    <div class="skeleton skeleton-result"></div>
                 </div>
-                <div class="skeleton-container" id="skeleton-2">
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-paragraph"></div>
+                    <div class="skeleton skeleton-result"></div>
+                </div>
+            </div>        
+        </section>
+        </div>
+            <!-- Aside Container -->
+            <div class="aside-container">
+                <aside id="news-container">
+                    <div class="aside-header">
+                        <h2>News</h2>
                     </div>
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
+                    <div id="news-content" class="aside-content">
+                        <!-- News content will go here -->
                     </div>
-                </div>        
+                    <button class="show-more-button" id="see-more-news">See more</button>
+                    <button class="show-less-button" id="see-less-news" style="display: none;">See less</button>
+                </aside>
             </div>
         </div>
-        <!-- Aside Container -->
-        <div class="aside-container">
-            <aside id="recommendations-container">
-                <div class="aside-header">
-                    <h2>Featured Stocks</h2>
-                </div>
-                <div id="recommendations-content" class="aside-content">
-                    <!-- Recommendations content will go here -->
-                </div>
-            </aside>
-            <aside id="news-container">
-                <div class="aside-header">
-                    <h2>News</h2>
-                </div>
-                <div id="news-content" class="aside-content">
-                    <!-- News content will go here -->
-                </div>
-                <button class="show-more-button" id="see-more-news">See more</button>
-                <button class="show-less-button" id="see-less-news" style="display: none;">See less</button>
-            </aside>
-        </div>
-    </div>
     <nav class="nav">
         <h4 class="nav-item active" id="nav-overview">Overview</h4>
         <h4 class="nav-item" id="nav-profile">Profile</h4>
@@ -656,9 +654,7 @@
                 </div>
             </div>
         </div>
-    </div>  
-        
-        
+
         <!--
         <div id="score">
             <h1>CAN SLIM score</h1>
@@ -711,7 +707,7 @@
                 </button>
             </div>
             <p class="source">Powered by <a href="http://www.canslimcalculator.com" target="_blank">www.canslimcalculator.com</a></p>
-        </div>-->
+        </div> -->
     <footer>
         <div class="footer-content">
         <div class="disclaimer">
