@@ -17,6 +17,11 @@
     </noscript>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+
     <script src="/assets/js/stock.js" type="module" defer></script>
 
     <link rel="icon" type="image/x-icon" href="./assets/img/favicon_io/favicon.ico">
@@ -39,7 +44,8 @@
 
     gtag('config', 'G-6N1VD0CZWB');
     </script>
-    
+
+   
 </head>
 <body>
     <header>
@@ -603,20 +609,54 @@
                 </div>
             </section>            
     
-            <!-- Chart Section -->
-            <section id="chart-section">
-                <div id="chart-content" style="text-align: center;">
-                    <!-- Chart content will go here -->
-                </div>
-            </section>
-    
+           <!-- Chart Section -->
+           <section id="chart-section">
+            <div id="chart-controls">
+                <button class="chart-btn" data-range="1d">1D</button>
+                <button class="chart-btn" data-range="5d">5D</button>
+                <button class="chart-btn" data-range="1mo">1M</button>
+                <button class="chart-btn" data-range="3mo">3M</button>
+                <button class="chart-btn" data-range="6mo">6M</button>
+                <button class="chart-btn" data-range="1y">1Y</button>
+                <button class="chart-btn" data-range="2y">2Y</button>
+                <button class="chart-btn" data-range="5y">5Y</button>
+                <button class="chart-btn" data-range="10y">10Y</button>
+                <button class="chart-btn" data-range="ytd">YTD</button>
+                <button class="chart-btn" data-range="max">MAX</button>
+            </div>
+            <div id="chart-content">
+                <canvas id="stock-chart"></canvas>
+            </div>
+            <div id="no-data-message" style="display: none; color: #b2b5bc; text-align: center;">
+                No data available for the selected range.
+            </div>
+        </section>
+            
             <!-- Quote Summary Section -->
             <section id="quote-summary-section">
                 <div id="quote-summary-content">
                     <!-- Quote Summary content will go here -->
                 </div>
             </section>
-        </div>  
+        </div> 
+        <div id="recommendations-container">
+            <h2>Recommended Stocks</h2>
+            <div id="recommendations-content" class="aside-content">
+                <div class="recommendation positive">
+                    <h3>Stock A</h3>
+                    <p>Great performance with high growth potential.</p>
+                </div>
+                <div class="recommendation negative">
+                    <h3>Stock B</h3>
+                    <p>Currently underperforming, consider the risks.</p>
+                </div>
+                <div class="recommendation positive">
+                    <h3>Stock C</h3>
+                    <p>Steady growth with reliable returns.</p>
+                </div>
+            </div>
+        </div>
+    </div>  
         
         
         <!--
@@ -690,7 +730,7 @@
                     <a href="/pdf/IBD_BuyingChecklist.pdf" download="IBD_Buying_Checklist">IBD's PDF</a>
                 </div>
                 <div class="link-container">
-                    <h3>team</h3>
+                    <h3>project</h3>
                     <a href="/about">About</a>
                 </div>
                 <!--

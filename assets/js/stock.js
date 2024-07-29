@@ -1,7 +1,8 @@
 import { SERVER_URL } from './const.js'
 
 let officersDisplayed = 2;
-let officers = [];
+let stockChart;  // Declare stockChart globally
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(data2)
         updateStockDetails(data2, data1.stockInfo);
         setLoadingInformations(false);
+
         // Example usage
         const overallScore = 85;
         const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
@@ -171,14 +173,15 @@ function updateStockDetails(data, stockInfo) {
     }
 
     // Overview //
-    updateOverviewSection(stockInfo, data.quoteSummary.summaryDetail);
+    updateOverviewSection(stockInfo ? stockInfo : data.options.quote, data.quoteSummary.summaryDetail);
     updateNewsSection(data.news);
     updateRecommendationsSection(data.recommendations ? data.recommendations.recommendedSymbols : null);
     updateProfileSection(data.quoteSummary);
     updateInsightsSection(data.insights);
     updateOptionsSection(data.options);
+    updateChartSection(data.chart.quotes);
     /*updateFinancialsSection(data.quoteSummary ? data.quoteSummary.incomeStatementHistory : null);
-    updateChartSection(data.chart);
+    
     updateQuoteSummarySection(data.quoteSummary);
     */
 }
@@ -843,12 +846,12 @@ function updateFinancialsSection(financials) {
 
 // OPTIONS //
 function updateOptionsSection(optionsData) {
-    if (optionsData) {
+    if (optionsData && optionsData.expirationDates && optionsData.options.length !== 0) {
         populateUpcomingExpirations(optionsData.expirationDates);
         attachEventListeners(optionsData.options[0]); // Use the first expiration date's options by default
         displayOptionsDetails(optionsData.options[0].calls); // Display the first set of call options by default
     } else {
-        document.getElementById('expiration-dates-content').innerText = 'No data available';
+        document.getElementById('upcoming-expirations-content').innerText = 'No data available';
         document.getElementById('options-details-content').innerText = 'No data available';
     }
 }
@@ -946,13 +949,212 @@ function displayOptionsDetails(optionDetails) {
     content.appendChild(table);
 }
 
-function updateChartSection(chart) {
-    const chartElement = document.getElementById('chart-content');
-    if (chart) {
-        chartElement.innerText = JSON.stringify(chart, null, 2);
+function updateChartSection(chartData) {
+    if (stockChart) {
+        updateChart(chartData.quotes);
     } else {
-        chartElement.innerText = 'No data available';
+        initializeChart(chartData);
     }
+
+    attachChartButtonEvents(chartData);
+}
+
+function updateChart(data) {
+    const chartData = processData(data);
+    stockChart.data = chartData;
+    stockChart.update();
+}
+
+function processData(data) {
+    const downsampledData = downsample(data, 100);
+
+    const labels = downsampledData.map(entry => new Date(entry.date));
+    const prices = downsampledData.map(entry => entry.close);
+
+    return {
+        labels: labels,
+        datasets: [{
+            label: 'Price',
+            data: prices,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+            fill: true,
+            tension: 0.4
+        }]
+    };
+}
+
+function downsample(data, maxPoints) {
+    if (data.length <= maxPoints) {
+        return data;
+    }
+
+    const sampledData = [];
+    const step = Math.ceil(data.length / maxPoints);
+
+    for (let i = 0; i < data.length; i += step) {
+        sampledData.push(data[i]);
+    }
+
+    return sampledData;
+}
+
+function filterDataByRange(data, range) {
+    const endDate = new Date();
+    let startDate;
+
+    switch (range) {
+        case '1d':
+            startDate = new Date(endDate);
+            startDate.setDate(startDate.getDate() - 1);
+            break;
+        case '5d':
+            startDate = new Date(endDate);
+            startDate.setDate(startDate.getDate() - 5);
+            break;
+        case '1mo':
+            startDate = new Date(endDate);
+            startDate.setMonth(startDate.getMonth() - 1);
+            break;
+        case '3mo':
+            startDate = new Date(endDate);
+            startDate.setMonth(startDate.getMonth() - 3);
+            break;
+        case '6mo':
+            startDate = new Date(endDate);
+            startDate.setMonth(startDate.getMonth() - 6);
+            break;
+        case '1y':
+            startDate = new Date(endDate);
+            startDate.setFullYear(startDate.getFullYear() - 1);
+            break;
+        case '2y':
+            startDate = new Date(endDate);
+            startDate.setFullYear(startDate.getFullYear() - 2);
+            break;
+        case '5y':
+            startDate = new Date(endDate);
+            startDate.setFullYear(startDate.getFullYear() - 5);
+            break;
+        case '10y':
+            startDate = new Date(endDate);
+            startDate.setFullYear(startDate.getFullYear() - 10);
+            break;
+        case 'ytd':
+            startDate = new Date(endDate.getFullYear(), 0, 1);
+            break;
+        case 'max':
+        default:
+            return data;
+    }
+
+    const filteredData = data.filter(entry => new Date(entry.date) >= startDate && new Date(entry.date) <= endDate);
+    
+    if (filteredData.length === 0) {
+        document.getElementById('no-data-message').style.display = 'block';
+    } else {
+        document.getElementById('no-data-message').style.display = 'none';
+    }
+    
+    return filteredData;
+}
+
+function initializeChart(data) {
+    const ctx = document.getElementById('stock-chart').getContext('2d');
+    const chartData = processData(data);
+
+    if (stockChart) {
+        stockChart.destroy();
+    }
+
+    const config = {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        parser: 'yyyy-MM-dd',
+                        unit: 'day',
+                        tooltipFormat: 'MMM dd, yyyy',
+                        displayFormats: {
+                            day: 'MMM dd',
+                            month: 'MMM yyyy',
+                            year: 'yyyy'
+                        }
+                    },
+                    ticks: {
+                        color: '#b2b5bc'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        color: '#b2b5bc'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: '#4f58ab',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    borderColor: '#b2b5bc',
+                    borderWidth: 1,
+                    mode: 'index',
+                    intersect: false
+                },
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    zoom: {
+                        enabled: true,
+                        mode: 'xy'
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    radius: 5,
+                    backgroundColor: '#4f58ab'
+                },
+                line: {
+                    borderColor: '#4f58ab',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(75, 192, 192, 0.1)'
+                }
+            }
+        }
+    };
+
+    stockChart = new Chart(ctx, config);
+}
+
+
+function attachChartButtonEvents(chartData) {
+    document.querySelectorAll('.chart-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const range = button.getAttribute('data-range');
+            const filteredData = filterDataByRange(chartData, range);
+            updateChart(filteredData);
+        });
+    });
 }
 
 function updateQuoteSummarySection(quoteSummary) {
@@ -988,9 +1190,15 @@ function createRecommendation(recommendations, parentElement) {
         const color = scoreToColor(score);
         recommendationElement.style.backgroundColor = color;
 
-        // Set the text content
-        const text = `${recommendation.symbol}`;
-        recommendationElement.textContent = text;
+        // Create and append title
+        const titleElement = document.createElement('h3');
+        titleElement.textContent = recommendation.symbol;
+        recommendationElement.appendChild(titleElement);
+
+        // Create and append score
+        const scoreElement = document.createElement('p');
+        scoreElement.textContent = `${(score * 100).toFixed(2)}`;
+        recommendationElement.appendChild(scoreElement);
 
         // Appliquer la largeur uniforme
         recommendationElement.style.width = `${maxLength}ch`;
@@ -1007,19 +1215,18 @@ function createRecommendation(recommendations, parentElement) {
 }
 
 function scoreToColor(score) {
-    const startColor = { r: 178, g: 34, b: 34 };
-    const endColor = { r: 34, g: 139, b: 34 };
+    const startColor = { r: 50, g: 30, b: 90 }; // Darker purple (bad score)
+    const endColor = { r: 50, g: 150, b: 200 }; // Darker blue (good score)
 
-    // Ajuster la plage de score pour qu'elle soit de 0 à 0.5
-    const adjustedScore = Math.min(Math.max(score / 0.5, 0), 1);
+    const adjustedScore = Math.min(Math.max(score / 0.4, 0), 1);
 
-    // Interpoler entre startColor et endColor
     const r = Math.floor(startColor.r + adjustedScore * (endColor.r - startColor.r));
     const g = Math.floor(startColor.g + adjustedScore * (endColor.g - startColor.g));
     const b = Math.floor(startColor.b + adjustedScore * (endColor.b - startColor.b));
 
     return `rgb(${r}, ${g}, ${b})`;
 }
+
 
 function updateCheckList(results) {
     console.log(results);
