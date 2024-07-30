@@ -1119,18 +1119,12 @@ function initializeChart(data, maxPoints) {
                     intersect: false
                 },
                 zoom: {
-                    pan: {
-                        enabled: true,
-                        mode: 'xy',
-                        threshold: 10
-                    },
                     zoom: {
                         wheel: {
                             enabled: true,
                         },
                         drag: {
                             enabled: true,
-                            modifierKey: 'ctrl',
                         },
                         pinch: {
                             enabled: true
