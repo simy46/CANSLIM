@@ -1,4 +1,5 @@
 import { SERVER_URL } from './const.js'
+import 'chartjs-plugin-annotation';
 
 let officersDisplayed = 2;
 let stockChart;  // Declare stockChart globally
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const overallScore = 85;
         const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
         
-        //updateCANSlimScores(overallScore, bigRockScores);
+        // updateCANSlimScores(overallScore, bigRockScores);        
 
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -179,7 +180,7 @@ function updateStockDetails(data, stockInfo) {
     updateProfileSection(data.quoteSummary);
     updateInsightsSection(data.insights);
     updateOptionsSection(data.options);
-    updateChartSection(data.chart.quotes);
+    updateChartSection(data.chart);
     /*updateFinancialsSection(data.quoteSummary ? data.quoteSummary.incomeStatementHistory : null);
     
     updateQuoteSummarySection(data.quoteSummary);
@@ -950,23 +951,24 @@ function displayOptionsDetails(optionDetails) {
 }
 
 function updateChartSection(chartData) {
+    const maxPoints = document.getElementById('max-points').value;
     if (stockChart) {
-        updateChart(chartData.quotes);
+        updateChart(chartData.quotes, maxPoints);
+        return;
     } else {
-        initializeChart(chartData);
+        initializeChart(chartData.quotes, maxPoints);
     }
-
     attachChartButtonEvents(chartData);
 }
 
-function updateChart(data) {
-    const chartData = processData(data);
+function updateChart(data, maxPoints) {
+    const chartData = processData(data, maxPoints);
     stockChart.data = chartData;
     stockChart.update();
 }
 
-function processData(data) {
-    const downsampledData = downsample(data, 100);
+function processData(data, maxPoints) {
+    const downsampledData = downsample(data, maxPoints);
 
     const labels = downsampledData.map(entry => new Date(entry.date));
     const prices = downsampledData.map(entry => entry.close);
@@ -977,7 +979,7 @@ function processData(data) {
             label: 'Price',
             data: prices,
             borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 2,
+            borderWidth: 1,
             backgroundColor: 'rgba(75, 192, 192, 0.1)',
             fill: true,
             tension: 0.4
@@ -986,7 +988,7 @@ function processData(data) {
 }
 
 function downsample(data, maxPoints) {
-    if (data.length <= maxPoints) {
+    if (maxPoints === 'max' || data.length <= maxPoints) {
         return data;
     }
 
@@ -1048,7 +1050,7 @@ function filterDataByRange(data, range) {
         default:
             return data;
     }
-
+    
     const filteredData = data.filter(entry => new Date(entry.date) >= startDate && new Date(entry.date) <= endDate);
     
     if (filteredData.length === 0) {
@@ -1060,9 +1062,9 @@ function filterDataByRange(data, range) {
     return filteredData;
 }
 
-function initializeChart(data) {
+function initializeChart(data, maxPoints) {
     const ctx = document.getElementById('stock-chart').getContext('2d');
-    const chartData = processData(data);
+    const chartData = processData(data, maxPoints);
 
     if (stockChart) {
         stockChart.destroy();
@@ -1119,18 +1121,53 @@ function initializeChart(data) {
                 zoom: {
                     pan: {
                         enabled: true,
-                        mode: 'xy'
+                        mode: 'xy',
+                        threshold: 10
                     },
                     zoom: {
-                        enabled: true,
-                        mode: 'xy'
+                        wheel: {
+                            enabled: true,
+                        },
+                        drag: {
+                            enabled: true,
+                            modifierKey: 'ctrl',
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'xy',
+                        onZoom: ({chart}) => {
+                            document.getElementById('reset-btn').style.display = 'flex';
+                        },
+                        onZoomComplete: ({chart}) => {
+                            // You can add additional logic here if needed
+                        }
                     }
+                },
+                annotation: {
+                    annotations: [
+                        {
+                            type: 'line',
+                            mode: 'vertical',
+                            scaleID: 'x',
+                            value: '2024-07-15',
+                            borderColor: 'red',
+                            borderWidth: 2,
+                            label: {
+                                content: 'Event',
+                                enabled: true,
+                                position: 'top'
+                            }
+                        }
+                    ]
                 }
             },
             elements: {
                 point: {
-                    radius: 5,
-                    backgroundColor: '#4f58ab'
+                    radius: 2,
+                    backgroundColor: '#FF4500',
+                    hoverRadius: 4,
+                    hoverBackgroundColor: '#FFD700'
                 },
                 line: {
                     borderColor: '#4f58ab',
@@ -1146,15 +1183,73 @@ function initializeChart(data) {
     stockChart = new Chart(ctx, config);
 }
 
+function setActiveButton(button) {
+    document.querySelectorAll('.chart-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    button.classList.add('active');
+}
+
 
 function attachChartButtonEvents(chartData) {
     document.querySelectorAll('.chart-btn').forEach(button => {
         button.addEventListener('click', () => {
+            setActiveButton(button);
             const range = button.getAttribute('data-range');
-            const filteredData = filterDataByRange(chartData, range);
-            updateChart(filteredData);
+            const maxPoints = document.getElementById('max-points').value;
+            const filteredData = filterDataByRange(chartData.quotes, range);
+            
+            // Reset zoom before updating chart
+            if (stockChart) {
+                stockChart.resetZoom();
+                document.getElementById('reset-btn').style.display = 'none';
+            }
+
+            updateChart(filteredData, maxPoints);
         });
     });
+
+    document.getElementById('max-points').addEventListener('change', () => {
+        const maxPoints = document.getElementById('max-points').value;
+        const activeButton = document.querySelector('.chart-btn.active');
+        if (activeButton) {
+            const range = activeButton.getAttribute('data-range');
+            const filteredData = filterDataByRange(chartData.quotes, range);
+            updateChart(filteredData, maxPoints);
+        }
+    });
+
+    document.getElementById('download-btn').addEventListener('click', () => {
+        const symbol = chartData.meta.symbol
+        const csv = chartDataToCSV(stockChart.data);
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('hidden', '');
+        a.setAttribute('href', url);
+        a.setAttribute('download', `chart-data-${symbol}.csv`);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
+
+    
+
+    document.getElementById('reset-btn').addEventListener('click', () => {
+        stockChart.resetZoom();
+        document.getElementById('reset-btn').style.display = 'none';
+    });
+}
+
+function chartDataToCSV(chartData) {
+    console.log(chartData)
+    const labels = chartData.labels;
+    const data = chartData.datasets[0].data;
+    let csv = 'Date,Price\n';
+    for (let i = 0; i < labels.length; i++) {
+        csv += `${labels[i].toLocaleDateString().split('T')[0]}, ${data[i].toFixed(2)}$\n`;
+    }
+    return csv;
 }
 
 function updateQuoteSummarySection(quoteSummary) {

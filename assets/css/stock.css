@@ -584,7 +584,7 @@ header > div {
   position: relative;
   gap: 5px;
   width: fit-content;
-  margin: 50px auto 40px;
+  margin: 0 auto 40px;
 }
 
 .nav-item {
@@ -1176,54 +1176,150 @@ a:hover {
 
 /* CHART */
 #chart-section {
-  background-color: #1a1a2e;
   padding: 20px;
   border-radius: 8px;
   margin: 20px auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 55%;
 }
 
-#chart-controls button {
-  background-color: #4f58ab;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
+#chart-controls .chart-btn {
+  padding: 10px 15px;
   margin: 0 5px;
+  background-color: #4f58ab;
+  color: #b2b5bc;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+#chart-controls .chart-btn:hover {
+  background-color: #1a1a2e;
+  color: #ffffff;
+}
+
+#chart-controls .chart-btn.active {
+  background-color: #1a1a2e;
+}
+
 
 #chart-controls {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-#chart-controls button:hover {
-  background-color: #3c3f81;
-}
-
-#chart-controls button.active {
-  background-color: #2e2f4c;
+  margin-top: 20px;
+  text-align: center;
 }
 
 #chart-content {
-  padding: 20px;
+  padding: 60px 20px 20px;
   border-radius: 8px;
-  position: relative; 
-  width: 100%;
-  min-height: 600px;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  min-height: 60vh;
+}
+#reset-btn,
+.custom-download-btn {
+    color: white;
+    background-color: #222;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    line-height: 2rem;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    position: absolute;
+    top: 15px;
+    right: 60px;
 }
 
-#stock-chart {
-  width: 100%;
+#reset-btn:hover,
+.custom-download-btn:hover {
+    background-color: #333;
 }
 
+#reset-btn svg,
+.custom-download-btn svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    color: white;
+    fill: white;
+}
+
+#reset-btn:focus svg {
+    animation: spin_360 0.2s linear;
+}
+
+.custom-download-btn:focus svg {
+    animation: bounce_360 0.6s linear;
+}
+
+.custom-download-btn {
+    right: 20px;
+}
+
+@keyframes spin_360 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounce_360 {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+.custom-select-wrapper {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1em;
+}
+
+.custom-select-wrapper label {
+  color: #ffffff;
+  font-size: 1em;
+  margin-right: 10px;
+}
+
+.custom-select {
+  background-color: #1a1a2e;
+  color: #ffffff;
+  padding: 8px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  width: 120px;
+  box-sizing: border-box;
+  font-size: 1em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+}
+
+.custom-select option {
+  background-color: #1a1a2e;
+  color: #ffffff;
+}
 
 /* SCORE */
 #score {
@@ -1364,7 +1460,11 @@ h2, h3,  h1 {
 
 /* Responsive adjustments */
 @media (max-width: 1240px) {
-  /* Add styles if needed */
+  .title-container {
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -1376,11 +1476,13 @@ h2, h3,  h1 {
   }
 
   .content {
-    width: 90%;
     padding: 10px;
+    align-self: flex-start;
+    margin: auto 10px;
   }
-  
+
 }
+
 
 @media (max-width: 830px) {
   .main-content {
@@ -1411,7 +1513,6 @@ h2, h3,  h1 {
   }
   div#stock-info > p#stock-ticker {
     font-size: 15px;
-    margin-bottom: 10px;
   }
 }
 

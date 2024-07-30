@@ -20,7 +20,8 @@
 
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js"></script>        
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>        
 
     <script src="/assets/js/stock.js" type="module" defer></script>
 
@@ -256,12 +257,71 @@
                 </aside>
             </div>
         </div>
+
+    <!-- Chart Section -->
+    <section id="chart-section">
+        <div id="chart-content">
+            <canvas style="cursor: pointer,;" id="stock-chart"></canvas>
+            <button id="reset-btn" class="custom-reset-btn" style="display: none;">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-arrow-repeat"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+                    ></path>
+                    <path
+                        fill-rule="evenodd"
+                        d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+                    ></path>
+                </svg>
+            </button>
+            <div class="custom-select-wrapper">
+                <label for="max-points">Max Points:</label>
+                <select id="max-points" class="custom-select">
+                    <option value="100">100</option>
+                    <option value="500">500</option>
+                    <option value="1000" selected>1000</option>
+                    <option value="2000">2000</option>
+                    <option value="5000">5000</option>
+                    <option value="max">MAX</option>
+                </select>
+            </div>
+            <button id="download-btn" class="custom-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="bdd05811-e15d-428c-bb53-8661459f9307" data-name="Layer 2" class="svg">
+                    <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                    <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                    <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                </svg>
+            </button>
+        </div>
+        <div id="no-data-message" style="display: none; color: #b2b5bc; text-align: center;">
+            No data available for the selected range.
+        </div>
+        <div id="chart-controls">
+            <button class="chart-btn" data-range="1d">1D</button>
+            <button class="chart-btn" data-range="5d">5D</button>
+            <button class="chart-btn" data-range="1mo">1M</button>
+            <button class="chart-btn" data-range="3mo">3M</button>
+            <button class="chart-btn" data-range="6mo">6M</button>
+            <button class="chart-btn active" data-range="1y">1Y</button>
+            <button class="chart-btn" data-range="2y">2Y</button>
+            <button class="chart-btn" data-range="5y">5Y</button>
+            <button class="chart-btn" data-range="10y">10Y</button>
+            <button class="chart-btn" data-range="ytd">YTD</button>
+            <button class="chart-btn" data-range="max">MAX</button>
+        </div>
+    </section>
+
     <nav class="nav">
         <h4 class="nav-item active" id="nav-overview">Overview</h4>
         <h4 class="nav-item" id="nav-profile">Profile</h4>
         <h4 class="nav-item" id="nav-financials">Financials</h4>
         <h4 class="nav-item" id="nav-options">Options</h4>
-        <h4 class="nav-item" id="nav-chart">Chart</h4>
         <h4 class="nav-item" id="nav-insights">Insights</h4>
     </nav>
     
@@ -606,29 +666,6 @@
                     <div id="research-reports-content" class="insight-content"></div>
                 </div>
             </section>            
-    
-           <!-- Chart Section -->
-           <section id="chart-section">
-            <div id="chart-controls">
-                <button class="chart-btn" data-range="1d">1D</button>
-                <button class="chart-btn" data-range="5d">5D</button>
-                <button class="chart-btn" data-range="1mo">1M</button>
-                <button class="chart-btn" data-range="3mo">3M</button>
-                <button class="chart-btn" data-range="6mo">6M</button>
-                <button class="chart-btn" data-range="1y">1Y</button>
-                <button class="chart-btn" data-range="2y">2Y</button>
-                <button class="chart-btn" data-range="5y">5Y</button>
-                <button class="chart-btn" data-range="10y">10Y</button>
-                <button class="chart-btn" data-range="ytd">YTD</button>
-                <button class="chart-btn" data-range="max">MAX</button>
-            </div>
-            <div id="chart-content">
-                <canvas id="stock-chart"></canvas>
-            </div>
-            <div id="no-data-message" style="display: none; color: #b2b5bc; text-align: center;">
-                No data available for the selected range.
-            </div>
-        </section>
             
             <!-- Quote Summary Section -->
             <section id="quote-summary-section">
@@ -654,7 +691,6 @@
                 </div>
             </div>
         </div>
-
         <!--
         <div id="score">
             <h1>CAN SLIM score</h1>
@@ -707,7 +743,10 @@
                 </button>
             </div>
             <p class="source">Powered by <a href="http://www.canslimcalculator.com" target="_blank">www.canslimcalculator.com</a></p>
-        </div> -->
+        </div>
+        -->
+        
+        
     <footer>
         <div class="footer-content">
         <div class="disclaimer">
