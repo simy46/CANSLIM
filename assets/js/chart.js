@@ -174,6 +174,8 @@ function initializeChart(data, maxPoints) {
                     zoom: {
                         wheel: {
                             enabled: true,
+                            modifierKey: 'ctrl',
+                            speed: 0.1, // Optional: Adjust the speed of zooming
                         },
                         drag: {
                             enabled: true,
@@ -184,11 +186,12 @@ function initializeChart(data, maxPoints) {
                         mode: 'xy',
                         onZoom: ({chart}) => {
                             document.getElementById('reset-btn').style.display = 'flex';
-                        },
-                        onZoomComplete: ({chart}) => {
-                            // You can add additional logic here if needed
                         }
-                    }
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'xy',
+                    },
                 },
             },
             elements: {
