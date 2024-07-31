@@ -47,7 +47,7 @@ async function fetchNews(tickers) {
         return data;
     } catch (error) {
         console.error('Error retrieving news:', error);
-        showErrorPage();
+        //showErrorPage();
         return [];
     }
 }
@@ -90,7 +90,7 @@ function createNews(news) {
             tickerSpan.textContent = ticker;
             tickerSpan.onclick = (e) => {
                 e.stopPropagation();
-                window.location.href = `/canslim-stock?symbol=${ticker}`;
+                window.location.href = `/stock?symbol=${ticker}`;
             };
             
             tickers.appendChild(tickerSpan);
@@ -187,8 +187,6 @@ function createList(listItem) {
     const listContainer = document.getElementById('list-container');
     listContainer.appendChild(div);
 }
-
-
 
 function createResearchReport(report) {
     const div = document.createElement('div');

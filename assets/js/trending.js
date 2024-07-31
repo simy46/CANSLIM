@@ -115,7 +115,7 @@ function createStock(stock, container) {
     change.classList.add(stock.regularMarketChangePercent >= 0 ? 'positive' : 'negative');
 
     const changeIcon = document.createElement('img');
-    changeIcon.src = stock.regularMarketChangePercent >= 0 ? '/up.png' : '/down.png';
+    changeIcon.src = stock.regularMarketChangePercent >= 0 ? './assets/img/up.png' : './assets/img/down.png';
     changeIcon.alt = stock.regularMarketChangePercent >= 0 ? 'Up' : 'Down';
     changeIcon.classList.add('change-icon');
 
@@ -177,7 +177,7 @@ function createStock(stock, container) {
 
     stockDiv.addEventListener('click', () => {
         if (!stock.cryptoTradeable) {
-            window.location.href = `/canslim-stock?symbol=${stock.symbol}`;
+            window.location.href = `/stock?symbol=${stock.symbol}`;
         } else {
             window.location.href = '/crypto-analysis';
         }
