@@ -104,7 +104,8 @@ async function searchWithInputValue(inputValue) {
     window.history.pushState({ path: newUrl }, '', newUrl);
 
     try {
-        const quotes = await searchStocks(inputValue);
+        const search = await searchStocks(inputValue);
+        const quotes = search.quotes;
         searchContainer.innerHTML = '';
         createSearchResults(inputValue);
 
