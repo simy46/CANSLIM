@@ -105,6 +105,7 @@ async function searchWithInputValue(inputValue) {
 
     try {
         const search = await searchStocks(inputValue);
+        console.log(search)
         const quotes = search.quotes;
         searchContainer.innerHTML = '';
         createSearchResults(inputValue);
