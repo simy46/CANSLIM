@@ -111,7 +111,7 @@ async function searchWithInputValue(inputValue) {
         createSearchResults(inputValue);
 
         if (quotes.length > 0) {
-            quotes.quotes.forEach((quote) => {
+            quotes.forEach((quote) => {
                 if (!quote.industry) {
                     return;
                 }
