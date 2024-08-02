@@ -1,40 +1,95 @@
-export function updateCanslimScores(overallScore, bigRockScores) {
-    // Function to set the progress
-    function setProgress(circle, score) {
-        const radius = circle.r.baseVal.value;
-        const circumference = 2 * Math.PI * radius;
-        const offset = circumference - (score / 100) * circumference;
+export function updateCanslimScores(score) {
+    console.log(score);
 
-        circle.style.strokeDasharray = circumference;
-        circle.style.strokeDashoffset = offset;
+    // 52 week H/L
+    const high52Week = parseFloat(score.fiftyTwoWeekHigh) || 0;
+    const low52Week = parseFloat(score.fiftyTwoWeekLow) || 0;
+    const currentPrice = parseFloat(score.currentPrice) || 0;
 
-        if (score <= 25) {
-            circle.classList.add('low-score');
-        } else if (score <= 50) {
-            circle.classList.add('medium-score');
-        } else if (score <= 75) {
-            circle.classList.add('high-score');
-        } else {
-            circle.classList.add('very-high-score');
-        }
+    // Stock Stats
+    const marketCap = score.marketCap ? `$${(score.marketCap / 1e12).toFixed(2)}T` : '-';
+    const peRatio = score.peRatio ? score.peRatio.toFixed(2) : '-';
+    const dividendYield = score.dividendYield ? score.dividendYield.toFixed(2) : '-';
+
+    // SubScores
+    const bigRockScores = score.bigRockScores
+
+    // Update the dashboard with the parsed and formatted values
+    updateFiftyTwoWeek(high52Week, low52Week, currentPrice);
+    updateStockStats(marketCap, peRatio, dividendYield);
+    updateSubScores(...bigRockScores);
+    updateName(score.info)
+}
+
+function updateFiftyTwoWeek(high, low, currentPrice) {
+    const fiftyTwoWeek = document.getElementById('fifty-two-week');
+    const fiftyTwoWeekText = document.getElementById('fifty-two-week-text')
+    
+    const range = high - low;
+    const position = currentPrice - low;
+
+    // Gestion des valeurs invalides
+    if (position < 0 || range <= 0) {
+        console.error('Invalid range or position calculation.');
+        fiftyTwoWeek.style.width = '0%';  // Reset bar
+        return;
     }
 
-    // Update overall score
-    const overallCircle = document.querySelector('#overall-score').parentNode.querySelector('.progress-circle-fg');
-    document.getElementById('overall-score').textContent = overallScore;
-    setProgress(overallCircle, overallScore);
+    const percentage = (position / range) * 100;
 
-    // Update big rock scores
-    const bigRockCircles = [
-        document.querySelector('#big-rock-2-score').parentNode.querySelector('.progress-circle-fg'),
-        document.querySelector('#big-rock-3-score').parentNode.querySelector('.progress-circle-fg'),
-        document.querySelector('#big-rock-4-score').parentNode.querySelector('.progress-circle-fg')
-    ];
+    // Limitez le pourcentage pour qu'il reste entre 0% et 100%
+    const clampedPercentage = Math.max(0, Math.min(percentage, 100));
 
-    bigRockScores.forEach((score, index) => {
-        if (score !== null) {
-            document.getElementById(`big-rock-${index + 2}-score`).textContent = score;
-            setProgress(bigRockCircles[index], score);
-        }
-    });
+    fiftyTwoWeek.style.width = `${clampedPercentage}%`;
+    fiftyTwoWeekText.textContent = `${clampedPercentage.toFixed(2)}%`;
+}
+
+function updateStockStats(marketCap, peRatio, dividendYield) {
+    const marketCapElement = document.getElementById('market-cap-dashb');
+    const peRatioElement = document.getElementById('pe-ratio');
+    const dividendYieldElement = document.getElementById('dividend-yield-dashb');
+
+    marketCapElement.textContent = marketCap || '-';
+    peRatioElement.textContent = peRatio || '-';
+    dividendYieldElement.textContent = dividendYield || '-';
+}
+
+function updateSubScores(eps, ownership, rsi) {
+    // Update EPS circle
+    const epsElement = document.getElementById('eps-score');
+    const epsCircle = document.getElementById('eps-circle');
+    updateProgressCircle(epsCircle, eps);
+    epsElement.textContent = `${eps}%`;
+
+    // Update Fund Ownership circle
+    const ownershipElement = document.getElementById('ownership-score');
+    const ownershipCircle = document.getElementById('ownership-circle');
+    updateProgressCircle(ownershipCircle, ownership);
+    ownershipElement.textContent = `${ownership}%`;
+
+    // Update RSI circle
+    const rsiElement = document.getElementById('rsi-score');
+    const rsiCircle = document.getElementById('rsi-circle');
+    updateProgressCircle(rsiCircle, rsi);
+    rsiElement.textContent = `${rsi}%`;
+}
+
+// Helper function to update the progress circle
+function updateProgressCircle(circle, percentage) {
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (percentage / 100) * circumference;
+
+    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+    circle.style.strokeDashoffset = offset;
+}
+
+function updateName(info) {
+    const nameElement = document.getElementById('stock-name-dashboard');
+    const tickerElement = document.getElementById('stock-ticker-dashboard');
+    const exchangeElement = document.getElementById('stock-exchange');
+
+    nameElement.textContent = info.name || '-';
+    tickerElement.textContent = `(${info.ticker})` || '-';
+    exchangeElement.textContent = info.exchange || '-';
 }

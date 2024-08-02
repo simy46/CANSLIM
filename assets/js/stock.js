@@ -33,18 +33,33 @@ document.addEventListener("DOMContentLoaded", async () => {
         fetchSecondData(data1, symbol)
             .then(() => console.log('fetch2 successful'))
         
+        const score = {
+            overallScore: 85,
+            bigRockScores: [
+                parseFloat(data1.epsGrowth.value),
+                parseFloat(data1.increaseInFundsOwnership.value),
+                parseFloat(data1.relativeStrengthRating.value)
+            ],
+            fiftyTwoWeekHigh: data1.stockInfo.fiftyTwoWeekHigh,
+            fiftyTwoWeekLow: data1.stockInfo.fiftyTwoWeekLow,
+            currentPrice: data1.stockInfo.regularMarketPrice,
+            marketCap: data1.stockInfo.marketCap,
+            peRatio: data1.stockInfo.trailingPE,
+            dividendYield: data1.stockInfo.trailingAnnualDividendYield,
+            info: {
+                name: data1.stockInfo.shortName || data1.stockInfo.longName,
+                ticker: data1.stockInfo.symbol,
+                exchange: data1.stockInfo.fullExchangeName
+            }
+        };
         
-        /*const overallScore = 85;
-        const bigRockScores = [10, 55, 65]; // Skipping the first element for Big Rock #1
+        updateCanslimScores(score);
         
-        updateCanslimScores(overallScore, bigRockScores);
-        */
 
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 });
-
 
 function setLoadingBuyingCheckList(isLoading) {
     const mainContent = document.querySelectorAll('.content-container');
