@@ -298,6 +298,20 @@
                         <option value="max">MAX</option>
                     </select>
                 </div>
+                <div class="custom-select-wrapper interval">
+                    <label for="interval-select">Interval:</label>
+                    <select id="interval-select" class="custom-select">
+                        <option value="intraday1mChart">1m</option>
+                        <option value="intraday5mChart">5m</option>
+                        <option value="intraday15mChart">15m</option>
+                        <option value="intraday30mChart">30m</option>
+                        <option value="intraday60mChart">60m</option>
+                        <option value="dailyChart" selected>1d</option>
+                        <option value="weeklyChart">1w</option>
+                        <option value="monthlyChart">1mo</option>
+                    </select>
+                </div>
+                
                 <button id="download-btn" class="custom-download-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="bdd05811-e15d-428c-bb53-8661459f9307" data-name="Layer 2" class="svg">
                         <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
@@ -702,6 +716,141 @@
                 </div>
             </div>
         </div>  
+        
+
+        <!-- SCORE -->
+        <div class="dashboard">
+            <div class="stats-grid">
+                <div class="stat-card-overall">
+                    <div class="stat-card">
+                        <h2>Overall</h2>
+                        <div class="stat-value">
+                            <svg class="progress-circle" width="120" height="120">
+                                <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                                <circle class="progress-circle-fg" cx="60" cy="60" r="50"></circle>
+                                <text x="50%" y="50%" text-anchor="middle" dy=".3em" id="overall-score">80</text>
+                            </svg>
+                            <img src="your-image-path-here" alt="Stock Image" class="stock-image">
+                        </div>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stat-card-small">
+                            <h2>EPS</h2>
+                            <div class="stat-value">
+                                <svg class="progress-circle" width="100" height="100">
+                                    <circle class="progress-circle-bg" cx="50" cy="50" r="45"></circle>
+                                    <circle class="progress-circle-fg" id="eps-circle" cx="50" cy="50" r="45"></circle>
+                                    <text x="50%" y="50%" text-anchor="middle" dy=".3em" id="eps-score">-</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-card-small">
+                            <h2>Fund Ownership</h2>
+                            <div class="stat-value">
+                                <svg class="progress-circle" width="100" height="100">
+                                    <circle class="progress-circle-bg" cx="50" cy="50" r="45"></circle>
+                                    <circle class="progress-circle-fg" id="ownership-circle" cx="50" cy="50" r="45"></circle>
+                                    <text x="50%" y="50%" text-anchor="middle" dy=".3em" id="ownership-score">-</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-card-small">
+                            <h2>RSI</h2>
+                            <div class="stat-value">
+                                <svg class="progress-circle" width="100" height="100">
+                                    <circle class="progress-circle-bg" cx="50" cy="50" r="45"></circle>
+                                    <circle class="progress-circle-fg" id="rsi-circle" cx="50" cy="50" r="45"></circle>
+                                    <text x="50%" y="50%" text-anchor="middle" dy=".3em" id="rsi-score">-</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card info-card">
+                    <div>
+                        <span class="stat-value" id="stock-name-dashboard"></span>
+                        <span class="stat-value" id="stock-ticker-dashboard"></span>
+                    </div>
+                    <p style="text-align: center;margin: 5px auto;" id="stock-exchange">-</p>
+                </div>
+                           
+                <div class="stat-card medium">
+                    <h2>DIAGRAMME A BANDE</h2>
+                    <div class="stat-value" id="bande">-</div>
+                </div>
+                <div class="stat-card small">
+                    <div class="stat-item">
+                        <span class="stat-attribute">Market Cap</span>
+                        <span class="stat-dots"></span>
+                        <span class="stat-value" id="market-cap-dashb"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-attribute">PE Ratio</span>
+                        <span class="stat-dots"></span>
+                        <span class="stat-value" id="pe-ratio"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-attribute">Dividend Yield</span>
+                        <span class="stat-dots"></span>
+                        <span class="stat-value" id="dividend-yield-dashb"></span>
+                    </div>
+                </div>
+                <div class="stat-card small">
+                    <h2>Market Change</h2>
+                    <div class="stat-value" id="market-change">-</div>
+                </div>
+                
+                <div class="stat-card wide">
+                    <h2>52-Week High/Low</h2>
+                    <div class="stat-value">
+                        <div class="bar">
+                            <div class="fill" id="fifty-two-week"></div>
+                        </div>
+                        <div class="labels">
+                            <span>Low</span>
+                            <span id="fifty-two-week-text"></span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card medium">
+                    <h2>Volume</h2>
+                    <div class="stat-value" id="volume">-</div>
+                </div>
+                <div class="stat-card small">
+                    <h2>Market Change</h2>
+                    <div class="stat-value" id="market-change">-</div>
+                </div>
+                
+                <div class="stat-card small">
+                    <h2>Market Change</h2>
+                    <div class="stat-value" id="market-change">-</div>
+                </div>
+                
+                <div class="stat-card chart">
+                    <h2>Chart</h2>
+                    <div id="stock-chart-container">
+                        <img id="stock-chart-dashboard-image" alt="Stock Chart Snapshot" />
+                        <button id="take-snapshot-btn">
+                            Take Picture
+                        </button>
+                    </div>
+                </div>
+                <div class="img-div">
+                    <a href="https://www.canslimcalculator.com/" target="_blank">
+                        <img src="assets/img/dashboard-logo.png">
+                    </a>
+                    <div class="small">
+                        <p style="text-align: justify;color: #af504c;font-style: italic;">
+                            The information provided on this site is for educational and informational purposes only. 
+                            We are not responsible for any actions taken based on this information. Please conduct your own research 
+                            and consult with a qualified financial advisor before making any investment decisions.
+                        </p>                
+                    </div>  
+                </div>
+            </div>
+        </div>
         
         <!--
         <div class="dashboard">

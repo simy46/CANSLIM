@@ -1,14 +1,41 @@
 import 'chartjs-plugin-annotation';
 
 let stockChart;  // Declare stockChart globally
+const intervalOptions = {
+    '1d': ['intraday1mChart', 'intraday5mChart', 'intraday15mChart', 'intraday30mChart', 'intraday60mChart', 'dailyChart'],
+    '5d': ['intraday5mChart', 'intraday15mChart', 'intraday30mChart', 'intraday60mChart', 'dailyChart'],
+    '1mo': ['intraday60mChart', 'dailyChart', 'weeklyChart', 'monthlyChart'],
+    '3mo': ['intraday60mChart', 'dailyChart', 'weeklyChart', 'monthlyChart'],
+    '6mo': ['intraday60mChart', 'dailyChart', 'weeklyChart', 'monthlyChart'],
+    '1y': ['intraday60mChart', 'dailyChart', 'weeklyChart', 'monthlyChart'],
+    '2y': ['dailyChart', 'weeklyChart', 'monthlyChart'],
+    '5y': ['dailyChart', 'weeklyChart', 'monthlyChart'],
+    '10y': ['dailyChart', 'weeklyChart', 'monthlyChart'],
+    'ytd': ['intraday60mChart', 'dailyChart', 'weeklyChart', 'monthlyChart'],
+    'max': ['weeklyChart', 'monthlyChart']
+};
+
+const intervalDisplayNames = {
+    'intraday1mChart': '1m',
+    'intraday5mChart': '5m',
+    'intraday15mChart': '15m',
+    'intraday30mChart': '30m',
+    'intraday60mChart': '60m',
+    'dailyChart': '1d',
+    'weeklyChart': '1w',
+    'monthlyChart': '1mo'
+};
 
 export function updateChartSection(chartData) {
     const maxPoints = document.getElementById('max-points').value;
+    const interval = document.getElementById('interval-select').value;
+
     if (stockChart) {
-        updateChart(chartData.quotes, maxPoints);
+        updateChart(chartData[interval].quotes, maxPoints);
         return;
     } else {
-        initializeChart(chartData.quotes, maxPoints);
+        initializeChart(chartData[interval].quotes, maxPoints);
+        updateIntervalOptions('1y');
     }
     attachChartButtonEvents(chartData);
 }
@@ -19,7 +46,7 @@ function updateChart(data, maxPoints) {
     stockChart.update();
 }
 
-function processData(data, maxPoints) {
+function processData(data, maxPoints = 100) {
     const downsampledData = downsample(data, maxPoints);
 
     const labels = downsampledData.map(entry => new Date(entry.date));
@@ -114,6 +141,22 @@ function filterDataByRange(data, range) {
     return filteredData;
 }
 
+function updateIntervalOptions(range) {
+    const intervalSelect = document.getElementById('interval-select');
+    const availableIntervals = intervalOptions[range] || ['dailyChart'];
+
+    intervalSelect.innerHTML = '';
+
+    availableIntervals.forEach(interval => {
+        const option = document.createElement('option');
+        option.value = interval;
+        option.text = intervalDisplayNames[interval] || interval;
+        intervalSelect.appendChild(option);
+    });
+
+    intervalSelect.value = availableIntervals[0];
+}
+
 function initializeChart(data, maxPoints) {
     const ctx = document.getElementById('stock-chart').getContext('2d');
     const chartData = processData(data, maxPoints);
@@ -132,7 +175,7 @@ function initializeChart(data, maxPoints) {
                     type: 'time',
                     time: {
                         parser: 'yyyy-MM-dd',
-                        unit: 'day',
+                        unit: 'day', // Ensure we're working with daily intervals
                         tooltipFormat: 'MMM dd, yyyy',
                         displayFormats: {
                             day: 'MMM dd',
@@ -140,8 +183,10 @@ function initializeChart(data, maxPoints) {
                             year: 'yyyy'
                         }
                     },
+                    distribution: 'linear', // Force even spacing
                     ticks: {
-                        color: '#b2b5bc'
+                        color: '#b2b5bc',
+                        maxTicksLimit: maxPoints, // Adjust the number of ticks displayed
                     },
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
@@ -175,7 +220,7 @@ function initializeChart(data, maxPoints) {
                         wheel: {
                             enabled: true,
                             modifierKey: 'ctrl',
-                            speed: 0.1, // Optional: Adjust the speed of zooming
+                            speed: 0.1,
                         },
                         drag: {
                             enabled: true,
@@ -184,7 +229,7 @@ function initializeChart(data, maxPoints) {
                             enabled: true
                         },
                         mode: 'xy',
-                        onZoom: ({chart}) => {
+                        onZoom: ({ chart }) => {
                             document.getElementById('reset-btn').style.display = 'flex';
                         }
                     },
@@ -215,6 +260,7 @@ function initializeChart(data, maxPoints) {
     stockChart = new Chart(ctx, config);
 }
 
+
 function setActiveButton(button) {
     document.querySelectorAll('.chart-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -224,13 +270,17 @@ function setActiveButton(button) {
 
 
 function attachChartButtonEvents(chartData) {
-    console.log(JSON.parse(JSON.stringify(chartData)))
     document.querySelectorAll('.chart-btn').forEach(button => {
         button.addEventListener('click', () => {
             setActiveButton(button);
             const range = button.getAttribute('data-range');
+            
+            // Update interval options based on the selected range
+            updateIntervalOptions(range);
+
+            const selectedInterval = document.getElementById('interval-select').value;
             const maxPoints = document.getElementById('max-points').value;
-            const filteredData = filterDataByRange(chartData.quotes, range);
+            const filteredData = filterDataByRange(chartData[selectedInterval].quotes, range);
             
             // Reset zoom before updating chart
             if (stockChart) {
@@ -242,14 +292,31 @@ function attachChartButtonEvents(chartData) {
         });
     });
 
+
+
+    document.getElementById('interval-select').addEventListener('change', () => {
+        const activeButton = document.querySelector('.chart-btn.active');
+        const range = activeButton ? activeButton.getAttribute('data-range') : '1d';
+        const interval = document.getElementById('interval-select').value;
+        const maxPoints = document.getElementById('max-points').value;
+        const filteredData = filterDataByRange(chartData[interval].quotes, range);
+
+        // Reset zoom before updating chart
+        if (stockChart) {
+            stockChart.resetZoom();
+            document.getElementById('reset-btn').style.display = 'none';
+        }
+
+        updateChart(filteredData, maxPoints);
+    });
+
     document.getElementById('max-points').addEventListener('change', () => {
         const maxPoints = document.getElementById('max-points').value;
         const activeButton = document.querySelector('.chart-btn.active');
-        if (activeButton) {
-            const range = activeButton.getAttribute('data-range');
-            const filteredData = filterDataByRange(chartData.quotes, range);
-            updateChart(filteredData, maxPoints);
-        }
+        const range = activeButton ? activeButton.getAttribute('data-range') : '1d';
+        const interval = document.getElementById('interval-select').value;
+        const filteredData = filterDataByRange(chartData[interval].quotes, range);
+        updateChart(filteredData, maxPoints);
     });    
 
     document.getElementById('reset-btn').addEventListener('click', () => {
@@ -263,13 +330,14 @@ function attachChartButtonEvents(chartData) {
     });
     
     document.getElementById('download-png').addEventListener('click', () => {
-        chartDataToPng(chartData.meta);
+        const selectedRange = document.querySelector('.chart-btn.active').getAttribute('data-range');
+        chartDataToPng(chartData.dailyChart.meta, selectedRange);
     });
     
     document.getElementById('download-csv').addEventListener('click', () => {
-        chartDataToCSV(chartData.meta);
+        const selectedRange = document.querySelector('.chart-btn.active').getAttribute('data-range');
+        chartDataToCSV(chartData.dailyChart.meta, selectedRange);
     });
-    
     // Close the menu if the user clicks outside of it
     window.addEventListener('click', (e) => {
         if (!document.getElementById('download-btn').contains(e.target) &&
@@ -285,9 +353,13 @@ function attachChartButtonEvents(chartData) {
     document.addEventListener('fullscreenchange', () => {
         setFullScreen();
     });
+
+    document.getElementById('take-snapshot-btn').addEventListener('click', () => {
+        takeSnapshot();
+    });
 }
 
-function chartDataToCSV(meta) {
+function chartDataToCSV(meta, range) {
     const csvData = [];
     const labels = stockChart.data.labels;
     const data = stockChart.data.datasets[0].data;
@@ -302,31 +374,53 @@ function chartDataToCSV(meta) {
     const csvContent = 'data:text/csv;charset=utf-8,' + csvData.map(e => e.join(', ')).join('\n');
     const link = document.createElement('a');
     link.href = encodeURI(csvContent);
-    link.download = `chart-${meta.symbol}.csv`;
+    link.download = `canslim-calculator-${meta.symbol}-${range}.csv`;
     link.click();
     document.getElementById('download-menu').style.display = 'none';
 }
 
-function chartDataToPng(meta) {
+function chartDataToPng(meta, range) {
     const link = document.createElement('a');
     link.href = stockChart.toBase64Image();
-    link.download = `chart-${meta.symbol}.png`;
+    link.download = `canslim-calculator-${meta.symbol}-${range}.png`;
     link.click();
     document.getElementById('download-menu').style.display = 'none';
 }
-
 
 
 function getFullScreen() {
     const chartSection = document.getElementById('chart-section');
     if (!document.fullscreenElement) {
-        chartSection.requestFullscreen().catch(err => {
-            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-        });
+        openFullscreen(chartSection);
     } else {
-        document.exitFullscreen();
+        closeFullscreen(chartSection);
     }
 }
+
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+
+    elem.style.minHeight = '80vh';
+}
+
+function closeFullscreen(elem) {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+
+    elem.style.minHeight = '65vh';
+}
+  
 
 function setFullScreen() {
     const fullscreenBtn = document.getElementById('fullscreen-btn');
@@ -343,4 +437,13 @@ function setFullScreen() {
                 </svg>
             `;
         }
+}
+
+function takeSnapshot() {
+    const canvas = document.getElementById('stock-chart');
+    const imageUrl = canvas.toDataURL('image/png');
+    const imgElement = document.getElementById('stock-chart-dashboard-image');
+    imgElement.src = imageUrl;
+    imgElement.style.display = 'block'
+    document.getElementById('take-snapshot-btn').textContent = 'Retake picture'
 }
