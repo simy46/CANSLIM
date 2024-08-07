@@ -224,11 +224,13 @@ function createNewsRes(news, newsContainer) {
     newsItem.classList.add('news-item');
 
     // Thumbnail
-    const thumbnail = document.createElement('img');
-    thumbnail.src = news.thumbnail.resolutions[1].url;
-    thumbnail.alt = news.title;
-    thumbnail.classList.add('news-thumbnail');
-    newsItem.appendChild(thumbnail);
+    if (news.thumbnail) {
+        const thumbnail = document.createElement('img');
+        thumbnail.src = news.thumbnail.resolutions[1].url;
+        thumbnail.alt = news.title;
+        thumbnail.classList.add('news-thumbnail');
+        newsItem.appendChild(thumbnail);
+    }
 
     // News details container
     const newsDetails = document.createElement('div');
