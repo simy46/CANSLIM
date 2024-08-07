@@ -1,4 +1,4 @@
-import { SERVER_URL } from "./const.js";
+import { SERVER_URL } from "./const";
 
 document.addEventListener('DOMContentLoaded', async () => {
     explanationListener();
@@ -70,7 +70,21 @@ function explanationListener() {
     updateExplanation(); // Initialize
 }
 
-function listenToSearchEvent() {
+// SEARCH EVENT
+function printObj(obj) {
+    console.log(JSON.parse(JSON.stringify(obj)))
+}
+
+function setLoading() {
+    const searchContainer = document.getElementById('search-results');
+    const spinner = document.createElement('div');
+    spinner.classList.add('spinner');
+    searchContainer.innerHTML = '';
+    searchContainer.appendChild(spinner);
+    searchContainer.style.display = 'block';
+}
+
+export function listenToSearchEvent() {
     const inputElement = document.getElementById('search-input');
     const searchGlass = document.getElementById('search-glass');
 
@@ -92,58 +106,6 @@ function initiateSearch() {
     }
 }
 
-async function searchWithInputValue(inputValue) {
-    const searchContainer = document.getElementById('search-results');
-    const spinner = document.createElement('div');
-    spinner.classList.add('spinner');
-    searchContainer.innerHTML = '';
-    searchContainer.appendChild(spinner);
-    searchContainer.style.display = 'block';
-
-    const newUrl = `${window.location.pathname}?search=${encodeURIComponent(inputValue)}`;
-    window.history.pushState({ path: newUrl }, '', newUrl);
-
-    try {
-        const search = await searchStocks(inputValue);
-        console.log(search)
-        const quotes = search.quotes;
-        searchContainer.innerHTML = '';
-        createSearchResults(inputValue);
-
-        if (quotes.length > 0) {
-            quotes.forEach((quote) => {
-                if (!quote.industry) {
-                    return;
-                }
-                const resultItem = document.createElement('div');
-                resultItem.classList.add('result-item');
-
-                const nameAndSymbol = document.createElement('p');
-                nameAndSymbol.textContent = `${quote.shortname} (${quote.symbol})`;
-
-                resultItem.appendChild(nameAndSymbol);
-
-                const industrySpan = document.createElement('span');
-                industrySpan.classList.add('industry');
-                industrySpan.textContent = `${quote.industry}`;
-                resultItem.appendChild(industrySpan);
-
-                resultItem.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
-                });
-
-                searchContainer.appendChild(resultItem);
-            });
-        } else {
-            noResultFound();
-        }
-    } catch (error) {
-        console.error('Erreur lors de la recherche des stocks:', error);
-        noResultFound();
-    }
-}
-
 async function searchStocks(input) {
     try {
         const url = `${SERVER_URL}/api/search?q=${encodeURIComponent(input)}`;
@@ -158,31 +120,204 @@ async function searchStocks(input) {
     }
 }
 
-function createSearchResults(inputValue) {
-    const searchContainer = document.getElementById('search-results');
-    const div = document.createElement('div');
-    const h3 = document.createElement('h4');
-    const button = document.createElement('button');
+async function searchWithInputValue(inputValue) {
+    setLoading();
 
-    button.id = 'clear-button';
-    button.onclick = () => {
-        searchContainer.style.display = 'none';
+    const newUrl = `${window.location.pathname}?search=${encodeURIComponent(inputValue)}`;
+    window.history.pushState({ path: newUrl }, '', newUrl);
+
+    try {
+        const searchContainer = document.getElementById('search-results');
+        const search = await searchStocks(inputValue);
+        printObj(search);
         searchContainer.innerHTML = '';
-    };
 
-    div.classList.add('search-title-container');
-    h3.textContent = `Results for ${inputValue}`;
-    button.textContent = 'X';
-
-    div.appendChild(h3);
-    div.appendChild(button);
-    searchContainer.appendChild(div);
+        createTabNav();
+        processResults(search.quotes, 'results-results', createSearchRes);
+        processResults(search.news, 'news-results', createNewsRes);
+    } catch (error) {
+        console.error('Erreur lors de la recherche des stocks:', error);
+        noResultFound();
+    }
 }
 
+function processResults(items, containerId, createItemFn) {
+    const container = document.getElementById(containerId);
+
+    if (items.length > 0) {
+        const initialItems = items.slice(0, 2); // Show the first 2 items initially
+        const remainingItems = items.slice(2); // Store the remaining items
+
+        initialItems.forEach(item => createItemFn(item, container));
+
+        if (remainingItems.length > 0) {
+            createSeeMoreBtn(container, remainingItems, initialItems, createItemFn);
+        }
+    } else {
+        noResultFound();
+    }
+}
+
+function createSeeMoreBtn(container, remainingResults, initialResults, createItemFn) {
+    const btnDiv = document.createElement('div');
+    btnDiv.classList.add('btnDiv');
+
+    const seeMoreLink = document.createElement('p');
+    seeMoreLink.textContent = 'See more';
+    seeMoreLink.classList.add('see-more');
+    seeMoreLink.addEventListener('click', () => toggleSeeMore(seeMoreLink, remainingResults, initialResults, container, createItemFn));
+    btnDiv.appendChild(seeMoreLink);
+
+    const clearBtn = document.createElement('p');
+    clearBtn.textContent = '×';
+    clearBtn.classList.add('clear');
+    clearBtn.addEventListener('click', () => {
+        const search = document.getElementById('search-results');
+        search.innerHTML = '';
+        search.style.display = 'none';
+    });
+    btnDiv.appendChild(clearBtn);
+
+    container.appendChild(btnDiv);
+}
+
+function toggleSeeMore(link, remainingResults, initialResults, container, createItemFn) {
+    if (link.textContent === 'See more') {
+        remainingResults.forEach(item => createItemFn(item, container));
+        link.textContent = 'See less';
+    } else {
+        container.innerHTML = ''; // Clear the container
+        initialResults.forEach(item => createItemFn(item, container));
+        createSeeMoreBtn(container, remainingResults, initialResults, createItemFn);
+    }
+}
+
+// Creators //
+function createSearchRes(quote, resContainer) {
+    if (quote) {
+        const resultItem = document.createElement('div');
+        resultItem.classList.add('result-item');
+
+        const nameAndSymbol = document.createElement('p');
+        nameAndSymbol.textContent = `${quote.shortname || quote.longName || quote.name} (${quote.symbol || '-'})`;
+
+        resultItem.appendChild(nameAndSymbol);
+
+        if (quote.industry) {
+            const industrySpan = document.createElement('span');
+            industrySpan.classList.add('industry');
+            industrySpan.textContent = `${quote.industry}`;
+            resultItem.appendChild(industrySpan);
+        }
+
+        resultItem.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
+        });
+
+        resContainer.appendChild(resultItem);
+    }
+}
+
+function createNewsRes(news, newsContainer) {
+    const newsItem = document.createElement('div');
+    newsItem.classList.add('news-item');
+
+    // Thumbnail
+    const thumbnail = document.createElement('img');
+    thumbnail.src = news.thumbnail.resolutions[1].url;
+    thumbnail.alt = news.title;
+    thumbnail.classList.add('news-thumbnail');
+    newsItem.appendChild(thumbnail);
+
+    // News details container
+    const newsDetails = document.createElement('div');
+    newsDetails.classList.add('news-details');
+
+    // Title
+    const title = document.createElement('a');
+    title.href = news.link;
+    title.target = '_blank';
+    title.textContent = news.title;
+    title.classList.add('news-title');
+    newsDetails.appendChild(title);
+
+    // Publisher
+    const publisher = document.createElement('p');
+    publisher.textContent = `By ${news.publisher}`;
+    publisher.classList.add('news-publisher');
+    newsDetails.appendChild(publisher);
+
+    // Date
+    const date = new Date(news.providerPublishTime);
+    const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    const dateElement = document.createElement('p');
+    dateElement.textContent = formattedDate;
+    dateElement.classList.add('news-date');
+    newsDetails.appendChild(dateElement);
+
+    newsItem.appendChild(newsDetails);
+    newsContainer.appendChild(newsItem);
+}
+
+// No results //
 function noResultFound() {
     const searchContainer = document.getElementById('search-results');
     const noResult = document.createElement('p');
     noResult.classList.add('no-result');
     noResult.textContent = 'No results found.';
     searchContainer.appendChild(noResult);
+}
+
+
+// Tab Nav //
+function createTabNav() {
+    const searchContainer = document.getElementById('search-results');
+
+    // Create the tab navigation
+    const nav = document.createElement('nav');
+    nav.classList.add('tab-nav');
+
+    const resBtn = document.createElement('button');
+    resBtn.classList.add('tab-btn', 'active');
+    resBtn.textContent = 'Results';
+    resBtn.dataset.tab = 'results';
+
+    const newsBtn = document.createElement('button');
+    newsBtn.classList.add('tab-btn');
+    newsBtn.textContent = 'News';
+    newsBtn.dataset.tab = 'news';
+
+    nav.appendChild(resBtn);
+    nav.appendChild(newsBtn);
+    searchContainer.appendChild(nav);
+
+    // Create the content sections
+    const resSection = document.createElement('div');
+    resSection.id = 'results-results';
+    resSection.classList.add('tab-content', 'active');
+
+    const newsSection = document.createElement('div');
+    newsSection.id = 'news-results';
+    newsSection.classList.add('tab-content');
+
+    searchContainer.appendChild(resSection);
+    searchContainer.appendChild(newsSection);
+
+    // Attach event listeners to the tab buttons
+    resBtn.addEventListener('click', () => toggleTab('results', resBtn, newsBtn));
+    newsBtn.addEventListener('click', () => toggleTab('news', newsBtn, resBtn));
+}
+
+function toggleTab(tabName, activeBtn, inactiveBtn) {
+    // Toggle active class on buttons
+    activeBtn.classList.add('active');
+    inactiveBtn.classList.remove('active');
+
+    // Toggle active class on content sections
+    const activeSection = document.getElementById(`${tabName}-results`);
+    const inactiveSection = document.getElementById(`${inactiveBtn.dataset.tab}-results`);
+    
+    activeSection.classList.add('active');
+    inactiveSection.classList.remove('active');
 }
