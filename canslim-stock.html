@@ -60,273 +60,131 @@
             <a href="/crypto-analysis">crypto</a>
         </nav>
     </header>    
-    <div class="canslim-news">
-        <div class="content" id="buying-checklist">
-            <section class="intro">
-                <div class="title-container">
-                    <h1>Buying Checklist</h1>
-                    <div id="stock-info">
-                        <h2 id="stock-name"></h2>
-                        <p id="stock-ticker"></p>
-                    </div>
+    <div class="content" id="buying-checklist">
+        <section class="intro">
+            <div class="title-container">
+                <h1>Buying Checklist<img src="./assets/img/logo.png" alt="canslim logo" class="buying-img"></h1>
+                <div id="stock-info">
+                    <h2 id="stock-name"></h2>
+                    <p id="stock-ticker"></p>
                 </div>
-            </section>
-
-            <section class="big-rock" id="big-rock-1">
-                <h2>Big Rock #1: Only buy stocks in a market uptrend</h2>
-                <div class="content-container">
-                    <div class="card">
-                        <h3>Market in confirmed uptrend</h3>
-                        <p>Buying stocks during a market uptrend means investing when the overall market is rising, which typically provides a favorable environment for stock gains.</p>
-                        <div class="result" id="marketTrend-result"></div>
-                    </div>
-                </div>
-                <div class="skeleton-card skeleton-container">
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-paragraph"></div>
-                    <div class="skeleton skeleton-result"></div>
-                </div>
-            </section>
-            
-            <section class="big-rock" id="big-rock-2">
-                <h2>Big Rock #2: Focus on companies with big earnings growth and a new, innovative product or service</h2>
-                <div class="content-container">
-                    <div class="card">
-                        <h3>EPS growth 25% or higher in recent quarters</h3>
-                        <p>Earnings per Share (EPS) growth reflects a company's profitability. A high growth rate indicates the company is generating more profit per share, which is a positive sign for investors.</p>
-                        <div class="result" id="epsGrowth-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Composite Rating of 95 or higher</h3>
-                        <p>Combines various fundamental and technical factors into one score. A high rating suggests the company excels in multiple key areas, making it a strong overall performer.</p>
-                        <div class="result" id="compositeRatingResult-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>EPS Rating of 80 or higher</h3>
-                        <p>Evaluates a company's earnings growth over the past five years. A high rating indicates consistent and strong earnings growth, which is attractive to investors.</p>
-                        <div class="result" id="epsRatingResult-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Average Annual EPS growth 25% or more over last 3 years</h3>
-                        <p>Shows the average yearly growth in EPS over the past three years, highlighting companies with sustained profitability and growth.</p>
-                        <div class="result" id="annualEpsGrowth-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Sales growth 20%-25% or higher in most recent quarter</h3>
-                        <p>Indicates increasing demand for a company's products or services, which is a positive indicator of business health and potential future growth.</p>
-                        <div class="result" id="salesGrowth-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Return on equity (ROE) of 17% or higher</h3>
-                        <p>Measures how effectively a company uses shareholders' equity to generate profit. A high ROE indicates efficient management and strong financial performance.</p>
-                        <div class="result" id="roe-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>SMR Rating (Sales + Margins + Return on Equity) of A or B</h3>
-                        <p>The SMR Rating combines sales growth, profit margins, and return on equity into one measure. A high rating signifies a company performing well across these key metrics.</p>
-                        <div class="result" id="smrRating-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Accelerating earnings growth</h3>
-                        <p>Company's earnings are increasing at a faster rate over time, indicating robust financial health and potential for future gains.</p>
-                        <div class="result" id="acceleratingEarningsGrowth-result"></div>
-                    </div>
-                    
-                    <!--
-                    <div class="card">
-                        <h3>New products, service, or management</h3>
-                        <p>Investing in companies with new products, services, or management can indicate innovation and positive change, potentially driving future growth and profitability.</p>
-                        <div class="result" id="newProducts-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Among top-rated stocks in its industry group</h3>
-                        <p>Being among the top-rated stocks in its industry group indicates that the company is performing better than its peers, making it a strong candidate for investment.</p>
-                        <div class="result" id="topRatedStocks-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Ranked in top 40-50 of IBD's 197 industry groups</h3>
-                        <p>Ranking in the top 40-50 of IBD's industry groups shows that the company is a leader within its sector, demonstrating strong performance and potential for further success.</p>
-                        <div class="result" id="industryGroupRank-result"></div>
-                    </div>
-                    -->
-                </div>
-                <div class="skeleton-container" id="skeleton-2">
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
-                </div>
-            </section>
-        
-            <section class="big-rock" id="big-rock-3">
-                <h2>Big Rock #3: Buy stocks being heavily bought by mutual funds</h2>
-                <div class="content-container">
-                    <div class="card">
-                        <h3>Increase in number of funds that own the stock in recent quarters</h3>
-                        <p>An increase in the number of mutual funds owning a stock suggests institutional confidence and can drive the stock's price higher.</p>
-                        <div class="result" id="increaseInFundsOwnership-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Accumulation/Distribution Rating of A, B or C</h3>
-                        <p>Indicates the balance of buying and selling of a stock. A high rating shows more accumulation (buying) than distribution (selling), suggesting demand for the stock.</p>
-                        <div class="result" id="accumulationDistributionRating-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Relative Strength Rating of 80 or higher</h3>
-                        <p>Compares a stock's price performance to other stocks. A high rating indicates that the stock is outperforming most other stocks in the market.</p>
-                        <div class="result" id="relativeStrengthRating-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Share price above $15</h3>
-                        <p>Stocks with share prices above $15 are generally more stable and less volatile than lower-priced stocks, making them safer investments.</p>
-                        <div class="result" id="currentSharePrice-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Average daily volume of 400,000 shares or more</h3>
-                        <p>Indicates strong liquidity, making it easier to buy and sell shares without affecting the stock price significantly.</p>
-                        <div class="result" id="averageDailyVolume-result"></div>
-                    </div>
-                </div>
-                <div class="skeleton-container" id="skeleton-2">
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
-                </div>
-            </section>
-        
-            <section class="big-rock" id="big-rock-4">
-                <h2>Chart Analysis: Buy stocks as they break out of the common patterns that launch big moves</h2>
-                <div class="content-container">
-                    <div class="card">
-                        <h3>Breaking out of sound base or alternative buy point</h3>
-                        <p>Buying stocks as they break out of a sound base or alternative buy point can capitalize on momentum, leading to significant gains as the stock continues to rise.</p>
-                        <div class="result" id="breakingOutOfSoundBase-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Volume at least 40% to 50% above average on breakout</h3>
-                        <p>Higher-than-average volume during a breakout indicates strong interest and buying pressure, which can drive the stock price higher.</p>
-                        <div class="result" id="volumeAboveAverage-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Relative strength line in new high ground</h3>
-                        <p>Compares the stock's performance to the market. A new high in this line indicates the stock is outperforming the market, signaling strength.</p>
-                        <div class="result" id="rsLine-result"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Within 5% of ideal buy point</h3>
-                        <p>Buying within 5% of the ideal buy point ensures that you are entering the stock at a favorable price, maximizing potential gains while minimizing risk.</p>
-                        <div class="result" id="withinBuyPoint-result"></div>
-                    </div>
-                </div>
-                <div class="skeleton-container" id="skeleton-2">
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-paragraph"></div>
-                        <div class="skeleton skeleton-result"></div>
-                    </div>
-                </div>        
-            </section>
             </div>
-
-                    <aside id="news-container">
-                        <div class="news-header">
-                            <h2>News</h2>
-                        </div>
-                        <div id="news-content" class="aside-content">
-                            <!-- News content will go here -->
-                        </div>
-                        <button class="show-more-button" id="see-more-news">See more</button>
-                        <button class="show-less-button" id="see-less-news" style="display: none;">See less</button>
-                    </aside>
+        </section>
+    
+        <section class="checklist">
+            <div class="big-rock" id="big-rock-1">
+                <h3 class="rock-title">Market Uptrend</h3>
+                <div class="criteria-row">
+                    <span class="criteria">Market in confirmed uptrend</span>
+                    <span class="value" id="marketTrend-result"></span>
+                </div>
             </div>
+    
+            <div class="big-rock" id="big-rock-2">
+                <h3 class="rock-title">Earnings & Growth</h3>
+                <div class="criteria-row">
+                    <span class="criteria">EPS Growth</span>
+                    <span class="value" id="epsGrowth-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Composite Rating</span>
+                    <span class="value" id="compositeRatingResult-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">EPS Rating</span>
+                    <span class="value" id="epsRatingResult-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Annual EPS Growth</span>
+                    <span class="value" id="annualEpsGrowth-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Sales Growth</span>
+                    <span class="value" id="salesGrowth-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">ROE</span>
+                    <span class="value" id="roe-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">SMR Rating</span>
+                    <span class="value" id="smrRating-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Accelerating Earnings Growth</span>
+                    <span class="value" id="acceleratingEarningsGrowth-result"></span>
+                </div>
+            </div>
+    
+            <div class="big-rock" id="big-rock-3">
+                <h3 class="rock-title">Fund Ownership</h3>
+                <div class="criteria-row">
+                    <span class="criteria">Increase in Funds Ownership</span>
+                    <span class="value" id="increaseInFundsOwnership-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Accumulation/Distribution Rating</span>
+                    <span class="value" id="accumulationDistributionRating-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">RS Rating</span>
+                    <span class="value" id="relativeStrengthRating-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Current Share Price</span>
+                    <span class="value" id="currentSharePrice-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Average Daily Volume</span>
+                    <span class="value" id="averageDailyVolume-result"></span>
+                </div>
+            </div>
+    
+            <div class="big-rock" id="big-rock-4">
+                <h3 class="rock-title">Chart Analysis</h3>
+                <div class="criteria-row">
+                    <span class="criteria">Breakout</span>
+                    <span class="value" id="breakingOutOfSoundBase-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Volume Above Average on Breakout</span>
+                    <span class="value" id="volumeAboveAverage-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">RS Line</span>
+                    <span class="value" id="rsLine-result"></span>
+                </div>
+                <div class="criteria-row">
+                    <span class="criteria">Within Buy Point</span>
+                    <span class="value" id="withinBuyPoint-result"></span>
+                </div>
+            </div>
+    
+            <div class="checklist-summary">
+                <div class="summary-label">Overall</div>
+                <div class="summary-value" id="overall-result"></div>
+            </div>
+        </section>
     </div>
 
+    <!-- News Section -->
+    <aside id="news-container">
+        <div class="news-header">
+            <h2>Latest news</h2>
+        </div>
+        <div id="news-content" class="aside-content">
+            <!-- News content will be injected here -->
+        </div>
+        <div id="pagination-controls">
+            <!-- Pagination buttons will be dynamically injected here -->
+        </div>
+    </aside>
         
-        <!-- Chart Section -->
-        <section id="chart-section">
-            <div id="chart-content">
-                <canvas id="stock-chart" style="cursor: pointer;"></canvas>
-                <button id="reset-btn" class="custom-reset-btn" style="display: none;">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        class="bi bi-arrow-repeat"
-                        viewBox="0 0 16 16"
-                    >
-                        <path
-                            d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
-                        ></path>
-                        <path
-                            fill-rule="evenodd"
-                            d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
-                        ></path>
-                    </svg>
-                </button>
-                <button id="fullscreen-btn" class="custom-fullscreen-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="fullscreen-icon">
-                        <path d="M4 12 L4 4 12 4 M20 4 L28 4 28 12 M4 20 L4 28 12 28 M28 20 L28 28 20 28"/>
-                    </svg>
-                </button>
-                <div class="custom-select-wrapper">
-                    <label for="max-points">Max Points:</label>
-                    <select id="max-points" class="custom-select">
-                        <option value="100">100</option>
-                        <option value="500">500</option>
-                        <option value="1000" selected>1000</option>
-                        <option value="2000">2000</option>
-                        <option value="5000">5000</option>
-                        <option value="max">MAX</option>
-                    </select>
-                </div>
-                <div class="custom-select-wrapper interval">
-                    <label for="interval-select">Interval:</label>
-                    <select id="interval-select" class="custom-select">
-                        <option value="intraday1mChart">1m</option>
-                        <option value="intraday5mChart">5m</option>
-                        <option value="intraday15mChart">15m</option>
-                        <option value="intraday30mChart">30m</option>
-                        <option value="intraday60mChart">60m</option>
-                        <option value="dailyChart" selected>1d</option>
-                        <option value="weeklyChart">1w</option>
-                        <option value="monthlyChart">1mo</option>
-                    </select>
-                </div>
-                
-                <button id="download-btn" class="custom-download-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="bdd05811-e15d-428c-bb53-8661459f9307" data-name="Layer 2" class="svg">
-                        <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
-                        <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
-                        <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
-                    </svg>
-                </button>
-                <div id="download-menu" class="custom-download-menu" style="display: none;">
-                    <button id="download-png" class="download-option">png</button>
-                    <button id="download-csv" class="download-option">csv</button>
-                </div>       
-            </div>
-            <div id="no-data-message" style="display: none; color: #b2b5bc; text-align: center;">
-                No data available for the selected range.
-            </div>
+    <section id="chart-section">
+        <textarea class="chart-note" id="note" placeholder="Write your notes here...">NOTE: </textarea>
+        <div id="chart-content">
+            <canvas id="stock-chart"></canvas>
+
             <div id="chart-controls">
                 <button class="chart-btn" data-range="1d">1D</button>
                 <button class="chart-btn" data-range="5d">5D</button>
@@ -340,7 +198,90 @@
                 <button class="chart-btn" data-range="ytd">YTD</button>
                 <button class="chart-btn" data-range="max">MAX</button>
             </div>
-        </section>
+            <div id="no-data-message" style="display: none;">
+                <p>
+                    No data available
+                </p>
+            </div>
+        </div>
+            
+        <!-- Boutons de contrôle -->
+        <div class="button-group">
+            <button id="reset-btn" style="display: none;" class="common-btn-styles">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-arrow-repeat"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+                    ></path>
+                    <path
+                        fill-rule="evenodd"
+                        d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+                    ></path>
+                </svg>
+            </button>
+
+            <button id="download-btn" class="common-btn-styles">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" id="bdd05811-e15d-428c-bb53-8661459f9307" data-name="Layer 2" class="svg" fill="white">
+                    <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                    <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                    <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                </svg>
+            </button>
+
+            <button id="fullscreen-btn" class="common-btn-styles">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="fullscreen-icon">
+                    <path d="M4 12 L4 4 12 4 M20 4 L28 4 28 12 M4 20 L4 28 12 28 M28 20 L28 28 20 28"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Menu de téléchargement -->
+        <div id="download-menu" class="custom-download-menu" style="display: none;">
+            <button id="download-png" class="download-option">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24px" width="24px" viewBox="0 0 487 487">
+                    <g>
+                        <path d="M308.1,277.95c0,35.7-28.9,64.6-64.6,64.6s-64.6-28.9-64.6-64.6s28.9-64.6,64.6-64.6S308.1,242.25,308.1,277.95z     M440.3,116.05c25.8,0,46.7,20.9,46.7,46.7v122.4v103.8c0,27.5-22.3,49.8-49.8,49.8H49.8c-27.5,0-49.8-22.3-49.8-49.8v-103.9    v-122.3l0,0c0-25.8,20.9-46.7,46.7-46.7h93.4l4.4-18.6c6.7-28.8,32.4-49.2,62-49.2h74.1c29.6,0,55.3,20.4,62,49.2l4.3,18.6H440.3z     M97.4,183.45c0-12.9-10.5-23.4-23.4-23.4c-13,0-23.5,10.5-23.5,23.4s10.5,23.4,23.4,23.4C86.9,206.95,97.4,196.45,97.4,183.45z     M358.7,277.95c0-63.6-51.6-115.2-115.2-115.2s-115.2,51.6-115.2,115.2s51.6,115.2,115.2,115.2S358.7,341.55,358.7,277.95z"/>
+                    </g>
+                </svg>
+            </button>
+            <button id="download-csv" class="download-option">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24px" width="24px" viewBox="0 0 50 50">
+                    <path d="M 28.8125 0.03125 L 0.8125 5.34375 C 0.339844 5.433594 0 5.863281 0 6.34375 L 0 43.65625 C 0 44.136719 0.339844 44.566406 0.8125 44.65625 L 28.8125 49.96875 C 28.875 49.980469 28.9375 50 29 50 C 29.230469 50 29.445313 49.929688 29.625 49.78125 C 29.855469 49.589844 30 49.296875 30 49 L 30 1 C 30 0.703125 29.855469 0.410156 29.625 0.21875 C 29.394531 0.0273438 29.105469 -0.0234375 28.8125 0.03125 Z M 32 6 L 32 13 L 34 13 L 34 15 L 32 15 L 32 20 L 34 20 L 34 22 L 32 22 L 32 27 L 34 27 L 34 29 L 32 29 L 32 35 L 34 35 L 34 37 L 32 37 L 32 44 L 47 44 C 48.101563 44 49 43.101563 49 42 L 49 8 C 49 6.898438 48.101563 6 47 6 Z M 36 13 L 44 13 L 44 15 L 36 15 Z M 6.6875 15.6875 L 11.8125 15.6875 L 14.5 21.28125 C 14.710938 21.722656 14.898438 22.265625 15.0625 22.875 L 15.09375 22.875 C 15.199219 22.511719 15.402344 21.941406 15.6875 21.21875 L 18.65625 15.6875 L 23.34375 15.6875 L 17.75 24.9375 L 23.5 34.375 L 18.53125 34.375 L 15.28125 28.28125 C 15.160156 28.054688 15.035156 27.636719 14.90625 27.03125 L 14.875 27.03125 C 14.8125 27.316406 14.664063 27.761719 14.4375 28.34375 L 11.1875 34.375 L 6.1875 34.375 L 12.15625 25.03125 Z M 36 20 L 44 20 L 44 22 L 36 22 Z M 36 27 L 44 27 L 44 29 L 36 29 Z M 36 35 L 44 35 L 44 37 L 36 37 Z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Sélecteurs pour max points et intervalle -->
+        <div class="custom-select-wrapper">
+            <label for="max-points">Max Points:</label>
+            <select id="max-points" class="custom-select">
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000" selected>1000</option>
+                <option value="2000">2000</option>
+                <option value="5000">5000</option>
+                <option value="max">MAX</option>
+            </select>
+
+            <label for="interval-select">Interval:</label>
+            <select id="interval-select" class="custom-select">
+                <option value="intraday1mChart">1m</option>
+                <option value="intraday5mChart">5m</option>
+                <option value="intraday15mChart">15m</option>
+                <option value="intraday30mChart">30m</option>
+                <option value="intraday60mChart">60m</option>
+                <option value="dailyChart" selected>1d</option>
+                <option value="weeklyChart">1w</option>
+                <option value="monthlyChart">1mo</option>
+            </select>
+        </div>
+    </section>
 
     <nav class="nav">
         <h4 class="nav-item active" id="nav-overview">Overview</h4>
@@ -352,6 +293,14 @@
     
     
     <div class="main-content" id="informations-container">
+        <!-- Recommendations Section -->
+        <div id="recommendations-container">
+            <h2>Recommended Stocks</h2>
+            <div id="recommendations-content" class="aside-content">
+                <!-- Recommendations content will be injected here -->
+            </div>
+        </div>  
+
         <!-- Overview Section -->
         <section id="overview-section">
             <!-- Recent Performance Section -->
@@ -576,24 +525,43 @@
             <div class="profile-item">
                 <h3>Risk Metrics</h3>
                 <div class="profile-detail">
-                    <span class="attribute">Audit Risk:</span>
-                    <span id="audit-risk" class="value"></span>
+                    <span class="risk attribute">Audit Risk:</span>
+                    <div class="gauge-container">
+                        <canvas id="audit-risk-gauge" width="200" height="100"></canvas>
+                        <span id="audit-risk" class="value"></span>
+                    </div>
                 </div>
+            
                 <div class="profile-detail">
-                    <span class="attribute">Board Risk:</span>
-                    <span id="board-risk" class="value"></span>
+                    <span class="risk attribute">Board Risk:</span>
+                    <div class="gauge-container">
+                        <canvas id="board-risk-gauge" width="200" height="100"></canvas>
+                        <span id="board-risk" class="value"></span>
+                    </div>
                 </div>
+            
                 <div class="profile-detail">
-                    <span class="attribute">Compensation Risk:</span>
-                    <span id="compensation-risk" class="value"></span>
+                    <span class="risk attribute">Compensation Risk:</span>
+                    <div class="gauge-container">
+                        <canvas id="compensation-risk-gauge" width="200" height="100"></canvas>
+                        <span id="compensation-risk" class="value"></span>
+                    </div>
                 </div>
+            
                 <div class="profile-detail">
-                    <span class="attribute">Shareholder Rights Risk:</span>
-                    <span id="shareholder-rights-risk" class="value"></span>
+                    <span class="risk attribute">Shareholder Rights Risk:</span>
+                    <div class="gauge-container">
+                        <canvas id="shareholder-rights-gauge" width="200" height="100"></canvas>
+                        <span id="shareholder-rights-risk" class="value"></span>
+                    </div>
                 </div>
+            
                 <div class="profile-detail">
-                    <span class="attribute">Overall Risk:</span>
-                    <span id="overall-risk" class="value"></span>
+                    <span class="risk attribute">Overall Risk:</span>
+                    <div class="gauge-container">
+                        <canvas id="overall-risk-gauge" width="200" height="100"></canvas>
+                        <span id="overall-risk" class="value"></span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -698,27 +666,11 @@
                     <!-- Quote Summary content will go here -->
                 </div>
             </section>
-        </div> 
-        <div id="recommendations-container">
-            <h2>Recommended Stocks</h2>
-            <div id="recommendations-content" class="aside-content">
-                <div class="recommendation positive">
-                    <h3>Stock A</h3>
-                    <p>Great performance with high growth potential.</p>
-                </div>
-                <div class="recommendation negative">
-                    <h3>Stock B</h3>
-                    <p>Currently underperforming, consider the risks.</p>
-                </div>
-                <div class="recommendation positive">
-                    <h3>Stock C</h3>
-                    <p>Steady growth with reliable returns.</p>
-                </div>
-            </div>
-        </div>  
+        </div>
         
 
         <!-- SCORE -->
+         <!--
         <div class="dashboard">
             <div class="stats-grid">
                 <div class="stat-card-overall">
@@ -851,6 +803,8 @@
                 </div>
             </div>
         </div>       
+         -->
+        
     <footer>
         <div class="footer-content">
         <div class="disclaimer">

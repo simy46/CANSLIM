@@ -8,21 +8,24 @@ import { updateProfileSection } from './profile.js';
 import { updateInsightsSection } from './insight.js';
 import { updateOptionsSection } from './options.js';
 import { updateCanslimScores } from './canslim.js';
+import { listenToSearchEvent } from './search.js';
 
 
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const symbol = urlParams.get('symbol');
 
-    if (!symbol) {
-        console.error('Ticker symbol is missing');
-        return;
-    }
-
-    listenToNavEvents();
-
     setLoadingBuyingCheckList(true)
     setLoadingInformations(true);
+    listenToNavEvents();
+    listenToSearchEvent()
+
+    if (!symbol || symbol === 'undefined' || symbol === 'null') {
+        console.error('Ticker symbol is missing');
+        setLoadingBuyingCheckList(false)
+        setLoadingInformations(false);
+        return;
+    }
 
     try {
 
@@ -40,11 +43,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 parseFloat(data1.increaseInFundsOwnership.value),
                 parseFloat(data1.relativeStrengthRating.value)
             ],
-            fiftyTwoWeekHigh: data1.stockInfo.fiftyTwoWeekHigh,
-            fiftyTwoWeekLow: data1.stockInfo.fiftyTwoWeekLow,
-            currentPrice: data1.stockInfo.regularMarketPrice,
-            marketCap: data1.stockInfo.marketCap,
-            peRatio: data1.stockInfo.trailingPE,
+            fiftyTwoWeekHigh: data1.stockInfo.fiftyTwoWeekHigh || null,
+            fiftyTwoWeekLow: data1.stockInfo.fiftyTwoWeekLow || null,
+            currentPrice: data1.stockInfo.regularMarketPrice || null,
+            marketCap: data1.stockInfo.marketCap || null,
+            peRatio: data1.stockInfo.trailingPE || null,
             dividendYield: data1.stockInfo.trailingAnnualDividendYield,
             info: {
                 name: data1.stockInfo.shortName || data1.stockInfo.longName,
@@ -53,13 +56,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         };
         
-        updateCanslimScores(score);
+        //updateCanslimScores(score);
         
 
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 });
+
 
 function setLoadingBuyingCheckList(isLoading) {
     const mainContent = document.querySelectorAll('.content-container');
@@ -108,8 +112,6 @@ function updateStockDetails(data, stockInfo) {
     updateOptionsSection(data.options);
     updateChartSection(data.chart);
     /*updateFinancialsSection(data.quoteSummary ? data.quoteSummary.incomeStatementHistory : null);
-    
-    updateQuoteSummarySection(data.quoteSummary);
     */
 }
 
@@ -120,16 +122,6 @@ function updateFinancialsSection(financials) {
         financialsElement.innerText = JSON.stringify(financials, null, 2);
     } else {
         financialsElement.innerText = 'No data available';
-    }
-}
-
-
-function updateQuoteSummarySection(quoteSummary) {
-    const quoteSummaryElement = document.getElementById('quote-summary-content');
-    if (quoteSummary) {
-        quoteSummaryElement.innerText = JSON.stringify(quoteSummary, null, 2);
-    } else {
-        quoteSummaryElement.innerText = 'No data available';
     }
 }
 
@@ -163,62 +155,48 @@ async function fetchSecondData(data1, symbol) {
     }   
 }
 
-
 function updateCheckList(results) {
     console.log(results);
 
     for (let key in results) {
         if (Object.prototype.hasOwnProperty.call(results, key) && key !== 'marketTrend') {
             const element = document.getElementById(`${key}-result`);
-            const cardElement = element ? element.closest('.card') : null;
-
             if (element) {
                 const value = results[key].value;
-                element.textContent = value;
+                element.textContent = value !== undefined ? value : 'No data';
 
-
-                if (cardElement) {
-                    if (value === undefined) {
-                        cardElement.classList.add('undefined');
-                        cardElement.style.backgroundColor = '#f0f0f0';
-                        cardElement.style.color = 'gray';
-                        element.textContent = 'No data available'
-                    } else {
-                        cardElement.classList.remove('undefined');
-                        if (results[key].bool === true) {
-                            cardElement.classList.add('pass');
-                        } else if (results[key].bool === false && results[key].value !== null) {
-                            cardElement.classList.add('fail');
-                        } else {
-                            cardElement.classList.add('undefined');
-                        }
-                    }
+                // Apply styles based on the result
+                element.classList.remove('pass', 'fail', 'undefined');
+                if (results[key].bool === true) {
+                    element.classList.add('pass');
+                } else if (results[key].bool === false) {
+                    element.classList.add('fail');
+                } else {
+                    element.classList.add('undefined');
                 }
             }
         }
     }
 
+    // Handle the market trend separately
     checkInCorrection(results.marketTrend);
 }
 
 function checkInCorrection(marketTrend) {
     const marketResult = document.getElementById('marketTrend-result');
-    const cardElement = marketResult ? marketResult.closest('.card') : null;
-
     if (marketResult) {
         const value = marketTrend.value;
-        const isInCorrection = marketTrend.isInCorrection;
+        marketResult.textContent = value !== undefined ? value : 'No data';
 
-        marketResult.textContent = value;
-
-        if (cardElement) {
-            if (isInCorrection) {
-                cardElement.classList.add('correction');
-            } else if(marketTrend.bool) {
-                cardElement.classList.add('pass');
-            } else {
-                cardElement.classList.add('fail');
-            }
+        // Apply styles based on the market trend
+        marketResult.classList.remove('pass', 'fail', 'correction');
+        if (marketTrend.isInCorrection) {
+            marketResult.classList.add('correction');
+        } else if (marketTrend.bool) {
+            marketResult.classList.add('pass');
+        } else {
+            marketResult.classList.add('fail');
         }
     }
 }
+

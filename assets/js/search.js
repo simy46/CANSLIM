@@ -125,7 +125,7 @@ function createSearchRes(quote, searchContainer) {
 
         resultItem.addEventListener('click', (e) => {
             e.stopPropagation();
-            window.location.href = `/stock?symbol=${quote.symbol}`;
+            window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
         });
 
         searchContainer.appendChild(resultItem);

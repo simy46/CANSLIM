@@ -42,9 +42,6 @@ function setLoading(isLoading, isTrending) {
     const loading = isTrending ? loadingTrending : loadingDaily;
     const container = isTrending ? stocksContainer : dailyGainersContainer;
 
-    console.log(`LOADING : ${loading}`);
-    console.log(`CONTAINER : ${container}`)
-
     loading.style.display = isLoading ? 'flex' : 'none';
     container.style.display = isLoading ? 'none' : 'grid';
 }
@@ -67,13 +64,13 @@ function showContainer() {
     const icon = document.querySelector('#section-title > i');
     
     if (selectedValue === 'trending') {
-        title.textContent = 'Trending Stocks'
+        title.textContent = 'Trending'
         trendingContainer.classList.remove('hidden');
         gainersContainer.classList.add('hidden');
         icon.classList.add('fa-fire')
         icon.classList.remove('fa-chart-line')
     } else if (selectedValue === 'gainers') {
-        title.textContent = ' Daily Gainers Stocks'
+        title.textContent = ' Daily Gainers'
         gainersContainer.classList.remove('hidden');
         trendingContainer.classList.add('hidden');
         icon.classList.add('fa-chart-line')
@@ -92,6 +89,7 @@ function formatNumber(value) {
 }
 
 function createStock(stock, container) {
+    console.log(stock)
     const stockDiv = document.createElement('div');
     stockDiv.classList.add('stock-card', stock.regularMarketChangePercent >= 0 ? 'positive' : 'negative');
 
@@ -151,7 +149,8 @@ function createStock(stock, container) {
     const regularMarketTime = createStatElement('Trading Time', `${stock.regularMarketTime ? new Date(stock.regularMarketTime).toLocaleString() : '-'}`);
     regularMarketTime.classList.add('date');
     const todayRange = createStatElement('Today\'s Range', `${stock.regularMarketDayLow !== undefined ? stock.regularMarketDayLow : '-'} - ${stock.regularMarketDayHigh !== undefined ? stock.regularMarketDayHigh : '-'}`);
-    const fiftyTwoWeekRange = createStatElement('52 Week Range', `${stock.fiftyTwoWeekRange ? `${stock.fiftyTwoWeekRange.low} - ${stock.fiftyTwoWeekRange.high}` : '-'}`);
+    const range = stock.fiftyTwoWeekRange.low ? `${stock.fiftyTwoWeekRange.low} - ${stock.fiftyTwoWeekRange.high}` : stock.fiftyTwoWeekRange ? stock.fiftyTwoWeekRange : '-'
+    const fiftyTwoWeekRange = createStatElement('52 Week Range', range);
 
     performanceDiv.append(priceDiv, regularMarketTime, todayRange, fiftyTwoWeekRange);
 
