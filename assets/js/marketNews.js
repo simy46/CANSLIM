@@ -1,6 +1,10 @@
 import { SERVER_URL, TRENDING_STOCKS_TICKERS } from "./const.js";
+import { listenToSearchEvent } from "./search.js";
+
 
 document.addEventListener('DOMContentLoaded', async () => {
+    listenToSearchEvent();
+    
     setLoading(true);
     await getNews();
     setTimeout(() => setLoading(false), 1000);

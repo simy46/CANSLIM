@@ -1,4 +1,6 @@
 import { SERVER_URL, ETAG_KEY, TRENDING_STOCKS_TICKERS, TRENDING_STOCKS_KEY, STOCK_SELECTION } from "./const.js";
+import { listenToSearchEvent } from "./search.js";
+
 let once = true;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -53,6 +55,8 @@ function listenToAllEvent() {
     input.value = selectedValue;
 
     document.getElementById('stock-selector').addEventListener('change', showContainer);
+
+    listenToSearchEvent();
     showContainer();
 }
 

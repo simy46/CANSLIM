@@ -112,7 +112,6 @@ function createNews(news) {
     
         // Thumbnail
         if (news.thumbnail && news.thumbnail.resolutions && news.thumbnail.resolutions.length > 0) {
-            console.log(news.thumbnail.resolutions)
             const img = document.createElement('img');
             img.src = news.thumbnail.resolutions[1].url; // Small thumbnail
             img.alt = news.title;

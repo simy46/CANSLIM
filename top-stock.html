@@ -155,15 +155,21 @@
     <header>
         <nav>
             <a href="/" class="home">
-                <img alt="CANSLIM Logo" src="./assets/img/2.png" id="logo">
+                <img alt="CANSLIM Logo" src="/assets/img/2.png" id="logo">
             </a>
             <a href="/top-stocks">top stocks</a>
             <a href="/market-news">news</a>
             <a href="/crypto-analysis">crypto</a>
         </nav>
-    </header>
-    <div class="container">
+        <div class="input-container">
+            <input id="search-input" type="text" placeholder="Search a stock...">
+            <i class="fa-solid fa-magnifying-glass" id="search-glass"></i>
+        </div>
+        <div id="search-results" class="container">
+        </div>
+    </header> 
 
+    <div class="container">
         <!-- Selection Input -->
         <div class="title with-navigation">
             <div class="title" id="section-title">
