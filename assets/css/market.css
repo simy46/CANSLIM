@@ -189,12 +189,12 @@ nav a svg {
   height: 24px;
 }
 
-nav a:hover:not(.home, .nav-active) {
+nav a:hover:not(.home) {
   color: #4CAF50;
   border-bottom: 2px solid #4CAF50;
 }
 
-nav a:hover svg *:not(.nav-active svg *) {
+nav a:hover svg * {
   stroke: #4CAF50;
   fill: none;
 }
