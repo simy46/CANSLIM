@@ -93,7 +93,6 @@ function formatNumber(value) {
 }
 
 function createStock(stock, container) {
-    console.log(stock)
     const stockDiv = document.createElement('div');
     stockDiv.classList.add('stock-card', stock.regularMarketChangePercent >= 0 ? 'positive' : 'negative');
 

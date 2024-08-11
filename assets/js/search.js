@@ -10,6 +10,13 @@ function printObj(obj) {
 export function listenToSearchEvent() {
     const inputElement = document.getElementById('search-input');
     const searchGlass = document.getElementById('search-glass');
+    
+    const searchSvg = document.getElementById('search-toggle');
+    const searchContainer = document.getElementById('input-container-search');
+    const navLinks = document.querySelectorAll('nav .nav-link');
+    const searchResults = document.getElementById('search-results');
+    
+    const body = document.querySelector('body');
 
     inputElement.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -18,14 +25,51 @@ export function listenToSearchEvent() {
     });
 
     searchGlass.addEventListener('click', initiateSearch);
+
+    searchSvg.addEventListener('click', function(event) {
+        if (isMobileScreen()) {
+            event.stopPropagation();
+    
+            navLinks.forEach(link => {
+                link.style.display = 'none';
+            });
+    
+            searchContainer.style.display = 'flex';
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!searchContainer.contains(event.target) && !searchSvg.contains(event.target)) {
+            if (isMobileScreen()) {
+
+                navLinks.forEach(link => {
+                    link.style.display = 'flex';
+                });
+    
+                searchContainer.style.display = 'none';
+                body.classList.remove('opac')
+            }
+
+            searchResults.style.display = 'none';
+        }
+    });
+}
+
+function isMobileScreen() {
+    return window.innerWidth <= 821 || (window.innerHeight >= 350 && window.innerHeight <= 450)
 }
 
 function initiateSearch() {
     const inputElement = document.getElementById('search-input');
+    const body = document.querySelector('body');
     const inputValue = inputElement.value.trim();
     if (inputValue) {
         searchWithInputValue(inputValue);
         inputElement.value = '';
+    }
+
+    if (isMobileScreen()) {
+        body.classList.add('opac');
     }
 }
 
@@ -33,7 +77,7 @@ async function searchWithInputValue(inputValue) {
     const searchContainer = document.getElementById('search-results');  
     setLoading();
 
-    const newUrl = `${window.location.pathname}?search=${encodeURIComponent(inputValue)}`;
+    const newUrl = `${window.location.pathname}?symbol=${encodeURIComponent(inputValue)}`;
     window.history.pushState({ path: newUrl }, '', newUrl);
 
     try {
@@ -43,10 +87,10 @@ async function searchWithInputValue(inputValue) {
         searchContainer.innerHTML = '';
 
         if (quotes.length > 0) {
-            const initialResults = quotes.slice(0, 2); // Show the first 2 results initially
+            const initialResults = quotes.slice(0, 2);
             printObj(initialResults)
 
-            const remainingResults = quotes.slice(2); // Store the remaining results
+            const remainingResults = quotes.slice(2);
            printObj(remainingResults)
 
             initialResults.forEach(quote => createSearchRes(quote, searchContainer));
@@ -79,7 +123,7 @@ function createSeeMoreBtn(searchContainer, remainingResults, initialResults) {
     const seeMoreLink = document.createElement('p');
     seeMoreLink.textContent = 'See more';
     seeMoreLink.classList.add('see-more');
-    seeMoreLink.addEventListener('click', () => toggleSeeMore(seeMoreLink, remainingResults, initialResults, searchContainer));
+    seeMoreLink.addEventListener('click', (event) => toggleSeeMore(seeMoreLink, remainingResults, initialResults, searchContainer, event));
     btnDiv.appendChild(seeMoreLink)
 
     const clearBtn = document.createElement('p');
@@ -95,7 +139,8 @@ function createSeeMoreBtn(searchContainer, remainingResults, initialResults) {
     searchContainer.appendChild(btnDiv);
 }
 
-function toggleSeeMore(link, remainingResults, initialResults, searchContainer) {
+function toggleSeeMore(link, remainingResults, initialResults, searchContainer, event) {
+    event.stopPropagation();
     if (link.textContent === 'See more') {
         remainingResults.forEach(quote => createSearchRes(quote, searchContainer));
         link.textContent = 'See less';
