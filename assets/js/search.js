@@ -21,6 +21,8 @@ export function listenToSearchEvent() {
     inputElement.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             initiateSearch();
+        } else if (e.key === 'Escape') {
+            searchContainer.style.display = 'flex';
         }
     });
 
@@ -52,13 +54,7 @@ export function listenToSearchEvent() {
 
             searchResults.style.display = 'none';
         }
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !searchContainer.contains(e.target) && !searchSvg.contains(e.target)) {
-            searchResults.style.display = 'none';
-        }
-    });    
+    });  
 }
 
 function isMobileScreen() {
