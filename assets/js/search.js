@@ -53,6 +53,12 @@ export function listenToSearchEvent() {
             searchResults.style.display = 'none';
         }
     });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !searchContainer.contains(e.target) && !searchSvg.contains(e.target) && isMobileScreen()) {
+            searchResults.style.display = 'none';
+        }
+    });    
 }
 
 function isMobileScreen() {
