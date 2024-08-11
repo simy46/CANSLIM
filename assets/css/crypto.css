@@ -29,7 +29,7 @@ body {
 #ty-msg {
   background-color: #000000;
   color: #87ceeb;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Pacifico', cursive; 
   font-size: 16px;
   text-align: center;
   padding: 15px 0;
@@ -189,7 +189,7 @@ nav a svg {
   height: 24px;
 }
 
-nav a:hover:not(.home) {
+nav a:hover:not(.home, .nav-active) {
   color: #4CAF50;
   border-bottom: 2px solid #4CAF50;
 }
@@ -641,6 +641,15 @@ to {
     width: 28px;
     height: 28px;
     margin: 10px;
+  }
+
+  a.nav-link.nav-active {
+    border-bottom: 4px solid #3498db;
+    padding-bottom: 5px;
+  }
+
+  a.nav-link.nav-active svg * {
+    stroke: #3498db;
   }
 
   #logo {

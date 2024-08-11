@@ -193,7 +193,7 @@ nav a svg {
   height: 24px;
 }
 
-nav a:hover:not(.home) {
+nav a:hover:not(.home, .nav-active) {
   color: #4CAF50;
   border-bottom: 2px solid #4CAF50;
 }
@@ -854,7 +854,16 @@ div.header > div > p.negative {
   nav a svg.nav-icon {
     width: 28px;
     height: 28px;
-    margin: 10px;
+    margin: 5px;
+  }
+
+  a.nav-link.nav-active {
+    border-bottom: 4px solid #3498db;
+    padding-bottom: 5px;
+  }
+
+  a.nav-link.nav-active svg * {
+    fill: #3498db;
   }
 
   #logo {
