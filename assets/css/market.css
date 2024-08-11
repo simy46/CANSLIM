@@ -1081,6 +1081,7 @@ div > p.news-publish-time {
   }
 
   #ty-msg {
+    border-radius: 0;
     display: block;
   }
 
@@ -1097,6 +1098,7 @@ div > p.news-publish-time {
   @media (max-height: 700px) {
     #search-results {
       top: -700%;
+      right: inherit;
     }
   }
 
@@ -1118,6 +1120,13 @@ div > p.news-publish-time {
 
   #news-container .news-tickers span {
     font-size: 10px;
+  }
+
+  body > div:nth-child(4).container {
+    margin-top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0;
   }
 
   .container h1 {

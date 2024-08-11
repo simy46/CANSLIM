@@ -32,7 +32,7 @@ body {
   #ty-msg {
     background-color: #000000;
     color: #87ceeb;
-    font-family: 'Pacifico', cursive; 
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     text-align: center;
     padding: 15px 0;
@@ -394,7 +394,7 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 75%;
+  width: 95%;
   justify-self: center;
 }
 .title.with-navigation {
@@ -887,7 +887,15 @@ div.header > div > p.negative {
     top: 0;
   }
 
+  body > div.container {
+    padding: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+
   #ty-msg {
+    border-radius: 0;
     display: block;
   }
 
@@ -1056,12 +1064,6 @@ div.header > div > p.negative {
 
   #stock-selector {
     font-size: 12px;
-  }
-
-  body > div.container {
-    padding: 10px 0;
-    width: 100%;
-    box-sizing: content-box;
   }
 
   div#stocks-container, div#daily-gainers-container {

@@ -885,6 +885,7 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
 
   #ty-msg {
     display: block;
+    border-radius: 0;
   }
 
   body > footer {
@@ -915,12 +916,13 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
       max-height: 150px;
     }
   }
-
   .content {
-    width: 95%;
-    padding: 10px;
+    margin-top: 0;
+    border-radius: 0;
+    width: 100%;
   }
 }
+
 
 /* Small screens */
 @media (max-width: 550px) {
