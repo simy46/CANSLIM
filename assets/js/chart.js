@@ -1,6 +1,13 @@
-import 'chartjs-plugin-annotation';
+import { Chart, registerables } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
+import 'chartjs-adapter-moment';
+import { CandlestickController, CandlestickElement } from 'chartjs-chart-financial';
+
+Chart.register(...registerables, zoomPlugin, CandlestickController, CandlestickElement);
+
 
 let stockChart;  // Declare stockChart globally
+
 const intervalOptions = {
     '1d': ['intraday1mChart', 'intraday5mChart', 'intraday15mChart', 'intraday30mChart', 'intraday60mChart', 'dailyChart'],
     '5d': ['intraday5mChart', 'intraday15mChart', 'intraday30mChart', 'intraday60mChart', 'dailyChart'],
@@ -29,41 +36,70 @@ const intervalDisplayNames = {
 export function updateChartSection(chartData) {
     const maxPoints = document.getElementById('max-points').value;
     const interval = document.getElementById('interval-select').value;
-
+    const chartType = document.getElementById('chart-type-select').value;
+    const dataGranularity = chartData[interval].meta.dataGranularity;
+    
     if (stockChart) {
-        updateChart(chartData[interval].quotes, maxPoints);
-        return;
+        updateChart(chartData[interval].quotes, maxPoints, chartType, interval);
     } else {
-        initializeChart(chartData[interval].quotes, maxPoints);
+        initializeChart(chartData[interval].quotes, maxPoints, chartType, interval, dataGranularity);
         updateIntervalOptions('1y');
     }
     attachChartButtonEvents(chartData);
 }
 
-function updateChart(data, maxPoints) {
-    const chartData = processData(data, maxPoints);
-    stockChart.data = chartData;
-    stockChart.update();
+// Central function to initialize the correct chart
+function initializeChart(data, maxPoints, chartType, interval) {
+    switch (chartType) {
+        case 'mountain':
+            initializeMountainChart(data, maxPoints, interval);
+            break;
+        case 'scatter':
+            initializeScatterChart(data, maxPoints, interval);
+            break;
+        case 'histogram':
+            initializeHistogramChart(data, maxPoints, interval);
+            break;
+        case 'candlestick':
+            initializeCandlestickChart(data, maxPoints, interval);
+            break;
+        case 'baseline':
+            initializeBaselineChart(data, maxPoints, interval);
+            break;
+        case 'waterfall':
+            initializeWaterfallChart(data, maxPoints, interval);
+            break;
+        default:
+            console.error('Invalid chart type selected');
+            break;
+    }
 }
 
-function processData(data, maxPoints = 100) {
-    const downsampledData = downsample(data, maxPoints);
-
-    const labels = downsampledData.map(entry => new Date(entry.date));
-    const prices = downsampledData.map(entry => entry.close);
-
-    return {
-        labels: labels,
-        datasets: [{
-            label: 'Price',
-            data: prices,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
-            backgroundColor: 'rgba(75, 192, 192, 0.1)',
-            fill: true,
-            tension: 0.4
-        }]
-    };
+// Central function to update the correct chart
+function updateChart(data, maxPoints, chartType, interval) {
+    switch (chartType) {
+        case 'mountain':
+            updateMountainChart(data, maxPoints, interval);
+            break;
+        case 'scatter':
+            updateScatterChart(data, maxPoints, interval);
+            break;
+        case 'histogram':
+            updateHistogramChart(data, maxPoints);
+            break;
+        case 'candlestick':
+            updateCandlestickChart(data, maxPoints, interval);
+            break;
+        case 'baseline':
+            updateBaselineChart(data, maxPoints);
+            break;
+        case 'waterfall':
+            updateWaterfallChart(data, maxPoints);
+            break;
+        default:
+            console.error('Invalid chart type selected');
+            break;
+    }
 }
 
 function downsample(data, maxPoints) {
@@ -141,59 +177,79 @@ function filterDataByRange(data, range) {
     return filteredData;
 }
 
-function updateIntervalOptions(range) {
-    const intervalSelect = document.getElementById('interval-select');
-    const availableIntervals = intervalOptions[range] || ['dailyChart'];
-
-    intervalSelect.innerHTML = '';
-
-    availableIntervals.forEach(interval => {
-        const option = document.createElement('option');
-        option.value = interval;
-        option.text = intervalDisplayNames[interval] || interval;
-        intervalSelect.appendChild(option);
-    });
-
-    intervalSelect.value = availableIntervals[0];
+function getTimeUnitForInterval(interval) {
+    if (!interval) {
+        return 'day';
+    }
+    if (interval.includes('intraday')) {
+        if (interval === 'intraday1mChart' || interval === 'intraday5mChart' || interval === 'intraday15mChart') {
+            return 'minute';
+        } else {
+            return 'hour';
+        }
+    } else {
+        if (interval === 'dailyChart') {
+            return 'day';
+        } else if (interval === 'weeklyChart') {
+            return 'week';
+        } else if (interval === 'monthlyChart') {
+            return 'month';
+        } else {
+            return 'year';
+        }
+    }
 }
 
-function initializeChart(data, maxPoints) {
-    const ctx = document.getElementById('stock-chart').getContext('2d');
-    const chartData = processData(data, maxPoints);
 
-    if (stockChart) {
-        stockChart.destroy();
-    }
+// MOUNTAIN CHART //
+function initializeMountainChart(data, maxPoints) {
+    const ctx = document.getElementById('stock-chart').getContext('2d');
+    const chartContainer = document.getElementById('chart-content');
 
     const config = {
         type: 'line',
-        data: chartData,
+        data: {
+            labels: data.map(entry => new Date(entry.date)),
+            datasets: [{
+                label: 'Price',
+                data: data.map(entry => entry.close),
+                borderColor: '#4f58ab',
+                borderWidth: 1,
+                tension: 0.4,
+                fill: true,
+                backgroundColor: 'rgba(75, 192, 192, 0.1)', 
+                pointRadius: 0,
+            }]
+        },
         options: {
             responsive: true,
             scales: {
                 x: {
-                    type: 'time',
+                    type: 'timeseries',
                     time: {
                         parser: 'yyyy-MM-dd',
-                        unit: 'day', // Ensure we're working with daily intervals
-                        tooltipFormat: 'MMM dd, yyyy',
+                        unit: 'day',
+                        tooltipFormat: 'MM/DD/YYYY HH:mm',
                         displayFormats: {
-                            day: 'MMM dd',
-                            month: 'MMM yyyy',
-                            year: 'yyyy'
+                            minute: 'MM/DD/YYYY HH:mm',
+                            hour: 'MM/DD/YYYY HH:mm',
+                            day: 'MM/DD/YYYY',
+                            week: 'MM/DD/YYYY',
+                            month: 'MM/YYYY',
+                            year: 'YYYY'
                         }
                     },
-                    distribution: 'linear', // Force even spacing
+                    distribution: 'linear',
                     ticks: {
                         color: '#b2b5bc',
-                        maxTicksLimit: maxPoints, // Adjust the number of ticks displayed
+                        maxTicksLimit: maxPoints,
                     },
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
                     }
                 },
                 y: {
-                    beginAtZero: false,
+                    beginAtZero: true,
                     ticks: {
                         color: '#b2b5bc'
                     },
@@ -216,6 +272,21 @@ function initializeChart(data, maxPoints) {
                     intersect: false
                 },
                 zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy',
+                        onPan: () => {
+                            if (chartContainer) {
+                                chartContainer.style.cursor = 'grabbing';
+                            }
+                            document.getElementById('reset-btn').style.display = 'flex';
+                        },
+                        onPanEnd: () => {
+                            if (chartContainer) {
+                                chartContainer.style.cursor = 'default';
+                            }
+                        }
+                    },
                     zoom: {
                         wheel: {
                             enabled: true,
@@ -224,34 +295,177 @@ function initializeChart(data, maxPoints) {
                         },
                         drag: {
                             enabled: true,
-                        },
-                        pinch: {
-                            enabled: true
+                            modifierKey: 'ctrl',
                         },
                         mode: 'xy',
-                        onZoom: ({ chart }) => {
+                        onZoom: () => {
                             document.getElementById('reset-btn').style.display = 'flex';
                         }
                     },
+                },
+            }
+        }
+    };
+
+    stockChart = new Chart(ctx, config);
+
+    document.addEventListener('mouseup', () => {
+        if (chartContainer) {
+            chartContainer.style.cursor = 'default';
+        }
+    });
+
+    document.addEventListener('touchend', () => {
+        if (chartContainer) {
+            chartContainer.style.cursor = 'default';
+        }
+    });
+}
+
+function updateMountainChart(data, maxPoints, interval) {
+    const chartData = processMountainData(data, maxPoints);
+    stockChart.data = chartData;
+
+    stockChart.options.scales.x.time.unit = getTimeUnitForInterval(interval);
+    stockChart.options.scales.x.time.tooltipFormat = interval.includes('intraday') ? 'MM/DD/YYYY HH:mm' : 'MM/DD/YYYY';
+
+    stockChart.update();
+}
+
+function processMountainData(data, maxPoints = 100) {
+    const downsampledData = downsample(data, maxPoints);
+    const labels = downsampledData.map(entry => new Date(entry.date));
+    const prices = downsampledData.map(entry => entry.close);
+
+    return {
+        labels: labels,
+        datasets: [{
+            label: 'Price',
+            data: prices,
+            borderColor: '#4f58ab',
+            borderWidth: 2,
+            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0 
+        }]
+    };
+}
+
+// SCATTER CHART //
+function initializeScatterChart(data, maxPoints, interval) {
+    const ctx = document.getElementById('stock-chart').getContext('2d');
+
+    let filterExtremes = false;
+
+    const processedData = processScatterData(data, maxPoints, filterExtremes);
+
+    const config = {
+        type: 'scatter',
+        data: processedData,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'timeseries',
+                    time: {
+                        unit: 'day',
+                        tooltipFormat: 'MM/DD/YYYY HH:mm',
+                        displayFormats: {
+                            minute: 'MM/DD/YYYY HH:mm',
+                            hour: 'MM/DD/YYYY HH:mm',
+                            day: 'MM/DD/YYYY',
+                            week: 'MM/DD/YYYY',
+                            month: 'MM/YYYY',
+                            year: 'YYYY'
+                        }
+                    },
+                    ticks: {
+                        color: '#b2b5bc',
+                        maxTicksLimit: maxPoints,
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        color: '#b2b5bc'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        generateLabels: function(chart) {
+                            const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+
+                            labels.push({
+                                text: 'Extreme values',
+                                fillStyle: '#4f58ab',
+                                hidden: filterExtremes,
+                                lineCap: 'butt',
+                                lineDash: [],
+                                lineDashOffset: 0,
+                                lineJoin: 'miter',
+                                lineWidth: 0,
+                                strokeStyle: '#ffffff',
+                                pointStyle: 'rectRounded',
+                                datasetIndex: -1,
+                            });
+
+                            return labels;
+                        }
+                    },
+                    onClick: function(_, legendItem, legend) {
+                        const index = legendItem.datasetIndex;
+
+                        if (index === -1) {
+                            filterExtremes = !filterExtremes;
+                            updateScatterChart(data, maxPoints, interval, filterExtremes);
+                        } else {
+                            const ci = legend.chart;
+                            const meta = ci.getDatasetMeta(index);
+                            meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+                            ci.update();
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#4f58ab',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    borderColor: '#b2b5bc',
+                    borderWidth: 1,
+                    callbacks: {
+                        label: function (context) {
+                            const point = context.raw;
+                            return `Date: ${new Date(point.x).toLocaleDateString()}, Price: ${point.y.toFixed(2)}`;
+                        }
+                    }
+                },
+                zoom: {
                     pan: {
                         enabled: true,
                         mode: 'xy',
                     },
-                },
-            },
-            elements: {
-                point: {
-                    radius: 2,
-                    backgroundColor: '#FF4500',
-                    hoverRadius: 4,
-                    hoverBackgroundColor: '#FFD700'
-                },
-                line: {
-                    borderColor: '#4f58ab',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: true,
-                    backgroundColor: 'rgba(75, 192, 192, 0.1)'
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                            modifierKey: 'ctrl',
+                            speed: 0.1,
+                        },
+                        drag: {
+                            enabled: true,
+                            modifierKey: 'ctrl',
+                        },
+                        mode: 'xy',
+                    },
                 }
             }
         }
@@ -261,6 +475,326 @@ function initializeChart(data, maxPoints) {
 }
 
 
+function processScatterData(data, maxPoints, filterExtremes) {
+    let pointsToUse = downsample(data, maxPoints);
+
+    if (filterExtremes) {
+        pointsToUse = toggleExtremeFiltering(pointsToUse);
+    }
+
+    return {
+        datasets: [
+            {
+                label: 'High',
+                data: pointsToUse.map(entry => ({ x: new Date(entry.date), y: entry.high })),
+                backgroundColor: '#1f77b4',
+            },
+            {
+                label: 'Low',
+                data: pointsToUse.map(entry => ({ x: new Date(entry.date), y: entry.low })),
+                backgroundColor: '#ff7f0e',
+            },
+            {
+                label: 'Open',
+                data: pointsToUse.map(entry => ({ x: new Date(entry.date), y: entry.open })),
+                backgroundColor: '#2ca02c',
+            },
+            {
+                label: 'Close',
+                data: pointsToUse.map(entry => ({ x: new Date(entry.date), y: entry.close })),
+                backgroundColor: '#d62728',
+            }
+        ]
+    };
+}
+
+function updateScatterChart(data, maxPoints, interval, filterExtremes = false) {
+    if (stockChart) {
+        console.log(maxPoints)
+
+        const processedData = processScatterData(data, maxPoints, filterExtremes);
+        const hiddenStates = stockChart.data.datasets.map((_, idx) => stockChart.getDatasetMeta(idx).hidden);
+
+        stockChart.data.datasets = processedData.datasets;
+        stockChart.options.scales.x.time.unit = getTimeUnitForInterval(interval);
+        stockChart.options.scales.x.time.tooltipFormat = interval.includes('intraday') ? 'MM/DD/YYYY HH:mm' : 'MM/DD/YYYY';
+        stockChart.options.scales.x.ticks.maxTicksLimit = maxPoints;
+
+        hiddenStates.forEach((hidden, idx) => {
+            stockChart.getDatasetMeta(idx).hidden = hidden;
+        });
+
+        stockChart.update();
+    }
+}
+
+function toggleExtremeFiltering(data) {
+    const values = data.flatMap(entry => [entry.high, entry.low, entry.open, entry.close]);
+    const q1 = getPercentile(values, 25);
+    const q3 = getPercentile(values, 75);
+    const iqr = q3 - q1;
+    const lowerBound = q1 - 1.5 * iqr;
+    const upperBound = q3 + 1.5 * iqr;
+
+    return data.filter(entry =>
+        entry.high >= lowerBound && entry.high <= upperBound &&
+        entry.low >= lowerBound && entry.low <= upperBound &&
+        entry.open >= lowerBound && entry.open <= upperBound &&
+        entry.close >= lowerBound && entry.close <= upperBound
+    );
+}
+
+function getPercentile(data, percentile) {
+    const sortedData = data.slice().sort((a, b) => a - b);
+    const index = (percentile / 100) * (sortedData.length - 1);
+    const lower = Math.floor(index);
+    const upper = Math.ceil(index);
+    return sortedData[lower] + (sortedData[upper] - sortedData[lower]) * (index - lower);
+}
+
+// CANDLESTICK CHART //
+function initializeCandlestickChart(data, maxPoints, interval) {
+    const ctx = document.getElementById('stock-chart').getContext('2d');
+    const chartContainer = document.getElementById('chart-content');
+
+    if (data.length === 0) {
+        console.warn('No data available for the selected interval.');
+        return;
+    }
+
+    const processedData = processCandlestickData(data, maxPoints, interval, chartContainer);
+    const firstDate = new Date(processedData.labels[0]);
+    const lastDate = new Date(processedData.labels[processedData.labels.length - 1]);
+
+    const config = {
+        type: 'candlestick',
+        data: processedData,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'timeseries',
+                    min: firstDate,
+                    max: lastDate,
+                    time: {
+                        unit: 'day',
+                        tooltipFormat: 'MM/DD/YYYY HH:mm',
+                        displayFormats: {
+                            minute: 'MM/DD/YYYY HH:mm',
+                            hour: 'MM/DD/YYYY HH:mm',
+                            day: 'MM/DD/YYYY',
+                            week: 'MM/DD/YYYY',
+                            month: 'MM/YYYY',
+                            year: 'YYYY'
+                        },
+                        distribution: 'series'
+                    },
+                    ticks: {
+                        color: '#b2b5bc',
+                        maxTicksLimit: maxPoints,
+                        source: 'labels',
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        color: '#b2b5bc',
+                        callback: function(value) {
+                            return value.toFixed(2);
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: '#4f58ab',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    borderColor: '#b2b5bc',
+                    borderWidth: 1,
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function (context) {
+                            const point = context.raw;
+                            return `O: ${point.o.toFixed(2)}\nC: ${point.c.toFixed(2)}\nH: ${point.h.toFixed(2)}\nL: ${point.l.toFixed(2)}`;
+                        }
+                    }
+                },
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy',
+                        onPan: () => {
+                            if (chartContainer) {
+                                chartContainer.style.cursor = 'grabbing';
+                            }
+                            document.getElementById('reset-btn').style.display = 'flex';
+                        },
+                        onPanEnd: () => {
+                            if (chartContainer) {
+                                chartContainer.style.cursor = 'default';
+                            }
+                        }
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                            modifierKey: 'ctrl',
+                            speed: 0.1,
+                        },
+                        drag: {
+                            enabled: true,
+                            modifierKey: 'ctrl',
+                        },
+                        mode: 'xy',
+                        onZoom: () => {
+                            document.getElementById('reset-btn').style.display = 'flex';
+                        }
+                    },
+                },
+            },
+            elements: {
+                candlestick: {
+                    color: {
+                        up: '#4caf50',
+                        down: '#f44336'
+                    },
+                    borderWidth: 2,
+                    hoverBorderWidth: 3,
+                    barThickness: processBarThickness(chartContainer.clientWidth, processedData.labels.length),
+                    hoverBackgroundColor: function (context) {
+                        return context.raw.c >= context.raw.o ? 'rgba(76, 175, 80, 0.5)' : 'rgba(244, 67, 54, 0.5)';
+                    }
+                }
+            }
+        }
+    };
+
+    stockChart = new Chart(ctx, config);
+
+    document.addEventListener('mouseup', () => {
+        if (chartContainer) {
+            chartContainer.style.cursor = 'default';
+        }
+    });
+
+    document.addEventListener('touchend', () => {
+        if (chartContainer) {
+            chartContainer.style.cursor = 'default';
+        }
+    });
+}
+
+function processCandlestickData(data, maxPoints = 100, interval = 'dailyChart', chartContainer) {
+    const pointsToUse = downsample(data, maxPoints);
+
+    return {
+        labels: pointsToUse.map(entry => new Date(entry.date)),
+        datasets: [{
+            label: 'Candlestick',
+            data: pointsToUse.map(entry => ({
+                x: new Date(entry.date),
+                o: entry.open,
+                h: entry.high,
+                l: entry.low,
+                c: entry.close
+            })),
+            borderColor: pointsToUse.map(entry => entry.close >= entry.open ? '#4caf50' : '#f44336'),
+            backgroundColor: pointsToUse.map(entry => entry.close >= entry.open ? 'rgba(76, 175, 80, 0.5)' : 'rgba(244, 67, 54, 0.5)'),
+            borderWidth: 1,
+            barThickness: processBarThickness(chartContainer.clientWidth, pointsToUse.length),
+        }],
+        dates: pointsToUse.map(entry => entry.date)
+    };
+}
+
+function updateCandlestickChart(data, maxPoints, interval) {
+    const chartContainer = document.getElementById('chart-content');
+    const chartData = processCandlestickData(data, maxPoints, 'dailyChart', chartContainer);
+
+    if (stockChart) {
+        stockChart.data = chartData;
+        stockChart.options.scales.x.min = chartData.labels[0];
+        stockChart.options.scales.x.max = chartData.labels[chartData.labels.length - 1];
+
+        stockChart.options.scales.x.time.unit = getTimeUnitForInterval(interval);
+
+        stockChart.options.scales.x.time.tooltipFormat = interval.includes('intraday') ? 'MM/DD/YYYY HH:mm' : 'MM/DD/YYYY';
+
+        stockChart.options.elements.candlestick.barThickness = processBarThickness(chartContainer.clientWidth, chartData.labels.length);
+        
+        stockChart.update();
+    }
+}
+
+function processBarThickness(chartWidth, dataPoints) {
+    return Math.max((chartWidth / dataPoints) * 0.1, 2);
+}
+
+function processData(data, maxPoints = 100, chartType = 'line') {
+    const downsampledData = downsample(data, maxPoints);
+    const labels = downsampledData.map(entry => new Date(entry.date));
+
+    let dataset = [];
+    if (chartType === 'candlestick') {
+        dataset = [{
+            label: 'Candlestick',
+            data: downsampledData.map(entry => ({
+                x: new Date(entry.date),
+                o: entry.open,
+                h: entry.high,
+                l: entry.low,
+                c: entry.close
+            })),
+            borderColor: downsampledData.map(entry => entry.close >= entry.open ? 'rgba(0, 255, 0, 1)' : 'rgba(255, 0, 0, 1)'),
+            borderWidth: 2
+        }];
+    } else if (chartType === 'waterfall') {
+        dataset = [{
+            label: 'Price Change',
+            data: downsampledData.map(entry => entry.close - entry.open),
+            backgroundColor: function(context) {
+                const index = context.dataIndex;
+                const value = context.dataset.data[index];
+                return value >= 0 ? 'rgba(0, 255, 0, 0.5)' : 'rgba(255, 0, 0, 0.5)';
+            },
+            borderColor: function(context) {
+                const index = context.dataIndex;
+                const value = context.dataset.data[index];
+                return value >= 0 ? 'rgba(0, 255, 0, 1)' : 'rgba(255, 0, 0, 1)';
+            },
+            borderWidth: 2,
+            barThickness: 10
+        }];
+    } else {
+        const prices = downsampledData.map(entry => entry.close);
+        dataset = [{
+            label: 'Price',
+            data: prices,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+            fill: true,
+            tension: 0.4
+        }];
+    }
+
+    return {
+        labels: labels,
+        datasets: dataset
+    };
+}
+
 function setActiveButton(button) {
     document.querySelectorAll('.chart-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -268,57 +802,62 @@ function setActiveButton(button) {
     button.classList.add('active');
 }
 
+function updateIntervalOptions(range) {
+    const intervalSelect = document.getElementById('interval-select');
+    const availableIntervals = intervalOptions[range] || ['dailyChart'];
+
+    intervalSelect.innerHTML = '';
+
+    availableIntervals.forEach(interval => {
+        const option = document.createElement('option');
+        option.value = interval;
+        option.text = intervalDisplayNames[interval] || interval;
+        intervalSelect.appendChild(option);
+    });
+
+    intervalSelect.value = availableIntervals[0];
+}
 
 function attachChartButtonEvents(chartData) {
+    // RANGE
     document.querySelectorAll('.chart-btn').forEach(button => {
         button.addEventListener('click', () => {
             setActiveButton(button);
             const range = button.getAttribute('data-range');
+            const chartType = document.getElementById('chart-type-select').value;
             
-            // Update interval options based on the selected range
             updateIntervalOptions(range);
+
 
             const selectedInterval = document.getElementById('interval-select').value;
             const maxPoints = document.getElementById('max-points').value;
             const filteredData = filterDataByRange(chartData[selectedInterval].quotes, range);
             
-            // Reset zoom before updating chart
             if (stockChart) {
                 stockChart.resetZoom();
                 document.getElementById('reset-btn').style.display = 'none';
             }
 
-            updateChart(filteredData, maxPoints);
+            updateChart(filteredData, maxPoints, chartType, selectedInterval);
         });
     });
 
-
-
+    // INTERVAL
     document.getElementById('interval-select').addEventListener('change', () => {
-        const activeButton = document.querySelector('.chart-btn.active');
-        const range = activeButton ? activeButton.getAttribute('data-range') : '1d';
-        const interval = document.getElementById('interval-select').value;
-        const maxPoints = document.getElementById('max-points').value;
-        const filteredData = filterDataByRange(chartData[interval].quotes, range);
-
-        // Reset zoom before updating chart
-        if (stockChart) {
-            stockChart.resetZoom();
-            document.getElementById('reset-btn').style.display = 'none';
-        }
-
-        updateChart(filteredData, maxPoints);
+        updateChartInfo(chartData);
     });
 
+    // MAX POINTS
     document.getElementById('max-points').addEventListener('change', () => {
-        const maxPoints = document.getElementById('max-points').value;
-        const activeButton = document.querySelector('.chart-btn.active');
-        const range = activeButton ? activeButton.getAttribute('data-range') : '1d';
-        const interval = document.getElementById('interval-select').value;
-        const filteredData = filterDataByRange(chartData[interval].quotes, range);
-        updateChart(filteredData, maxPoints);
+        updateChartInfo(chartData);
     });    
 
+    // CHART TYPE
+    document.getElementById('chart-type-select').addEventListener('change', (e) => {
+        updateChartType(chartData);
+    });
+
+    // BTN EVENTS
     document.getElementById('reset-btn').addEventListener('click', () => {
         stockChart.resetZoom();
         document.getElementById('reset-btn').style.display = 'none';
@@ -357,6 +896,46 @@ function attachChartButtonEvents(chartData) {
     document.getElementById('take-snapshot-btn').addEventListener('click', () => {
         takeSnapshot();
     });
+}
+
+function updateChartType(chartData) {
+    const maxPoints = document.getElementById('max-points').value;
+    const activeButton = document.querySelector('.chart-btn.active');
+    const range = activeButton ? activeButton.getAttribute('data-range') : '1d';
+    const interval = document.getElementById('interval-select').value;
+    const filteredData = filterDataByRange(chartData[interval].quotes, range);
+    const chartType = document.getElementById('chart-type-select').value;
+
+    // Reset zoom before updating chart
+    if (stockChart) {
+        stockChart.resetZoom();
+        document.getElementById('reset-btn').style.display = 'none';
+        stockChart.destroy();
+    }
+
+    // Initialize or update the chart
+    if (stockChart && stockChart.config.type === chartType) {
+        updateChart(filteredData, maxPoints, chartType);
+    } else {
+        initializeChart(filteredData, maxPoints, chartType, interval);
+    }
+}
+
+function updateChartInfo(chartData) {
+    const maxPoints = document.getElementById('max-points').value;
+    const activeButton = document.querySelector('.chart-btn.active');
+    const range = activeButton ? activeButton.getAttribute('data-range') : '1d';
+    const interval = document.getElementById('interval-select').value;
+    const filteredData = filterDataByRange(chartData[interval].quotes, range);
+    const chartType = document.getElementById('chart-type-select').value;
+
+    // Reset zoom before updating chart
+    if (stockChart) {
+        stockChart.resetZoom();
+        document.getElementById('reset-btn').style.display = 'none';
+    }
+
+    updateChart(filteredData, maxPoints, chartType, interval);
 }
 
 function chartDataToCSV(meta, range) {

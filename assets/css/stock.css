@@ -32,7 +32,7 @@ body {
   #ty-msg {
     background-color: #000000;
     color: #87ceeb;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Pacifico', cursive; 
     font-size: 16px;
     text-align: center;
     padding: 15px 0;
@@ -638,14 +638,10 @@ to {
   text-transform: uppercase; 
 }
 
-#news-container:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-}
-
 /* General Styles for News Container */
 #news-container {
   position: absolute;
-  top: 130px;
+  top: 150px;
   right: 50px;
   width: 380px;
   background-color: #1f1f2e;

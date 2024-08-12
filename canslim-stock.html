@@ -244,7 +244,7 @@
                 <button class="chart-btn" data-range="ytd">YTD</button>
                 <button class="chart-btn" data-range="max">MAX</button>
             </div>
-            <div id="no-data-message" style="display: none;">
+            <div id="no-data-message" style="display: none;position: absolute;top: 43%;">
                 <p>
                     No data available
                 </p>
@@ -311,7 +311,6 @@
                 <option value="500">500</option>
                 <option value="1000" selected>1000</option>
                 <option value="2000">2000</option>
-                <option value="5000">5000</option>
                 <option value="max">MAX</option>
             </select>
 
@@ -321,10 +320,22 @@
                 <option value="intraday5mChart">5m</option>
                 <option value="intraday15mChart">15m</option>
                 <option value="intraday30mChart">30m</option>
-                <option value="intraday60mChart">60m</option>
-                <option value="dailyChart" selected>1d</option>
+                <option value="intraday60mChart" selected>60m</option>
+                <option value="dailyChart">1d</option>
                 <option value="weeklyChart">1w</option>
                 <option value="monthlyChart">1mo</option>
+            </select>
+            
+            <label for="chart-type-select">Chart Type:</label>
+            <select id="chart-type-select" class="custom-select">
+                <option value="mountain">Mountain</option>
+                <option value="scatter">Scatter</option>
+                <option value="candlestick">Candlestick</option>
+                <!--
+                <option value="baseline">Baseline</option>
+                <option value="bar">Histogram</option>
+                <option value="waterfall">Waterfall</option>     
+                -->
             </select>
         </div>
     </section>
@@ -713,11 +724,9 @@
                 </div>
             </section>
         </div>
-        
 
-        <!-- SCORE -->
-         <!--
-        <div class="dashboard">
+        <!-- SCORE
+         <div class="dashboard">
             <div class="stats-grid">
                 <div class="stat-card-overall">
                     <div class="stat-card">
@@ -848,8 +857,8 @@
                     </div>  
                 </div>
             </div>
-        </div>       
-         -->
+        </div>
+        -->
         
     <footer>
         <div class="footer-content">
