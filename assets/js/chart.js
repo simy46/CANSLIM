@@ -6,7 +6,7 @@ import { CandlestickController, CandlestickElement } from 'chartjs-chart-financi
 Chart.register(...registerables, zoomPlugin, CandlestickController, CandlestickElement);
 
 
-let stockChart;  // Declare stockChart globally
+let stockChart;  // stockChart global
 
 const intervalOptions = {
     '1d': ['intraday1mChart', 'intraday5mChart', 'intraday15mChart', 'intraday30mChart', 'intraday60mChart', 'dailyChart'],
@@ -48,7 +48,7 @@ export function updateChartSection(chartData) {
     attachChartButtonEvents(chartData);
 }
 
-// Central function to initialize the correct chart
+// Central init function
 function initializeChart(data, maxPoints, chartType, interval) {
     switch (chartType) {
         case 'mountain':
@@ -75,7 +75,7 @@ function initializeChart(data, maxPoints, chartType, interval) {
     }
 }
 
-// Central function to update the correct chart
+// Central updating function 
 function updateChart(data, maxPoints, chartType, interval) {
     switch (chartType) {
         case 'mountain':
@@ -199,7 +199,6 @@ function getTimeUnitForInterval(interval) {
         }
     }
 }
-
 
 // MOUNTAIN CHART //
 function initializeMountainChart(data, maxPoints) {
@@ -355,6 +354,7 @@ function processMountainData(data, maxPoints = 100) {
 // SCATTER CHART //
 function initializeScatterChart(data, maxPoints, interval) {
     const ctx = document.getElementById('stock-chart').getContext('2d');
+    const chartContainer = document.getElementById('chart-content');
 
     let filterExtremes = false;
 
@@ -426,8 +426,9 @@ function initializeScatterChart(data, maxPoints, interval) {
                         const index = legendItem.datasetIndex;
 
                         if (index === -1) {
+                            const actualMaxPoints = document.getElementById('max-points').value;
                             filterExtremes = !filterExtremes;
-                            updateScatterChart(data, maxPoints, interval, filterExtremes);
+                            updateScatterChart(data, actualMaxPoints, interval, filterExtremes);
                         } else {
                             const ci = legend.chart;
                             const meta = ci.getDatasetMeta(index);
@@ -453,6 +454,17 @@ function initializeScatterChart(data, maxPoints, interval) {
                     pan: {
                         enabled: true,
                         mode: 'xy',
+                        onPan: () => {
+                            if (chartContainer) {
+                                chartContainer.style.cursor = 'grabbing';
+                            }
+                            document.getElementById('reset-btn').style.display = 'flex';
+                        },
+                        onPanEnd: () => {
+                            if (chartContainer) {
+                                chartContainer.style.cursor = 'default';
+                            }
+                        }
                     },
                     zoom: {
                         wheel: {
@@ -465,6 +477,9 @@ function initializeScatterChart(data, maxPoints, interval) {
                             modifierKey: 'ctrl',
                         },
                         mode: 'xy',
+                        onZoom: () => {
+                            document.getElementById('reset-btn').style.display = 'flex';
+                        }
                     },
                 }
             }
@@ -476,6 +491,7 @@ function initializeScatterChart(data, maxPoints, interval) {
 
 
 function processScatterData(data, maxPoints, filterExtremes) {
+    console.log(maxPoints)
     let pointsToUse = downsample(data, maxPoints);
 
     if (filterExtremes) {
@@ -510,8 +526,6 @@ function processScatterData(data, maxPoints, filterExtremes) {
 
 function updateScatterChart(data, maxPoints, interval, filterExtremes = false) {
     if (stockChart) {
-        console.log(maxPoints)
-
         const processedData = processScatterData(data, maxPoints, filterExtremes);
         const hiddenStates = stockChart.data.datasets.map((_, idx) => stockChart.getDatasetMeta(idx).hidden);
 
@@ -529,6 +543,7 @@ function updateScatterChart(data, maxPoints, interval, filterExtremes = false) {
 }
 
 function toggleExtremeFiltering(data) {
+    console.log(data.length)
     const values = data.flatMap(entry => [entry.high, entry.low, entry.open, entry.close]);
     const q1 = getPercentile(values, 25);
     const q3 = getPercentile(values, 75);
@@ -906,14 +921,12 @@ function updateChartType(chartData) {
     const filteredData = filterDataByRange(chartData[interval].quotes, range);
     const chartType = document.getElementById('chart-type-select').value;
 
-    // Reset zoom before updating chart
     if (stockChart) {
         stockChart.resetZoom();
         document.getElementById('reset-btn').style.display = 'none';
         stockChart.destroy();
     }
 
-    // Initialize or update the chart
     if (stockChart && stockChart.config.type === chartType) {
         updateChart(filteredData, maxPoints, chartType);
     } else {
@@ -929,7 +942,6 @@ function updateChartInfo(chartData) {
     const filteredData = filterDataByRange(chartData[interval].quotes, range);
     const chartType = document.getElementById('chart-type-select').value;
 
-    // Reset zoom before updating chart
     if (stockChart) {
         stockChart.resetZoom();
         document.getElementById('reset-btn').style.display = 'none';
@@ -979,9 +991,9 @@ function getFullScreen() {
 function openFullscreen(elem) {
     if (elem.requestFullscreen) {
         elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
+    } else if (elem.webkitRequestFullscreen) {
         elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
+    } else if (elem.msRequestFullscreen) {
         elem.msRequestFullscreen();
     }
 
@@ -991,9 +1003,9 @@ function openFullscreen(elem) {
 function closeFullscreen(elem) {
     if (document.exitFullscreen) {
         document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { /* Safari */
+    } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
+    } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
     }
 
