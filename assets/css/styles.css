@@ -33,6 +33,7 @@ footer {
   text-overflow: ellipsis;
   font-family: 'Roboto', sans-serif;
   background-color: #010920;
+  margin-top: 30px;
 }
 
 footer > p {
