@@ -65,14 +65,20 @@ footer {
   background-color: #010920;
 }
 
-footer > p {
+footer .footer-legal {
   width: 100%;
   text-align: center;
-  margin: 0;
-  font-variant-caps: all-petite-caps;
   padding: 10px 0;
   font-size: larger;
   border-top: 1px solid #999ca5;
+  margin-top: 20px;
+}
+
+footer .footer-legal p {
+  font-variant-caps: all-petite-caps;
+  margin: 0 auto 15px;
+  color: #999ca5;
+  text-align: center;
 }
 
 .footer-content {
@@ -181,12 +187,14 @@ nav a {
 
 #search-toggle {
   display: none;
+  cursor: pointer;
 }
 
 nav a svg {
   margin-left: 8px;
   width: 24px;
   height: 24px;
+  display: none;
 }
 
 nav a:hover:not(.home) {
@@ -197,6 +205,14 @@ nav a:hover:not(.home) {
 nav a:hover svg * {
   stroke: #4CAF50;
   fill: none;
+}
+
+body > header > nav > a:nth-child(2):hover > svg * {
+  fill: #4CAF50;
+}
+
+a.home {
+  padding: 0;
 }
 
 /* Adjusting the logo image */
@@ -499,7 +515,7 @@ to {
 
 /* Ipad Mini */
 @media (max-width: 900px) {
-  body > footer > p {
+  div.footer-legal > p {
     font-size: 16px;
   }
   body > footer > div.footer-content {
@@ -526,7 +542,7 @@ to {
 
 @media (max-width: 830px) {
   body > header > nav {
-    margin: 0 auto 0 0;
+    margin: 0 auto;
     gap: 3%;
   }
 
@@ -556,10 +572,6 @@ to {
   #search-results > div.result-item > p,
   #search-results > div.result-item > span {
     font-size: small;
-  }
-
-  a.home {
-    padding: 0;
   }
 
   @media (max-height: 450px) {
@@ -640,7 +652,8 @@ to {
   nav a svg.nav-icon {
     width: 28px;
     height: 28px;
-    margin: 10px;
+    margin: 5px auto;
+    display: block;
   }
 
   a.nav-link.nav-active {
@@ -687,7 +700,7 @@ to {
   }
 
   body > footer {
-    padding-bottom: 125px;
+    padding-bottom: 95px;
   }
 
   @media (max-height: 800px) {
@@ -721,7 +734,7 @@ to {
     flex-direction: column-reverse;
   }
 
-  body > footer > p {
+  div.footer-legal > p {
     font-size: 14px;
   }
 
@@ -742,7 +755,7 @@ to {
   }
 
   body > footer {
-    padding-bottom: 80px;
+    padding-bottom: 85px;
   }
 }
 
@@ -774,7 +787,7 @@ to {
       flex-direction: column;
     }
 
-    body > footer > p {
+    div.footer-legal > p {
       font-size: 12px;
     }
   }

@@ -740,6 +740,7 @@ div.header > div > p.negative {
       margin: 0 auto;
     }
   }
+  
   div#stocks-container, div#daily-gainers-container {
     max-height: 660px;
     overflow-y: auto;

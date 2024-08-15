@@ -47,6 +47,7 @@ body {
   80% { opacity: 1; }
   100% { opacity: 0; }
 }
+
 /* footer */
 footer {
   border-top: 1px solid black;
@@ -206,6 +207,10 @@ nav a:hover svg * {
 
 body > header > nav > a:nth-child(2):hover > svg * {
   fill: #4CAF50;
+}
+
+a.home {
+  padding: 0;
 }
 
 /* Adjusting the logo image */
@@ -787,10 +792,6 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
     font-size: small;
   }
 
-  a.home {
-    padding: 0;
-  }
-
   @media (max-height: 450px) {
     #input-container-search {
       width: 100%;
@@ -960,7 +961,6 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
 
   #logo {
     max-width: 80px;
-    padding: 0;
   }
 
   body > footer {
