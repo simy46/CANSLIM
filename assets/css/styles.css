@@ -1287,6 +1287,10 @@ body > div.content-wrapper {
     text-align: center;
     font-size: 20px;
   }
+
+  #main-content > div > div > ul > li, #analysis > div > ul > li {
+    background: #117864;
+  }
 }
 
 @media (max-width: 450px) {
