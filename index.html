@@ -165,9 +165,36 @@
                 <a href="/" class="home">
                     <img alt="CANSLIM Logo" src="./assets/img/2.png" id="logo">
                 </a>
-                <a href="/top-stocks">top stocks</a>
-                <a href="/market-news">news</a>
-                <a href="/crypto-analysis">crypto</a>
+                <a href="/top-stocks" class="nav-link">
+                    <span class="nav-text">Top Stocks</span>
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" width="24px" height="24px" viewBox="0 0 52 52">
+                        <path d="M50.1,30.56a1.16,1.16,0,0,1-2,.82L42.73,26,30.32,36.65a3.39,3.39,0,0,1-4.92,0l-7.49-8.54L4.57,39.81a1.13,1.13,0,0,1-1.64,0l-.59-.59a1.13,1.13,0,0,1,0-1.64L15.46,19.68a3.39,3.39,0,0,1,4.92,0l7.49,7.49,7.61-8.78-4.92-4.45a1.26,1.26,0,0,1,.82-2.11H47.76A2.35,2.35,0,0,1,50,14.3Z"/>
+                    </svg>
+                                </a>
+                <a href="/market-news" class="nav-link">
+                    <span class="nav-text">News</span>
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 32 32" fill="none">
+                        <g fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2">
+                            <path d="M27,5V3H1v26 c0,1.105,0.895,2,2,2h26c1.105,0,2-0.895,2-2V5H27z"/>
+                            <rect x="5" y="19" width="10" height="8"/>
+                            <line x1="27" y1="5" x2="27" y2="24"/>
+                            <line x1="27" y1="26" x2="27" y2="28"/>
+                            <line x1="4" y1="11" x2="24" y2="11"/>
+                            <line x1="4" y1="7" x2="24" y2="7"/>
+                            <line x1="4" y1="15" x2="24" y2="15"/>
+                            <line x1="18" y1="19" x2="24" y2="19"/>
+                            <line x1="18" y1="23" x2="24" y2="23"/>
+                            <line x1="18" y1="27" x2="24" y2="27"/>
+                        </g>
+                    </svg>
+                                </a>
+                <a href="/crypto-analysis" class="nav-link">
+                    <span class="nav-text">Crypto</span>
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
+                        <path d="M10 6V4M14 6V4M14 6H7M14 6C15.6569 6 17 7.34315 17 9C17 10.6569 15.6569 12 14 12M9 18L9 12M9 6V12M10 20V18M14 20V18M9 12H15C16.6569 12 18 13.3431 18 15C18 16.6569 16.6569 18 15 18H7" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            
             </nav>
         </header>
         <div class="container"> 
@@ -474,42 +501,52 @@
    </script>
 
         
-        <footer>
-            <div class="footer-content">
-            <div class="disclaimer">
-                <img src="./assets/img/1.png" alt="CAN SLIM card with logo">
-                <p>
-                    Disclaimer: The information provided on this site is for educational and informational purposes only. 
-                    We are not responsible for any actions taken based on this information. Please conduct your own research 
-                    and consult with a qualified financial advisor before making any investment decisions.
-                </p>
-            </div>
-                <div class="footer-links">
-                    <div class="link-container">
-                        <h3>learn more</h3>
-                        <a href="https://en.wikipedia.org/wiki/CAN_SLIM" target="_blank">Wikipedia</a>
-                        <a href="https://www.amazon.ca/dp/0071810110?psc=1&ref=ppx_yo2ov_dt_b_product_details#" target="_blank">Get the book</a>
-                        <a href="/pdf/IBD_BuyingChecklist.pdf" download="IBD_Buying_Checklist">IBD's PDF</a>
-                    </div>
-                    <div class="link-container">
-                        <h3>project</h3>
-                        <a href="/about">About</a>
-                    </div>
-                    <!--
-                    <div class="link-container">
-                        <h3>change theme</h3>
-                        <button id="light-theme">
-                            Light
-                        </a>
-                        <button id="dark-theme">
-                            Dark
-                        </a>
-                    </div>  
-                    -->
+    <footer>
+        <div class="footer-content">
+        <div class="disclaimer">
+            <img src="./assets/img/1.png" alt="CAN SLIM card with logo">
+            <p>
+                Disclaimer: The information provided on this site is for educational and informational purposes only. 
+                We are not responsible for any actions taken based on this information. Please conduct your own research 
+                and consult with a qualified financial advisor before making any investment decisions.
+            </p>
+        </div>
+            <div class="footer-links">
+                <div class="link-container">
+                    <h3>learn more</h3>
+                    <a href="https://en.wikipedia.org/wiki/CAN_SLIM">Wikipedia</a>
+                    <a href="https://www.amazon.ca/dp/0071810110?psc=1&ref=ppx_yo2ov_dt_b_product_details#">Get the book</a>
+                    <a href="/pdf/IBD_BuyingChecklist.pdf" download="IBD_Buying_Checklist">IBD's PDF</a>
+                </div>
+                <div class="link-container">
+                    <h3>project</h3>
+                    <a href="/about">About</a>
                 </div>
             </div>
+        </div>
+        <div class="footer-legal">
             <p>© 2024 CANSLIM Calculator. All rights reserved. &#169;</p>
-        </footer>
+            <a href="https://www.iubenda.com/privacy-policy/10438829" class="iubenda-black iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy">Privacy Policy</a>
+            <a href="https://www.iubenda.com/privacy-policy/10438829/cookie-policy" class="iubenda-black iubenda-noiframe iubenda-embed iubenda-noiframe" title="Cookie Policy">Cookie Policy</a>
+        </div>
+        <!-- Iubenda Script -->
+        <script type="text/javascript">
+            (function (w, d) {
+                var loader = function () {
+                    var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
+                    s.src = "https://cdn.iubenda.com/iubenda.js";
+                    tag.parentNode.insertBefore(s, tag);
+                };
+                if (w.addEventListener) {
+                    w.addEventListener("load", loader, false);
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", loader);
+                } else {
+                    w.onload = loader;
+                }
+            })(window, document);
+        </script>
+    </footer>
     </body>
 
 </html>
