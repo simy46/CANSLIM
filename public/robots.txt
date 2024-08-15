@@ -1,5 +1,13 @@
 User-agent: *
 Disallow: /canslim-stock?symbol=
-Disallow: /stock-info?symbol=
+
+Allow: /pagead/
+Allow: /g/collect
+Allow: /pagead/osd.js
+
+User-agent: Googlebot
+Allow: /pagead/
+Allow: /g/collect
+Allow: /pagead/osd.js
 
 Sitemap: https://www.canslimcalculator.com/sitemap.xml

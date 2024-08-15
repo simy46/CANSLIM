@@ -69,14 +69,20 @@ footer {
   background-color: #010920;
 }
 
-footer > p {
+footer .footer-legal {
   width: 100%;
   text-align: center;
-  margin: 0;
-  font-variant-caps: all-petite-caps;
   padding: 10px 0;
   font-size: larger;
   border-top: 1px solid #999ca5;
+  margin-top: 20px;
+}
+
+footer .footer-legal p {
+  font-variant-caps: all-petite-caps;
+  margin: 0 auto 15px;
+  color: #999ca5;
+  text-align: center;
 }
 
 .footer-content {
@@ -184,6 +190,7 @@ nav a {
 }
 
 #search-toggle {
+  cursor: pointer;
   display: none;
 }
 
@@ -191,6 +198,7 @@ nav a svg {
   margin-left: 8px;
   width: 24px;
   height: 24px;
+  display: none;
 }
 
 nav a:hover:not(.home) {
@@ -201,6 +209,14 @@ nav a:hover:not(.home) {
 nav a:hover svg * {
   stroke: #4CAF50;
   fill: none;
+}
+
+a.nav-link.nav-active:hover > svg * {
+  fill: #4CAF50;
+}
+
+a.home {
+  padding: 0;
 }
 
 /* Adjusting the logo image */
@@ -601,8 +617,6 @@ div.header > div > p.negative {
     margin: 0 auto;
     gap: 4%;
   }
-
-  
   #search-input {
     width: 220px;
   }
@@ -630,6 +644,7 @@ div.header > div > p.negative {
     width: 18px;
     height: 18px;
   }
+
   div#stocks-container, div#daily-gainers-container {
     display: block;
   }
@@ -651,16 +666,12 @@ div.header > div > p.negative {
   #search-results {
     right: -5px;
     width: 225px;
+    max-height: 550px;
   }
 
   nav a {
     font-size: 14px;
     white-space: nowrap;
-  }
-
-  nav a svg {
-    width: 16px;
-    height: 16px;
   }
 
   #section-title {
@@ -670,12 +681,12 @@ div.header > div > p.negative {
 
 @media (max-width: 975px) {
   body > header > nav {
-    margin: 0 auto 0 10px;
+    margin: 0 auto;
     gap: 4%;
   }
 
   #input-container-search {
-    right: -50px;
+    right: -30px;
   }
   
   #search-input {
@@ -683,17 +694,16 @@ div.header > div > p.negative {
   }
   
   #search-results {
-    right: -55px;
+    right: -35px;
     width: 195px;
   }
 
   #search-results > div.result-item {
     flex-direction: column;
   }
-  div#stocks-container, div#daily-gainers-container {
-    max-height: 660px;
-    overflow-y: auto;
-    grid-template-columns: repeat(1, 1fr);
+
+  #search-results > div > p {
+    font-size: small;
   }
 
   @media (max-height: 450px) {
@@ -719,6 +729,7 @@ div.header > div > p.negative {
     nav a svg {
       width: 30px;
       height: 30px;
+      display: block;
     }
 
     nav a span {
@@ -729,12 +740,18 @@ div.header > div > p.negative {
       margin: 0 auto;
     }
   }
+  div#stocks-container, div#daily-gainers-container {
+    max-height: 660px;
+    overflow-y: auto;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 @media (max-width: 900px) {
-  body > footer > p {
+  div.footer-legal > p {
     font-size: 16px;
   }
+
   body > footer > div.footer-content {
     display: flex;
     flex-direction: column;
@@ -748,7 +765,6 @@ div.header > div > p.negative {
 
 @media (max-width: 830px) {
   body > header > nav {
-    margin: 0 auto 0 0;
     gap: 3%;
   }
 
@@ -766,23 +782,18 @@ div.header > div > p.negative {
   }
 
   #input-container-search {
-    right: -65px;
+    right: -15px;
   }
 
   #search-results {
-    right: -60px;
+    right: -10px;
     width: 170px;
     padding: 10px;
-    max-height: 550px;
   }
 
   #search-results > div.result-item > p,
   #search-results > div.result-item > span {
     font-size: small;
-  }
-
-  a.home {
-    padding: 0;
   }
 
   @media (max-height: 450px) {
@@ -854,16 +865,8 @@ div.header > div > p.negative {
   nav a svg.nav-icon {
     width: 28px;
     height: 28px;
-    margin: 5px;
-  }
-
-  a.nav-link.nav-active {
-    border-bottom: 4px solid #3498db;
-    padding-bottom: 5px;
-  }
-
-  a.nav-link.nav-active svg * {
-    fill: #3498db;
+    margin: 10px;
+    display: block;
   }
 
   #logo {
@@ -896,20 +899,38 @@ div.header > div > p.negative {
     top: 0;
   }
 
-  body > div.container {
-    padding: 10px 0;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 0;
-  }
-
   #ty-msg {
-    border-radius: 0;
     display: block;
+    border-radius: 0;
   }
 
   body > footer {
-    padding-bottom: 125px;
+    padding-bottom: 95px;
+  }
+
+  @media (max-height: 800px) {
+    #search-results {
+      top: -700%;
+    }
+  }
+
+  @media (max-height: 740px) {
+    #search-results {
+      top: -825%;
+    }
+  }
+
+  @media (max-height: 700px) {
+    #search-results {
+      top: -725%;
+    }
+  }
+
+  @media (max-height: 600px) {
+    #search-results {
+      top: -250%;
+      max-height: 150px;
+    }
   }
 
   #section-title > h1 {
@@ -980,35 +1001,16 @@ div.header > div > p.negative {
 .stock-card .change img.change-icon {
     width: 16px;
     height: 16px;
-}
-
-  @media (max-height: 800px) {
-    #search-results {
-      top: -700%;
-    }
-  }
-
-  @media (max-height: 740px) {
-    #search-results {
-      top: -825%;
-    }
-  }
-
-  @media (max-height: 700px) {
-    #search-results {
-      top: -725%;
-    }
-  }
-
-  @media (max-height: 600px) {
-    #search-results {
-      top: -250%;
-      max-height: 150px;
-    }
   }
 
   .container {
     margin-top: 0px;
+  }
+
+  .note {
+    font-size: 16px;
+    margin: 10px;
+    text-align: justify;
   }
 }
 
@@ -1017,7 +1019,7 @@ div.header > div > p.negative {
     flex-direction: column-reverse;
   }
 
-  body > footer > p {
+  div.footer-legal > p  {
     font-size: 14px;
   }
 
@@ -1026,8 +1028,7 @@ div.header > div > p.negative {
   }
 
   .note {
-    font-size: 16px;
-    margin: 20px;
+    font-size: 14px;
     text-align: justify;
   }
 
@@ -1044,11 +1045,10 @@ div.header > div > p.negative {
 
   #logo {
     max-width: 80px;
-    padding: 0;
   }
 
   body > footer {
-    padding-bottom: 80px;
+    padding-bottom: 85px;
   }
 
   body > div > div.title.with-navigation {
@@ -1108,7 +1108,7 @@ div.header > div > p.negative {
       flex-direction: column;
     }
 
-    body > footer > p {
+    div.footer-legal > p {
       font-size: 12px;
     }
   }

@@ -63,14 +63,20 @@ footer {
   background-color: #010920;
 }
 
-footer > p {
+footer .footer-legal {
   width: 100%;
   text-align: center;
-  margin: 0;
-  font-variant-caps: all-petite-caps;
   padding: 10px 0;
   font-size: larger;
   border-top: 1px solid #999ca5;
+  margin-top: 20px;
+}
+
+footer .footer-legal p {
+  font-variant-caps: all-petite-caps;
+  margin: 0 auto 15px;
+  color: #999ca5;
+  text-align: center;
 }
 
 .footer-content {
@@ -185,6 +191,7 @@ nav a svg {
   margin-left: 8px;
   width: 24px;
   height: 24px;
+  display: none;
 }
 
 nav a:hover:not(.home) {
@@ -195,6 +202,10 @@ nav a:hover:not(.home) {
 nav a:hover svg * {
   stroke: #4CAF50;
   fill: none;
+}
+
+body > header > nav > a:nth-child(2):hover > svg * {
+  fill: #4CAF50;
 }
 
 /* Adjusting the logo image */
@@ -644,21 +655,16 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
     font-size: 14px;
     white-space: nowrap;
   }
-
-  nav a svg {
-    width: 16px;
-    height: 16px;
-  }
 }
 
 @media (max-width: 975px) {
   body > header > nav {
-    margin: 0 auto 0 10px;
+    margin: 0 auto;
     gap: 4%;
   }
 
   #input-container-search {
-    right: -50px;
+    right: -30px;
   }
   
   #search-input {
@@ -666,12 +672,16 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
   }
   
   #search-results {
-    right: -55px;
+    right: -35px;
     width: 195px;
   }
 
   #search-results > div.result-item {
     flex-direction: column;
+  }
+
+  #search-results > div > p {
+    font-size: small;
   }
 
   @media (max-height: 450px) {
@@ -697,6 +707,7 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
     nav a svg {
       width: 30px;
       height: 30px;
+      display: block;
     }
 
     nav a span {
@@ -711,9 +722,10 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
 
 /* Ipad Mini and smaller tablets */
 @media (max-width: 900px) {
-  body > footer > p {
+  div.footer-legal > p {
     font-size: 16px;
   }
+
   body > footer > div.footer-content {
     display: flex;
     flex-direction: column;
@@ -744,7 +756,6 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
 
 @media (max-width: 830px) {
   body > header > nav {
-    margin: 0 auto 0 0;
     gap: 3%;
   }
 
@@ -762,11 +773,11 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
   }
 
   #input-container-search {
-    right: -65px;
+    right: -15px;
   }
 
   #search-results {
-    right: -65px;
+    right: -10px;
     width: 170px;
     padding: 10px;
   }
@@ -851,6 +862,7 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
     width: 28px;
     height: 28px;
     margin: 10px;
+    display: block;
   }
 
   #logo {
@@ -889,7 +901,7 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
   }
 
   body > footer {
-    padding-bottom: 125px;
+    padding-bottom: 95px;
   }
 
   @media (max-height: 800px) {
@@ -930,7 +942,7 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
     flex-direction: column-reverse;
   }
 
-  body > footer > p {
+  div.footer-legal > p  {
     font-size: 14px;
   }
 
@@ -952,7 +964,7 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
   }
 
   body > footer {
-    padding-bottom: 80px;
+    padding-bottom: 85px;
   }
 }
 
@@ -984,7 +996,7 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
       flex-direction: column;
     }
 
-    body > footer > p {
+    div.footer-legal > p {
       font-size: 12px;
     }
   }

@@ -15,6 +15,7 @@ export function listenToSearchEvent() {
     const searchContainer = document.getElementById('input-container-search');
     const navLinks = document.querySelectorAll('nav .nav-link');
     const searchResults = document.getElementById('search-results');
+    const aHome = document.querySelector('a.home');
     
     const body = document.querySelector('body');
 
@@ -36,6 +37,7 @@ export function listenToSearchEvent() {
                 link.style.display = 'none';
             });
     
+            aHome.style.width = 'fit-content'
             searchContainer.style.display = 'flex';
         }
     });
@@ -47,7 +49,8 @@ export function listenToSearchEvent() {
                 navLinks.forEach(link => {
                     link.style.display = 'flex';
                 });
-    
+
+                aHome.style.width = '100%'
                 searchContainer.style.display = 'none';
                 body.classList.remove('opac')
             }
