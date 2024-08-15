@@ -3,42 +3,57 @@ import { SERVER_URL } from "./const";
 document.addEventListener('DOMContentLoaded', async () => {
     explanationListener();
     listenToSearchEvent();
+    listenToFAQEvent();
 });
+
+function listenToFAQEvent() {
+    document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', event => {
+            const parent = event.target.closest('.faq-item');
+            parent.classList.toggle('active');
+        });
+    });
+}
 
 function explanationListener() {
     const explanations = [
         {
-            name: "- C: Current Earnings -",
+            name: "CANSLIM Calculator",
+            description: "A powerful and FREE tool built on the time-tested CANSLIM investment strategy.",
+            path: "/2.png"
+        },
+        {
+            name: "C: Current Earnings",
             description: "Look for companies with strong current earnings growth.",
             path: "/c.png"
         },
         {
-            name: "- A: Annual Earnings -",
+            name: "A: Annual Earnings",
             description: "Companies should have a record of strong annual earnings growth.",
             path: "/a.png"
         },
         {
-            name: "- N: New Products, Services, or Leadership -",
+            name: "N: New Products, Services, or Leadership",
             description: "Companies with new innovations or management.",
             path: "/n.png"
         },
         {
-            name: "- S: Supply and Demand -",
+            name: "S: Supply and Demand",
             description: "Look at the share demand and supply in the market.",
             path: "/s.png"
         },
         {
-            name: "- L: Leader or Laggard -",
+            name: "L: Leader or Laggard",
             description: "Invest in market leaders, not laggards.",
             path: "/l.png"
         },
         {
-            name: "- I: Institutional Sponsorship -",
+            name: "I: Institutional Sponsorship",
             description: "Favor stocks with institutional backing.",
             path: "/i.png"
         },
         {
-            name: "- M: Market Direction -",
+            name: "M: Market Direction",
             description: "Consider the direction of the overall market.",
             path: "/m.png"
         }
@@ -46,28 +61,33 @@ function explanationListener() {
     
     let index = 0;
     const explanationElement = document.getElementById("current-explanation-name");
-    const explanationDescription = document.getElementById("current-explanation-description")
+    const explanationDescription = document.getElementById("current-explanation-description");
     const explanationImage = document.getElementById("current-explanation-image");
     
     function updateExplanation() {
-        explanationElement.style.opacity = 1;   
+        explanationElement.style.opacity = 0;   
+        explanationElement.style.transform = "translateY(-10px)";
         explanationDescription.style.opacity = 0;
+        explanationDescription.style.transform = "translateY(10px)";
         explanationImage.style.opacity = 0;
+
         setTimeout(() => {
             explanationImage.src = explanations[index].path;
             explanationElement.textContent = explanations[index].name;
-            explanationDescription.textContent = explanations[index].description
+            explanationDescription.textContent = explanations[index].description;
 
             explanationImage.style.opacity = 1;
             explanationElement.style.opacity = 1;   
+            explanationElement.style.transform = "translateY(0)";
             explanationDescription.style.opacity = 1;
+            explanationDescription.style.transform = "translateY(0)";
             
             index = (index + 1) % explanations.length;
-        }, 10); // Match the transition duration
+        }, 500);
     }
     
-    setInterval(updateExplanation, 5000); // Change every 5 seconds
-    updateExplanation(); // Initialize
+    setInterval(updateExplanation, 5000);
+    updateExplanation();
 }
 
 // SEARCH EVENT
@@ -212,7 +232,7 @@ function createSearchRes(quote, resContainer) {
 
         resultItem.addEventListener('click', (e) => {
             e.stopPropagation();
-            window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
+            window.location.href = `/stock?symbol=${quote.symbol}`;
         });
 
         resContainer.appendChild(resultItem);
@@ -231,6 +251,7 @@ function createNewsRes(news, newsContainer) {
         thumbnail.classList.add('news-thumbnail');
         newsItem.appendChild(thumbnail);
     }
+
 
     // News details container
     const newsDetails = document.createElement('div');
