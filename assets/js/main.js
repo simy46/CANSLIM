@@ -232,7 +232,7 @@ function createSearchRes(quote, resContainer) {
 
         resultItem.addEventListener('click', (e) => {
             e.stopPropagation();
-            window.location.href = `/stock?symbol=${quote.symbol}`;
+            window.location.href = `/canslim-stock?symbol=${quote.symbol}`;
         });
 
         resContainer.appendChild(resultItem);
