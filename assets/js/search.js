@@ -1,5 +1,12 @@
 import { SERVER_URL } from "./const";
 
+
+// HELPER FUNCTION 
+function printObj(obj) {
+    console.log(JSON.parse(JSON.stringify(obj)))
+}
+
+
 export function listenToSearchEvent() {
     const inputElement = document.getElementById('search-input');
     const searchGlass = document.getElementById('search-glass');
@@ -15,7 +22,7 @@ export function listenToSearchEvent() {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(() => {
             initiateSearch();
-        }, 500);
+        }, 500); // 500ms delay after user stops typing
     });
 
     inputElement.addEventListener('keydown', (e) => {
@@ -83,12 +90,16 @@ async function searchWithInputValue(inputValue) {
 
     try {
         const search = await searchStocks(inputValue);
+        printObj(search);
         const quotes = search.quotes;
         searchContainer.innerHTML = '';
 
         if (quotes.length > 0) {
             const initialResults = quotes.slice(0, 2);
+            printObj(initialResults);
+
             const remainingResults = quotes.slice(2);
+            printObj(remainingResults);
 
             initialResults.forEach(quote => createSearchRes(quote, searchContainer));
 

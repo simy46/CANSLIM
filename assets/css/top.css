@@ -484,6 +484,7 @@ div#stocks-container, div#daily-gainers-container {
 }
 div.header > div > p.positive {
   color: #4caf50;
+  margin: 3px;
 }
 div.header > div > p.negative {
   color: #af504c;
@@ -862,10 +863,14 @@ div.header > div > p.negative {
     display: block;
   }
 
+  nav a {
+    width: 100%;
+  }
+  
   nav a svg.nav-icon {
     width: 28px;
     height: 28px;
-    margin: 10px;
+    margin: 5px auto;
     display: block;
   }
 
@@ -876,8 +881,8 @@ div.header > div > p.negative {
 
   a.nav-link.nav-active svg * {
     stroke: #3498db;
+    fill: #3498db;
   }
-
 
   #logo {
     max-width: 80px;
@@ -915,6 +920,7 @@ div.header > div > p.negative {
   }
 
   body > footer {
+    margin-top: 20px;
     padding-bottom: 95px;
   }
 

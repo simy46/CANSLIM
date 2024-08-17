@@ -1510,6 +1510,10 @@ body > div.content-wrapper {
     display: none;
   }
 
+  nav a {
+    width: 100%;
+  }
+  
   nav a svg.nav-icon {
     width: 28px;
     height: 28px;
@@ -1547,6 +1551,7 @@ body > div.content-wrapper {
 
   @media (max-height: 400px) {
     body > footer {
+      margin-top: 20px;
       padding-bottom: 85px;
     }
   }

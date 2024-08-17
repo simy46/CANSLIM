@@ -650,6 +650,10 @@ to {
     display: block;
   }
 
+  nav a {
+    width: 100%;
+  }
+  
   nav a svg.nav-icon {
     width: 28px;
     height: 28px;
@@ -701,6 +705,7 @@ to {
   }
 
   body > footer {
+    margin-top: 20px;
     padding-bottom: 95px;
   }
 

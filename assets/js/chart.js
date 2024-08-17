@@ -44,8 +44,41 @@ export function updateChartSection(chartData) {
     } else {
         initializeChart(chartData[interval].quotes, maxPoints, chartType, interval, dataGranularity);
         updateIntervalOptions('1y');
+        updateInfoChart(chartData.dailyChart.meta);
     }
     attachChartButtonEvents(chartData);
+}
+
+function updateInfoChart(meta) {
+    console.log(meta);
+
+    const nameElement = document.getElementById('stock-name-chart');
+    const tickerElement = document.getElementById('stock-ticker-chart');
+    const priceElement = document.getElementById('stock-price-chart');
+    const volumeElement = document.getElementById('stock-volume-chart');
+    const capElement = document.getElementById('stock-market-cap');
+
+    nameElement.textContent = meta.longName || '[Stock Name]';
+    tickerElement.textContent = `(${meta.symbol || '[Stock Ticker]'})`;
+
+    priceElement.innerHTML = `<span class="label">Current Price:</span> <span class="value">$${meta.regularMarketPrice || 'N/A'}</span> <span class="currency">(${meta.currency || 'USD'})</span>`;
+
+    volumeElement.innerHTML = `<span class="label">Volume Traded:</span> <span class="value">${meta.regularMarketVolume ? meta.regularMarketVolume.toLocaleString() : 'N/A'}</span> shares`;
+
+    const marketCap = meta.marketCap ? formatMarketCap(meta.marketCap) : 'N/A';
+    capElement.innerHTML = `<span class="label">Market Cap:</span> <span class="value">${marketCap}</span>`;
+}
+
+function formatMarketCap(value) {
+    if (value >= 1e12) {
+        return `$${(value / 1e12).toFixed(2)}T`;
+    } else if (value >= 1e9) {
+        return `$${(value / 1e9).toFixed(2)}B`;
+    } else if (value >= 1e6) {
+        return `$${(value / 1e6).toFixed(2)}M`;
+    } else {
+        return `$${value.toLocaleString()}`;
+    }
 }
 
 // Central init function

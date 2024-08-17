@@ -859,10 +859,14 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
     display: block;
   }
 
+  nav a {
+    width: 100%;
+  }
+  
   nav a svg.nav-icon {
     width: 28px;
     height: 28px;
-    margin: 10px;
+    margin: 5px auto;
     display: block;
   }
 
@@ -902,6 +906,7 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
   }
 
   body > footer {
+    margin-top: 20px;
     padding-bottom: 95px;
   }
 

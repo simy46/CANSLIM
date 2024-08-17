@@ -1,7 +1,6 @@
 import { SERVER_URL, TRENDING_STOCKS_TICKERS } from "./const.js";
 import { listenToSearchEvent } from "./search.js";
 
-
 document.addEventListener('DOMContentLoaded', async () => {
     listenToSearchEvent();
     
@@ -19,22 +18,84 @@ function updateTime() {
     document.getElementById('current-time').textContent = `${formattedDate} | ${formattedTime}`;
 }
 
-
 async function getNews() {
     const tickers = localStorage.getItem(TRENDING_STOCKS_TICKERS);
     let storedTickers = tickers ? JSON.parse(tickers) : [];
 
     const data = await fetchNews(storedTickers);
 
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
+        displayNoDataMessage('data-container', 'No data available at the moment.');
         return;
     }
 
-    data.news.forEach(createNews);
-    data.nav.forEach(createNav);
-    data.lists.forEach(createList);
-    data.researchReports.forEach(createResearchReport);
+    handleNewsData(data.news);
+    
+    handleDataSection(data.nav, 'nav-container', createNav, 'No navigation data available.');
+    handleDataSection(data.lists, 'list-container', createList, 'No lists available.');
+    handleDataSection(data.researchReports, 'report-container', createResearchReport, 'No research reports available.');
 }
+
+function handleNewsData(news) {
+    const newsContainer = document.getElementById('news-container');
+    const seeMoreContainer = document.getElementById('see-more-container');
+    const initialNewsCount = 4;
+    let isExpanded = false;
+
+    function toggleSeeMore() {
+        const seeMoreText = document.getElementById('see-more-text');
+        const seeMoreArrow = document.getElementById('see-more-arrow');
+
+        if (isExpanded) {
+            newsContainer.innerHTML = '';
+            news.slice(0, initialNewsCount).forEach(createNews);
+            seeMoreText.textContent = 'See More News';
+            seeMoreArrow.innerHTML = '&#x25BC;';
+            newsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            newsContainer.innerHTML = '';
+            news.forEach(createNews);
+            seeMoreText.textContent = 'say less';
+            seeMoreArrow.innerHTML = '&#x25B2;';
+        }
+        isExpanded = !isExpanded;
+    }
+
+    newsContainer.innerHTML = '';
+    news.slice(0, initialNewsCount).forEach(createNews);
+
+    if (news.length > initialNewsCount) {
+        seeMoreContainer.style.display = 'flex';
+        seeMoreContainer.style.visibility = 'visible';
+        seeMoreContainer.addEventListener('click', toggleSeeMore);
+    } else {
+        seeMoreContainer.style.display = 'none';
+    }
+}
+
+
+function handleDataSection(dataArray, containerId, createFunction, noDataMessage) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (dataArray && dataArray.length > 0) {
+        dataArray.forEach(item => createFunction(item, container));
+    } else {
+        displayNoDataMessage(containerId, noDataMessage);
+    }
+}
+
+function displayNoDataMessage(containerId, message) {
+    const container = document.getElementById(containerId);
+    if (container) {
+        container.innerHTML = '';
+        const messageElement = document.createElement('p');
+        messageElement.textContent = message;
+        messageElement.classList.add('no-data-message');
+        container.appendChild(messageElement);
+    }
+}
+
 
 function setLoading(isLoading) {
     const loading = document.getElementById('loader');
@@ -67,11 +128,11 @@ async function fetchNews(tickers) {
 
 function showErrorPage() {
     document.getElementById('news-container').style.display = 'none';
+    document.getElementById('see-more-container').style.display = 'none';
     document.getElementById('error-page').style.display = 'block';
 }
 
 function createNews(news) {
-    console.log(news);
     if (!news.thumbnail) {
         return;
     }
@@ -149,7 +210,6 @@ function createNav(navItem) {
 }
 
 function createList(listItem) {
-    console.log(listItem);
     const div = document.createElement('div');
     div.classList.add('list-item');
 
@@ -200,8 +260,6 @@ function createList(listItem) {
     const listContainer = document.getElementById('list-container');
     listContainer.appendChild(div);
 }
-
-
 
 function createResearchReport(report) {
     const div = document.createElement('div');

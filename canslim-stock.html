@@ -229,6 +229,14 @@
     <section id="chart-section">
         <textarea class="chart-note" id="note" placeholder="Write your notes here...">NOTES : </textarea>
         <div id="chart-content">
+            <div id="stock-info-chart">
+                <h2 id="stock-name-chart">[Name]<span id="stock-ticker-chart">[(ticker)]</span></h2>
+                <div id="stock-details">
+                    <p><span class="value-chart" id="stock-price-chart">[price]</span></p>
+                    <p><span class="value-chart" id="stock-volume-chart">[volume]</span></p>
+                    <p><span class="value-chart" id="stock-market-cap">[market cap]</span></p>
+                </div>
+            </div>
             <canvas id="stock-chart"></canvas>
 
             <div id="chart-controls">
