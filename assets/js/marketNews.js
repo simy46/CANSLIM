@@ -8,7 +8,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     setLoading(true);
     await getNews();
     setTimeout(() => setLoading(false), 1000);
+    setInterval(updateTime, 1000);
 });
+
+
+function updateTime() {
+    const now = new Date();
+    const formattedTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const formattedDate = now.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    document.getElementById('current-time').textContent = `${formattedDate} | ${formattedTime}`;
+}
 
 
 async function getNews() {

@@ -728,16 +728,113 @@ div > p.news-publish-time {
   text-align: center;
 }
 
-#important > *:not(h2) {
-  font-size: 16px;
+/* Investment Container Styling */
+.investment-container {
+  margin: 40px auto;
+  padding: 40px;
+  width: 60%;
+  max-width: 1440px;
+  background-color: #010920;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-#important > h2 {
-  margin: 50px auto auto;
+.investment-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
-#important > h2:nth-child(1) {
-  margin-top: 0;
+.investment-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #c9c9c9;
+  text-align: center;
+  font-weight: 700;
+  border-bottom: 2px solid #c9c9c9;
+  padding-bottom: 10px;
+}
+
+.investment-subtitle {
+  font-size: 1.75rem;
+  margin-bottom: 20px;
+  color: #1abc9c;
+  font-weight: 600;
+  border-left: 4px solid #1abc9c;
+  padding-left: 15px;
+}
+
+/* Investment Text Styling */
+.investment-text {
+  font-size: 1.125rem;
+  color: #c0c0c0;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-align: justify;
+}
+
+/* Investment List Styling */
+.investment-list {
+  list-style-type: none;
+  padding-left: 20px;
+  margin-bottom: 25px;
+  padding: 0 20px;
+}
+
+.investment-list li {
+  font-size: 1.125rem;
+  color: #c0c0c0;
+  margin-bottom: 15px;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 10px;
+  border-bottom: 1px solid #1abc9c;
+  border-radius: 8px;
+  }
+
+.investment-list li:hover {
+  background-color: #117964;
+  border-bottom: 1px solid #c0c0c0;
+  color: #b3b3b3;
+  user-select: none;
+}
+
+/* Video Section Styling */
+.mini-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #1f263a;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mini-section .investment-subtitle {
+  color: #1abc9c;
+  border-left: 4px solid #1abc9c;
+  padding-left: 15px;
+}
+
+.video-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Investment Summary Styling */
+.investment-summary {
+  background-color: #1f263a;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.investment-summary .investment-subtitle {
+  color: #e0e0e0;
+}
+
+.investment-summary .investment-text {
+  color: #e0e0e0;
+  font-weight: 500;
 }
 
 /* NAV, REPORT and LIST STYLING */
@@ -766,23 +863,67 @@ div > p.news-publish-time {
   margin: auto 20px;
 }
 
-/* Section Titles */
-.container h2, .container h1{
-  border-bottom: 2px solid #2c2c2c;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+/* Research Container Styling */
+.research-container {
+  margin: 40px auto;
+  padding: 40px;
+  width: 60%;
+  max-width: 1400px;
+  background-color: #010920; /* Consistent with site theme */
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* Section Descriptions */
-.container p {
-  font-size: 14px;
+.research-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
-.container ul {
-  color: #ccc;
-  font-size: 14px;
+/* Research Title Styling */
+.research-title {
+  font-size: 2.2rem;
   margin-bottom: 20px;
-  padding-left: 20px;
+  color: #f2f2f2; /* Consistent with previous titles */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.research-icon {
+  margin-left: 10px;
+  width: 44px;
+  height: 44px;
+}
+
+/* Research Text Styling */
+.research-text {
+  font-size: 1.125rem;
+  color: #c0c0c0;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* Research List Styling */
+.research-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 30px;
+}
+
+.research-list li {
+  font-size: 1.125rem;
+  color: #c0c0c0;
+  margin-bottom: 15px;
+  padding: 8px 15px;
+  border-left: 3px solid #1abc9c;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.research-list li:hover {
+  background-color: #1f263a;
+  color: #1abc9c;
 }
 
 /* Nav Items */

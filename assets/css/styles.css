@@ -968,7 +968,7 @@ body > div.content-wrapper {
 }
 
 /* FAQ Section Styling */
-.content-section {
+.content-section:not(:last-child) {
   margin-bottom: 40px;
 }
 
@@ -990,6 +990,7 @@ body > div.content-wrapper {
   color: #1abc9c;
   margin-bottom: 10px;
   cursor: pointer;
+  font-variant: small-caps;
 }
 
 .faq-answer {
@@ -1072,6 +1073,131 @@ body > div.content-wrapper {
   color: #003f7f;
   border-bottom: 2px solid #003f7f;
   font-weight: 600;
+}
+
+/* Buying Checklist Styles */
+.dynamic-checklist {
+  background-color: #1b2336;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.checklist-step {
+  margin-top: 20px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.checklist-header h3 {
+  font-size: 1.75rem;
+  color: #1abc9c;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.checklist-hover {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+  background-color: #151b2c;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.checklist-hover:hover {
+  background-color: #117864;
+}
+
+.checklist-hover label {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1abc9c;
+  padding: 8px 12px; 
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.checklist-hover label:hover {
+  background-color: #117864;
+  color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.criteria-explanation {
+  font-size: 1rem;
+  color: #b0b0b0;
+  padding: 10px;
+  background-color: #2c3e50;
+  border-radius: 5px;
+  margin-top: 5px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  pointer-events: none;
+  text-align: justify;
+}
+
+.nav-button {
+  background-color: #1abc9c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px 10px 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #16a085;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: #1abc9c;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#buying-checklist > h2 {
+  font-size: 2.25rem;
+}
+
+.content-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+  background-color: #1b2336;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.content-text .highlight {
+  color: #1abc9c;
+  font-weight: 600;
+  background-color: rgba(26, 188, 156, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.content-text .highlight:hover {
+  background-color: rgba(26, 188, 156, 0.2);
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* General Responsive Adjustments */
@@ -1179,6 +1305,19 @@ body > div.content-wrapper {
     font-size: smaller;
 
   }
+
+  #buying-checklist > h2 {
+    font-size: 1.75rem;
+  }
+
+  div.checklist-header h3 {
+    font-size: 1.25rem;
+  }
+
+  div.checklist-hover > label, 
+  .criteria-explanation {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 975px) {
@@ -1213,6 +1352,10 @@ body > div.content-wrapper {
     #search-results {
       max-height: 290px;
     }
+  }
+
+  h4.faq-question {
+    font-size: 1.25rem;
   }
 }
 
@@ -1340,6 +1483,10 @@ body > div.content-wrapper {
       margin: 0 auto;
     }
   }
+
+  div.checklist-header h3 {
+    font-size: 1rem;
+  }
 }
 
 /* Phone > Iphone 14 and smaller */
@@ -1379,7 +1526,7 @@ body > div.content-wrapper {
 
   body > div.container {
     margin-top: 0;
-    padding-top: 0;
+    padding-top: 60px;
     width: 100%;
     box-sizing: border-box;
     border-radius: 0;
@@ -1393,6 +1540,14 @@ body > div.content-wrapper {
     border-radius: 0;
   }
 
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .main-subtitle {
+    font-size: 1rem;
+  }
+
   @media (max-height: 400px) {
     body > footer {
       padding-bottom: 85px;
@@ -1404,6 +1559,70 @@ body > div.content-wrapper {
     border-radius: 0;
   }
 
+  #faq > div > div.faq-item.active > div > div > div > p {
+    font-size: 15px;
+  }
+
+  .book-image {
+    width: 100px;
+  }
+
+  .image-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .overview-title, .section-title {
+    font-size: 1.5rem;
+  }
+
+  #buying-checklist > h2 {
+    font-size: 1.5rem;
+  }
+
+  .overview-description {
+    font-size: 1rem;
+  }
+
+  .block-title {
+    font-size: 20px;
+  }
+
+  .content-text {
+    font-size: 1rem;
+  }
+
+  .styled-list li strong {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .content-section > h2, .content-section > div > h3 {
+    text-align: center;
+  }
+
+  .list-content {
+    font-size: 1rem;
+  }
+
+  body > div.container > div.search-container > h3  {
+    font-size: 14px;
+  }
+
+  #buying-checklist > div.content-block > p {
+    padding: 5px;
+  }
+
+  .nav-button {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    margin: 20px 10px;
+  }
+
+  div.checklist-hover > label, 
+  .criteria-explanation {
+    font-size: 0.8rem;
+  }
 }
 
 
@@ -1443,11 +1662,7 @@ body > div.content-wrapper {
   }
 
   .content-section > div > h3 {
-    font-size: 22px;
-  }
-
-  .content-section > h2, .content-section > div > h3 {
-    text-align: center;
+    font-size: 16px;
   }
 
   #canslim-info > div.main-content > * {
@@ -1455,11 +1670,45 @@ body > div.content-wrapper {
   }
   #faq > div > div > h4 {
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
   }
 
   #main-content > div > div > ul > li, #analysis > div > ul > li {
     background: #117864;
+  }
+
+  #canslim-info > aside > nav > ul > li > a {
+    padding: 5px;
+  }
+
+  .content-section > h2 {
+    font-size: 1.25rem;
+  }
+
+  #faq > div > div > div > p  {
+    font-size: 12px;
+  }
+
+  .overview-title, .section-title {
+    font-size: 1.25rem;
+  }
+
+  .overview-description, .content-text  {
+    font-size: 0.75rem;
+  }  
+
+  .book-info {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .book-description, .book-description p {
+    max-width: none;
+  }
+
+  #buying-checklist > h2 {
+    font-size: 1rem;
   }
 }
 
@@ -1476,6 +1725,21 @@ body > div.content-wrapper {
   body > footer {
     padding-bottom: 85px;
   }
+
+  .main-title {
+    font-size: 1rem;
+  }
+
+  .main-subtitle {
+    font-size: 0.75rem;
+  }
+  .overview-title, .section-title {
+    font-size: 1rem;
+  }
+
+  div.checklist-header h3 {
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 450px) {
@@ -1483,9 +1747,13 @@ body > div.content-wrapper {
     width: 95%;
   }
 
-  nav a {
+  header nav a {
     font-size: 14px;
     padding: 0;
+  }
+
+  .nav-menu a {
+    font-size: 14px;
   }
 
   nav a svg.nav-icon {
@@ -1506,6 +1774,10 @@ body > div.content-wrapper {
     margin-left: 20px;
   }
 
+  #faq > div > div.faq-item.active > div > div > div > p {
+    font-size: 14px;
+  }
+
   @media (max-height: 670px) {
     body > footer > div > div.disclaimer {
       flex-direction: column;
@@ -1518,6 +1790,11 @@ body > div.content-wrapper {
 
   #ty-msg {
     font-size: 14px;
+  }
+
+  div.checklist-hover > label, 
+  .criteria-explanation {
+    font-size: 0.7rem;
   }
 }
 
