@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "https://canslimcalculator.com/(.*)",
+      "destination": "https://www.canslimcalculator.com/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/about", "destination": "/about.html" },
