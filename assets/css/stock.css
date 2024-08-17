@@ -1966,11 +1966,11 @@ canvas {
   }
   
   #search-input {
-    width: 220px;
+    width: 295px;
   }
   
   #search-results {
-    width: 235px;
+    width: 305px;
   }
   div.content {
     width: 60%;
@@ -2029,12 +2029,13 @@ canvas {
   }
 
   #search-input {
-    width: 200px;
+    width: 245px;
   }
   
   #search-results {
     right: -5px;
-    width: 225px;
+    width: 265px;
+    max-height: 550px;
   }
 
   nav a {

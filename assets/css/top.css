@@ -618,11 +618,11 @@ div.header > div > p.negative {
     gap: 4%;
   }
   #search-input {
-    width: 220px;
+    width: 295px;
   }
   
   #search-results {
-    width: 235px;
+    width: 305px;
   }
 }
 
@@ -660,13 +660,17 @@ div.header > div > p.negative {
   }
 
   #search-input {
-    width: 200px;
+    width: 245px;
   }
   
   #search-results {
     right: -5px;
-    width: 225px;
+    width: 265px;
     max-height: 550px;
+  }
+
+  #search-results > div > p {
+    font-size: small;
   }
 
   nav a {
@@ -700,10 +704,6 @@ div.header > div > p.negative {
 
   #search-results > div.result-item {
     flex-direction: column;
-  }
-
-  #search-results > div > p {
-    font-size: small;
   }
 
   @media (max-height: 450px) {
@@ -740,7 +740,6 @@ div.header > div > p.negative {
       margin: 0 auto;
     }
   }
-  
   div#stocks-container, div#daily-gainers-container {
     max-height: 660px;
     overflow-y: auto;
@@ -869,6 +868,16 @@ div.header > div > p.negative {
     margin: 10px;
     display: block;
   }
+
+  a.nav-link.nav-active {
+    border-bottom: 4px solid #3498db;
+    padding-bottom: 5px;
+  }
+
+  a.nav-link.nav-active svg * {
+    stroke: #3498db;
+  }
+
 
   #logo {
     max-width: 80px;

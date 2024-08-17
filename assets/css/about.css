@@ -610,11 +610,11 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
     gap: 4%;
   }
   #search-input {
-    width: 220px;
+    width: 295px;
   }
   
   #search-results {
-    width: 235px;
+    width: 305px;
   }
 }
 
@@ -647,13 +647,17 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
   }
 
   #search-input {
-    width: 200px;
+    width: 245px;
   }
   
   #search-results {
     right: -5px;
-    width: 225px;
+    width: 265px;
     max-height: 550px;
+  }
+
+  #search-results > div > p {
+    font-size: small;
   }
 
   nav a {
@@ -683,10 +687,6 @@ button[type="submit"]:hover, .next-button:hover, .prev-button:hover {
 
   #search-results > div.result-item {
     flex-direction: column;
-  }
-
-  #search-results > div > p {
-    font-size: small;
   }
 
   @media (max-height: 450px) {

@@ -4,7 +4,89 @@ document.addEventListener('DOMContentLoaded', async () => {
     explanationListener();
     listenToSearchEvent();
     listenToFAQEvent();
+    listenToBuyingCheckListEvent();
 });
+
+function listenToBuyingCheckListEvent() {
+    let currentStep = 1;
+    const totalSteps = 4;
+    let hoverTimeout;
+
+    document.getElementById("next-button").addEventListener("click", function() {
+        hideAllExplanations();
+        document.getElementById(`step${currentStep}`).style.display = "none";
+        currentStep++;
+        document.getElementById(`step${currentStep}`).style.display = "block";
+        updateNavButtons();
+    });
+
+    document.getElementById("prev-button").addEventListener("click", function() {
+        hideAllExplanations();
+        document.getElementById(`step${currentStep}`).style.display = "none";
+        currentStep--;
+        document.getElementById(`step${currentStep}`).style.display = "block";
+        updateNavButtons();
+    });
+
+    function updateNavButtons() {
+        document.getElementById("prev-button").style.display = currentStep > 1 ? "inline-block" : "none";
+        document.getElementById("next-button").style.display = currentStep < totalSteps ? "inline-block" : "none";
+    }
+
+    function showExplanation(id) {
+        clearTimeout(hoverTimeout);
+        const explanation = document.getElementById(id);
+        hoverTimeout = setTimeout(() => {
+            explanation.style.display = 'block';
+            explanation.style.opacity = '1';
+            explanation.style.transform = 'translateY(0)';
+        }, 100); 
+    }
+
+    function hideAllExplanations() {
+        const explanations = document.querySelectorAll('.criteria-explanation');
+        explanations.forEach(explanation => {
+            explanation.style.opacity = '0';
+            explanation.style.transform = 'translateY(-10px)';
+            explanation.style.display = 'none';
+        });
+    }
+
+    function hideExplanation(id) {
+        clearTimeout(hoverTimeout);
+        const explanation = document.getElementById(id);
+        hoverTimeout = setTimeout(() => {
+            explanation.style.opacity = '0';
+            explanation.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                explanation.style.display = 'none';
+            }, 300);
+        }, 100);
+    }
+
+    document.querySelectorAll('.checklist-hover').forEach((item, idx) => {
+        const explanationId = `exp${idx + 1}`;
+        
+        item.addEventListener('mouseover', function() {
+            showExplanation(explanationId);
+        });
+        
+        item.addEventListener('mouseout', function() {
+            hideExplanation(explanationId);
+        });
+
+        item.addEventListener('click', function() {
+            const explanation = document.getElementById(explanationId);
+            if (explanation.style.display === 'block') {
+                hideExplanation(explanationId);
+            } else {
+                showExplanation(explanationId);
+            }
+        });
+    });
+
+    updateNavButtons();
+}
 
 function listenToFAQEvent() {
     document.querySelectorAll('.faq-question').forEach(item => {
@@ -104,12 +186,21 @@ function setLoading() {
     searchContainer.style.display = 'block';
 }
 
-export function listenToSearchEvent() {
+function listenToSearchEvent() {
     const inputElement = document.getElementById('search-input');
     const searchGlass = document.getElementById('search-glass');
+    let debounceTimeout;
+
+    inputElement.addEventListener('input', () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(() => {
+            initiateSearch();
+        }, 500);
+    });
 
     inputElement.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
+            clearTimeout(debounceTimeout);
             initiateSearch();
         }
     });
@@ -122,7 +213,6 @@ function initiateSearch() {
     const inputValue = inputElement.value.trim();
     if (inputValue) {
         searchWithInputValue(inputValue);
-        inputElement.value = '';
     }
 }
 
@@ -149,7 +239,6 @@ async function searchWithInputValue(inputValue) {
     try {
         const searchContainer = document.getElementById('search-results');
         const search = await searchStocks(inputValue);
-        printObj(search);
         searchContainer.innerHTML = '';
 
         createTabNav();

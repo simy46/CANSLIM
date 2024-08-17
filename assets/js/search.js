@@ -1,29 +1,27 @@
 import { SERVER_URL } from "./const";
 
-
-// HELPER FUNCTION 
-function printObj(obj) {
-    console.log(JSON.parse(JSON.stringify(obj)))
-}
-
-
 export function listenToSearchEvent() {
     const inputElement = document.getElementById('search-input');
     const searchGlass = document.getElementById('search-glass');
-    
     const searchSvg = document.getElementById('search-toggle');
     const searchContainer = document.getElementById('input-container-search');
     const navLinks = document.querySelectorAll('nav .nav-link');
     const searchResults = document.getElementById('search-results');
     const aHome = document.querySelector('a.home');
-    
     const body = document.querySelector('body');
+    let debounceTimeout;
+
+    inputElement.addEventListener('input', () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(() => {
+            initiateSearch();
+        }, 500);
+    });
 
     inputElement.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
+            clearTimeout(debounceTimeout);
             initiateSearch();
-        } else if (e.key === 'Escape') {
-            searchContainer.style.display = 'flex';
         }
     });
 
@@ -36,8 +34,8 @@ export function listenToSearchEvent() {
             navLinks.forEach(link => {
                 link.style.display = 'none';
             });
-    
-            aHome.style.width = 'fit-content'
+
+            aHome.style.width = '0';
             searchContainer.style.display = 'flex';
         }
     });
@@ -45,23 +43,22 @@ export function listenToSearchEvent() {
     document.addEventListener('click', function(event) {
         if (!searchContainer.contains(event.target) && !searchSvg.contains(event.target)) {
             if (isMobileScreen()) {
-
                 navLinks.forEach(link => {
                     link.style.display = 'flex';
                 });
 
-                aHome.style.width = '100%'
+                aHome.style.width = '100%';
                 searchContainer.style.display = 'none';
-                body.classList.remove('opac')
+                body.classList.remove('opac');
             }
 
             searchResults.style.display = 'none';
         }
-    });  
+    });
 }
 
 function isMobileScreen() {
-    return window.innerWidth <= 821 || (window.innerHeight >= 350 && window.innerHeight <= 450)
+    return window.innerWidth <= 821 || (window.innerHeight >= 350 && window.innerHeight <= 450);
 }
 
 function initiateSearch() {
@@ -70,7 +67,6 @@ function initiateSearch() {
     const inputValue = inputElement.value.trim();
     if (inputValue) {
         searchWithInputValue(inputValue);
-        inputElement.value = '';
     }
 
     if (isMobileScreen()) {
@@ -87,16 +83,12 @@ async function searchWithInputValue(inputValue) {
 
     try {
         const search = await searchStocks(inputValue);
-        printObj(search)
         const quotes = search.quotes;
         searchContainer.innerHTML = '';
 
         if (quotes.length > 0) {
             const initialResults = quotes.slice(0, 2);
-            printObj(initialResults)
-
             const remainingResults = quotes.slice(2);
-           printObj(remainingResults)
 
             initialResults.forEach(quote => createSearchRes(quote, searchContainer));
 

@@ -858,11 +858,6 @@ body > div.content-wrapper {
   margin-top: 20px;
 }
 
-.content-text {
-  font-size: 1.125rem;
-  color: #e0e0e0;
-}
-
 .content-list {
   list-style: none;
   padding-left: 0;
@@ -922,7 +917,6 @@ body > div.content-wrapper {
   align-items: flex-start;
   margin-bottom: 15px;
   padding: 10px;
-  background: #1b2336;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   gap: 20px;
@@ -935,10 +929,6 @@ body > div.content-wrapper {
   color: #1abc9c;
 }
 
-#analysis > div > ul > li > strong{
-  width: 50%;
-}
-
 .styled-list li span {
   flex-grow: 1;
   white-space: normal;
@@ -948,6 +938,20 @@ body > div.content-wrapper {
   background: #117864;
   color: #fff;
 }
+
+.disadvantage.styled-list li strong {
+  color: #e1284c;
+}
+
+.disadvantage.styled-list li:hover {
+  background: #791125;
+}
+
+#analysis > div > ul > li > strong{
+  width: 50%;
+}
+
+
 
 .list-icon {
   font-size: 1.5rem;
@@ -1121,13 +1125,6 @@ body > div.content-wrapper {
   cursor: pointer;
 }
 
-.checklist-hover label:hover {
-  background-color: #117864;
-  color: #ffffff;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
-}
-
 .criteria-explanation {
   font-size: 1rem;
   color: #b0b0b0;
@@ -1252,6 +1249,10 @@ body > div.content-wrapper {
 
   body > div > div.search-container {
     margin-bottom: 250px;
+  }
+
+  #analysis > div > ul > li {
+    flex-direction: column;
   }
 }
 
@@ -1443,10 +1444,6 @@ body > div.content-wrapper {
     gap: 20px;
   }
 
-  #analysis > div > ul > li {
-    flex-direction: column;
-  }
-
   #analysis > div:nth-child(3) > ul > li > strong {
     width: 100%;
   }
@@ -1590,6 +1587,7 @@ body > div.content-wrapper {
 
   .content-text {
     font-size: 1rem;
+    padding: 5px;
   }
 
   .styled-list li strong {
@@ -1661,41 +1659,27 @@ body > div.content-wrapper {
     text-align: center;
   }
 
-  .content-section > div > h3 {
-    font-size: 16px;
-  }
-
   #canslim-info > div.main-content > * {
     text-align: justify;
   }
+  
   #faq > div > div > h4 {
     text-align: center;
     font-size: 16px;
   }
 
-  #main-content > div > div > ul > li, #analysis > div > ul > li {
-    background: #117864;
-  }
+  .disadvantage.styled-list li {
+    background: #791125;
+    }
+  
 
   #canslim-info > aside > nav > ul > li > a {
     padding: 5px;
   }
 
-  .content-section > h2 {
-    font-size: 1.25rem;
-  }
-
   #faq > div > div > div > p  {
     font-size: 12px;
   }
-
-  .overview-title, .section-title {
-    font-size: 1.25rem;
-  }
-
-  .overview-description, .content-text  {
-    font-size: 0.75rem;
-  }  
 
   .book-info {
     flex-direction: column;
@@ -1705,10 +1689,6 @@ body > div.content-wrapper {
 
   .book-description, .book-description p {
     max-width: none;
-  }
-
-  #buying-checklist > h2 {
-    font-size: 1rem;
   }
 }
 
@@ -1727,14 +1707,14 @@ body > div.content-wrapper {
   }
 
   .main-title {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
 
   .main-subtitle {
     font-size: 0.75rem;
   }
   .overview-title, .section-title {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
 
   div.checklist-header h3 {

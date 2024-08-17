@@ -270,9 +270,6 @@ cursor: pointer;
 transition: all 0.3s;
 }
 
-#search-results > div > p {
-  text-align: center;
-}
 .result-item:hover {
 background-color: #666b79;
 transform: scale(1.02);
@@ -394,11 +391,11 @@ to {
     gap: 4%;
   }
   #search-input {
-    width: 220px;
+    width: 295px;
   }
   
   #search-results {
-    width: 235px;
+    width: 305px;
   }
 }
 
@@ -433,13 +430,17 @@ to {
   }
 
   #search-input {
-    width: 200px;
+    width: 245px;
   }
   
   #search-results {
     right: -5px;
-    width: 225px;
+    width: 265px;
     max-height: 550px;
+  }
+
+  #search-results > div > p {
+    font-size: small;
   }
 
   nav a {
