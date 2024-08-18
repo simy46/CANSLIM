@@ -107,12 +107,13 @@
         </nav>
     </header> 
     <div class="content" id="buying-checklist">
-        <section class="intro">
-            <div class="title-container">
-                <h1>Buying Checklist<img src="./assets/img/logo.png" alt="canslim logo" class="buying-img"></h1>
-                <div id="stock-info">
-                    <h2 id="stock-name"></h2>
-                    <p id="stock-ticker"></p>
+        <section class="title-container">
+            <img src="./assets/img/logo.png" alt="CANSLIM logo" class="buying-img">
+            <div class="text-container">
+                <h1 class="main-title">CANSLIM Checklist</h1>
+                <div class="stock-info">
+                    <h1 id="stock-name" class="stock-name">CANSLIM</h1>
+                    <h3 id="stock-ticker" class="stock-ticker">STOCK</h3>
                 </div>
             </div>
         </section>
@@ -230,11 +231,11 @@
         <textarea class="chart-note" id="note" placeholder="Write your notes here...">NOTES : </textarea>
         <div id="chart-content">
             <div id="stock-info-chart">
-                <h2 id="stock-name-chart">[Name]<span id="stock-ticker-chart">[(ticker)]</span></h2>
+                <h2 id="stock-name-chart">CC<span id="stock-ticker-chart">[(@simy46_)]</span></h2>
                 <div id="stock-details">
-                    <p><span class="value-chart" id="stock-price-chart">[price]</span></p>
-                    <p><span class="value-chart" id="stock-volume-chart">[volume]</span></p>
-                    <p><span class="value-chart" id="stock-market-cap">[market cap]</span></p>
+                    <p><span class="value-chart" id="stock-price-chart">[X]</span></p>
+                    <p><span class="value-chart" id="stock-volume-chart">[X]</span></p>
+                    <p><span class="value-chart" id="stock-market-cap">[X]</span></p>
                 </div>
             </div>
             <canvas id="stock-chart"></canvas>
@@ -322,7 +323,6 @@
                 <option value="max">MAX</option>
             </select>
 
-            <label for="interval-select">Interval:</label>
             <select id="interval-select" class="custom-select">
                 <option value="intraday1mChart">1m</option>
                 <option value="intraday5mChart">5m</option>
@@ -334,7 +334,6 @@
                 <option value="monthlyChart">1mo</option>
             </select>
             
-            <label for="chart-type-select">Chart Type:</label>
             <select id="chart-type-select" class="custom-select">
                 <option value="mountain">Mountain</option>
                 <option value="scatter">Scatter</option>

@@ -6,7 +6,7 @@ import { CandlestickController, CandlestickElement } from 'chartjs-chart-financi
 Chart.register(...registerables, zoomPlugin, CandlestickController, CandlestickElement);
 
 
-let stockChart;  // stockChart global
+let stockChart;  // Declare stockChart globally
 
 const intervalOptions = {
     '1d': ['intraday1mChart', 'intraday5mChart', 'intraday15mChart', 'intraday30mChart', 'intraday60mChart', 'dailyChart'],
@@ -50,7 +50,7 @@ export function updateChartSection(chartData) {
 }
 
 function updateInfoChart(meta) {
-    console.log(meta);
+    console.log(meta.marketCap);
 
     const nameElement = document.getElementById('stock-name-chart');
     const tickerElement = document.getElementById('stock-ticker-chart');
@@ -61,15 +61,42 @@ function updateInfoChart(meta) {
     nameElement.textContent = meta.longName || '[Stock Name]';
     tickerElement.textContent = `(${meta.symbol || '[Stock Ticker]'})`;
 
-    priceElement.innerHTML = `<span class="label">Current Price:</span> <span class="value">$${meta.regularMarketPrice || 'N/A'}</span> <span class="currency">(${meta.currency || 'USD'})</span>`;
+    priceElement.textContent = '';
+    volumeElement.textContent = '';
+    capElement.textContent = '';
 
-    volumeElement.innerHTML = `<span class="label">Volume Traded:</span> <span class="value">${meta.regularMarketVolume ? meta.regularMarketVolume.toLocaleString() : 'N/A'}</span> shares`;
+    const priceValue = document.createElement('span');
+    priceValue.className = 'value';
+    priceValue.textContent = `$${meta.regularMarketPrice || 'N/A'}`;
+    priceElement.appendChild(priceValue);
+
+    const priceCurrency = document.createElement('span');
+    priceCurrency.className = 'currency';
+    priceCurrency.textContent = `(${meta.currency || 'USD'})`;
+    priceElement.appendChild(priceCurrency);
+
+    const volumeValue = document.createElement('span');
+    volumeValue.className = 'value';
+    volumeValue.textContent = meta.regularMarketVolume ? meta.regularMarketVolume.toLocaleString() : 'N/A';
+    volumeElement.appendChild(volumeValue);
+
+    const volumeShares = document.createTextNode(' shares');
+    volumeElement.appendChild(volumeShares);
 
     const marketCap = meta.marketCap ? formatMarketCap(meta.marketCap) : 'N/A';
-    capElement.innerHTML = `<span class="label">Market Cap:</span> <span class="value">${marketCap}</span>`;
+    console.log('Formatted Market Cap:', marketCap); 
+    const capValue = document.createElement('span');
+    capValue.className = 'value';
+    capValue.textContent = marketCap;
+    capElement.appendChild(capValue);
 }
 
 function formatMarketCap(value) {
+    if (typeof value !== 'number') {
+        console.error('Market cap is not a number:', value);
+        return 'N/A';
+    }
+
     if (value >= 1e12) {
         return `$${(value / 1e12).toFixed(2)}T`;
     } else if (value >= 1e9) {
@@ -80,8 +107,7 @@ function formatMarketCap(value) {
         return `$${value.toLocaleString()}`;
     }
 }
-
-// Central init function
+// Central function to initialize the correct chart
 function initializeChart(data, maxPoints, chartType, interval) {
     switch (chartType) {
         case 'mountain':
@@ -108,7 +134,7 @@ function initializeChart(data, maxPoints, chartType, interval) {
     }
 }
 
-// Central updating function 
+// Central function to update the correct chart
 function updateChart(data, maxPoints, chartType, interval) {
     switch (chartType) {
         case 'mountain':
@@ -233,6 +259,7 @@ function getTimeUnitForInterval(interval) {
     }
 }
 
+
 // MOUNTAIN CHART //
 function initializeMountainChart(data, maxPoints) {
     const ctx = document.getElementById('stock-chart').getContext('2d');
@@ -341,17 +368,7 @@ function initializeMountainChart(data, maxPoints) {
 
     stockChart = new Chart(ctx, config);
 
-    document.addEventListener('mouseup', () => {
-        if (chartContainer) {
-            chartContainer.style.cursor = 'default';
-        }
-    });
 
-    document.addEventListener('touchend', () => {
-        if (chartContainer) {
-            chartContainer.style.cursor = 'default';
-        }
-    });
 }
 
 function updateMountainChart(data, maxPoints, interval) {
@@ -400,7 +417,7 @@ function initializeScatterChart(data, maxPoints, interval) {
             responsive: true,
             scales: {
                 x: {
-                    type: 'timeseries',
+                    type: 'time',
                     time: {
                         unit: 'day',
                         tooltipFormat: 'MM/DD/YYYY HH:mm',
@@ -524,7 +541,6 @@ function initializeScatterChart(data, maxPoints, interval) {
 
 
 function processScatterData(data, maxPoints, filterExtremes) {
-    console.log(maxPoints)
     let pointsToUse = downsample(data, maxPoints);
 
     if (filterExtremes) {
@@ -576,7 +592,6 @@ function updateScatterChart(data, maxPoints, interval, filterExtremes = false) {
 }
 
 function toggleExtremeFiltering(data) {
-    console.log(data.length)
     const values = data.flatMap(entry => [entry.high, entry.low, entry.open, entry.close]);
     const q1 = getPercentile(values, 25);
     const q3 = getPercentile(values, 75);
@@ -598,6 +613,155 @@ function getPercentile(data, percentile) {
     const lower = Math.floor(index);
     const upper = Math.ceil(index);
     return sortedData[lower] + (sortedData[upper] - sortedData[lower]) * (index - lower);
+}
+
+// HISTOGRAM CHART //
+// HISTOGRAM CHART //
+function initializeHistogramChart(data, maxPoints, interval) {
+    const ctx = document.getElementById('stock-chart').getContext('2d');
+    const chartContainer = document.getElementById('chart-content');
+
+    const processedData = processHistogramData(data, maxPoints, interval);
+
+    const config = {
+        type: 'bar',
+        data: {
+            labels: processedData.labels,
+            datasets: [{
+                label: 'Price Change (%)',
+                data: processedData.data,
+                backgroundColor: processedData.colors,
+                borderColor: processedData.colors,
+                borderWidth: 1,
+                barPercentage: 0.9,
+                categoryPercentage: 0.8,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#b2b5bc',
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#b2b5bc',
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    backgroundColor: '#4f58ab',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    borderColor: '#b2b5bc',
+                    borderWidth: 1,
+                },
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy',
+                        onPan: () => {
+                            if (chartContainer) {
+                                chartContainer.style.cursor = 'grabbing';
+                            }
+                            document.getElementById('reset-btn').style.display = 'flex';
+                        },
+                        onPanEnd: () => {
+                            if (chartContainer) {
+                                chartContainer.style.cursor = 'default';
+                            }
+                        }
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                            modifierKey: 'ctrl',
+                            speed: 0.1,
+                        },
+                        drag: {
+                            enabled: true,
+                            modifierKey: 'ctrl',
+                        },
+                        mode: 'xy',
+                        onZoom: () => {
+                            document.getElementById('reset-btn').style.display = 'flex';
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    stockChart = new Chart(ctx, config);
+}
+
+// Data Processing for Histogram
+function processHistogramData(data, maxPoints, interval) {
+    // Calculate percentage change day over day
+    const changes = [];
+    const colors = [];
+
+    // Iterate through the data to calculate daily percentage change
+    for (let i = 1; i < data.length; i++) {
+        const change = ((data[i].close - data[i - 1].close) / data[i - 1].close) * 100;
+        changes.push(change);
+        colors.push(change > 0 ? 'rgba(0, 255, 0, 0.6)' : 'rgba(255, 0, 0, 0.6)'); // Green for positive, Red for negative
+    }
+
+    // Determine the number of bins dynamically based on the range and data
+    const numberOfBins = Math.min(20, changes.length); // Avoid excessive bins if the dataset is small
+    const minValue = Math.min(...changes);
+    const maxValue = Math.max(...changes);
+
+    const binWidth = (maxValue - minValue) / numberOfBins;
+    const bins = new Array(numberOfBins).fill(0);
+    const binLabels = [];
+
+    // Populate the bins
+    changes.forEach(change => {
+        const binIndex = Math.floor((change - minValue) / binWidth);
+        bins[Math.min(binIndex, numberOfBins - 1)] += 1;
+    });
+
+    // Generate labels for each bin
+    for (let i = 0; i < numberOfBins; i++) {
+        const binStart = minValue + i * binWidth;
+        const binEnd = binStart + binWidth;
+        binLabels.push(`${binStart.toFixed(2)}% - ${binEnd.toFixed(2)}%`);
+    }
+
+    return {
+        labels: binLabels,
+        data: bins,
+        colors: bins.map((_, i) => colors[i % colors.length])
+    };
+}
+
+// Histogram Chart Update
+function updateHistogramChart(data, maxPoints, interval) {
+    if (stockChart) {
+        const processedData = processHistogramData(data, maxPoints, interval);
+
+        stockChart.data.labels = processedData.labels;
+        stockChart.data.datasets[0].data = processedData.data;
+        stockChart.data.datasets[0].backgroundColor = processedData.colors;
+        stockChart.data.datasets[0].borderColor = processedData.colors;
+        stockChart.update();
+    }
 }
 
 // CANDLESTICK CHART //
@@ -730,17 +894,7 @@ function initializeCandlestickChart(data, maxPoints, interval) {
 
     stockChart = new Chart(ctx, config);
 
-    document.addEventListener('mouseup', () => {
-        if (chartContainer) {
-            chartContainer.style.cursor = 'default';
-        }
-    });
 
-    document.addEventListener('touchend', () => {
-        if (chartContainer) {
-            chartContainer.style.cursor = 'default';
-        }
-    });
 }
 
 function processCandlestickData(data, maxPoints = 100, interval = 'dailyChart', chartContainer) {
@@ -867,6 +1021,8 @@ function updateIntervalOptions(range) {
 }
 
 function attachChartButtonEvents(chartData) {
+    const chartContainer = document.getElementById('chart-content');
+
     // RANGE
     document.querySelectorAll('.chart-btn').forEach(button => {
         button.addEventListener('click', () => {
@@ -911,6 +1067,20 @@ function attachChartButtonEvents(chartData) {
         document.getElementById('reset-btn').style.display = 'none';
     });
 
+    // CHART MOUSE CHANGE //
+    document.addEventListener('mouseup', () => {
+        if (chartContainer) {
+            chartContainer.style.cursor = 'default';
+        }
+    });
+
+    document.addEventListener('touchend', () => {
+        if (chartContainer) {
+            chartContainer.style.cursor = 'default';
+        }
+    });
+
+    // DOWNLOAD BTN //
     document.getElementById('download-btn').addEventListener('click', () => {
         const menu = document.getElementById('download-menu');
         menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
@@ -933,6 +1103,7 @@ function attachChartButtonEvents(chartData) {
         }
     });
 
+    // FULLSCREEN BTN //
     document.getElementById('fullscreen-btn').addEventListener('click', () => {
         getFullScreen();
     });
@@ -1024,9 +1195,9 @@ function getFullScreen() {
 function openFullscreen(elem) {
     if (elem.requestFullscreen) {
         elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) {
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
         elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
+    } else if (elem.msRequestFullscreen) { /* IE11 */
         elem.msRequestFullscreen();
     }
 
@@ -1036,9 +1207,9 @@ function openFullscreen(elem) {
 function closeFullscreen(elem) {
     if (document.exitFullscreen) {
         document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
+    } else if (document.webkitExitFullscreen) { /* Safari */
         document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
+    } else if (document.msExitFullscreen) { /* IE11 */
         document.msExitFullscreen();
     }
 

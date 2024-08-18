@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /canslim-stock?symbol=
 Disallow: /pdf/IBD_BuyingChecklist.pdf
+Disallow: /stocks
 
 Allow: /pagead/
 Allow: /g/collect
