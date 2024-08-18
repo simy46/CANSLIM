@@ -9,6 +9,7 @@ import { updateInsightsSection } from './insight.js';
 import { updateOptionsSection } from './options.js';
 import { updateCanslimScores } from './canslim.js';
 import { listenToSearchEvent } from './search.js';
+import { captureAndSendImage, captureAndDownloadImage } from './captureChecklist.js';
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -31,7 +32,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const data1 = await fetchFirstData(symbol);
         updateCheckList(data1);
-        setLoadingBuyingCheckList(false)
+        setTimeout(() => {
+            setLoadingBuyingCheckList(false);
+        }, 1500);
 
         fetchSecondData(data1, symbol)
             .then(() => console.log('fetch2 successful'))
@@ -66,25 +69,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 function setLoadingBuyingCheckList(isLoading) {
-    const mainContent = document.querySelectorAll('.content-container');
-    const skeletonContainer = document.querySelectorAll('.skeleton-container');
-
     if (isLoading) {
-        skeletonContainer.forEach(skeleton => {
-            skeleton.style.display = 'block';
-        });
-        mainContent.forEach(content => {
-            content.style.display = 'none';
-        });
+        // LOGIQUE LOADING SCREEN //
     } else {
-        skeletonContainer.forEach(skeleton => {
-            skeleton.style.display = 'none';
-        });
-        mainContent.forEach(content => {
-            content.style.display = 'flex';
-        });
+        document.getElementById('share-twitter').addEventListener('click', captureAndSendImage);
+        document.getElementById('download-btn').addEventListener('click', captureAndDownloadImage);
     }
 }
+
+
 
 
 function setLoadingInformations(isLoading) {
@@ -97,10 +90,10 @@ function setLoadingInformations(isLoading) {
 
 
 function updateStockDetails(data, stockInfo) {
-    // Mettez à jour les sections avec les détails du stock
     if (data.quoteSummary && data.quoteSummary.price) {
         document.getElementById('stock-name').textContent = data.quoteSummary.price.longName || '-';
         document.getElementById('stock-ticker').textContent = `(${data.quoteSummary.price.symbol})` || '-';
+        console.log(data.quoteSummary && data.quoteSummary.price)
     }
 
     // Overview //
@@ -141,7 +134,6 @@ async function fetchFirstData(symbol) {
 
 async function fetchSecondData(data1, symbol) {
     try {
-        // Deuxième requête : stock-details
         const response = await fetch(`${SERVER_URL}/api/stock-details?symbol=${symbol}`);
         if (!response.ok) {
             throw new Error('Network response was not ok for stock-details');
@@ -165,7 +157,6 @@ function updateCheckList(results) {
                 const value = results[key].value;
                 element.textContent = value !== undefined ? value : 'No data';
 
-                // Apply styles based on the result
                 element.classList.remove('pass', 'fail', 'undefined');
                 if (results[key].bool === true) {
                     element.classList.add('pass');
@@ -178,7 +169,6 @@ function updateCheckList(results) {
         }
     }
 
-    // Handle the market trend separately
     checkInCorrection(results.marketTrend);
 }
 
@@ -188,7 +178,6 @@ function checkInCorrection(marketTrend) {
         const value = marketTrend.value;
         marketResult.textContent = value !== undefined ? value : 'No data';
 
-        // Apply styles based on the market trend
         marketResult.classList.remove('pass', 'fail', 'correction');
         if (marketTrend.isInCorrection) {
             marketResult.classList.add('correction');
