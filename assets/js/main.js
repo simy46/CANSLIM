@@ -80,8 +80,6 @@ function listenToBuyingCheckListEvent() {
             const explanation = document.getElementById(explanationId);
             if (explanation.style.display === 'block') {
                 hideExplanation(explanationId);
-            } else {
-                showExplanation(explanationId);
             }
         });
     });

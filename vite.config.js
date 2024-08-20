@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
-    outDir: 'dist',  // Change this to your preferred output directory
+    outDir: 'dist',  // Output directory
     rollupOptions: {
       input: {
         main: './index.html',

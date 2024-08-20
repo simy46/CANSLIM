@@ -106,6 +106,20 @@
             <div id="search-results" class="container"></div>
         </nav>
     </header> 
+
+    <!-- News Section -->
+    <aside id="news-container">
+        <div class="news-header">
+            <h2>Latest news</h2>
+        </div>
+        <div id="news-content" class="aside-content">
+            <!-- News content -->
+        </div>
+        <div id="pagination-controls">
+            <!-- Pagination buttons -->
+        </div>
+    </aside>
+
     <div class="content" id="buying-checklist">
         <section class="title-container">
             <img src="./assets/img/logo.png" alt="CANSLIM logo" class="buying-img">
@@ -227,19 +241,6 @@
             </div>
         </div>
     </div>
-
-    <!-- News Section -->
-    <aside id="news-container">
-        <div class="news-header">
-            <h2>Latest news</h2>
-        </div>
-        <div id="news-content" class="aside-content">
-            <!-- News content will be injected here -->
-        </div>
-        <div id="pagination-controls">
-            <!-- Pagination buttons will be dynamically injected here -->
-        </div>
-    </aside>
         
     <section id="chart-section">
         <textarea class="chart-note" id="note" placeholder="Write your notes here...">NOTES : </textarea>
@@ -603,7 +604,7 @@
             <div class="profile-item">
                 <h3>Risk Metrics</h3>
                 <div class="profile-detail">
-                    <span class="risk attribute">Audit Risk:</span>
+                    <span class="risk attribute">Audit</span>
                     <div class="gauge-container">
                         <canvas id="audit-risk-gauge" width="200" height="100"></canvas>
                         <span id="audit-risk" class="value"></span>
@@ -611,7 +612,7 @@
                 </div>
             
                 <div class="profile-detail">
-                    <span class="risk attribute">Board Risk:</span>
+                    <span class="risk attribute">Board</span>
                     <div class="gauge-container">
                         <canvas id="board-risk-gauge" width="200" height="100"></canvas>
                         <span id="board-risk" class="value"></span>
@@ -619,7 +620,7 @@
                 </div>
             
                 <div class="profile-detail">
-                    <span class="risk attribute">Compensation Risk:</span>
+                    <span class="risk attribute">Compensation</span>
                     <div class="gauge-container">
                         <canvas id="compensation-risk-gauge" width="200" height="100"></canvas>
                         <span id="compensation-risk" class="value"></span>
@@ -627,7 +628,7 @@
                 </div>
             
                 <div class="profile-detail">
-                    <span class="risk attribute">Shareholder Rights Risk:</span>
+                    <span class="risk attribute">Shareholder Rights</span>
                     <div class="gauge-container">
                         <canvas id="shareholder-rights-gauge" width="200" height="100"></canvas>
                         <span id="shareholder-rights-risk" class="value"></span>
@@ -635,7 +636,7 @@
                 </div>
             
                 <div class="profile-detail">
-                    <span class="risk attribute">Overall Risk:</span>
+                    <span class="risk attribute">Overall Risk</span>
                     <div class="gauge-container">
                         <canvas id="overall-risk-gauge" width="200" height="100"></canvas>
                         <span id="overall-risk" class="value"></span>
