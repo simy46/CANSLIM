@@ -48,5 +48,12 @@ export async function captureAndDownloadImage() {
 function shareOnTwitter(imageUrl) {
     const text = encodeURIComponent("Check out this CANSLIM analysis! #Investment #CANSLIM");
     const twitterUrl = `https://twitter.com/intent/tweet?url=${imageUrl}&text=${text}`;
-    window.open(twitterUrl, '_blank');
+    
+    const newWindow = window.open('', '_blank');
+
+    if (newWindow) {
+        newWindow.location.href = twitterUrl;
+    } else {
+        console.error('Popup was blocked by the browser');
+    }
 }

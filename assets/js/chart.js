@@ -41,6 +41,7 @@ export function updateChartSection(chartData) {
     
     if (stockChart) {
         updateChart(chartData[interval].quotes, maxPoints, chartType, interval);
+
     } else {
         initializeChart(chartData[interval].quotes, maxPoints, chartType, interval, dataGranularity);
         updateIntervalOptions('1y');
@@ -50,20 +51,16 @@ export function updateChartSection(chartData) {
 }
 
 function updateInfoChart(meta) {
-    console.log(meta.marketCap);
-
     const nameElement = document.getElementById('stock-name-chart');
     const tickerElement = document.getElementById('stock-ticker-chart');
     const priceElement = document.getElementById('stock-price-chart');
     const volumeElement = document.getElementById('stock-volume-chart');
-    const capElement = document.getElementById('stock-market-cap');
 
     nameElement.textContent = meta.longName || '[Stock Name]';
     tickerElement.textContent = `(${meta.symbol || '[Stock Ticker]'})`;
 
     priceElement.textContent = '';
     volumeElement.textContent = '';
-    capElement.textContent = '';
 
     const priceValue = document.createElement('span');
     priceValue.className = 'value';
@@ -82,31 +79,9 @@ function updateInfoChart(meta) {
 
     const volumeShares = document.createTextNode(' shares');
     volumeElement.appendChild(volumeShares);
-
-    const marketCap = meta.marketCap ? formatMarketCap(meta.marketCap) : 'N/A';
-    console.log('Formatted Market Cap:', marketCap); 
-    const capValue = document.createElement('span');
-    capValue.className = 'value';
-    capValue.textContent = marketCap;
-    capElement.appendChild(capValue);
 }
 
-function formatMarketCap(value) {
-    if (typeof value !== 'number') {
-        console.error('Market cap is not a number:', value);
-        return 'N/A';
-    }
 
-    if (value >= 1e12) {
-        return `$${(value / 1e12).toFixed(2)}T`;
-    } else if (value >= 1e9) {
-        return `$${(value / 1e9).toFixed(2)}B`;
-    } else if (value >= 1e6) {
-        return `$${(value / 1e6).toFixed(2)}M`;
-    } else {
-        return `$${value.toLocaleString()}`;
-    }
-}
 // Central function to initialize the correct chart
 function initializeChart(data, maxPoints, chartType, interval) {
     switch (chartType) {
@@ -1111,10 +1086,6 @@ function attachChartButtonEvents(chartData) {
     document.addEventListener('fullscreenchange', () => {
         setFullScreen();
     });
-
-    document.getElementById('take-snapshot-btn').addEventListener('click', () => {
-        takeSnapshot();
-    });
 }
 
 function updateChartType(chartData) {
@@ -1185,7 +1156,7 @@ function chartDataToPng(meta, range) {
 
 function getFullScreen() {
     const chartSection = document.getElementById('chart-section');
-    if (!document.fullscreenElement) {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         openFullscreen(chartSection);
     } else {
         closeFullscreen(chartSection);
@@ -1201,7 +1172,9 @@ function openFullscreen(elem) {
         elem.msRequestFullscreen();
     }
 
+    elem.style.gap = '0'
     elem.style.minHeight = '80vh';
+    elem.style.width = '100%';
 }
 
 function closeFullscreen(elem) {
@@ -1213,7 +1186,9 @@ function closeFullscreen(elem) {
         document.msExitFullscreen();
     }
 
+    elem.style.gap = '20px'
     elem.style.minHeight = '65vh';
+    elem.style.width = '';
 }
   
 
@@ -1234,6 +1209,9 @@ function setFullScreen() {
         }
 }
 
+/*
+take-snapshot-btn
+
 function takeSnapshot() {
     const canvas = document.getElementById('stock-chart');
     const imageUrl = canvas.toDataURL('image/png');
@@ -1242,3 +1220,4 @@ function takeSnapshot() {
     imgElement.style.display = 'block'
     document.getElementById('take-snapshot-btn').textContent = 'Retake picture'
 }
+*/

@@ -1,4 +1,4 @@
-import { SERVER_URL } from './const.js'
+import { SERVER_URL, USER_NOTE } from './const.js'
 import { updateChartSection } from './chart.js';
 import { updateOverviewSection } from './overview.js';
 import { updateNewsSection } from './stockNew.js';
@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     setLoadingBuyingCheckList(true)
     setLoadingInformations(true);
     listenToNavEvents();
-    listenToSearchEvent()
+    listenToSearchEvent();
+    listenToTextEvent();
 
     if (!symbol || symbol === 'undefined' || symbol === 'null') {
         console.error('Ticker symbol is missing');
@@ -60,13 +61,31 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
         
         //updateCanslimScores(score);
-        
 
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 });
 
+
+function listenToTextEvent() {
+    const noteTextarea = document.getElementById('note');
+    const maxCharacters = 5000;
+
+    const savedNote = localStorage.getItem(USER_NOTE);
+    if (savedNote) {
+        noteTextarea.value = savedNote;
+    }
+
+    noteTextarea.addEventListener('input', () => {
+        if (noteTextarea.value.length < maxCharacters) {
+            localStorage.setItem(USER_NOTE, noteTextarea.value);
+        } else {
+            alert(`You have reached the maximum limit of ${maxCharacters} characters.`);
+            noteTextarea.value = noteTextarea.value.slice(0, maxCharacters);
+        }
+    });
+}
 
 function setLoadingBuyingCheckList(isLoading) {
     if (isLoading) {
@@ -78,22 +97,38 @@ function setLoadingBuyingCheckList(isLoading) {
 }
 
 
-
-
 function setLoadingInformations(isLoading) {
+    const newsContent = document.getElementById('news-content');
+    const recommendationsContent = document.getElementById('recommendations-content');
+
     if (isLoading) {
+        const newsLoadingImg = document.createElement('img');
+        newsLoadingImg.src = '/newsLoading.png';
+        newsLoadingImg.alt = 'Loading News';
+        newsLoadingImg.id = 'news-loading-img';
+        newsLoadingImg.classList.add('loading-image');
+        newsContent.appendChild(newsLoadingImg);
 
+        for (let i = 0; i < 3; i++) {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.classList.add('loading-placeholder');
+            recommendationsContent.appendChild(loadingDiv);
+        }
     } else {
+        const newsLoadingImg = newsContent.querySelector('.loading-image');
+        if (newsLoadingImg) {
+            newsContent.removeChild(newsLoadingImg);
+        }
 
+        const placeholders = document.querySelectorAll('.loading-placeholder');
+        placeholders.forEach(elem => recommendationsContent.removeChild(elem))
     }
 }
-
 
 function updateStockDetails(data, stockInfo) {
     if (data.quoteSummary && data.quoteSummary.price) {
         document.getElementById('stock-name').textContent = data.quoteSummary.price.longName || '-';
         document.getElementById('stock-ticker').textContent = `(${data.quoteSummary.price.symbol})` || '-';
-        console.log(data.quoteSummary && data.quoteSummary.price)
     }
 
     // Overview //
@@ -148,14 +183,11 @@ async function fetchSecondData(data1, symbol) {
 }
 
 function updateCheckList(results) {
-    console.log(results);
-
     for (let key in results) {
         if (Object.prototype.hasOwnProperty.call(results, key) && key !== 'marketTrend' && key !== 'overall') {
             const element = document.getElementById(`${key}-result`);
             if (element) {
                 const value = results[key].value;
-                console.log(value)
                 element.textContent = value !== null ? value : 'No data';
 
                 element.classList.remove('pass', 'fail', 'undefined');

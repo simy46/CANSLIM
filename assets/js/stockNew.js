@@ -1,7 +1,7 @@
 // NEWS //
 export function updateNewsSection(news) {
     if (news && news.length > 0) {
-        listenToNewsEvents(news); // Initialize pagination and display the first page
+        listenToNewsEvents(news);
     } else {
         const newsElement = document.getElementById('news-content');
         newsElement.innerText = 'No data available';
@@ -10,12 +10,12 @@ export function updateNewsSection(news) {
 
 function listenToNewsEvents(news) {
     let currentPage = 1;
-    const itemsPerPage = 4; // Updated to 4 items per page
+    const itemsPerPage = 4;
     const totalPages = Math.ceil(news.length / itemsPerPage);
     const paginationControls = document.getElementById('pagination-controls');
 
     function updatePaginationControls() {
-        paginationControls.innerHTML = ''; // Clear current controls
+        paginationControls.innerHTML = ''; 
 
         const createPageButton = (pageNumber, isCurrent = false) => {
             const button = document.createElement('button');
@@ -42,17 +42,12 @@ function listenToNewsEvents(news) {
             paginationControls.appendChild(prevButton);
         }
 
-        // Always show the first page
         paginationControls.appendChild(createPageButton(1, currentPage === 1));
-
-        // Add "..." before current page if necessary
         if (currentPage > 3) {
             const dots = document.createElement('span');
             dots.textContent = '...';
             paginationControls.appendChild(dots);
         }
-
-        // Show pages around the current page
         const startPage = Math.max(2, currentPage - 1);
         const endPage = Math.min(totalPages - 1, currentPage + 1);
 
@@ -60,19 +55,16 @@ function listenToNewsEvents(news) {
             paginationControls.appendChild(createPageButton(i, currentPage === i));
         }
 
-        // Add "..." after current page if necessary
         if (currentPage < totalPages - 2) {
             const dots = document.createElement('span');
             dots.textContent = '...';
             paginationControls.appendChild(dots);
         }
 
-        // Always show the last page
         if (totalPages > 1) {
             paginationControls.appendChild(createPageButton(totalPages, currentPage === totalPages));
         }
 
-        // Next Button
         if (currentPage < totalPages) {
             const nextButton = document.createElement('button');
             nextButton.textContent = '>';
@@ -91,16 +83,14 @@ function listenToNewsEvents(news) {
         const newsToDisplay = news.slice(startIndex, endIndex);
 
         const newsContainer = document.getElementById('news-content');
-        newsContainer.innerHTML = ''; // Clear the current news
-
+        newsContainer.innerHTML = '';
         newsToDisplay.forEach(newsItem => {
-            createNews(newsItem); // Assuming createNews is a function that creates and appends news items
+            createNews(newsItem);
         });
 
         updatePaginationControls();
     }
 
-    // Initial display
     displayNewsPage();
 }
 
@@ -109,11 +99,9 @@ function createNews(news) {
     const div = document.createElement('div');
     div.classList.add('news-item');
 
-        // Content Container
         const contentContainer = document.createElement('div');
         contentContainer.classList.add('news-content-container');
     
-        // Thumbnail
         if (news.thumbnail && news.thumbnail.resolutions && news.thumbnail.resolutions.length > 0) {
             console.log(news.thumbnail.resolutions)
             const img = document.createElement('img');
@@ -131,7 +119,7 @@ function createNews(news) {
     
         div.appendChild(contentContainer);
 
-    // Info Container: Tickers, Author
+    // Info Container
     const infoContainer = document.createElement('div');
     infoContainer.classList.add('news-info-container');
 
@@ -144,7 +132,7 @@ function createNews(news) {
         let currentStartIndex = 0;
 
         function updateTickerDisplay() {
-            tickers.innerHTML = ''; // Clear existing tickers
+            tickers.innerHTML = '';
 
             const visibleTickers = news.relatedTickers.slice(currentStartIndex, currentStartIndex + maxVisibleTickers);
 
@@ -158,7 +146,7 @@ function createNews(news) {
                 tickers.appendChild(tickerSpan);
             });
 
-            // Update navigation controls
+            // navigation controls
             prevButton.classList.toggle('disabled', currentStartIndex === 0);
             nextButton.classList.toggle('disabled', currentStartIndex + maxVisibleTickers >= news.relatedTickers.length);
         }
@@ -186,12 +174,12 @@ function createNews(news) {
             }
         };
 
-        // Append tickers and navigation controls
+        // tickers and navigation controls
         infoContainer.appendChild(prevButton);
         infoContainer.appendChild(tickers);
         infoContainer.appendChild(nextButton);
 
-        updateTickerDisplay(); // Initialize ticker display
+        updateTickerDisplay();
     }
 
     // Publisher
@@ -214,7 +202,7 @@ function createNews(news) {
     });
     publishTime.textContent = formattedDate;
     publishTime.classList.add('news-publish-time');
-    div.appendChild(publishTime); // Moved publish time to the bottom
+    div.appendChild(publishTime); // publish time bottom
 
     div.addEventListener('click', () => {
         window.open(news.link, '_blank');

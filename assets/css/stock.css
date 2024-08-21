@@ -375,15 +375,77 @@ to {
   color: #cccdd2;
 }
 
+.loading-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 50%;
+  height: auto;
+}
+
+#news-loading-img {
+  animation: pulse-fade 2s infinite ease-in-out;
+}
+
+#chart-loading-img {
+  position: absolute;
+  max-width: 100%;
+  bottom: 5%;
+  object-fit: contain;
+}
+/* Loading Placeholder Styles */
+.loading-placeholder {
+  position: relative;
+  width: 100%;
+  height: 100px; /* Adjust based on your design */
+  background-color: #2e3b55;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.loading-placeholder::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #2e3b55 0%, #3f4a6b 50%, #2e3b55 100%);
+  animation: loadingAnimation 1.5s infinite ease-in-out;
+  border-radius: 8px;
+}
+
+@keyframes loadingAnimation {
+  0% {
+      transform: translateX(-100%);
+  }
+  50% {
+      transform: translateX(0%);
+  }
+  100% {
+      transform: translateX(100%);
+  }
+}
+@keyframes pulse-fade {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
 /* General Content Styles */
 .content {
-  width: 65%;
+  width: 60%;
   padding: 25px 35px;
   background-color: #1a1a2e;
   color: #b2b5bc;
   font-family: Arial, sans-serif;
   align-self: baseline;
-  margin: 20px auto 20px 50px;
+  margin: 20px auto 20px 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1407,6 +1469,7 @@ canvas {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 /* CHART NOTE STYLES */
@@ -1968,11 +2031,6 @@ canvas {
 }
 
 @media (max-width: 1650px) {
-  .content {
-    width: 65%;
-    
-  }
-
   #news-container {
     width: 400px;
   }
@@ -1985,10 +2043,6 @@ canvas {
 }
 
 @media (max-width: 1550px) {
-  div.content {
-    width: 65%;
-  }
-
   #news-container {
     width: 350px;
   }
@@ -2029,7 +2083,7 @@ canvas {
     width: 305px;
   }
   div.content {
-    width: 60%;
+    width: 57%;
     margin-left: 40px;
   }
   #news-container {
@@ -2080,7 +2134,6 @@ canvas {
     height: 18px;
   }
   div.content {
-    width: 57%;
     margin-left: 30px;
   }
   #news-container {
@@ -2193,6 +2246,10 @@ canvas {
     box-sizing: border-box;
   }
 
+  .loading-image {
+    max-width: 20%;
+  }
+
   #news-content {
     flex-direction: row;
     overflow-x: auto;
@@ -2279,7 +2336,6 @@ canvas {
     padding: 20px;
     box-sizing: border-box;
     margin: 50px auto 0;
-
   }
 
   #recommendations-content {
