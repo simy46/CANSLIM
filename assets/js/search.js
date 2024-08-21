@@ -22,7 +22,7 @@ export function listenToSearchEvent() {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(() => {
             initiateSearch();
-        }, 200);
+        }, 100);
     });
 
     inputElement.addEventListener('keydown', (e) => {

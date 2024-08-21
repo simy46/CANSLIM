@@ -341,8 +341,6 @@ function initializeMountainChart(data, maxPoints) {
     };
 
     stockChart = new Chart(ctx, config);
-
-
 }
 
 function updateMountainChart(data, maxPoints, interval) {
@@ -493,7 +491,6 @@ function initializeScatterChart(data, maxPoints, interval) {
                     zoom: {
                         wheel: {
                             enabled: true,
-                            modifierKey: 'ctrl',
                             speed: 0.1,
                         },
                         drag: {
@@ -663,7 +660,6 @@ function initializeHistogramChart(data, maxPoints, interval) {
                     zoom: {
                         wheel: {
                             enabled: true,
-                            modifierKey: 'ctrl',
                             speed: 0.1,
                         },
                         drag: {
@@ -835,7 +831,6 @@ function initializeCandlestickChart(data, maxPoints, interval) {
                     zoom: {
                         wheel: {
                             enabled: true,
-                            modifierKey: 'ctrl',
                             speed: 0.1,
                         },
                         drag: {
@@ -1183,7 +1178,6 @@ function closeFullscreen(elem) {
     } else if (document.msExitFullscreen) { /* IE11 */
         document.msExitFullscreen();
     }
-
     elem.style.minHeight = '70vh';
 }
   
