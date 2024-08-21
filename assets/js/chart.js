@@ -324,7 +324,6 @@ function initializeMountainChart(data, maxPoints) {
                     zoom: {
                         wheel: {
                             enabled: true,
-                            modifierKey: 'ctrl',
                             speed: 0.1,
                         },
                         drag: {
