@@ -92,7 +92,7 @@ function setLoadingBuyingCheckList(isLoading) {
         // LOGIQUE LOADING SCREEN //
     } else {
         document.getElementById('share-twitter').addEventListener('click', captureAndSendImage);
-        document.getElementById('download-btn').addEventListener('click', captureAndDownloadImage);
+        document.getElementById('download-btn-canslim').addEventListener('click', captureAndDownloadImage);
     }
 }
 
