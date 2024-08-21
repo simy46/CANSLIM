@@ -2419,7 +2419,8 @@ canvas {
     font-size: 0.7rem;
   }
 
-  .common-btn-styles {
+  .common-btn-styles,
+  .download-option {
     width: 2.35rem;
     height: 2.35rem;
   }

@@ -1132,11 +1132,12 @@ function chartDataToCSV(meta, range) {
 
     csvData.push(['Date', 'Price']);
     for (let i = 0; i < labels.length; i++) {
-        const date = new Date(labels[i]).toISOString().split('T')[0]; 
-        const price = data[i].toFixed(2); 
-        csvData.push([date, price]);
+        if (data[i]) {
+            const date = new Date(labels[i]).toISOString().split('T')[0]; 
+            const price = data[i].toFixed(2); 
+            csvData.push([date, price]);
+        }
     }
-
     const csvContent = 'data:text/csv;charset=utf-8,' + csvData.map(e => e.join(', ')).join('\n');
     const link = document.createElement('a');
     link.href = encodeURI(csvContent);
