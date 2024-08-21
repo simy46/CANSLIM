@@ -22,7 +22,7 @@ export function listenToSearchEvent() {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(() => {
             initiateSearch();
-        }, 200); // 500ms delay after user stops typing
+        }, 200);
     });
 
     inputElement.addEventListener('keydown', (e) => {
