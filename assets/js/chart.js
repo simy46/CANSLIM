@@ -1172,9 +1172,7 @@ function openFullscreen(elem) {
         elem.msRequestFullscreen();
     }
 
-    elem.style.gap = '0'
     elem.style.minHeight = '80vh';
-    elem.style.width = '100%';
 }
 
 function closeFullscreen(elem) {
@@ -1186,9 +1184,7 @@ function closeFullscreen(elem) {
         document.msExitFullscreen();
     }
 
-    elem.style.gap = '20px'
-    elem.style.minHeight = '65vh';
-    elem.style.width = '';
+    elem.style.minHeight = '70vh';
 }
   
 
