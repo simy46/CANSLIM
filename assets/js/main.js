@@ -181,7 +181,7 @@ function explanationListener() {
             explanationDescription.style.transform = "translateY(0)";
             
             index = (index + 1) % explanations.length;
-        }, 500);
+        }, 200);
     }
     
     setInterval(updateExplanation, 5000);
