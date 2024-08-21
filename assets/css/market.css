@@ -1248,6 +1248,17 @@ div.news-title > h1 {
   .research-text {
     font-size: 1.15rem;
   }
+
+  @media (max-height: 500px) {
+    a.nav-link.nav-active {
+      border-bottom: 4px solid #3498db;
+      padding-bottom: 5px;
+    }
+
+    a.nav-link.nav-active svg * {
+      stroke: #3498db;
+    }
+  }
 }
 
 @media (max-width: 975px) {

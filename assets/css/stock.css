@@ -494,12 +494,20 @@ to {
   text-align: right;
 }
 
+.summary-value.fail,
 .value.fail {
   color: #f44336;
 }
 
+.summary-value.pass,
 .value.pass {
   color: #4caf50;
+}
+
+.summary-value.undefined,
+.value.undefined {
+  color: grey;
+  text-decoration: line-through;
 }
 
 .checklist-summary {
@@ -520,7 +528,6 @@ to {
 .summary-value {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #4caf50;
 }
 
 /* NAV INFORMATIONS */
@@ -563,7 +570,7 @@ to {
   width: 65%;
   height: fit-content;
   padding: 20px;
-  margin: 0 auto 30px;
+  margin: 0 auto 30px 120px;
   position: relative;
 }
 
@@ -580,9 +587,7 @@ to {
   text-transform: uppercase; 
 }
 
-/* General Styles for News Container */
-
-
+/* News Container */
 #news-container:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
@@ -592,7 +597,7 @@ to {
   flex-direction: column;
 }
 
-/* Individual News Item */
+/* News Item */
 .news-item {
   background-color: #23233a;
   border-radius: 8px;
@@ -630,7 +635,7 @@ to {
   transform: scale(1.05);
 }
 
-/* Info Container (Tickers, Publisher, Date) */
+/* Tickers, Publisher, Date */
 .news-info-container {
   display: flex;
   justify-content: space-evenly;
@@ -808,13 +813,12 @@ to {
   border-radius: 10px;
   color: #b2b5bc;
   box-sizing: content-box;
-  margin-bottom: 20px;
   position: absolute;
-  right: -250px;
+  right: -350px;
   top: 20px;
 }
 
-/* Individual Recommendation Card */
+/* Recommendation Card */
 .recommendation-card {
   background-color: #23233a;
   border-radius: 10px;
@@ -871,6 +875,8 @@ to {
   justify-content: space-between;
   padding: 10px 0;
   border-bottom: 1px solid #444;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .performance-item {
@@ -883,6 +889,7 @@ to {
   font-size: 1.4em;
   font-weight: bold;
   text-align: center;
+  white-space: nowrap;
 }
 
 .performance-item .label {
@@ -960,9 +967,16 @@ to {
 }
 
 #company-description {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-  text-align: justify;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 155px;
+}
+
+#company-description:hover {
+  max-height: fit-content;
 }
 
 .profile-item {
@@ -1172,7 +1186,8 @@ canvas {
     color: #af504c;
 }
 
-.insight-content .neutral  {
+.insight-content .neutral,
+.correction  {
   color: #ffff4c;
 }
 
@@ -1977,6 +1992,27 @@ canvas {
   #news-container {
     width: 350px;
   }
+
+  #recommendations-container {
+    right: -310px;
+  }
+
+  div.main-content {
+    margin-left: 40px;
+    width: 70%;
+  }
+
+  .performance-item .value {
+    font-size: 1.2rem;
+  }
+
+  .overview-row {
+    font-size: 1rem;
+  }
+
+  .value {
+    font-size: 0.8rem
+  }
 }
 
 @media (max-width: 1366px) {
@@ -2014,6 +2050,14 @@ canvas {
 
   #stock-info-chart {
     padding: 0;
+  }
+
+  div.main-content {
+    margin-left: 30px;
+  }
+
+  #recommendations-container {
+    right: -290px;
   }
 }
 
@@ -2061,6 +2105,15 @@ canvas {
   .news-publish-time {
     font-size: 0.7rem;
   }
+
+  #recommendations-container {
+    right: -280px;
+  }
+
+  div.main-content {
+    margin-left: 20px;
+  }
+
 }
 
 @media (max-width:1150px) {
@@ -2077,6 +2130,25 @@ canvas {
   }
   #stock-details p .value-chart {
     font-size: 0.85rem;
+  }
+
+  div.main-content {
+    width: 68%;
+  }
+
+  #recommendations-container {
+    right: -255px;
+  }
+
+  .performance-item .value {
+    font-size: 1.1rem;
+  }
+
+  .overview-subsection h3, 
+  #recent-performance h3, 
+  #additional-info h3,
+  .options-upcoming-expirations h4 {
+    font-size: 1.3rem;
   }
 }
 
@@ -2172,6 +2244,12 @@ canvas {
     color: #a6a6a6;
   }
 
+  .value-insight:not(#bullish-bearish-summary-content > div > div> span.value-insight) {
+    font-size: 0.8rem;
+    white-space: wrap;
+    flex-basis: auto;  
+  }
+
   .news-publish-time {
     font-size: 0.75rem;
     color: #cccccc;
@@ -2192,6 +2270,68 @@ canvas {
 
   #stock-details p {
     padding: 0;
+  }
+
+  #recommendations-container {
+    position: static;
+    width: 100%;
+    background-color: transparent;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 50px auto 0;
+
+  }
+
+  #recommendations-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 20px 20px;
+    overflow-x: auto;
+  }
+
+  div.main-content {
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto auto 50px;
+    padding: 0;
+  }
+
+  .recommendation-card {
+    width: 100%;
+    margin: 10px auto;
+    padding: 8px 16px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .progress-ring {
+    margin-bottom: 0;
+  }
+
+  body > footer {
+    margin-top: 50px;
+  }
+
+  .recommendation-symbol {
+    margin-bottom: 0;
+  }
+
+  .profile-header h2 {
+    font-size: 1.8rem;
+  }
+
+  #company-officers .officer .name,
+  #company-description,
+  #options-section > div.options-item > h3,
+  .summary-value,
+  .options-intro p,
+  .options-intro li,
+  .options-upcoming-expirations div,
+  .recommendation-symbol,
+  .insight-content .attribute,
+  #bullish-bearish-summary-content > div > div > span.value-insight {
+    font-size: 1rem;
   }
 }
 
@@ -2228,12 +2368,40 @@ canvas {
     height: 2.35rem;
   }
 
+  #chart-content {
+    justify-content: space-evenly;
+  }
+
+  #chart-section {
+    flex-direction: column-reverse;
+    height: auto;
+    padding-bottom: 20px;
+  }
+  .chart-note {
+    width: 100%;
+    height: 250px;
+    border: 1px solid #a3aed0;
+  }
+
   .custom-select-wrapper {
+    position: static;
+  }
+  #profile-section > div:nth-child(4) > div > span {
+    flex: 0 0 40%;
+    font-size: 1rem;
+  }
+
+  .recommendation-symbol,
+  .officer .title,
+  .custom-select-wrapper,
+  #bullish-bearish-summary-content > div > div > span.value-insight
+   {
     font-size: 0.8rem;
   }
 
-  #chart-content {
-    justify-content: space-evenly;
+  .option-details-table th,
+  .insight-content .attribute {
+    font-size: 0.8rem;
   }
 }
 
@@ -2295,14 +2463,13 @@ canvas {
       margin-bottom: 0;
   }
 
-  .news-title {
-      font-size: 1rem;
+  .news-title,
+  .news-tickers {
       margin-top: 10px;
   }
 
   .news-tickers {
       justify-content: flex-start;
-      margin-top: 10px;
   }
 
   .news-publisher {
@@ -2316,12 +2483,9 @@ canvas {
   .main-title {
     font-size: 1.4rem;
   }
-  #stock-name {
+  #stock-name,
+  .profile-item h3 {
     font-size: 1.2rem;
-  }
-
-  #stock-ticker {
-    font-size: 0.8rem;
   }
 
   .buying-img {
@@ -2332,20 +2496,54 @@ canvas {
     height: 25px;
   }
 
-  #chart-section {
-    flex-direction: column-reverse;
-    height: auto;
-    padding-bottom: 20px;
+  .overview-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
-  .chart-note {
-    width: 100%;
-    height: 250px;
-    border: 1px solid #a3aed0;
+
+  .nav-item,
+  .options-select label {
+    font-size: 1.1rem;
+  }
+
+  #stock-ticker,
+  .recommendation-symbol,
+  .option-details-table td,
+  .performance-item .label,
+  .officer .compensation,
+  #show-less-officers,
+  #show-more-officers {
+    font-size: 0.8rem;
+  }
+
+  .news-title,
+  .performance-item .value,
+  .profile-detail {
+    font-size: 1rem;
+  }
+
+  .profile-header h2 {
+    font-size: 1.6rem;
+  }
+  #change-img {
+    width: 8px;
+    height: 8px;
+  }
+
+  .summary-value {
+    font-size: 0.9rem;
+  }
+
+  .value-insight:not(#bullish-bearish-summary-content > div > div> span.value-insight) {
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 750px) {
-  #chart-section {
+  #chart-section,
+  #overview-section,
+  #options-section,
+  #insights-section {
     padding-left: 0;
     padding-right: 0;
   }
@@ -2355,8 +2553,23 @@ canvas {
   }
 
   .chart-note,
-  #chart-content {
+  #chart-content,
+  .insight-content,
+  .options-intro,
+  .options-select {
     border-radius: 0;
+  }
+
+  .options-select select,
+  #profile-section > div:nth-child(4) > div > span,
+  .summary-value {
+    font-size: 0.8rem;
+  }
+
+  #insights-section > div > h3,
+  #options-section > div.options-item > h3 {
+    text-align: center;
+    color: #ad74ff;
   }
 }
 
@@ -2482,6 +2695,39 @@ canvas {
   .footer-download {
     padding: 15px;
   }
+
+  .gauge-container {
+    width: 140px;
+    height: 80px;
+  }
+
+  .option-details-table th,
+  .option-details-table td,
+  .value,
+  .performance-item .label {
+    font-size: 0.6rem;
+  }
+
+  .profile-header h2 {
+    font-size: 1.45rem;
+  }
+
+  .profile-detail {
+    font-size: 0.9rem;
+  }
+
+  .nav-item {
+    margin: 0 10px;
+  }
+
+  .insight-content .attribute,
+  #bullish-bearish-summary-content > div > div > span.value-insight {
+    font-size: 0.7rem;
+  }
+
+  .value-insight:not(#bullish-bearish-summary-content > div > div> span.value-insight) {
+    font-size: 0.65rem;
+  }
 }
 
 @media (max-width: 550px) {
@@ -2495,8 +2741,22 @@ canvas {
     margin: 35px 5px;
   }
 
-  .powered-by  {
-    font-size: 0.85rem;
+  .powered-by,
+  .nav-item,
+  .performance-item .value {
+    font-size: 0.8rem;
+  }
+
+  .overview-subsection h3, 
+  #recent-performance h3, 
+  #additional-info h3, 
+  .options-upcoming-expirations h4 {
+    font-size: 1rem;
+  }
+
+  .gauge-container {
+    width: 120px;
+    height: 60px;
   }
 }
 
@@ -2556,6 +2816,11 @@ canvas {
     div.footer-legal > p{
       font-size: 12px;
     }
+  }
+
+  .nav-item {
+    font-size: 0.7rem;
+    margin: 0 5px;
   }
 }
 

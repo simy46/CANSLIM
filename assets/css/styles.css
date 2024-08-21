@@ -1197,6 +1197,21 @@ body > div.content-wrapper {
   justify-content: space-between;
 }
 
+.additional-info {
+  margin-top: 10px;
+  padding: 15px;
+  background-color: #1f1f2e;
+  border-left: 4px solid #e63946;
+  border-radius: 4px;
+  color: #f1f1f1;
+  font-size: 0.95rem;
+}
+
+#additional-info > p {
+  font-size: 1.2rem;
+}
+
+
 /* General Responsive Adjustments */
 @media (max-width: 1366px) {
   body > header > nav {
@@ -1319,6 +1334,11 @@ body > div.content-wrapper {
   .criteria-explanation {
     font-size: 0.9rem;
   }
+
+  #additional-info > p {
+    font-size: 1.1rem;
+  }
+  
 }
 
 @media (max-width: 975px) {
@@ -1447,6 +1467,11 @@ body > div.content-wrapper {
   #analysis > div:nth-child(3) > ul > li > strong {
     width: 100%;
   }
+
+  #additional-info > p {
+    font-size: 1rem;
+  }
+  
 }
 
 /* Ipad Mini */
@@ -1484,6 +1509,11 @@ body > div.content-wrapper {
   div.checklist-header h3 {
     font-size: 1rem;
   }
+
+  #additional-info > p {
+    font-size: 0.9rem;
+  }
+  
 }
 
 /* Phone > Iphone 14 and smaller */
@@ -1792,10 +1822,6 @@ body > div.content-wrapper {
 @media (max-height: 600px) {
   .search-container {
     align-self: flex-start;
-  }
-
-  #search-results {
-    top: 70%;
   }
 }
 

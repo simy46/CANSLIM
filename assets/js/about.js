@@ -1,6 +1,6 @@
 import { SERVER_URL } from "./const.js";
 import { listenToSearchEvent } from "./search.js";
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", function() {
     listenToSearchEvent();
 });

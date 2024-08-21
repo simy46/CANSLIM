@@ -682,6 +682,19 @@ div.header > div > p.negative {
   #section-title {
     justify-content: flex-start;
   }
+
+  @media (max-height: 500px) {
+    a.nav-link.nav-active {
+      border-bottom: 4px solid #3498db;
+      padding-bottom: 5px;
+    }
+
+    a.nav-link.nav-active svg * {
+      stroke: #3498db;
+      fill: #3498db;
+    }
+  }
+
 }
 
 @media (max-width: 975px) {
@@ -1020,6 +1033,7 @@ div.header > div > p.negative {
   }
 
   .container {
+    border-radius: 0;
     margin-top: 0px;
   }
 

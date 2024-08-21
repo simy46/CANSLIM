@@ -151,11 +151,12 @@ function updateCheckList(results) {
     console.log(results);
 
     for (let key in results) {
-        if (Object.prototype.hasOwnProperty.call(results, key) && key !== 'marketTrend') {
+        if (Object.prototype.hasOwnProperty.call(results, key) && key !== 'marketTrend' && key !== 'overall') {
             const element = document.getElementById(`${key}-result`);
             if (element) {
                 const value = results[key].value;
-                element.textContent = value !== undefined ? value : 'No data';
+                console.log(value)
+                element.textContent = value !== null ? value : 'No data';
 
                 element.classList.remove('pass', 'fail', 'undefined');
                 if (results[key].bool === true) {
@@ -170,6 +171,33 @@ function updateCheckList(results) {
     }
 
     checkInCorrection(results.marketTrend);
+    checkOverall(results.overall)
+}
+
+function checkOverall(overall) {
+    const overallElem = document.getElementById('overall-result');
+
+    if (!overall || overall.overallScore === null) {
+        overallElem.textContent = 'Insufficient Data';
+        overallElem.classList.remove('pass', 'correction', 'fail', 'undefined');
+        overallElem.classList.add('undefined');
+        return;
+    }
+
+    const score = parseFloat(overall.overallScore);
+    let className;
+
+    if (score >= 70) {
+        className = 'pass';
+    } else if (score >= 40) {
+        className = 'correction';
+    } else {
+        className = 'fail';
+    }
+
+    overallElem.textContent = `${score}%`;
+    overallElem.classList.remove('pass', 'correction', 'fail', 'undefined'); // Supprime les anciennes classes
+    overallElem.classList.add(className);
 }
 
 function checkInCorrection(marketTrend) {
