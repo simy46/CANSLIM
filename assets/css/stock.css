@@ -2074,7 +2074,6 @@ canvas {
     margin: 0 auto;
     gap: 4%;
   }
-  
   #search-input {
     width: 295px;
   }
@@ -2082,6 +2081,7 @@ canvas {
   #search-results {
     width: 305px;
   }
+
   div.content {
     width: 57%;
     margin-left: 40px;
@@ -2120,8 +2120,8 @@ canvas {
     font-size: 14px;
   }
   body > footer > div > div.disclaimer > img {
-    max-width: 200px;
-    height: 200px;
+    max-width: 180px;
+    height: 180px;
     align-self: center;
   }
 
@@ -2166,14 +2166,12 @@ canvas {
   div.main-content {
     margin-left: 20px;
   }
-
 }
 
 @media (max-width:1150px) {
   .news-title {
     font-size: 0.8rem;
   }
-
   div.content {
     width: 55%;
     margin-left: 10px;
@@ -2210,6 +2208,7 @@ canvas {
   body > footer > div > div.footer-links > div > h3 {
     font-size: 16px;
   }
+
   .footer-links a {
     font-size: 14px;
   }
@@ -2224,14 +2223,13 @@ canvas {
     max-height: 550px;
   }
 
+  #search-results > div > p {
+    font-size: small;
+  }
+
   nav a {
     font-size: 14px;
     white-space: nowrap;
-  }
-
-  nav a svg {
-    width: 16px;
-    height: 16px;
   }
 
   div.content {
@@ -2393,12 +2391,12 @@ canvas {
 
 @media (max-width: 975px) {
   body > header > nav {
-    margin: 0 auto 0 10px;
+    margin: 0 auto;
     gap: 4%;
   }
 
   #input-container-search {
-    right: -50px;
+    right: -30px;
   }
   
   #search-input {
@@ -2406,12 +2404,47 @@ canvas {
   }
   
   #search-results {
-    right: -55px;
+    right: -35px;
     width: 195px;
   }
 
   #search-results > div.result-item {
     flex-direction: column;
+  }
+
+  @media (max-height: 450px) {
+    #input-container-search {
+      width: 100%;
+      right: 0;
+    }
+
+    #search-input {
+      width: 100%;
+    }
+
+    #search-results {
+      width: 96%;
+      right: 0;
+    }
+
+    nav a {
+      width: 100%; 
+      font-size: 16px;
+    }
+
+    nav a svg {
+      width: 30px;
+      height: 30px;
+      display: block;
+    }
+
+    nav a span {
+      display: none;
+    }
+
+    body > header > nav {
+      margin: 0 auto;
+    }
   }
 
   #chart-controls .chart-btn {
@@ -2423,6 +2456,11 @@ canvas {
   .download-option {
     width: 2.35rem;
     height: 2.35rem;
+  }
+
+  .custom-download-menu {
+    top: 70px;
+    right: 55px;
   }
 
   #chart-content {
@@ -2463,9 +2501,10 @@ canvas {
 }
 
 @media (max-width: 900px) {
-  div.footer-legal > p{
+  div.footer-legal > p {
     font-size: 16px;
   }
+
   body > footer > div.footer-content {
     display: flex;
     flex-direction: column;
@@ -2474,12 +2513,11 @@ canvas {
     width: 100%;
     justify-content: space-around;
     margin-bottom: 20px;
-  }  
+  } 
 }
 
 @media (max-width: 830px) {
   body > header > nav {
-    margin: 0 auto 0 0;
     gap: 3%;
   }
 
@@ -2497,17 +2535,52 @@ canvas {
   }
 
   #input-container-search {
-    right: -65px;
+    right: -15px;
   }
 
   #search-results {
-    right: -65px;
+    right: -10px;
     width: 170px;
+    padding: 10px;
   }
 
   #search-results > div.result-item > p,
   #search-results > div.result-item > span {
     font-size: small;
+  }
+
+  @media (max-height: 450px) {
+    #input-container-search {
+      width: 100%;
+      right: 0;
+    }
+
+    #search-input {
+      width: 100%;
+    }
+
+    #search-results {
+      width: 96%;
+      right: 0;
+    }
+
+    nav a {
+      width: 100%; 
+      font-size: 16px;
+    }
+
+    nav a svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    nav a span {
+      display: none;
+    }
+
+    body > header > nav {
+      margin: 0 auto;
+    }
   }
 
   .news-item {
@@ -2637,7 +2710,7 @@ canvas {
     z-index: 1000;
     width: -webkit-fill-available;
     box-sizing: border-box;
-    border-top: 2px solid;
+    border-top: 1px solid #999ca5;
   }
   body > header > nav {
     width: 95%;
@@ -2683,9 +2756,10 @@ canvas {
 
   #search-results {
     width: 80%;
-    right: 7%;
-    top: -750%;
+    right: 5%;
+    top: -975%;
     z-index: 1002;
+    max-height: 65dvh;
   }
 
   body.opac {
@@ -2703,11 +2777,37 @@ canvas {
 
   #ty-msg {
     display: block;
+    border-radius: 0;
   }
 
   body > footer {
     margin-top: 20px;
     padding-bottom: 95px;
+  }
+
+  @media (max-height: 800px) {
+    #search-results {
+      top: -700%;
+    }
+  }
+
+  @media (max-height: 740px) {
+    #search-results {
+      top: -825%;
+    }
+  }
+
+  @media (max-height: 700px) {
+    #search-results {
+      top: -725%;
+    }
+  }
+
+  @media (max-height: 600px) {
+    #search-results {
+      top: -250%;
+      max-height: 150px;
+    }
   }
 
   #stock-name {
@@ -2733,7 +2833,7 @@ canvas {
     margin-top: 0;
   }
 
-    div.content {
+  div.content {
     padding: 0;
   }
 
@@ -2791,9 +2891,11 @@ canvas {
   body > footer > div > div.disclaimer {
     flex-direction: column-reverse;
   }
-  div.footer-legal > p{
+
+  div.footer-legal > p  {
     font-size: 14px;
   }
+
   body > footer > div > div.disclaimer > p {
     margin: 35px 5px;
   }
@@ -2823,25 +2925,13 @@ canvas {
     width: 100%;
   }
 
+  #logo {
+    max-width: 80px;
+    padding: 0;
+  }
+
   body > footer {
     padding-bottom: 85px;
-  }
-
-  #search-results {
-    top: -1200%;
-  }
-
-  body > div > div.title.with-navigation {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-    margin: auto;
-  }
-
-  #logo {
-    padding: 0;
   }
 
   .buying-img {
@@ -2854,8 +2944,36 @@ canvas {
 }
 
 @media (max-width: 450px) {
+  nav {
+    width: 95%;
+  }
+
+  nav a {
+    font-size: 14px;
+    padding: 0;
+  }
+
+  nav a svg.nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+
   #logo {
     max-width: 70px;
+  }
+
+  #ty-msg {
+    font-size: 14px;
+  }
+
+  @media (max-height: 670px) {
+    body > footer > div > div.disclaimer {
+      flex-direction: column;
+    }
+
+    div.footer-legal > p {
+      font-size: 12px;
+    }
   }
 
   .main-title {
@@ -2864,15 +2982,6 @@ canvas {
 
   #stock-name {
     font-size: 0.9rem;
-  }
-
-  @media (max-height: 670px) {
-    body > footer > div > div.disclaimer {
-      flex-direction: column;
-    }
-    div.footer-legal > p{
-      font-size: 12px;
-    }
   }
 
   .nav-item {
