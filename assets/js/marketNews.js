@@ -40,6 +40,8 @@ function handleNewsData(news) {
     const newsContainer = document.getElementById('news-container');
     const seeMoreContainer = document.getElementById('see-more-container');
     const initialNewsCount = 4;
+    const newsIncrement = 4;
+    let currentCount = initialNewsCount;
     let isExpanded = false;
 
     function toggleSeeMore() {
@@ -47,18 +49,29 @@ function handleNewsData(news) {
         const seeMoreArrow = document.getElementById('see-more-arrow');
 
         if (isExpanded) {
+            // Collapse to initial state
+            currentCount = initialNewsCount;
             newsContainer.innerHTML = '';
-            news.slice(0, initialNewsCount).forEach(createNews);
+            news.slice(0, currentCount).forEach(createNews);
             seeMoreText.textContent = 'See More News';
             seeMoreArrow.innerHTML = '&#x25BC;';
+            isExpanded = false;
             newsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
+            // Show more news incrementally
+            currentCount += newsIncrement;
             newsContainer.innerHTML = '';
-            news.forEach(createNews);
-            seeMoreText.textContent = 'say less';
-            seeMoreArrow.innerHTML = '&#x25B2;';
+            news.slice(0, currentCount).forEach(createNews);
+
+            if (currentCount >= news.length) {
+                seeMoreText.textContent = 'say less';
+                seeMoreArrow.innerHTML = '&#x25B2;';
+                isExpanded = true;
+            } else {
+                seeMoreText.textContent = 'See More News';
+                seeMoreArrow.innerHTML = '&#x25BC;';
+            }
         }
-        isExpanded = !isExpanded;
     }
 
     newsContainer.innerHTML = '';
