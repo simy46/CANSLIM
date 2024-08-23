@@ -44,8 +44,8 @@ function listenToBuyingCheckListEvent() {
     });
 
     function updateNavButtons() {
-        document.getElementById("prev-button").style.display = currentStep > 1 ? "inline-block" : "none";
-        document.getElementById("next-button").style.display = currentStep < totalSteps ? "inline-block" : "none";
+        document.getElementById("prev-button").style.visibility = currentStep > 1 ? "visible" : "hidden";
+        document.getElementById("next-button").style.visibility = currentStep < totalSteps ? "visible" : "hidden";
     }
 
     function showExplanation(id) {
