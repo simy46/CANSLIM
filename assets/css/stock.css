@@ -2273,11 +2273,6 @@ canvas {
     height: 60px;
   }
 
-  .news-title {
-    font-size: 1rem;
-    flex-grow: 1;
-  }
-
   .news-info-container {
     flex-wrap: wrap;
   }
@@ -2595,15 +2590,15 @@ canvas {
 
   .news-title,
   .news-tickers {
-      margin-top: 10px;
+    margin-top: 10px;
   }
 
   .news-tickers {
-      justify-content: flex-start;
+    justify-content: flex-start;
   }
 
   .news-publisher {
-      text-align: left;
+    text-align: left;
   }
 
   .news-publish-time {
@@ -2646,7 +2641,6 @@ canvas {
     font-size: 0.8rem;
   }
 
-  .news-title,
   .performance-item .value,
   .profile-detail {
     font-size: 1rem;
