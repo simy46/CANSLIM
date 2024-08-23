@@ -53,7 +53,7 @@ function handleNewsData(news) {
             currentCount = initialNewsCount;
             newsContainer.innerHTML = '';
             news.slice(0, currentCount).forEach(createNews);
-            seeMoreText.textContent = 'See More News';
+            seeMoreText.textContent = 'See More';
             seeMoreArrow.innerHTML = '&#x25BC;';
             isExpanded = false;
             newsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -68,7 +68,7 @@ function handleNewsData(news) {
                 seeMoreArrow.innerHTML = '&#x25B2;';
                 isExpanded = true;
             } else {
-                seeMoreText.textContent = 'See More News';
+                seeMoreText.textContent = 'See More';
                 seeMoreArrow.innerHTML = '&#x25BC;';
             }
         }
