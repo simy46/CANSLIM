@@ -806,8 +806,10 @@ a.home {
 .dynamic-ad-container .ad-text-below p {
   font-size: 0.8rem;
   margin: 5px 0 0;
-  color: #de3636;
+  color: #ebebeb;
   font-weight: bold;
+  background-color: #de3636;
+  border-radius: inherit;
 }
 
 
