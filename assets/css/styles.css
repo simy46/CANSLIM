@@ -727,6 +727,7 @@ a.home {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .nav-menu ul {
@@ -748,6 +749,67 @@ a.home {
 .nav-menu a:hover {
   color: #ffffff;
 }
+
+/* Lusso car tech */
+.dynamic-ad-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+.dynamic-ad-container .ad-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: inherit;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dynamic-ad-container .ad-slide.active {
+  opacity: 1;
+}
+
+.dynamic-ad-container .ad-slide > a {
+  padding: 0;
+}
+
+.dynamic-ad-container .ad-slide  img {
+  width: 100%;
+  height: inherit;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.dynamic-ad-container .ad-text-below {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 0 0 10px 10px;
+}
+
+.dynamic-ad-container .ad-text-below h3 {
+  font-size: 1rem;
+  color: #ebebeb;
+}
+
+.dynamic-ad-container .ad-text-below p {
+  font-size: 0.8rem;
+  margin: 5px 0 0;
+  color: #de3636;
+  font-weight: bold;
+}
+
 
 /* Main Content Area */
 .main-content {
@@ -804,7 +866,6 @@ body > div.content-wrapper {
 .image-container img {
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
@@ -834,10 +895,6 @@ body > div.content-wrapper {
   text-align: center;
 }
 
-/* Hover Effect */
-.interactive-overview:hover {
-  transform: scale(1.02); 
-}
 
 .content-section {
   background-color: #1b2336;
@@ -1471,7 +1528,20 @@ body > div.content-wrapper {
   #additional-info > p {
     font-size: 1rem;
   }
-  
+
+  .dynamic-ad-container {
+    width: 95%;
+    height: 425px;
+    margin: 10px auto;
+    border-radius: 8px;
+  }
+
+  .dynamic-ad-container .ad-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }  
 }
 
 /* Ipad Mini */
@@ -1656,6 +1726,10 @@ body > div.content-wrapper {
   .criteria-explanation {
     font-size: 0.8rem;
   }
+
+  .dynamic-ad-container {
+    height: 350px;
+  }
 }
 
 
@@ -1724,6 +1798,10 @@ body > div.content-wrapper {
 
   .book-description, .book-description p {
     max-width: none;
+  }
+
+  .dynamic-ad-container {
+    height: 300px;
   }
 }
 

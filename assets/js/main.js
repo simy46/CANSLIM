@@ -1,12 +1,25 @@
 import { SERVER_URL } from "./const";
 
 document.addEventListener('DOMContentLoaded', async () => {
+    //listenToLCTEvent(); // inshallah we gon make it
     explanationListener();
     listenToSearchEvent();
     listenToFAQEvent();
     listenToBuyingCheckListEvent();
     listenToValueInvestingEvent();    
 });
+
+function listenToLCTEvent() {
+    const slides = document.querySelectorAll('.dynamic-ad-container .ad-slide');
+    let currentIndex = 0;
+
+    setInterval(() => {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].classList.add('active');
+    }, 5000); // Change toutes les 5 secondes
+}
+
 
 function listenToValueInvestingEvent() {
     document.getElementById('learn-more-link').addEventListener('click', function(event) {
