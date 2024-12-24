@@ -1,7 +1,7 @@
 import { SERVER_URL } from "./const";
 
 document.addEventListener('DOMContentLoaded', async () => {
-    //listenToLCTEvent(); // inshallah we gon make it
+    listenToLCTEvent(); // inshallah we gon make it
     explanationListener();
     listenToSearchEvent();
     listenToFAQEvent();
